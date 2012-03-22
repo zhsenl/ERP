@@ -4,7 +4,10 @@
   <tr>
     <th>Username</th>
     <th>Email</th>
+    <th>Salt</th>
+    <th>Encrypted password</th>
     <th>Name</th>
+    <th>Phone</th>
     <th></th>
     <th></th>
     <th></th>
@@ -14,7 +17,10 @@
   <tr>
     <td><%= user.username %></td>
     <td><%= user.email %></td>
+    <td><%= user.salt %></td>
+    <td><%= user.encrypted_password %></td>
     <td><%= user.name %></td>
+    <td><%= user.phone %></td>
     <td><%= link_to 'Show', user %></td>
     <td><%= link_to 'Edit', edit_user_path(user) %></td>
     <td><%= link_to 'Destroy', user, confirm: 'Are you sure?', method: :delete %></td>
