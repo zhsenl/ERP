@@ -30,7 +30,7 @@
 					<% @users.each do |user| %>
 					<tr>
 						<td><%= link_to user.username, user %></td>
-						<td><%= link_to user.name, user %></td>
+						<td><%= link_to user.name, user %>c</td>
 						<td><%= user.email %></td>
 						<td><%= user.phone %></td>
 						<td> <%= link_to image_tag("icons/pencil.png", :alt => "Edit"), edit_user_path(user) %>
