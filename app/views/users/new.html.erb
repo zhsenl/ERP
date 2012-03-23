@@ -1,5 +1,15 @@
-<h1>New user</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', users_path %>
+<div class="content-box">
+	<!-- Start Content Box -->
+	<div class="content-box-header">
+		<h3>添加新用户</h3>
+		<div class="operations">
+			<%= link_to '返回', users_path %>
+		</div>
+	</div>
+	<!-- End .content-box-header -->
+	<div class="content-box-content">
+		<%= render 'form' %>
+	</div>
+	<!-- End .content-box-content -->
+</div>
+<!-- End .content-box -->

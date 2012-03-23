@@ -1,5 +1,9 @@
 # -*- encoding : utf-8 -*-
 ERP::Application.routes.draw do
+  get "pages/home"
+  
+  root :to => 'pages#home'
+
   resources :users
 
   # The priority is based upon order of creation:
