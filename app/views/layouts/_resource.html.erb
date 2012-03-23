@@ -1,0 +1,14 @@
+<!-- CSS -->
+<!-- Reset Stylesheet -->
+<%= stylesheet_link_tag "reset", :media => "screen"%> <!-- Main Stylesheet -->
+<%= stylesheet_link_tag "style", :media => "screen"%> <!-- Invalid Stylesheet. This makes stuff look pretty. Remove it if you want the CSS completely valid -->
+<%= stylesheet_link_tag "invalid", :media => "screen"%> <!-- Internet Explorer Fixes Stylesheet -->
+<!--[if lte IE 7]>
+<%= stylesheet_link_tag "ie", :media => "screen"%>
+<![endif]-->
+<!-- Javascripts -->
+<!-- jQuery -->
+<%= javascript_include_tag "jquery-1.7.min" %>
+<%= javascript_include_tag "facebox" %>
+<%= javascript_include_tag "jquery.wysiwyg" %> <!-- jQuery Configuration -->
+<%= javascript_include_tag "configuration" %>
