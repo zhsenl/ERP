@@ -1,3 +1,4 @@
+
 <div class="content-box">
 	<div class="content-box-header">
 		<h3>用户列表</h3>
@@ -9,10 +10,7 @@
 		<div class="tab-content default-tab">
 			<table>
 				<thead>
-					<tr>
-						<th>
-						<input class="check-all" type="checkbox" />
-						</th>
+					<tr>						
 						<th>用户名</th>
 						<th>姓名</th>
 						<th>电子邮件</th>
@@ -22,15 +20,7 @@
 				</thead>
 				<tfoot>
 					<tr>
-						<td colspan="6">
-						<div class="bulk-actions align-left">
-							<select name="dropdown">
-								<option value="option1">Choose an action...</option>
-								<option value="option2">Edit</option>
-								<option value="option3">Delete</option>
-							</select>
-							<a class="button" href="#">Apply to selected</a>
-						</div> 
+						<td colspan="6">						
 						<%= will_paginate @users, :previous_label => '上一页', :next_label => '下一页' %>
 						<div class="clear"></div>
 						</td>
@@ -39,11 +29,8 @@
 				<tbody>
 					<% @users.each do |user| %>
 					<tr>
-						<td>
-						<input type="checkbox" />
-						</td>
 						<td><%= link_to user.username, user %></td>
-						<td><%= user.name %></td>
+						<td><%= link_to user.name, user %></td>
 						<td><%= user.email %></td>
 						<td><%= user.phone %></td>
 						<td> <%= link_to image_tag("icons/pencil.png", :alt => "Edit"), edit_user_path(user) %>
