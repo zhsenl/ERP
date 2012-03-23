@@ -1,0 +1,25 @@
+<div class="content-box">
+	<div class="content-box-header">
+		<h3><%= @user.name %>的资料</h3>
+		<div class="operations">
+			<%= link_to '编辑', edit_admin_user_path(@user) %> |
+			<%= link_to '返回', admin_users_path %>
+		</div>
+	</div>
+	<div class="content-box-content">
+		<div class="tab-content default-tab">
+			<p>
+				<b>用户名</b>：<%= @user.username %>
+			</p>
+			<p>
+				<b>姓名</b>：<%= @user.name %>
+			</p>
+			<p>
+				<b>邮箱</b>：<%= @user.email %>
+			</p>
+			<p>
+				<b>手机</b>：<%= @user.phone %>
+			</p>
+		</div>
+	</div>
+</div>
