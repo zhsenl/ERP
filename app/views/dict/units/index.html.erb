@@ -1,0 +1,25 @@
+<h1>Listing dict_units</h1>
+
+<table>
+  <tr>
+    <th>Code</th>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @dict_units.each do |dict_unit| %>
+  <tr>
+    <td><%= dict_unit.code %></td>
+    <td><%= dict_unit.name %></td>
+    <td><%= link_to 'Show', dict_unit %></td>
+    <td><%= link_to 'Edit', edit_dict_unit_path(dict_unit) %></td>
+    <td><%= link_to 'Destroy', dict_unit, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Unit', new_dict_unit_path %>
