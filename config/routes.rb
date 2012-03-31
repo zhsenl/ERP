@@ -3,8 +3,10 @@ ERP::Application.routes.draw do
   namespace :dict do resources :countries end
 
   namespace :dict do resources :units end
-
-  get "sessions/new"
+  
+  resources :sessions, :only => [:new, :create, :destroy]
+  match '/signin', :to => 'sessions#new'
+  match '/signout', :to => 'sessions#destroy'
 
   get "pages/home"
   

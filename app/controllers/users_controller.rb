@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 class UsersController < ApplicationController
+  before_filter :authenticate, :only => [:edit, :update]
+  
   def index
     @title = "用户列表"
     @users = User.paginate(:page => params[:page],:per_page => 10)
@@ -46,5 +48,11 @@ class UsersController < ApplicationController
     @user.destroy
     flash[:success] = "成功删除用户:#{username}"
     redirect_to users_url
+  end
+  
+  private
+  
+  def authenticate
+    deny_access unless signed_in?
   end
 end
