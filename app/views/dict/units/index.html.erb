@@ -1,25 +1,36 @@
-<h1>Listing dict_units</h1>
-
-<table>
-  <tr>
-    <th>Code</th>
-    <th>Name</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @dict_units.each do |dict_unit| %>
-  <tr>
-    <td><%= dict_unit.code %></td>
-    <td><%= dict_unit.name %></td>
-    <td><%= link_to 'Show', dict_unit %></td>
-    <td><%= link_to 'Edit', edit_dict_unit_path(dict_unit) %></td>
-    <td><%= link_to 'Destroy', dict_unit, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Unit', new_dict_unit_path %>
+<div class="content-box">
+	<div class="content-box-header">
+		<h3>单位列表</h3>
+		<div class="operations">
+			<%= link_to '添加新单位', new_dict_unit_path %>
+		</div>
+	</div>
+	<div class="content-box-content">
+		<div class="tab-content default-tab">
+			<table>
+				<thead>
+					<tr>
+						<th>编号</th>
+						<th>名称</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+						<td colspan="6"> <%= will_paginate @dict_units, :previous_label => '上一页', :next_label => '下一页' %> </td>
+					</tr>
+				</tfoot>
+				<tbody>
+					<% @dict_units.each do |dict_unit| %>
+					<tr>
+						<td><%= link_to dict_unit.code, dict_unit %></td>
+						<td><%= link_to dict_unit.name, dict_unit %></td>
+						<td> <%= link_to image_tag("icons/pencil.png", :alt => "Edit"), edit_dict_unit_path(dict_unit) %>
+						<%= link_to image_tag("icons/cross.png", :alt => "Delete"), dict_unit, confirm: '确定删除?', method: :delete %> </td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

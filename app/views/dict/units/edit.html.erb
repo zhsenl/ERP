@@ -1,6 +1,11 @@
-<h1>Editing dict_unit</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @dict_unit %> |
-<%= link_to 'Back', dict_units_path %>
+<div class="content-box">
+	<div class="content-box-header">
+		<h3>编辑单位</h3>
+		<div class="operations">
+			<%= link_to '返回', dict_units_path %>
+		</div>
+	</div>
+	<div class="content-box-content">
+		<%= render 'form' %>
+	</div>
+</div>

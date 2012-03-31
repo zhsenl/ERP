@@ -1,0 +1,27 @@
+<h1>Listing dict_countries</h1>
+
+<table>
+  <tr>
+    <th>Code</th>
+    <th>Name</th>
+    <th>English name</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @dict_countries.each do |dict_country| %>
+  <tr>
+    <td><%= dict_country.code %></td>
+    <td><%= dict_country.name %></td>
+    <td><%= dict_country.english_name %></td>
+    <td><%= link_to 'Show', dict_country %></td>
+    <td><%= link_to 'Edit', edit_dict_country_path(dict_country) %></td>
+    <td><%= link_to 'Destroy', dict_country, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Country', new_dict_country_path %>

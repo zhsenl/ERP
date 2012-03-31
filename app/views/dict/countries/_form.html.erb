@@ -1,0 +1,29 @@
+<%= form_for(@dict_country) do |f| %>
+  <% if @dict_country.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@dict_country.errors.count, "error") %> prohibited this dict_country from being saved:</h2>
+
+      <ul>
+      <% @dict_country.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :code %><br />
+    <%= f.text_field :code %>
+  </div>
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :english_name %><br />
+    <%= f.text_field :english_name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

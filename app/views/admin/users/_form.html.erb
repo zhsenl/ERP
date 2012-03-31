@@ -1,39 +1,39 @@
 <%= render "shared/error_messages", :model => @user %>
-		<%= form_for [:admin, @user] do |f| %>
-			<fieldset>
-				<p>
-					<label for="user_username">用户名</label>
-					<%= f.text_field :username, :class => "text-input small-input" %>
-					<br />
-				</p>
-				<p>
-					<label for="user_email">邮箱 Email</label>
-					<%= f.text_field :email, :class => "text-input medium-input" %>
-					<br />
-				</p>
-				<p>
-					<label for="user_password">密码</label>
-					<%= f.password_field :password, :class => "text-input small-input" %>
-					<br />
-				</p>
-				<p>
-					<label for="user_password_confirmation">重复密码</label>
-					<%= f.password_field :password_confirmation, :class => "text-input small-input" %>
-					<br />
-				</p>
-				<p>
-					<label for="user_name">姓名</label>
-					<%= f.text_field :name, :class => "text-input small-input" %>
-					<br />
-				</p>
-				<p>
-					<label for="user_phone">手机</label>
-					<%= f.phone_field :phone, :class => "text-input small-input" %>
-					<br />
-				</p>
-				<p>
-					<input class="button" type="submit" value="确定" name="submit">
-				</p>
-			</fieldset>
-			<div class="clear"></div><!-- End .clear -->		
-		<% end %>
+<%= form_for [:admin, @user] do |f| %>
+<fieldset>
+	<p>
+		<label for="user_username">用户名</label>
+		<%= f.text_field :username, :class => "text-input small-input" %>
+		<br />
+	</p>
+	<p>
+		<label for="user_email">邮箱 Email</label>
+		<%= f.text_field :email, :class => "text-input medium-input" %>
+		<br />
+	</p>
+	<p>
+		<label for="user_password">密码</label>
+		<%= f.password_field :password, :class => "text-input small-input" %>
+		<br />
+	</p>
+	<p>
+		<label for="user_password_confirmation">重复密码</label>
+		<%= f.password_field :password_confirmation, :class => "text-input small-input" %>
+		<br />
+	</p>
+	<p>
+		<label for="user_name">姓名</label>
+		<%= f.text_field :name, :class => "text-input small-input" %>
+		<br />
+	</p>
+	<p>
+		<label for="user_phone">手机</label>
+		<%= f.phone_field :phone, :class => "text-input small-input" %>
+		<br />
+	</p>
+	<p>
+		<input class="button" type="submit" value="确定" name="submit">
+	</p>
+</fieldset>
+<div class="clear"></div><!-- End .clear -->
+<% end %>
