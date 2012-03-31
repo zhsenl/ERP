@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateDictCountries < ActiveRecord::Migration
   def change
     create_table :dict_countries do |t|

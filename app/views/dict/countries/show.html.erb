@@ -1,20 +1,22 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Code:</b>
-  <%= @dict_country.code %>
-</p>
-
-<p>
-  <b>Name:</b>
-  <%= @dict_country.name %>
-</p>
-
-<p>
-  <b>English name:</b>
-  <%= @dict_country.english_name %>
-</p>
-
-
-<%= link_to 'Edit', edit_dict_country_path(@dict_country) %> |
-<%= link_to 'Back', dict_countries_path %>
+<div class="content-box">
+	<div class="content-box-header">
+		<h3>查看国家</h3>
+		<div class="operations">
+			<%= link_to '编辑', edit_dict_country_path(@item) %> |
+			<%= link_to '返回', dict_countries_path %>
+		</div>
+	</div>
+	<div class="content-box-content">
+		<div class="tab-content default-tab">
+			<p>
+				<b>编码</b>：<%= @item.code %>
+			</p>
+			<p>
+				<b>中文名称</b>：<%= @item.name %>
+			</p>
+			<p>
+				<b>英文名称</b>：<%= @item.english_name %>
+			</p>
+		</div>
+	</div>
+</div>

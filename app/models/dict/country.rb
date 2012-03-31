@@ -1,2 +1,3 @@
-class Dict::Country < ActiveRecord::Base
+# -*- encoding : utf-8 -*-
+class Dict::Country < Dict::Dict
 end

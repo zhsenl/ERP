@@ -1,5 +1,12 @@
-<h1>New dict_country</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', dict_countries_path %>
+<div class="content-box">
+	<!-- Start Content Box -->
+	<div class="content-box-header">
+		<h3>添加新国家</h3>
+		<div class="operations">
+			<%= link_to '返回', dict_countries_path %>
+		</div>
+	</div>
+	<div class="content-box-content">
+		<%= render 'form' %>
+	</div>
+</div>

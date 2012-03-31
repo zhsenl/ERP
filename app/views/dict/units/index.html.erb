@@ -17,16 +17,16 @@
 				</thead>
 				<tfoot>
 					<tr>
-						<td colspan="6"> <%= will_paginate @dict_units, :previous_label => '上一页', :next_label => '下一页' %> </td>
+						<td colspan="6"> <%= will_paginate @items, :previous_label => '上一页', :next_label => '下一页' %> </td>
 					</tr>
 				</tfoot>
 				<tbody>
-					<% @dict_units.each do |dict_unit| %>
+					<% @items.each do |item| %>
 					<tr>
-						<td><%= link_to dict_unit.code, dict_unit %></td>
-						<td><%= link_to dict_unit.name, dict_unit %></td>
-						<td> <%= link_to image_tag("icons/pencil.png", :alt => "Edit"), edit_dict_unit_path(dict_unit) %>
-						<%= link_to image_tag("icons/cross.png", :alt => "Delete"), dict_unit, confirm: '确定删除?', method: :delete %> </td>
+						<td><%= link_to item.code, item %></td>
+						<td><%= link_to item.name, item %></td>
+						<td> <%= link_to image_tag("icons/pencil.png", :alt => "Edit"), edit_dict_unit_path(item) %>
+						<%= link_to image_tag("icons/cross.png", :alt => "Delete"), item, confirm: '确定删除?', method: :delete %> </td>
 					</tr>
 					<% end %>
 				</tbody>

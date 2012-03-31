@@ -1,27 +1,36 @@
-<h1>Listing dict_countries</h1>
-
-<table>
-  <tr>
-    <th>Code</th>
-    <th>Name</th>
-    <th>English name</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @dict_countries.each do |dict_country| %>
-  <tr>
-    <td><%= dict_country.code %></td>
-    <td><%= dict_country.name %></td>
-    <td><%= dict_country.english_name %></td>
-    <td><%= link_to 'Show', dict_country %></td>
-    <td><%= link_to 'Edit', edit_dict_country_path(dict_country) %></td>
-    <td><%= link_to 'Destroy', dict_country, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Country', new_dict_country_path %>
+<div class="content-box">
+	<div class="content-box-header">
+		<h3>国家列表</h3>
+		<div class="operations">
+			<%= link_to '添加新单位', new_dict_country_path %>
+		</div>
+	</div>
+	<div class="content-box-content">
+		<div class="tab-content default-tab">
+			<table>
+				<thead>
+					<tr>
+						<th>编号</th>
+						<th>名称</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+						<td colspan="6"> <%= will_paginate @items, :previous_label => '上一页', :next_label => '下一页' %> </td>
+					</tr>
+				</tfoot>
+				<tbody>
+					<% @items.each do |item| %>
+					<tr>
+						<td><%= link_to item.code, item %></td>
+						<td><%= link_to item.name, item %></td>
+						<td> <%= link_to image_tag("icons/pencil.png", :alt => "Edit"), edit_dict_country_path(item) %>
+						<%= link_to image_tag("icons/cross.png", :alt => "Delete"), item, confirm: '确定删除?', method: :delete %> </td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

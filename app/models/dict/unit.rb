@@ -1,5 +1,3 @@
-class Dict::Unit < ActiveRecord::Base
-  validates :code, :presence => true,
-                   :length => {:maximum => 20},
-                   :uniqueness => true
+# -*- encoding : utf-8 -*-
+class Dict::Unit < Dict::Dict
 end
