@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class UsersController < ApplicationController
+  authorize_resource
   
   def index
     @title = "用户列表"

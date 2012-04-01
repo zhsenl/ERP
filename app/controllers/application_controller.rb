@@ -4,8 +4,8 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
   
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to signin_path, :alert => exception.message
+    redirect_to signin_path, :error => exception.message
   end
   
-  load_and_authorize_resource
+  #authorize_resource
 end

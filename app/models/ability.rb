@@ -4,7 +4,11 @@ class Ability
   def initialize(user)
     return if user.nil?    
     can :manage, :all if user.is? "admin"    
-    can [:detail, :modify, :change], User if !user.nil? 
+    
+    if !user.nil? 
+      can [:detail, :modify, :change], User
+      can :read, :pages
+    end
     
     
     # Define abilities for the passed in user here. For example:

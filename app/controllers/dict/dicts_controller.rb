@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Dict::DictsController < ApplicationController  
+  #authorize_resource
+  
   def index
     @title = '字典列表'
     @items = modle.paginate(:page => params[:page],:per_page => 10)
