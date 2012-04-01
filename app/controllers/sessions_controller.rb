@@ -5,14 +5,13 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.authenticate(params[:session][:username],
-    params[:session][:password])
+    user = User.authenticate(params[:session][:username], params[:session][:password])
     if user.nil?
       flash[:error] = "错误的用户名/密码组合!"
       @title = "登录"
       render 'new'
     else
-      sign_in user
+      sign_in user, params[:session][:remember] == '1'
       redirect_to user
     end
   end

@@ -3,14 +3,15 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.2'
 gem 'mysql2', '0.3.11'
 gem 'will_paginate', '3.0.3'
-gem 'cancan', '1.6.7'
+gem 'cantango', '0.9.4.7'
+#gem 'cancan', '1.6.7'
 
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-  gem 'uglifier', '>= 1.0.3'
+  #gem 'sass-rails',   '~> 3.2.3'
+  #gem 'coffee-rails', '~> 3.2.1'
+  #gem 'uglifier', '>= 1.0.3'
 end
 
 group :development do
