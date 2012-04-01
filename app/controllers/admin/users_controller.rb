@@ -36,7 +36,7 @@ class Admin::UsersController < ApplicationController
       redirect_to [:admin, @user], :flash => {:success => "成功修改用户资料"}
     else
       @title = "编辑用户资料"
-      render 'admin_edit'
+      render 'edit'
     end
   end
 

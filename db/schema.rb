@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120330155649) do
+ActiveRecord::Schema.define(:version => 20120401061216) do
 
   create_table "dict_countries", :force => true do |t|
     t.string   "code"
@@ -28,11 +28,6 @@ ActiveRecord::Schema.define(:version => 20120330155649) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "unit", :force => true do |t|
-    t.string "code"
-    t.string "name"
-  end
-
   create_table "users", :force => true do |t|
     t.string   "username"
     t.string   "email"
@@ -42,6 +37,7 @@ ActiveRecord::Schema.define(:version => 20120330155649) do
     t.string   "phone"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
+    t.integer  "roles_mask"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

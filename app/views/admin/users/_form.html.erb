@@ -32,6 +32,16 @@
 		<br />
 	</p>
 	<p>
+		<%= check_box_tag "user[roles][]", "admin", @user.roles.include?("admin") %>
+		超级管理员&nbsp;&nbsp;
+		<%= check_box_tag "user[roles][]", "staff", @user.roles.include?("staff") %>
+		工作人员&nbsp;&nbsp;
+		<%= check_box_tag "user[roles][]", "enterprise", @user.roles.include?("enterprise") %>
+		企业管理员&nbsp;&nbsp;
+		<%= check_box_tag "user[roles][]", "operator", @user.roles.include?("operator") %>
+		企业操作员&nbsp;&nbsp;	
+	</p>
+	<p>
 		<input class="button" type="submit" value="确定" name="submit">
 	</p>
 </fieldset>
