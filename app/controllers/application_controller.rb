@@ -4,8 +4,6 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
   
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to signin_path, :error => exception.message
+    redirect_to signin_path, :flash => {:attention => "你没有权限进行此操作"}
   end
-  
-  #authorize_resource
 end

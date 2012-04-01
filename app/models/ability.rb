@@ -3,11 +3,16 @@ class Ability
 
   def initialize(user)
     return if user.nil?    
-    can :manage, :all if user.is? "admin"    
+    
+    if user.is? "admin"
+      can :manage, :all
+      can :manage, :dict
+    end
     
     if !user.nil? 
       can [:detail, :modify, :change], User
       can :read, :pages
+      can :read, :dict
     end
     
     

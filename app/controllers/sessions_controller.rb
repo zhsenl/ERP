@@ -1,7 +1,5 @@
 # -*- encoding : utf-8 -*-
-class SessionsController < ActionController::Base
-  include SessionsHelper
-  
+class SessionsController < ApplicationController
   def new
     @title = "登录"
   end

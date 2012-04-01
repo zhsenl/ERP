@@ -1,8 +1,7 @@
 # -*- encoding : utf-8 -*-
-class Dict::DictsController < ApplicationController  
-  #authorize_resource
-  
+class Dict::DictsController < ApplicationController
   def index
+    authorize! :index, :dict
     @title = '字典列表'
     @items = modle.paginate(:page => params[:page],:per_page => 10)
 
@@ -13,6 +12,7 @@ class Dict::DictsController < ApplicationController
   end
   
   def show
+    authorize! :show, :dict
     @title = '字典详细'
     @item = modle.find(params[:id])
 
@@ -23,6 +23,7 @@ class Dict::DictsController < ApplicationController
   end  
 
   def new
+    authorize! :new, :dict
     @title = '添加字典'
     @item = modle.new
 
@@ -33,11 +34,13 @@ class Dict::DictsController < ApplicationController
   end
 
   def edit
+    authorize! :edit, :dict
     @title = '修改字典'
     @item = modle.find(params[:id])
   end
 
   def create
+    authorize! :create, :dict
     @item = modle.new(params[symbol])
 
     respond_to do |format|
@@ -52,6 +55,7 @@ class Dict::DictsController < ApplicationController
   end
 
   def update
+    authorize! :update, :dict
     @item = modle.find(params[:id])
 
     respond_to do |format|
@@ -66,6 +70,7 @@ class Dict::DictsController < ApplicationController
   end
 
   def destroy
+    authorize! :destroy, :dict
     @item = modle.find(params[:id])
     @item.destroy
 
