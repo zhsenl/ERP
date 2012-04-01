@@ -17,7 +17,12 @@ class Admin::UsersController < ApplicationController
   
   def create
     @title = "添加新用户"
-    @user = User.new(params[:user])
+    @user = User.new(params[:user])  
+    if @user.password == ""
+      @user.errors[:password] = "密码不能为空"
+      render "new"
+      return
+    end
     if @user.save
       flash[:success] = "新用户添加成功"
       @user = User.new

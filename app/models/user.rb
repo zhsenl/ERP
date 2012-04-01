@@ -12,8 +12,7 @@ class User < ActiveRecord::Base
   validates :email, :presence => true,
                     :format => {:with => email_regex},
                     :uniqueness => true
-  validates :password, :presence => true,
-                        :confirmation => true
+  validates :password, :confirmation => true
   validates :name,     :presence => true
 
   before_save :encrypt_password
@@ -57,7 +56,7 @@ class User < ActiveRecord::Base
 
   def encrypt_password
     self.salt = make_salt if new_record?
-    self.encrypted_password = encrypt(password)
+    self.encrypted_password = encrypt(password) if !password.nil? && password != ""
   end
 
   def encrypt(string)

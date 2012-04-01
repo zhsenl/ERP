@@ -403,7 +403,7 @@ form fieldset legend {
 	padding-top: 10px;
 }
 form p small {
-	font-size: 0.75em;
+	font-size: 0.9em;
 	color: #777;
 }
 form input.text-input, form select, form textarea, form .wysiwyg {
