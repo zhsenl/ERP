@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
-class SessionsController < ApplicationController
+class SessionsController < ActionController::Base
+  include SessionsHelper
+  
   def new
     @title = "登录"
   end
@@ -12,7 +14,7 @@ class SessionsController < ApplicationController
       render 'new'
     else
       sign_in user, params[:session][:remember] == '1'
-      redirect_to user
+      redirect_to detail_url
     end
   end
 

@@ -8,8 +8,9 @@ ERP::Application.routes.draw do
   match '/signin', :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
   
-  match '/detail', :to => 'users#show'
-  match '/detail/edit', :to => 'users#edit'
+  match '/detail', :to => 'users#detail'
+  match '/detail/modify', :to => 'users#modify'
+  match '/detail/change', :to => 'users#change'
 
   get "pages/home"
   

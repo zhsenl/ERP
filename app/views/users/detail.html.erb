@@ -1,9 +1,8 @@
 <div class="content-box">
 	<div class="content-box-header">
-		<h3><%= @user.name %>的资料</h3>
+		<h3>我的资料</h3>
 		<div class="operations">
-			<%= link_to '编辑', edit_admin_user_path(@user) %> |
-			<%= link_to '返回', admin_users_path %>
+			<%= link_to '编辑', detail_modify_path %> 
 		</div>
 	</div>
 	<div class="content-box-content">
@@ -19,6 +18,12 @@
 			</p>
 			<p>
 				<b>手机</b>：<%= @user.phone %>
+			</p>
+			<p>
+				<b>密码</b>：******
+			</p>
+			<p>
+				<b>我的用户角色</b>：<%= @user.roles %>
 			</p>
 		</div>
 	</div>

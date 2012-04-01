@@ -1,5 +1,5 @@
 <%= render "shared/error_messages", :model => @user %>
-<%= form_for [:admin, @user] do |f| %>
+<%= form_for @user do |f| %>
 <fieldset>
 	<p>
 		<label for="user_username">用户名</label>
