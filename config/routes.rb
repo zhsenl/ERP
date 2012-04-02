@@ -12,7 +12,7 @@ ERP::Application.routes.draw do
   
   match '/detail', :to => 'users#detail'
   match '/detail/modify', :to => 'users#modify'
-  match '/detail/change', :to => 'users#modify'
+  match '/detail/change', :to => 'users#change'
   
   match '/dict', :to => 'pages#dict'
 

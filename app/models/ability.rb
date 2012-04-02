@@ -10,6 +10,10 @@ class Ability
       can :manage, :dict
     end
     
+    if user.is? "staff"
+      can :read, :all
+    end
+    
     if !user.nil? 
       can [:detail, :modify, :change], User
       can :access, :pages #基本权限检查，必须要登录

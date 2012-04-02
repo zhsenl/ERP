@@ -77,19 +77,19 @@
 				</ul>
 			</li>
 			<li>
-				<a href="#" class="nav-top-item"> Settings </a>
+				<a href="#" class="nav-top-item"> 系统设置 </a>
 				<ul>
 					<li>
-						<%= link_to '用户管理', admin_users_path, :id => "admin_users" %>
+						<%= link_to '我的资料', detail_path, :class => "users_detail users_modify" %>
 					</li>
 					<li>
-						<a href="#">Design</a>
+						<%= link_to '用户管理', users_path, :class => "users" %>
 					</li>
 					<li>
-						<a href="#">Your Profile</a>
+						<%= link_to '企业管理', enterprises_path, :class => "enterprises" %>
 					</li>
 					<li>
-						<a href="#">Users and Permissions</a>
+						<%= link_to '数据字典', dict_path, :class => "pages_dict dict" %>
 					</li>
 				</ul>
 			</li>

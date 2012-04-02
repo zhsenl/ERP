@@ -2,13 +2,13 @@
 <%= form_for(@enterprise) do |f| %>
 <fieldset>
 	<p>
-		<label for="enterprise_trade_code">组织代码</label>
-		<%= f.text_field :trade_code, :class => "text-input small-input" %>
+		<label for="enterprise_code">组织代码</label>
+		<%= f.text_field :code, :class => "text-input small-input" %>
 		<br />
 	</p>
 	<p>
-		<label for="enterprise_registe_name">单位名称</label>
-		<%= f.text_field :registe_name, :class => "text-input small-input" %>
+		<label for="enterprise_name">单位名称</label>
+		<%= f.text_field :name, :class => "text-input small-input" %>
 		<br />
 	</p>
 	<p>
@@ -28,24 +28,62 @@
 	</p>
 	<p>
 		<label for="enterprise_telephone">电话</label>
-		<%= f.phone_field :telephone, :class => "text-input small-input" %>
+		<%= f.telephone_field :telephone, :class => "text-input small-input" %>
 		<br />
 	</p>
 	<p>
 		<label for="enterprise_fax">传真</label>
-		<%= f.phone_field :fax, :class => "text-input small-input" %>
+		<%= f.telephone_field :fax, :class => "text-input small-input" %>
 		<br />
 	</p>
 	<p>
 		<label for="enterprise_bank">开户银行</label>
-		<%= f.phone_field :bank, :class => "text-input small-input" %>
+		<%= f.text_field :bank, :class => "text-input small-input" %>
 		<br />
 	</p>
 	<p>
 		<label for="enterprise_bank_account">银行账号</label>
-		<%= f.phone_field :bank_account, :class => "text-input small-input" %>
+		<%= f.text_field :bank_account, :class => "text-input small-input" %>
 		<br />
 	</p>
+	<%= f.fields_for :enterprise_customs_option do |option| %>
+	<p>
+		<label for="enterprise_enterprise_customs_option_attributes_customs_code">海关编码</label>
+	  	<%= option.text_field :customs_code, :class => "text-input small-input" %>
+	</p>
+	<p>
+		<label for="enterprise_enterprise_customs_option_attributes_platform_id">集成同平台号</label>
+	  	<%= option.text_field :platform_id, :class => "text-input small-input" %>
+	</p>
+	<p>
+		<label for="enterprise_enterprise_customs_option_attributes_area_name">区域节点名称</label>
+	  	<%= option.text_field :area_name, :class => "text-input small-input" %>
+	</p>
+	<p>
+		<label for="enterprise_enterprise_customs_option_attributes_user_private_key">平台用户私钥</label>
+	  	<%= option.text_field :user_private_key, :class => "text-input small-input" %>
+	</p>
+	<p>
+		<label for="enterprise_enterprise_customs_option_attributes_process_no">业务流程编号</label>
+	  	<%= option.text_field :process_no, :class => "text-input small-input" %>
+	</p>
+	<p>
+		<label for="enterprise_enterprise_customs_option_attributes_ic_card_no">IC卡号</label>
+	  	<%= option.text_field :ic_card_no, :class => "text-input small-input" %>
+	</p>
+	<p>
+		<label for="enterprise_enterprise_customs_option_attributes_certificate_no">IC卡用户证书号</label>
+	  	<%= option.text_field :certificate_no, :class => "text-input small-input" %>
+	</p>
+	<p>
+		<label for="enterprise_enterprise_customs_option_attributes_proxy_unit_price">每单代理费</label>
+	  	<%= option.number_field :proxy_unit_price, :class => "text-input small-input" %>
+	</p>
+	<p>
+		<label for="enterprise_enterprise_customs_option_attributes_service_unit_price">每单服务费</label>
+	  	<%= option.number_field :service_unit_price, :class => "text-input small-input" %>
+	</p>
+	<% end %>
 	<p>
 		<input class="button" type="submit" value="确定" name="submit">
 	</p>

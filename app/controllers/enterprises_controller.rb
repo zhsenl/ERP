@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 class EnterprisesController < ApplicationController
+  authorize_resource
   # GET /enterprises
   # GET /enterprises.json
   def index
@@ -26,6 +27,7 @@ class EnterprisesController < ApplicationController
   # GET /enterprises/new.json
   def new
     @enterprise = Enterprise.new
+    @enterprise.enterprise_customs_option = EnterpriseCustomsOption.new
 
     respond_to do |format|
       format.html # new.html.erb

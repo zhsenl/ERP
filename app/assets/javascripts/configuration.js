@@ -1,17 +1,18 @@
 $(document).ready(function(){
 	//get controller and action
-		var controller = $("#controller").val().replace("/","_");
-		var action = $("#action").val().replace("/","_");
-		if ($("#"+controller+"_"+action).length > 0) {
-			current_item = controller+"_"+action;
-		} else {
-			current_item = controller;
+		var locations = ($("#controller").val().replace("/","_") + "_" + $("#action").val()).split("_");
+		for (var i = 0; i < locations.length; i++) {
+			if (i == 0) {
+				current_item = locations[0];
+			} else if ($("."+current_item + "_" + locations[i]).length > 0) {
+				current_item = current_item + "_" + locations[i];
+			}
 		}
 		
 	//Sidebar Accordion Menu:		
 		$("#main-nav li ul").hide(); // Hide all sub menus
-		$("#main-nav li #"+current_item).addClass("current");
-		$("#main-nav li #"+current_item).parent().parent().show(); // Slide down the current menu item's sub menu
+		$("#main-nav li ."+current_item).addClass("current");
+		$("#main-nav li ."+current_item).parent().parent().show(); // Slide down the current menu item's sub menu
 		
 		$("#main-nav li a.nav-top-item").click( // When a top menu item is clicked...
 			function () {

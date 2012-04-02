@@ -1,20 +1,20 @@
 <div class="content-box">
 	<div class="content-box-header">
-		<h3><%= @enterprise.registe_name %>的资料</h3>
+		<h3><%= @enterprise.name %>的资料</h3>
 		<div class="operations">
 			<%= link_to '编辑', edit_enterprise_path(@enterprise) %> |
-			<%= link_to '返回', enterprises_path %>
+			<%= link_to '返回列表', enterprises_path %>
 		</div>
 	</div>
 	<div class="content-box-content">
 		<div class="tab-content default-tab">
 			<p>
-				<b>组织代码:</b>
-				<%= @enterprise.trade_code %>
+				<b>组织机构代码:</b>
+				<%= @enterprise.code %>
 			</p>
 			<p>
 				<b>单位名称:</b>
-				<%= @enterprise.registe_name %>
+				<%= @enterprise.name %>
 			</p>
 			<p>
 				<b>地址:</b>
@@ -43,6 +43,43 @@
 			<p>
 				<b>银行账号:</b>
 				<%= @enterprise.bank_account %>
+			</p>
+			
+			<p>
+				<b>海关编码</b>
+			  	<%= @enterprise.enterprise_customs_option.customs_code %>
+			</p>
+			<p>
+				<b>集成同平台号</b>
+			  	<%= @enterprise.enterprise_customs_option.platform_id %>
+			</p>
+			<p>
+				<b>区域节点名称</b>
+			  	<%= @enterprise.enterprise_customs_option.area_name %>
+			</p>
+			<p>
+				<b>平台用户私钥</b>
+			  	<%= @enterprise.enterprise_customs_option.user_private_key %>
+			</p>
+			<p>
+				<b>业务流程编号</b>
+			  	<%= @enterprise.enterprise_customs_option.process_no %>
+			</p>
+			<p>
+				<b>IC卡号</b>
+			  	<%= @enterprise.enterprise_customs_option.ic_card_no %>
+			</p>
+			<p>
+				<b>IC卡用户证书号</b>
+			  	<%= @enterprise.enterprise_customs_option.certificate_no %>
+			</p>
+			<p>
+				<b>每单代理费</b>
+			  	<%= @enterprise.enterprise_customs_option.proxy_unit_price %>
+			</p>
+			<p>
+				<b>每单服务费</b>
+			  	<%= @enterprise.enterprise_customs_option.service_unit_price %>
 			</p>
 		</div>
 	</div>

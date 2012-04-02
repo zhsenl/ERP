@@ -58,7 +58,7 @@ class UsersController < ApplicationController
    def detail    
     @user = current_user
     @title = "我的详细资料"
-  end  
+  end
   
   def modify
     @title = "编辑我的资料"
@@ -74,7 +74,7 @@ class UsersController < ApplicationController
     @user.password_confirmation = params[:user][:password_confirmation]
     if @user.save
       redirect_to :detail, :flash => {:success => "成功修改我的资料"}
-    else
+    else      
       @title = "编辑我的资料"
       render 'modify'
     end
