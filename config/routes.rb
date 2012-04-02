@@ -1,10 +1,5 @@
 # -*- encoding : utf-8 -*-
 ERP::Application.routes.draw do
-  resources :enterprises
-
-  namespace :dict do resources :countries end
-
-  namespace :dict do resources :units end
   
   resources :sessions, :only => [:new, :create, :destroy]
   match '/signin', :to => 'sessions#new'
@@ -19,6 +14,12 @@ ERP::Application.routes.draw do
   get "pages/home"
   
   resources :users
+  resources :enterprises
+  
+  namespace :dict do 
+    resources :countries 
+    resources :units
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
@@ -61,11 +62,11 @@ ERP::Application.routes.draw do
   #   end
 
   # Sample resource route within a namespace:
-  namespace :admin do
+  # namespace :admin do
     # Directs /admin/products/* to Admin::ProductsController
     # (app/controllers/admin/products_controller.rb)
-    resources :users
-  end
+    #resources :products
+  # end
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.

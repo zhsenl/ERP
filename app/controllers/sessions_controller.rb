@@ -14,7 +14,7 @@ class SessionsController < ActionController::Base
       render 'new'
     else
       sign_in user, params[:session][:remember] == '1'
-      redirect_to detail_url
+      redirect_to root_url
     end
   end
 

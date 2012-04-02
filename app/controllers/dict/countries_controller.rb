@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class Dict::CountriesController < Dict::DictsController
-  def modle
+  def model
     Dict::Country    
   end
   
