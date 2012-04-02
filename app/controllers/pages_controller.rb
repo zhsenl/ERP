@@ -1,11 +1,5 @@
 # -*- encoding : utf-8 -*-
-class PagesController < ApplicationController
-  before_filter :authorize
-  
-  def authorize
-    authorize! :read, :pages
-  end
-  
+class PagesController < ApplicationController   
   def home
   end
   

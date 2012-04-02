@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Ability
   include CanCan::Ability
 
@@ -11,7 +12,7 @@ class Ability
     
     if !user.nil? 
       can [:detail, :modify, :change], User
-      can :read, :pages
+      can :access, :pages #基本权限检查，必须要登录
       can :read, :dict
     end
     
