@@ -1,0 +1,49 @@
+<div class="content-box">
+	<div class="content-box-header">
+		<h3><%= @enterprise.registe_name %>的资料</h3>
+		<div class="operations">
+			<%= link_to '编辑', edit_enterprise_path(@enterprise) %> |
+			<%= link_to '返回', enterprises_path %>
+		</div>
+	</div>
+	<div class="content-box-content">
+		<div class="tab-content default-tab">
+			<p>
+				<b>组织代码:</b>
+				<%= @enterprise.trade_code %>
+			</p>
+			<p>
+				<b>单位名称:</b>
+				<%= @enterprise.registe_name %>
+			</p>
+			<p>
+				<b>地址:</b>
+				<%= @enterprise.address %>
+			</p>
+			<p>
+				<b>联系人:</b>
+				<%= @enterprise.linkman %>
+			</p>
+			<p>
+				<b>法人代码:</b>
+				<%= @enterprise.legal_person_code %>
+			</p>
+			<p>
+				<b>电话:</b>
+				<%= @enterprise.telephone %>
+			</p>
+			<p>
+				<b>传真:</b>
+				<%= @enterprise.fax %>
+			</p>
+			<p>
+				<b>开户银行:</b>
+				<%= @enterprise.bank %>
+			</p>
+			<p>
+				<b>银行账号:</b>
+				<%= @enterprise.bank_account %>
+			</p>
+		</div>
+	</div>
+</div>

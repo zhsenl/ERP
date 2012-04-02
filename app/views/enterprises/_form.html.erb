@@ -1,0 +1,55 @@
+<%= render "shared/error_messages", :model => @enterprise %>
+<%= form_for(@enterprise) do |f| %>
+<fieldset>
+	<p>
+		<label for="enterprise_trade_code">组织代码</label>
+		<%= f.text_field :trade_code, :class => "text-input small-input" %>
+		<br />
+	</p>
+	<p>
+		<label for="enterprise_registe_name">单位名称</label>
+		<%= f.text_field :registe_name, :class => "text-input small-input" %>
+		<br />
+	</p>
+	<p>
+		<label for="enterprise_address">地址</label>
+		<%= f.text_field :address, :class => "text-input medium-input" %>
+		<br />
+	</p>
+	<p>
+		<label for="enterprise_linkman">联系人</label>
+		<%= f.text_field :linkman, :class => "text-input small-input" %>
+		<br />
+	</p>	
+	<p>
+		<label for="enterprise_legal_person_code">法人代码</label>
+		<%= f.text_field :legal_person_code, :class => "text-input small-input" %>
+		<br />
+	</p>
+	<p>
+		<label for="enterprise_telephone">电话</label>
+		<%= f.phone_field :telephone, :class => "text-input small-input" %>
+		<br />
+	</p>
+	<p>
+		<label for="enterprise_fax">传真</label>
+		<%= f.phone_field :fax, :class => "text-input small-input" %>
+		<br />
+	</p>
+	<p>
+		<label for="enterprise_bank">开户银行</label>
+		<%= f.phone_field :bank, :class => "text-input small-input" %>
+		<br />
+	</p>
+	<p>
+		<label for="enterprise_bank_account">银行账号</label>
+		<%= f.phone_field :bank_account, :class => "text-input small-input" %>
+		<br />
+	</p>
+	<p>
+		<input class="button" type="submit" value="确定" name="submit">
+	</p>
+</fieldset>
+<div class="clear"></div><!-- End .clear -->
+<% end %>
+

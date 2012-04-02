@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 ERP::Application.routes.draw do
+  resources :enterprises
+
   namespace :dict do resources :countries end
 
   namespace :dict do resources :units end

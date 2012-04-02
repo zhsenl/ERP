@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120401061216) do
+ActiveRecord::Schema.define(:version => 20120402012119) do
 
   create_table "dict_countries", :force => true do |t|
     t.string   "code"
@@ -26,6 +26,20 @@ ActiveRecord::Schema.define(:version => 20120401061216) do
     t.string   "name"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "enterprises", :force => true do |t|
+    t.string   "trade_code"
+    t.string   "registe_name"
+    t.string   "address"
+    t.string   "linkman"
+    t.string   "legal_person_code"
+    t.string   "telephone"
+    t.string   "fax"
+    t.string   "bank"
+    t.string   "bank_account"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "users", :force => true do |t|

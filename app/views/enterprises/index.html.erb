@@ -1,0 +1,40 @@
+<div class="content-box">
+	<div class="content-box-header">
+		<h3>企业列表</h3>
+		<div class="operations">
+			<%= link_to '添加新企业', new_enterprise_path %>
+		</div>
+	</div>
+	<div class="content-box-content">
+		<div class="tab-content default-tab">
+			<table>
+				<thead>
+					<tr>
+						<th>组织代码</th>
+						<th>单位名称</th>
+						<th>联系人</th>
+						<th>联系电话</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+						<td colspan="6"> <%= will_paginate @users, :previous_label => '上一页', :next_label => '下一页' %> </td>
+					</tr>
+				</tfoot>
+				<tbody>
+					<% @enterprises.each do |enterprise| %>
+					<tr>
+						<td><%= link_to enterprise.trade_code, enterprise %></td>
+					    <td><%= link_to enterprise.registe_name, enterprise %></td>
+					    <td><%= enterprise.linkman %></td>
+					    <td><%= enterprise.telephone %></td>
+					    <td> <%= link_to image_tag("icons/pencil.png", :alt => "编辑", :title => "编辑"), edit_enterprise_path(enterprise) %>
+					    	<%= link_to image_tag("icons/cross.png", :alt => "删除", :title => "删除"), enterprise, confirm: '确定删除?', method: :delete %></td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
