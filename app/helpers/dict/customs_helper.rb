@@ -1,0 +1,2 @@
+module Dict::CustomsHelper
+end

@@ -24,7 +24,7 @@
 				<tbody>
 					<% @items.each do |item| %>
 					<tr>
-						<td><%= link_to item.code, item %></td>
+						<td><%= item.code %></td>
 						<td><%= link_to item.name, item %></td>
 						<td> <%= link_to image_tag("icons/pencil.png", :alt => "Edit"), edit_dict_unit_path(item) %>
 						<%= link_to image_tag("icons/cross.png", :alt => "Delete"), item, confirm: '确定删除?', method: :delete %> </td>
