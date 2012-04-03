@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   
   #Roles start 
   ROLES = %w[admin staff enterprise operator]
+  ROLES_ZH = {'admin' => '超级管理员', 'staff' => '公司员工', 'enterprise' => '企业管理员', 'operator' => '企业操作员'}
   
   def roles=(roles)
     self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.sum

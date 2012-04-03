@@ -23,7 +23,10 @@
 				<b>密码</b>：******
 			</p>
 			<p>
-				<b>我的用户角色</b>：<%= @user.roles %>
+				<b>我的用户角色</b>：
+				<% @user.roles.each do |role| %>
+					<%= '[' + User::ROLES_ZH[role] + ']' %>
+				<% end %>				
 			</p>
 		</div>
 	</div>
