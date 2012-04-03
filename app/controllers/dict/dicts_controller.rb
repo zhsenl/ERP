@@ -3,7 +3,11 @@ class Dict::DictsController < ApplicationController
   def index
     authorize! :index, :dict
     @title = '字典列表'
-    @items = model.paginate(:page => params[:page],:per_page => 10)    
+    if params[:term].nil?
+      @items = model.paginate(:page => params[:page],:per_page => 10) 
+    else
+      @items = model.where("code like ? or name like ?", params[:term] + '%', '%' + params[:term] +'%')
+    end       
 
     respond_to do |format|
       format.html 

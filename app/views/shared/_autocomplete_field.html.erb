@@ -1,0 +1,31 @@
+<% id = "autocomplete_" + attribute.to_s %>
+<% label_id = id + "label" %>
+<%= form.text_field attribute, :class => klass, :id => id %>
+<br />
+<small id="<%= label_id %>"></small>
+<script>
+	$(function() {
+		$("#<%= id %>").autocomplete({
+			source : function(request, response) {
+				$.ajax({
+					url : "<%= url %>.json",
+					dataType : "json",
+					data : {
+						term : request.term
+					},
+					success : function(data) {
+						response($.map(data, function(item) {
+							item.label = item.code + ":" + item.name;
+							item.value = item.code;
+							return item;
+						}))
+					}
+				})
+			},
+			minLength : 2,
+			select: function( event, ui ) {
+				$("#<%= label_id %>").html(ui.item.name);
+			}
+		});
+	});
+</script>
