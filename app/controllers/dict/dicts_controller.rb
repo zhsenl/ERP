@@ -6,8 +6,13 @@ class Dict::DictsController < ApplicationController
     if params[:term].nil?
       @items = model.paginate(:page => params[:page],:per_page => 10) 
     else
-      @items = model.where("code like ? or name like ?", params[:term] + '%', '%' + params[:term] +'%')
-    end       
+      term = params[:term].strip
+      if term != ''
+        @items = model.where("code like ? or name like ?", term + '%', '%' + term +'%')
+      else
+        @items = []
+      end
+    end
 
     respond_to do |format|
       format.html 

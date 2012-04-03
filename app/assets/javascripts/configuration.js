@@ -108,6 +108,7 @@ $(document).ready(function(){
 		  width = width <= 980 ? 980 : width;
 		  $("#body-wrapper").width(width + "px");
 		});
+			
 });
   
   
