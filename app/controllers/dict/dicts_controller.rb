@@ -18,8 +18,12 @@ class Dict::DictsController < ApplicationController
   def show
     authorize! :show, :dict
     @title = '字典详细'
-    @item = model.find(params[:id])
-
+    if params[:code].nil?
+      @item = model.find(params[:id])
+    else
+      @item = model.find_by_code(params[:code])
+    end
+    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @item }

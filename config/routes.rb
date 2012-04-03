@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 ERP::Application.routes.draw do
   
-  namespace :dict do resources :customs end
 
   resources :sessions, :only => [:new, :create, :destroy]
   match '/signin', :to => 'sessions#new'
@@ -21,6 +20,7 @@ ERP::Application.routes.draw do
   namespace :dict do 
     resources :countries 
     resources :units
+    resources :customs
   end
 
   # The priority is based upon order of creation:
