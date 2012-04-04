@@ -1,41 +1,5 @@
 <% id =  attribute.to_s + "_autocomplete" %>
 <% label_id = id + "_label" %>
-<%= form.text_field attribute, :class => klass, :id => id %>
+<%= form.text_field attribute, :class => klass, :id => id, :"data-url" => url %>
 <br />
 <small id="<%= label_id %>"></small>
-<script>
-	update_label = function (data) {
-		if (data != "") {
-			$.get("<%= url %>/0.json?code="+data, function(result){
-		    	if (result == null) {
-			    		$("#<%= label_id %>").html("<span class='error_label'>请正确填写</span>");
-			    	} else {
-			    		$("#<%= label_id %>").html(result.name);
-			    	}
-		  	});
-		} else {
-			$("#<%= label_id %>").html("");
-		}
-	}
-	$(document).ready(function() {
-		update_label($("#<%= id %>").val());
-		$("#<%= id %>").autocomplete({
-			source : function(request, response) {
-				$.get("<%= url %>.json?term="+request.term, function(result){
-					response($.map(result, function(item) {
-						item.label = item.code + ":" + item.name;
-						item.value = item.code;
-						return item;
-					}));
-			  	});
-			},
-			minLength : 2,
-			select: function( event, ui ) {
-				$("#<%= label_id %>").html(ui.item.name);
-			}
-		});
-		$("#<%= id %>").blur(function(){
-			update_label(this.value);			
-		})
-	});
-</script>

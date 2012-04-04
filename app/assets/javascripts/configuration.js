@@ -108,7 +108,70 @@ $(document).ready(function(){
 		  width = width <= 980 ? 980 : width;
 		  $("#body-wrapper").width(width + "px");
 		});
-			
+		
+	//dictionary span
+	$("span.dict").each(function(){
+		span = this;
+		url = this.getAttribute("data-url");
+		$.get(url + "/0.json?code="+this.innerHTML, function(result){
+	    	if (result == null) {
+	    		span.innerHTML += " (请正确填写)";
+	    		$(span).addClass("error_label");
+	    	} else {
+	    		span.innerHTML += " (" + result.name + ")";
+	    	}
+	  	});
+	});
+	
+	//autocomplete settings
+	$("input[id$='_autocomplete']").each(function(){
+		label = $("#" + this.id + "_label");
+		url = this.getAttribute("data-url");
+		if (this.value != "") {
+			$.get(url + "/0.json?code="+this.value, function(result){
+		    	if (result == null) {
+			    		label.html("<span class='error_label'>请正确填写</span>");
+			    	} else {
+			    		label.html(result.name);
+			    	}
+		  	});
+		} else {
+			label.html("");
+		}
+				
+		$(this).autocomplete({
+			source : function(request, response) {
+				$.get(url + ".json?term="+request.term, function(result){
+					response($.map(result, function(item) {
+						item.label = item.code + ":" + item.name;
+						item.value = item.code;
+						return item;
+					}));
+			  	});
+			},
+			minLength : 2,
+			select: function( event, ui ) {
+				label.html(ui.item.name);
+			}
+		});
+		
+		$(this).blur(function(){
+			if (this.value != "") {
+				$.get(url + "/0.json?code="+this.value, function(result){
+			    	if (result == null) {
+				    		label.html("<span class='error_label'>请正确填写</span>");
+				    	} else {
+				    		label.html(result.name);
+				    	}
+			  	});
+			} else {
+				label.html("");
+			}			
+		})
+	});
+	
+	
+	
 });
   
   
