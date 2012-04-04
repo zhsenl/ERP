@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateDictCustoms < ActiveRecord::Migration
   def change
     create_table :dict_customs do |t|

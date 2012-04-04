@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateEnterpriseCustomsOptions < ActiveRecord::Migration
   def change
     create_table :enterprise_customs_options do |t|

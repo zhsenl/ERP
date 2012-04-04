@@ -1,4 +1,15 @@
 zh-CN:
+  activerecord:
+    attributes:
+      user:
+        username: "用户名"
+        email: "电子邮件"
+        name: "姓名"
+        password: "密码"  
+  
+  
+  
+  
   date:
     abbr_day_names:
     - 日
@@ -189,11 +200,4 @@ zh-CN:
       default: ! '%Y年%b%d日 %A %H:%M:%S %Z'
       long: ! '%Y年%b%d日 %H:%M'
       short: ! '%b%d日 %H:%M'
-    pm: 下午
-  # remove these aliases after 'activemodel' and 'activerecord' namespaces are removed from Rails repository
-  activemodel:
-    errors:
-      <<: *errors
-  activerecord:
-    errors:
-      <<: *errors
+    pm: 下午 

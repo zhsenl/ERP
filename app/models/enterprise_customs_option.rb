@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class EnterpriseCustomsOption < ActiveRecord::Base
   belongs_to :enterprise
   validates :customs_code, :presence => true
