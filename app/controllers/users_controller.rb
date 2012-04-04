@@ -20,11 +20,6 @@ class UsersController < ApplicationController
   def create
     @title = "添加新用户"
     @user = User.new(params[:user])  
-    if @user.password == ""
-      @user.errors[:password] = "密码不能为空"
-      render "new"
-      return
-    end
     if @user.save
       flash[:success] = "新用户添加成功"
       @user = User.new
@@ -36,7 +31,7 @@ class UsersController < ApplicationController
     @title = "编辑用户资料"
     @user = User.find(params[:id])
   end
-
+  
   def update    
     @user = User.find(params[:id])  
     if @user.update_attributes(params[:user])

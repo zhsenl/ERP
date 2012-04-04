@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   validates :email, :presence => true,
                     :format => {:with => email_regex},
                     :uniqueness => true
+  validates :password, :presence => true, :on => :create
   validates :password, :confirmation => true
   validates :name,     :presence => true
 
