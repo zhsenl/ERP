@@ -1,5 +1,4 @@
 <% if defined?(model) && model.errors.any? %>
-	<% model.errors.full_messages.each do |message| %>
-		<%= render "shared/notification", :type => "error",:content => message %> 
-	<% end %>
+	<% message = "有#{model.errors.count}个错误发生导致「#{model.class.model_name.human}」无法被保存" %>
+	<%= render "shared/notification", :type => "error",:content => message %> 
 <% end %>
