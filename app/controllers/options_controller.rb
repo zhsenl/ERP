@@ -3,11 +3,8 @@ class OptionsController < ApplicationController
   authorize_resource
   
   def index
-    @options = {}
-    options = Option.where("autoload = ?", true)
-    options.each do |option|
-      @options[option.name] = option.value
-    end
+    options = Option.where("mark = ?", "general")
+    @options = to_hash(options)
   end
 
   def update
@@ -18,7 +15,7 @@ class OptionsController < ApplicationController
       option ||= Option.new
       option.name = key
       option.value = value
-      option.autoload = true
+      option.mark = "general"
       if !option.save 
         success = false
       end
@@ -30,5 +27,17 @@ class OptionsController < ApplicationController
       flash[:error] = "保存失败"
       render "index"
     end
+  end
+  
+  
+  
+  private
+  
+  def to_hash(options)
+    hash = {}
+    options.each do |option|
+      hash[option.name] = option.value
+    end
+    return hash
   end
 end

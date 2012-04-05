@@ -4,6 +4,7 @@ class CreateOptions < ActiveRecord::Migration
     create_table :options do |t|
       t.string :name
       t.text :value
+      t.text :mark
 
       t.timestamps
     end
