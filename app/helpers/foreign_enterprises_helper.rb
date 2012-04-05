@@ -1,0 +1,2 @@
+module ForeignEnterprisesHelper
+end

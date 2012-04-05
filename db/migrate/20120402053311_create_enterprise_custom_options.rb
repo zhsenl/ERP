@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class CreateEnterpriseCustomsOptions < ActiveRecord::Migration
+class CreateEnterpriseCustomOptions < ActiveRecord::Migration
   def change
     create_table :enterprise_custom_options do |t|
       t.integer :enterprise_id
@@ -10,8 +10,8 @@ class CreateEnterpriseCustomsOptions < ActiveRecord::Migration
       t.string :process_no
       t.string :ic_card_no
       t.string :certificate_no
-      t.decimal :proxy_unit_price, :precision => 15, :scale => 2
-      t.decimal :service_unit_price, :precision => 15, :scale => 2
+      t.decimal :proxy_unit_price, :precision => 15, :scale => 4
+      t.decimal :service_unit_price, :precision => 15, :scale => 4
 
       t.timestamps
     end

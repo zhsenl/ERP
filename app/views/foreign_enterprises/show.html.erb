@@ -1,0 +1,38 @@
+<div class="content-box">
+	<div class="content-box-header">
+		<h3><%= @foreign_enterprise.name %>的资料</h3>
+		<div class="operations">
+			<%= link_to '编辑', edit_foreign_enterprise_path(@foreign_enterprise) %> |
+			<%= link_to '返回列表', foreign_enterprises_path %>
+		</div>
+	</div>
+	<div class="content-box-content">
+		<div class="tab-content default-tab">
+			<p>
+				<b>单位代码:</b>
+				<%= @foreign_enterprise.code %>
+			</p>
+			<p>
+				<b>单位名称:</b>
+				<%= @foreign_enterprise.name %>
+			</p>
+			<p>
+				<b>地址:</b>
+				<%= @foreign_enterprise.address %>
+			</p>
+			<p>
+				<b>联系人:</b>
+				<%= @foreign_enterprise.linkman %>
+			</p>
+			<p>
+				<b>电话:</b>
+				<%= @foreign_enterprise.telephone %>
+			</p>
+			<p>
+				<b>传真:</b>
+				<%= @foreign_enterprise.fax %>
+			</p>
+		</div>
+	</div>
+</div>
+

@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,12 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120402161214) do
-
-  create_table "customs", :force => true do |t|
-    t.string "code"
-    t.string "name"
-  end
+ActiveRecord::Schema.define(:version => 20120405122424) do
 
   create_table "dict_countries", :force => true do |t|
     t.string   "code"
@@ -49,8 +44,8 @@ ActiveRecord::Schema.define(:version => 20120402161214) do
     t.string   "process_no"
     t.string   "ic_card_no"
     t.string   "certificate_no"
-    t.decimal  "proxy_unit_price",   :precision => 15, :scale => 2
-    t.decimal  "service_unit_price", :precision => 15, :scale => 2
+    t.decimal  "proxy_unit_price",   :precision => 15, :scale => 4
+    t.decimal  "service_unit_price", :precision => 15, :scale => 4
     t.datetime "created_at",                                        :null => false
     t.datetime "updated_at",                                        :null => false
   end
@@ -67,6 +62,24 @@ ActiveRecord::Schema.define(:version => 20120402161214) do
     t.string   "bank_account"
     t.datetime "created_at",        :null => false
     t.datetime "updated_at",        :null => false
+  end
+
+  create_table "foreign_enterprises", :force => true do |t|
+    t.string   "code"
+    t.string   "name"
+    t.string   "address"
+    t.string   "linkman"
+    t.string   "telephone"
+    t.string   "fax"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "options", :force => true do |t|
+    t.string   "name"
+    t.text     "value"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|

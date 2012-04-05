@@ -2,7 +2,11 @@ zh-CN:
   activerecord:
     models:
       user: 用户
-      enterprise: 企业      
+      enterprise: 企业  
+      foreign_enterprise: 外商
+      dict/unit: 单位
+      dict/country: 国家地区
+      dict/custom: 海关
         
     attributes:
       user:

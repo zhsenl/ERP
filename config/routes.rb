@@ -2,6 +2,8 @@
 ERP::Application.routes.draw do
   
 
+  resources :foreign_enterprises
+
   resources :sessions, :only => [:new, :create, :destroy]
   match '/signin', :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
