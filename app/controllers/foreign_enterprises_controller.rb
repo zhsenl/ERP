@@ -1,4 +1,7 @@
+# -*- encoding : utf-8 -*-
 class ForeignEnterprisesController < ApplicationController
+  authorize_resource
+  
   # GET /foreign_enterprises
   # GET /foreign_enterprises.json
   def index

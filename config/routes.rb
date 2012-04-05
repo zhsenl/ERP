@@ -2,6 +2,9 @@
 ERP::Application.routes.draw do
   
 
+  match '/options', :to => 'options#index'
+  match '/options/update', :to => 'options#update'
+
   resources :foreign_enterprises
 
   resources :sessions, :only => [:new, :create, :destroy]

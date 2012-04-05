@@ -16,8 +16,9 @@ class Ability
     
     if !user.nil? 
       can [:detail, :modify, :change], User
-      can :access, :pages #基本权限检查，必须要登录
-      can :read, :dict
+      can :access, :system #基本权限检查，必须要登录
+      can :read, :option #系统选项
+      can :read, :dict #数据字典
     end
     
     

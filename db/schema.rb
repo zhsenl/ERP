@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120405122424) do
+ActiveRecord::Schema.define(:version => 20120405150035) do
 
   create_table "dict_countries", :force => true do |t|
     t.string   "code"
@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(:version => 20120405122424) do
     t.text     "value"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.boolean  "autoload"
   end
 
   create_table "users", :force => true do |t|

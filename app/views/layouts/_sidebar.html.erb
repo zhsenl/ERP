@@ -63,24 +63,18 @@
 				</ul>
 			</li>
 			<li>
-				<a href="#" class="nav-top-item"> Events Calendar </a>
+				<a href="#" class="nav-top-item"> 设置 </a>
 				<ul>
 					<li>
-						<a href="#">Calendar Overview</a>
-					</li>
-					<li>
-						<a href="#">Add a new Event</a>
-					</li>
-					<li>
-						<a href="#">Calendar Settings</a>
+						<%= link_to '我的资料', detail_path, :class => "users_detail users_modify" %>
 					</li>
 				</ul>
 			</li>
 			<li>
-				<a href="#" class="nav-top-item"> 系统设置 </a>
+				<a href="#" class="nav-top-item"> 系统管理 </a>
 				<ul>
 					<li>
-						<%= link_to '我的资料', detail_path, :class => "users_detail users_modify" %>
+						<%= link_to '常规选项', options_path, :class => "options" %>
 					</li>
 					<li>
 						<%= link_to '用户管理', users_path, :class => "users" %>

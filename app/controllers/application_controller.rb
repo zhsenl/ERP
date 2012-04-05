@@ -9,6 +9,6 @@ class ApplicationController < ActionController::Base
   end
   
   def authorize
-    authorize! :access, :pages
+    authorize! :access, :system
   end
 end
