@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
 class CreateEnterpriseCustomsOptions < ActiveRecord::Migration
   def change
-    create_table :enterprise_customs_options do |t|
+    create_table :enterprise_custom_options do |t|
       t.integer :enterprise_id
-      t.string :customs_code
+      t.string :custom_code
       t.string :platform_id
       t.string :area_name
       t.string :user_private_key

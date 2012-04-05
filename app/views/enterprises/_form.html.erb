@@ -46,10 +46,10 @@
 		<%= f.text_field :bank_account, :class => "text-input small-input" %>
 		<br />
 	</p>
-	<%= f.fields_for :enterprise_customs_option do |option| %>
+	<%= f.fields_for :enterprise_custom_option do |option| %>
 	<p>
 		<label>海关编码</label>
-		<%= render "shared/autocomplete_field", :form => option, :attribute => :customs_code, :url => dict_customs_path, :klass => "text-input small-input" %> 
+		<%= render "shared/autocomplete_field", :form => option, :attribute => :custom_code, :url => dict_customs_path, :klass => "text-input small-input" %> 
 	</p>
 	<p>
 		<label>集成同平台号</label>

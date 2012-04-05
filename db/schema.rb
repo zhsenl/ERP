@@ -40,9 +40,9 @@ ActiveRecord::Schema.define(:version => 20120402161214) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "enterprise_customs_options", :force => true do |t|
+  create_table "enterprise_custom_options", :force => true do |t|
     t.integer  "enterprise_id"
-    t.string   "customs_code"
+    t.string   "custom_code"
     t.string   "platform_id"
     t.string   "area_name"
     t.string   "user_private_key"

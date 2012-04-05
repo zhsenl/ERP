@@ -27,7 +27,7 @@ class EnterprisesController < ApplicationController
   # GET /enterprises/new.json
   def new
     @enterprise = Enterprise.new
-    @enterprise.enterprise_customs_option = EnterpriseCustomsOption.new
+    @enterprise.enterprise_custom_option = EnterpriseCustomOption.new
 
     respond_to do |format|
       format.html # new.html.erb
