@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120405122424) do
+ActiveRecord::Schema.define(:version => 20120406161410) do
 
   create_table "dict_countries", :force => true do |t|
     t.string   "code"
@@ -55,13 +55,12 @@ ActiveRecord::Schema.define(:version => 20120405122424) do
     t.string   "name"
     t.string   "address"
     t.string   "linkman"
-    t.string   "legal_person_code"
     t.string   "telephone"
     t.string   "fax"
     t.string   "bank"
     t.string   "bank_account"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "foreign_enterprises", :force => true do |t|
