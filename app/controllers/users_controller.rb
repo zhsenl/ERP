@@ -74,4 +74,11 @@ class UsersController < ApplicationController
       render 'modify'
     end
   end
+  
+  def enterprises
+    @user = User.find(params[:id])
+    @title = @user.username + " 的授权企业列表"
+    @enterprises = @user.enterprises.paginate(:page => params[:page],:per_page => 10)
+  end
+  
 end

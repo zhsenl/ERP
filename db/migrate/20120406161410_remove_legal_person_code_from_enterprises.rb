@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class RemoveLegalPersonCodeFromEnterprises < ActiveRecord::Migration
   def up
     remove_column :enterprises, :legal_person_code

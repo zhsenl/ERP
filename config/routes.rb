@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 ERP::Application.routes.draw do
   
+  resources :manage_relationships
 
   match '/options', :to => 'options#index'
   match '/options/update', :to => 'options#update'
@@ -15,7 +16,10 @@ ERP::Application.routes.draw do
   
   match '/dict', :to => 'pages#dict'
 
-  resources :users
+  resources :users do
+    get 'enterprises', :on => :member
+  end
+  
   resources :enterprises, :foreign_enterprises do
     get 'search', :on => :collection
     get 'show_by_code', :on => :member

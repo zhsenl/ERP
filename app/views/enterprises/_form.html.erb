@@ -42,8 +42,9 @@
 		<br />
 	</p>
 	<%= f.fields_for :enterprise_custom_option do |option| %>
+	
 	<p>
-		<label>海关编码</label>
+		<label>所属关区</label>
 		<%= render "shared/autocomplete_field", :form => option, :attribute => :custom_code, :url => dict_customs_path, :klass => "text-input small-input" %> 
 	</p>
 	<p>

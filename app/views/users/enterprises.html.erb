@@ -1,0 +1,98 @@
+<div class="content-box">
+	<div class="content-box-header">
+		<h3>添加授权企业</h3>
+		<div class="operations">
+			<%= link_to '返回用户页面', @user %>
+		</div>
+	</div>
+	<div class="content-box-content">
+		<%= form_for @user.manage_relationships.build(:user_id => @user.id) do |f| %>
+			<fieldset>
+				<p>
+					<%= f.hidden_field :user_id %>
+					<%= f.hidden_field :enterprise_id %>
+					<label>选择要授权的企业</label>
+					<input id="enterprise_code" class="text-input medium-input" type="text">
+					&nbsp;&nbsp;
+					<input class="button" type="submit" value="新增授权企业" name="commit">
+					<br />
+					<small id="enterprise_name">输入2字符后有提示</small>
+					<script>
+						$(document).ready(function(){
+							$("#enterprise_code").autocomplete({
+								source : function(request, response) {
+									$.get("<%= enterprises_path %>/search.json?term="+request.term, function(result){
+										response($.map(result, function(item) {
+											item.label = item.code + ":" + item.name;
+											item.value = item.code;
+											return item;
+										}));
+								  	});
+								},
+								minLength : 2,
+								select: function( event, ui ) {
+									$("#enterprise_name").html(ui.item.name);
+									$("#manage_relationship_enterprise_id").val(ui.item.id);
+								}
+							});
+							$("#enterprise_code").blur(function(){
+								if (this.value != "") {
+									$.get("<%= enterprises_path %>/" + this.value +"/show_by_code.json", function(result){
+								    	if (result == null) {
+									    		$("#enterprise_name").html("<span class='error_label'>请正确填写</span>");
+												$("#manage_relationship_enterprise_id").val("");
+									    	} else {
+									    		$("#enterprise_name").html(result.name);
+												$("#manage_relationship_enterprise_id").val(result.id);
+									    	}
+								  	});
+								} else {
+									$("#enterprise_name").html("");
+									$("#manage_relationship_enterprise_id").val("");
+								}			
+							})
+						});						
+					</script>
+				</p>
+			</fieldset>
+			<div class="clear"></div><!-- End .clear -->
+			<% end %>
+	</div>
+</div>
+
+<div class="content-box">
+	<div class="content-box-header">
+		<h3>授权企业列表</h3>
+	</div>
+	<div class="content-box-content">
+		<div class="tab-content default-tab">
+			<table>
+				<thead>
+					<tr>
+						<th>组织机构代码</th>
+						<th>单位名称</th>
+						<th>联系人</th>
+						<th>联系电话</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+						<td colspan="6"> <%= will_paginate @enterprises %> </td>
+					</tr>
+				</tfoot>
+				<tbody>
+					<% @enterprises.each do |enterprise| %>
+					<tr>
+						<td><%= link_to enterprise.code, enterprise %></td>
+					    <td><%= link_to enterprise.name, enterprise %></td>
+					    <td><%= enterprise.linkman %></td>
+					    <td><%= enterprise.telephone %></td>
+					    <td><%= link_to image_tag("icons/cross.png", :alt => "取消授权", :title => "取消授权"), @user.manage_relationships.find_by_enterprise_id(enterprise.id), confirm: '确定取消授权?', method: :delete %></td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

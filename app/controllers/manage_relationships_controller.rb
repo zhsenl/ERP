@@ -1,0 +1,23 @@
+# -*- encoding : utf-8 -*-
+class ManageRelationshipsController < ApplicationController
+  authorize_resource
+  
+  def create
+    @manage_relationship = ManageRelationship.new(params[:manage_relationship])
+    @user = User.find(@manage_relationship.user_id)
+    if @manage_relationship.save
+      flash[:success] = "新增授权企业成功"
+    else
+      flash[:error] = "新增授权企业失败,输入空值或可能该企业已经授权"
+    end  
+    redirect_to enterprises_user_path(@user)
+  end
+
+  def destroy
+    @manage_relationship = ManageRelationship.find(params[:id])
+    @user = User.find(@manage_relationship.user_id)
+    @manage_relationship.destroy
+    flash[:success] = "成功取消企业授权"
+    redirect_to enterprises_user_path(@user)
+  end
+end

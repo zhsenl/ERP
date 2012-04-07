@@ -7,6 +7,7 @@ class Enterprise < ActiveRecord::Base
   validates :code, :presence => true, :uniqueness => true
   validates :name, :presence => true
   
+  default_scope :order => "enterprises.id DESC"
   
   def build_enterprise_customs_option
     enterprise_custom_option = EnterpriseCustomOption.create(
