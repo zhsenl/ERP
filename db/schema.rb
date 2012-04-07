@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120407040646) do
+ActiveRecord::Schema.define(:version => 20120407052106) do
 
   create_table "dict_countries", :force => true do |t|
     t.string   "code"
@@ -77,6 +77,13 @@ ActiveRecord::Schema.define(:version => 20120407040646) do
   end
 
   add_index "foreign_enterprises", ["code"], :name => "index_foreign_enterprises_on_code", :unique => true
+
+  create_table "manage_relationships", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "enterprise_id"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
 
   create_table "options", :force => true do |t|
     t.string   "name"

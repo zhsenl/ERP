@@ -5,8 +5,6 @@ ERP::Application.routes.draw do
   match '/options', :to => 'options#index'
   match '/options/update', :to => 'options#update'
 
-  resources :foreign_enterprises
-
   resources :sessions, :only => [:new, :create, :destroy]
   match '/signin', :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
@@ -20,10 +18,13 @@ ERP::Application.routes.draw do
   get "pages/home"
   
   resources :users
-  resources :enterprises
+  resources :enterprises, :foreign_enterprises do
+    get 'search', :on => :collection
+    get 'display', :on => :member
+  end
   
-  namespace :dict do 
-    resources :countries 
+  namespace :dict do
+    resources :countries
     resources :units
     resources :customs
   end

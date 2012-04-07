@@ -1,8 +1,11 @@
 # -*- encoding : utf-8 -*-
 class User < ActiveRecord::Base
   attr_accessor :password, :password_confirmation
-  #attr_accessible :name, :email, :userName
-
+  
+  has_many :manage_relationships, :dependent => :destroy
+  has_many :enterprises, :through => :manage_relationships
+  
+  #validation start
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 
   validates :username, :presence => true,
@@ -15,6 +18,7 @@ class User < ActiveRecord::Base
   validates :password, :presence => true, :on => :create
   validates :password, :confirmation => true
   validates :name,     :presence => true
+  #validation end
 
   before_save :encrypt_password
   
@@ -53,6 +57,25 @@ class User < ActiveRecord::Base
       (user && user.salt == cookie_salt) ? user : nil
     end
   end
+  
+  
+  def managing?(enterprise)
+    enterprise_id = enterprise.respond_to?("id") ? enterprise.id : enterprise
+    manage_relationships.find_by_id(enterprise.id)
+  end
+  
+  def manage!(enterprise)
+    enterprise_id = enterprise.respond_to?("id") ? enterprise.id : enterprise
+    manage_relationships.create!(:enterprise_id => enterprise_id)
+  end
+  
+  def unmanage!(enterprise)
+    enterprise_id = enterprise.respond_to?("id") ? enterprise.id : enterprise
+    manage_relationships.create!(:enterprise_id => enterprise_id).destroy
+  end
+  
+  
+  
 
   private
 

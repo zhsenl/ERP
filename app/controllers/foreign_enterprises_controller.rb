@@ -12,6 +12,20 @@ class ForeignEnterprisesController < ApplicationController
       format.json { render json: @foreign_enterprises }
     end
   end
+  
+  # GET /foreign_enterprises/search.json
+  def search
+    term = params[:term]
+    if term.blank?
+      @foreign_enterprises = []
+    else
+      @foreign_enterprises = ForeignEnterprise.where("code like ? or name like ?", term + '%', '%' + term +'%')
+    end
+
+    respond_to do |format|
+      format.json { render json: @foreign_enterprises }
+    end
+  end
 
   # GET /foreign_enterprises/1
   # GET /foreign_enterprises/1.json
@@ -20,6 +34,16 @@ class ForeignEnterprisesController < ApplicationController
 
     respond_to do |format|
       format.html # show.html.erb
+      format.json { render json: @foreign_enterprise }
+    end
+  end
+  
+  # GET /foreign_enterprises/1/display.json
+  # get foreign_enterprise by code
+  def display
+    @foreign_enterprise = ForeignEnterprise.find_by_code(params[:id])
+
+    respond_to do |format|
       format.json { render json: @foreign_enterprise }
     end
   end
