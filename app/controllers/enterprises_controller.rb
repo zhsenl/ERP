@@ -38,6 +38,7 @@ class EnterprisesController < ApplicationController
   # GET /enterprises/1/edit
   def edit
     @enterprise = Enterprise.find(params[:id])
+    @enterprise.build_enterprise_customs_option if @enterprise.enterprise_custom_option.nil?
   end
 
   # POST /enterprises

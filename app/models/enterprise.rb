@@ -6,4 +6,15 @@ class Enterprise < ActiveRecord::Base
   
   validates :code, :presence => true, :uniqueness => true
   validates :name, :presence => true
+  
+  
+  def build_enterprise_customs_option
+    enterprise_custom_option = EnterpriseCustomOption.create(
+                                    :enterprise_id => self.id, 
+                                    :custom_code => "0000",
+                                    :proxy_unit_price => 0,
+                                    :service_unit_price =>0)
+    self.enterprise_custom_option = enterprise_custom_option
+  end
+  
 end

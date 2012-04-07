@@ -1,5 +1,6 @@
 <% id =  attribute.to_s + "_autocomplete" %>
 <% label_id = id + "_label" %>
-<%= form.text_field attribute, :class => klass, :id => id, :"data-url" => url %>
+<% min_length ||= 2 %>
+<%= form.text_field attribute, :class => klass, :id => id, :"data-url" => url, :"data-minLength" => min_length %>
 <br />
 <small id="<%= label_id %>"></small>

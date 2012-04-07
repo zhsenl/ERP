@@ -153,6 +153,7 @@ zh-CN:
       too_long: 过长（最长为 %{count} 个字符）
       too_short: 过短（最短为 %{count} 个字符）
       wrong_length: 长度非法（必须为 %{count} 个字符）
+      record_invalid: 记录是无效的
     template:
       body: 如下字段出现错误：
       header:

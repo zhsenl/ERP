@@ -109,8 +109,8 @@ $(document).ready(function(){
 		  $("#body-wrapper").width(width + "px");
 		});
 		
-	//dictionary span
-	$("span.dict").each(function(){
+	//ajax span
+	$("span.autoload").each(function(){
 		span = this;
 		url = this.getAttribute("data-url");
 		$.get(url + "/0.json?code="+this.innerHTML, function(result){
@@ -123,10 +123,11 @@ $(document).ready(function(){
 	  	});
 	});
 	
-	//autocomplete settings
+	//autocomplete field settings
 	$("input[id$='_autocomplete']").each(function(){
 		label = $("#" + this.id + "_label");
 		url = this.getAttribute("data-url");
+		minLength = this.getAttribute("data-minLength");
 		if (this.value != "") {
 			$.get(url + "/0.json?code="+this.value, function(result){
 		    	if (result == null) {
@@ -149,7 +150,7 @@ $(document).ready(function(){
 					}));
 			  	});
 			},
-			minLength : 2,
+			minLength : minLength,
 			select: function( event, ui ) {
 				label.html(ui.item.name);
 			}
