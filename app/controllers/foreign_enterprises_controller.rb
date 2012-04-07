@@ -38,9 +38,9 @@ class ForeignEnterprisesController < ApplicationController
     end
   end
   
-  # GET /foreign_enterprises/1/display.json
+  # GET /foreign_enterprises/1/show_by_code.json
   # get foreign_enterprise by code
-  def display
+  def show_by_code
     @foreign_enterprise = ForeignEnterprise.find_by_code(params[:id])
 
     respond_to do |format|

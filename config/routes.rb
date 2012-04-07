@@ -15,18 +15,19 @@ ERP::Application.routes.draw do
   
   match '/dict', :to => 'pages#dict'
 
-  get "pages/home"
-  
   resources :users
   resources :enterprises, :foreign_enterprises do
     get 'search', :on => :collection
-    get 'display', :on => :member
+    get 'show_by_code', :on => :member
   end
   
   namespace :dict do
-    resources :countries
-    resources :units
-    resources :customs
+    resources :countries,
+              :units,
+              :customs do
+      get 'search', :on => :collection
+      get 'show_by_code', :on => :member
+    end
   end
 
   # The priority is based upon order of creation:

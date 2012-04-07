@@ -113,7 +113,7 @@ $(document).ready(function(){
 	$("span.autoload").each(function(){
 		span = this;
 		url = this.getAttribute("data-url");
-		$.get(url + "/0.json?code="+this.innerHTML, function(result){
+		$.get(url + "/" + this.innerHTML +"/show_by_code.json", function(result){
 	    	if (result == null) {
 	    		span.innerHTML += " (请正确填写)";
 	    		$(span).addClass("error_label");
@@ -129,7 +129,7 @@ $(document).ready(function(){
 		url = this.getAttribute("data-url");
 		minLength = this.getAttribute("data-minLength");
 		if (this.value != "") {
-			$.get(url + "/0.json?code="+this.value, function(result){
+			$.get(url + "/" + this.value +"/show_by_code.json", function(result){
 		    	if (result == null) {
 			    		label.html("<span class='error_label'>请正确填写</span>");
 			    	} else {
@@ -142,7 +142,7 @@ $(document).ready(function(){
 				
 		$(this).autocomplete({
 			source : function(request, response) {
-				$.get(url + ".json?term="+request.term, function(result){
+				$.get(url + "/search.json?term="+request.term, function(result){
 					response($.map(result, function(item) {
 						item.label = item.code + ":" + item.name;
 						item.value = item.code;
@@ -158,7 +158,7 @@ $(document).ready(function(){
 		
 		$(this).blur(function(){
 			if (this.value != "") {
-				$.get(url + "/0.json?code="+this.value, function(result){
+				$.get(url + "/" + this.value +"/show_by_code.json", function(result){
 			    	if (result == null) {
 				    		label.html("<span class='error_label'>请正确填写</span>");
 				    	} else {

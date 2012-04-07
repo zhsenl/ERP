@@ -3,15 +3,22 @@ class Dict::DictsController < ApplicationController
   def index
     authorize! :index, :dict
     @title = '字典列表'
-    if params[:term].nil?
-      @items = model.paginate(:page => params[:page],:per_page => 10) 
+    @items = model.paginate(:page => params[:page],:per_page => 10) 
+    respond_to do |format|
+      format.html 
+      format.json { render json: @items }
+    end
+  end
+  
+  def search
+    term = params[:term]
+    if term.blank?
+      @items = []
     else
-      term = params[:term]
-      @items = term.blank? ? [] : model.where("code like ? or name like ?", term + '%', '%' + term +'%')
+      @items = model.where("code like ? or name like ?", term + '%', '%' + term +'%')
     end
 
     respond_to do |format|
-      format.html 
       format.json { render json: @items }
     end
   end
@@ -19,17 +26,21 @@ class Dict::DictsController < ApplicationController
   def show
     authorize! :show, :dict
     @title = '字典详细'
-    if params[:code].nil?
-      @item = model.find(params[:id])
-    else
-      @item = model.find_by_code(params[:code])
-    end
+    @item = model.find(params[:id])
     
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @item }
     end
-  end  
+  end
+  
+  def show_by_code
+    @item = model.find_by_code(params[:id])
+
+    respond_to do |format|
+      format.json { render json: @item }
+    end
+  end
 
   def new
     authorize! :new, :dict

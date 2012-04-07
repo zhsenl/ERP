@@ -37,9 +37,9 @@ class EnterprisesController < ApplicationController
     end
   end
   
-  # GET /enterprises/1/display.json
+  # GET /enterprises/1/show_by_code.json
   # get enterprise by code
-  def display
+  def show_by_code
     @enterprise = Enterprise.find_by_code(params[:id])
 
     respond_to do |format|
