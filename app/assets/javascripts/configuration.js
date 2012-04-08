@@ -136,8 +136,6 @@ $(document).ready(function(){
 			    		label.html(result.name);
 			    	}
 		  	});
-		} else {
-			label.html("");
 		}
 				
 		$(this).autocomplete({

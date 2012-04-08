@@ -1,58 +1,21 @@
 <div class="content-box">
 	<div class="content-box-header">
-		<h3>添加授权企业</h3>
+		<h3>为 <%= @user.name %> 添加授权企业</h3>
 		<div class="operations">
 			<%= link_to '返回用户页面', @user %>
 		</div>
 	</div>
 	<div class="content-box-content">
-		<%= form_for @user.manage_relationships.build(:user_id => @user.id) do |f| %>
+		<%= form_for ManageRelationship.new do |f| %>
 			<fieldset>
 				<p>
-					<%= f.hidden_field :user_id %>
-					<%= f.hidden_field :enterprise_id %>
+					<input name="user_id" type="hidden" value="<%= @user.id %>"/>
 					<label>选择要授权的企业</label>
-					<input id="enterprise_code" class="text-input medium-input" type="text">
+					<input id="enterprise_autocomplete" name="enterprise_code" class="text-input medium-input" type="text" data-url="<%= enterprises_path %>" data-minLength="2" >
 					&nbsp;&nbsp;
 					<input class="button" type="submit" value="新增授权企业" name="commit">
 					<br />
-					<small id="enterprise_name">输入2字符后有提示</small>
-					<script>
-						$(document).ready(function(){
-							$("#enterprise_code").autocomplete({
-								source : function(request, response) {
-									$.get("<%= enterprises_path %>/search.json?term="+request.term, function(result){
-										response($.map(result, function(item) {
-											item.label = item.code + ":" + item.name;
-											item.value = item.code;
-											return item;
-										}));
-								  	});
-								},
-								minLength : 2,
-								select: function( event, ui ) {
-									$("#enterprise_name").html(ui.item.name);
-									$("#manage_relationship_enterprise_id").val(ui.item.id);
-								}
-							});
-							$("#enterprise_code").blur(function(){
-								if (this.value != "") {
-									$.get("<%= enterprises_path %>/" + this.value +"/show_by_code.json", function(result){
-								    	if (result == null) {
-									    		$("#enterprise_name").html("<span class='error_label'>请正确填写</span>");
-												$("#manage_relationship_enterprise_id").val("");
-									    	} else {
-									    		$("#enterprise_name").html(result.name);
-												$("#manage_relationship_enterprise_id").val(result.id);
-									    	}
-								  	});
-								} else {
-									$("#enterprise_name").html("");
-									$("#manage_relationship_enterprise_id").val("");
-								}			
-							})
-						});						
-					</script>
+					<small id="enterprise_autocomplete_label">输入2字符后有提示</small>
 				</p>
 			</fieldset>
 			<div class="clear"></div><!-- End .clear -->
@@ -62,7 +25,7 @@
 
 <div class="content-box">
 	<div class="content-box-header">
-		<h3>授权企业列表</h3>
+		<h3><%= @user.name %> 的授权企业列表</h3>
 	</div>
 	<div class="content-box-content">
 		<div class="tab-content default-tab">

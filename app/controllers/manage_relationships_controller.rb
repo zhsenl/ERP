@@ -3,8 +3,13 @@ class ManageRelationshipsController < ApplicationController
   authorize_resource
   
   def create
-    @manage_relationship = ManageRelationship.new(params[:manage_relationship])
-    @user = User.find(@manage_relationship.user_id)
+    @manage_relationship = ManageRelationship.new
+    @enterprise = Enterprise.find_by_code(params[:enterprise_code])
+    @user = User.find(params[:user_id])
+    if @user && @enterprise
+      @manage_relationship.user_id = @user.id
+      @manage_relationship.enterprise_id = @enterprise.id
+    end
     if @manage_relationship.save
       flash[:success] = "新增授权企业成功"
     else
