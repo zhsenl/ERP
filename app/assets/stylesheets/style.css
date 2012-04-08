@@ -176,6 +176,7 @@ a.remove-link:hover {
 	padding: 0;
 	font-size: 12px;
 	margin: 0;
+	display: none;
 }
 #sidebar #main-nav ul li {
 	list-style: none;
