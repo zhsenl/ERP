@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   
   def index
     @title = "用户列表"
-    @users = User.paginate(:page => params[:page],:per_page => 10)
+    @users = User.paginate(:page => params[:page],:per_page => 10, :order => "users.updated_at DESC")
   end
   
   def show    
