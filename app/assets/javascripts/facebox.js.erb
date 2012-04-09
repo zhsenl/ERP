@@ -74,13 +74,15 @@
   /*
    * Public, $.facebox methods
    */
+  
+  var closeImage = "<%= asset_path('closelabel.gif') %>";
 
   $.extend($.facebox, {
     settings: {
       opacity      : 0,
       overlay      : true,
-      loadingImage : '/assets/loading.gif',
-      closeImage   : '/assets/closelabel.gif',
+      loadingImage : "<%= asset_path('loading.gif') %>",
+      closeImage   : closeImage,
       imageTypes   : [ 'png', 'jpg', 'jpeg', 'gif' ],
       faceboxHtml  : '\
     <div id="facebox" style="display:none;"> \
@@ -97,7 +99,7 @@
                 </div> \
                 <div class="footer"> \
                   <a href="#" class="close"> \
-                    <img src="images/closelabel.gif" title="close" class="close_image" /> \
+                    <img title="close" class="close_image" /> \
                   </a> \
                 </div> \
               </td> \

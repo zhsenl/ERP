@@ -8,11 +8,11 @@ html {
 body {
 	font-family: Arial, Helvetica, sans-serif;
 	color: #555;
-	background: #f0f0f0 url('bg-body.gif') top left repeat-y;
+	background: #f0f0f0 image-url("bg-body.gif") top left repeat-y;
 	font-size: 12px;
 }
 #body-wrapper {
-	background: url('bg-radial-gradient.gif') fixed 230px top no-repeat;
+	background: image-url('bg-radial-gradient.gif') fixed 230px top no-repeat;
 }
 /********************************      Elements styling      ********************************/
 
@@ -91,7 +91,7 @@ p {
 .button {
 	font-family: Verdana, Arial, sans-serif;
 	display: inline-block;
-	background: #459300 url('bg-button-green.gif') top left repeat-x !important;
+	background: #459300 image-url('bg-button-green.gif') top left repeat-x !important;
 	border: 1px solid #459300 !important;
 	padding: 4px 7px 4px 7px !important;
 	color: #fff !important;
@@ -113,7 +113,7 @@ a.remove-link:hover {
 /********************************      Sidebar      ********************************/
 
 #sidebar {
-	background: url('bg-sidebar.gif') top left no-repeat;
+	background: image-url('bg-sidebar.gif') top left no-repeat;
 	width: 230px;
 	height: 100%;
 	position: absolute;
@@ -156,7 +156,7 @@ a.remove-link:hover {
 	text-align: right;
 }
 #sidebar #main-nav li a.nav-top-item {
-	background: transparent url('bg-menu-item-green.gif') right center no-repeat; /* Background image for default color scheme - green */
+	background: transparent image-url('bg-menu-item-green.gif') right center no-repeat; /* Background image for default color scheme - green */
 	padding: 10px 15px;
 	color: #fff;
 	font-size: 14px;
@@ -165,7 +165,7 @@ a.remove-link:hover {
 	text-decoration: none;
 }
 #sidebar #main-nav li a.current {
-	background-image: url('bg-menu-item-current.gif') !important;
+	background: image-url('bg-menu-item-current.gif') !important;
 	color: #333;
 	font-weight: bold;
 }
@@ -195,7 +195,7 @@ a.remove-link:hover {
 	color: #fff;
 }
 #sidebar #main-nav ul li a.current {
-	background: transparent url('menu-current-arrow.gif') right center no-repeat !important;
+	background: transparent image-url('menu-current-arrow.gif') right center no-repeat !important;
 }
 /************ Messages ************/
 
@@ -246,7 +246,7 @@ a.remove-link:hover {
 /* Unordered List */
 
 #main-content ul li {
-	background: url('icons/bullet_black.png') center left no-repeat;
+	background: image-url('icons/bullet_black.png') center left no-repeat;
 	padding: 4px 0 4px 20px;
 }
 /* Ordered List */
@@ -266,7 +266,7 @@ a.remove-link:hover {
 	background: #fff;
 }
 .content-box-header {
-	background: #e5e5e5 url('bg-content-box.gif') top left repeat-x;
+	background: #e5e5e5 image-url('bg-content-box.gif') top left repeat-x;
 	margin-top: 1px;
 	height: 40px;
 }
@@ -351,7 +351,7 @@ ul.content-box-tabs li a.current {
 	border: 1px solid #ddd;
 }
 .pagination .current {
-	background: #469400 url('bg-button-green.gif') top left repeat-x !important;
+	background: #469400 image-url('bg-button-green.gif') top left repeat-x !important;
 	margin: 0 5px 0 0;
 	padding: 3px 6px;
 	border: 1px solid #ddd;
@@ -362,7 +362,7 @@ ul.content-box-tabs li a.current {
 
 .shortcut-button {
 	border: 1px solid #ccc;
-	background: #f7f7f7 url('shortcut-button-bg.gif') top left no-repeat;
+	background: #f7f7f7 image-url('shortcut-button-bg.gif') top left no-repeat;
 	display: block;
 	width: 120px;
 	margin: 0 0 20px 0;
@@ -450,22 +450,22 @@ form input[type="checkbox"], form input[type="radio"] {
 	width: 99.8%;
 }
 .attention {
-	background: #fffbcc url('icons/exclamation.png') 10px 11px no-repeat;
+	background: #fffbcc image-url('icons/exclamation.png') 10px 11px no-repeat;
 	border-color: #e6db55;
 	color: #666452;
 }
 .information {
-	background: #dbe3ff url('icons/information.png');
+	background: #dbe3ff image-url('icons/information.png');
 	border-color: #a2b4ee;
 	color: #585b66;
 }
 .success {
-	background: #d5ffce url('icons/tick_circle.png');
+	background: #d5ffce image-url('icons/tick_circle.png');
 	border-color: #9adf8f;
 	color: #556652;
 }
 .error {
-	background: #ffcece url('icons/cross_circle.png');
+	background: #ffcece image-url('icons/cross_circle.png');
 	border-color: #df8f8f;
 	color: #665252;
 }
@@ -502,10 +502,10 @@ form input[type="checkbox"], form input[type="radio"] {
 
 body#login {
 	color: #fff;
-	background: #222 url('bg-login.gif');
+	background: #222 image-url('bg-login.gif');
 }
 #login-wrapper {
-	background: url('bg-login-top.png') top left repeat-x;
+	background: image-url('bg-login-top.png') top left repeat-x;
 }
 #login-wrapper #login-top {
 	width: 100%;
@@ -556,19 +556,19 @@ body#login {
 /*************** Facebox ***************/
 
 #facebox .b {
-	background: url(b.png);
+	background: image-url('b.png');
 }
 #facebox .tl {
-	background: url(tl.png);
+	background: image-url('tl.png');
 }
 #facebox .tr {
-	background: url(tr.png);
+	background: image-url('tr.png');
 }
 #facebox .bl {
-	background: url(bl.png);
+	background: image-url('bl.png');
 }
 #facebox .br {
-	background: url(br.png);
+	background: image-url('br.png');
 }
 #facebox {
 	position: absolute;
@@ -664,7 +664,7 @@ div.wysiwyg ul.panel li a {
 	padding: 0 !important;
 	width: 16px;
 	height: 16px;
-	background: url('icons/jquery.wysiwyg.gif') no-repeat -64px -80px;
+	background: image-url('icons/jquery.wysiwyg.gif') no-repeat -64px -80px;
 	border: 0;
 	cursor: pointer;
 	padding: 1px;
