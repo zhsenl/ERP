@@ -7,6 +7,7 @@ namespace :db do
                    :name => 'gavin',
                    :email => 'gavin.lau@foxmail.com',
                    :password => 'gavin',
-                   :password_confirmation => 'gavin')
+                   :password_confirmation => 'gavin',
+                   :roles => ["admin"])
   end  
 end
