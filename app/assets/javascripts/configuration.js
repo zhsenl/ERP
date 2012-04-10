@@ -9,8 +9,7 @@ $(document).ready(function(){
 			}
 		}
 		
-	//Sidebar Accordion Menu:		
-		$("#main-nav li ul").hide(); // Hide all sub menus
+	//Sidebar Accordion Menu:
 		$("#main-nav li ."+current_item).addClass("current");
 		$("#main-nav li ."+current_item).parent().parent().show(); // Slide down the current menu item's sub menu
 		
