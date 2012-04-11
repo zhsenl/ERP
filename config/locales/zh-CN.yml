@@ -4,9 +4,34 @@ zh-CN:
       user: 用户
       enterprise: 企业  
       foreign_enterprise: 外商
-      dict/unit: 单位
+      dict/attachment: 随附单证
+      dict/bracket: 托架
+      dict/bring_in_mode: 引进方式
+      dict/container: 集装箱
       dict/country: 国家地区
+      dict/currency: 币制
       dict/custom: 海关
+      dict/deal_mode: 成交方式
+      dict/declare_mode: 报关形式
+      dict/district: 国内地区
+      dict/good: 商品分类
+      dict/investment_mode: 投资方式
+      dict/load_port: 装卸口岸
+      dict/metal_cabinet: 铁皮柜
+      dict/pay_way: 结汇方式
+      dict/port: 港口
+      dict/process_type: 加工种类
+      dict/receipt_status: 回执状态
+      dict/tax_kind: 征免性质
+      dict/tax_mode: 征免方式
+      dict/trade_mode: 贸易方式
+      dict/transport_mode: 运输方式
+      dict/truck: 承运单位
+      dict/unit: 单位
+      dict/usage: 用途
+      dict/wrap_type: 包装种类
+      
+      
         
     attributes:
       user:

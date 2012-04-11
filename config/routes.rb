@@ -26,9 +26,32 @@ ERP::Application.routes.draw do
   end
   
   namespace :dict do
-    resources :countries,
+    resources :attachments,
+              :brackets,
+              :bring_in_modes,
+              :containers,
+              :countries,
+              :currencies,
+              :customs,
+              :deal_modes,
+              :declare_modes,
+              :districts,
+              :goods,
+              :investment_modes,
+              :load_ports,
+              :metal_cabinets,
+              :pay_ways,
+              :ports,
+              :process_types,
+              :receipt_statuses,
+              :tax_kinds,
+              :tax_modes,
+              :trade_modes,
+              :transport_modes,
+              :trucks,
               :units,
-              :customs do
+              :usages,
+              :wrap_types do
       get 'search', :on => :collection
       get 'show_by_code', :on => :member
     end
