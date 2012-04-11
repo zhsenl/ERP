@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50517
 File Encoding         : 65001
 
-Date: 2012-04-11 09:53:16
+Date: 2012-04-11 11:54:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -43,8 +43,8 @@ DROP TABLE IF EXISTS `dict_brackets`;
 CREATE TABLE `dict_brackets` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `code` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
   `manufacturer` varchar(255) DEFAULT NULL,
-  `model_no` varchar(255) DEFAULT NULL,
   `specification` varchar(255) DEFAULT NULL,
   `weight` decimal(15,4) DEFAULT NULL,
   `created_at` datetime NOT NULL,
@@ -55,45 +55,45 @@ CREATE TABLE `dict_brackets` (
 -- ----------------------------
 -- Records of dict_brackets
 -- ----------------------------
-INSERT INTO `dict_brackets` VALUES ('1', 'C1', '新日钢', 'NJGS21', '20尺单用骨架', '3800.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('2', 'C4', '新日钢', 'JGS41', '40尺二轴三用公仔架', '5000.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('3', 'A1', '新东急', 'TG21', '20尺单用骨架', '4100.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('4', 'A2', '新东急', 'TG42', '40尺二轴四用中置架', '5300.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('5', 'A3', '新东急', 'TG40', '40尺二轴鹅颈架', '5450.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('6', 'A4', '新东急', 'TG43', '40尺三轴四用中置架', '6200.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('7', 'A5', '新东急', 'TP43', '40尺三轴五用平板架', '7300.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('8', 'A6', '新东急', 'THT66FB', '30尺三轴二用平板架', '6500.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('9', 'B1', '华通', 'TH21', '20尺单用骨架', '4100.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('10', 'B2', '华通', 'TH42', '40尺二轴鹅颈架', '5300.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('11', 'B3', '华通', 'TH40', '40尺二轴鹅颈架', '5450.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('12', 'B4', '华通', 'TH43', '40尺三轴四用中置架', '6200.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('13', 'B5', '华通', 'THP43', '40尺三轴五用平板架', '7300.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('14', 'C10', '新日钢', 'JPS40M-3', '40尺三轴五用平板架', '7400.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('15', 'C11', '新日钢', 'FKZ340-T03', '40尺三轴四用中置架', '6100.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('16', 'C2', '新日钢', 'KG-920', '20尺单用骨架', '3800.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('17', 'C3', '新日钢', 'JGS41M', '40尺二轴四用中置架', '5200.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('18', 'C5', '新日钢', 'JGS42', '40尺二轴鹅颈架', '4700.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('19', 'C6', '新日钢', 'JGS41M-3A', '40尺三轴四用中置架', '6350.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('20', 'C7', '新日钢', 'JGS41-3A', '40尺三轴三用公仔架', '5700.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('21', 'C8', '新日钢', 'JPS30-3', 'JPS30-3', '5290.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('22', 'C9', '新日钢', 'JPS40M', '40尺二轴五用平板架', '6200.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('23', 'D2', '南海明威', 'TM43M', '40尺三轴四用中置架', '7050.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('24', 'E1', '日本东进', 'DCC-40B', '40尺三轴三用中置架', '5140.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('25', 'F1', '英国富合', 'GMFA3.8.75T', '40尺三轴四用平板架', '7200.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('26', 'F2', '英国富合', 'F', '40尺三轴四用架', '6500.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('27', 'F3', '英国富合', 'F3', '40尺二轴四用架', '5500.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('28', 'G1', '顺德广连鸿', 'SK40B', '40尺三轴四用中置架', '5300.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('29', 'G2', '顺德广连鸿', 'N.J6S21', '20尺单用骨架', '3800.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('30', 'G3', '顺德广连鸿', 'TPS46M-3', '40尺三轴三用中置架', '7400.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('31', 'H1', '顺德新劲力', 'SKT43S', '40尺三轴四用中置架', '6680.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('32', 'L1', '大力士', 'JCT-21S', '20尺单用骨架', '3800.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('33', 'L2', '大力士', 'JCT-41SM', '40尺二轴四用中置架', '5460.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('34', 'L3', '大力士', 'JCT-43SM', '40尺三轴四用中置架', '6613.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('35', 'L4', '大力士', 'JCT-42S', '40尺二轴鹅颈架', '4700.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('36', 'L5', '大力士', 'JCT40FBM', '40尺二轴五用平板架', '6375.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('37', 'L6', '大力士', 'JCT43FBM', '40尺三轴五用平板架', '6638.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('38', 'M1', '韩进架', 'M1', '40尺三轴四用中置架', '6270.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_brackets` VALUES ('39', 'N1', '新劲钢', 'N1', '40尺三轴四用中置架', '6370.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('1', 'C1', 'NJGS21', '新日钢', '20尺单用骨架', '3800.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('2', 'C4', 'JGS41', '新日钢', '40尺二轴三用公仔架', '5000.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('3', 'A1', 'TG21', '新东急', '20尺单用骨架', '4100.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('4', 'A2', 'TG42', '新东急', '40尺二轴四用中置架', '5300.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('5', 'A3', 'TG40', '新东急', '40尺二轴鹅颈架', '5450.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('6', 'A4', 'TG43', '新东急', '40尺三轴四用中置架', '6200.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('7', 'A5', 'TP43', '新东急', '40尺三轴五用平板架', '7300.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('8', 'A6', 'THT66FB', '新东急', '30尺三轴二用平板架', '6500.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('9', 'B1', 'TH21', '华通', '20尺单用骨架', '4100.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('10', 'B2', 'TH42', '华通', '40尺二轴鹅颈架', '5300.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('11', 'B3', 'TH40', '华通', '40尺二轴鹅颈架', '5450.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('12', 'B4', 'TH43', '华通', '40尺三轴四用中置架', '6200.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('13', 'B5', 'THP43', '华通', '40尺三轴五用平板架', '7300.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('14', 'C10', 'JPS40M-3', '新日钢', '40尺三轴五用平板架', '7400.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('15', 'C11', 'FKZ340-T03', '新日钢', '40尺三轴四用中置架', '6100.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('16', 'C2', 'KG-920', '新日钢', '20尺单用骨架', '3800.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('17', 'C3', 'JGS41M', '新日钢', '40尺二轴四用中置架', '5200.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('18', 'C5', 'JGS42', '新日钢', '40尺二轴鹅颈架', '4700.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('19', 'C6', 'JGS41M-3A', '新日钢', '40尺三轴四用中置架', '6350.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('20', 'C7', 'JGS41-3A', '新日钢', '40尺三轴三用公仔架', '5700.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('21', 'C8', 'JPS30-3', '新日钢', 'JPS30-3', '5290.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('22', 'C9', 'JPS40M', '新日钢', '40尺二轴五用平板架', '6200.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('23', 'D2', 'TM43M', '南海明威', '40尺三轴四用中置架', '7050.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('24', 'E1', 'DCC-40B', '日本东进', '40尺三轴三用中置架', '5140.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('25', 'F1', 'GMFA3.8.75T', '英国富合', '40尺三轴四用平板架', '7200.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('26', 'F2', 'F', '英国富合', '40尺三轴四用架', '6500.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('27', 'F3', 'F3', '英国富合', '40尺二轴四用架', '5500.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('28', 'G1', 'SK40B', '顺德广连鸿', '40尺三轴四用中置架', '5300.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('29', 'G2', 'N.J6S21', '顺德广连鸿', '20尺单用骨架', '3800.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('30', 'G3', 'TPS46M-3', '顺德广连鸿', '40尺三轴三用中置架', '7400.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('31', 'H1', 'SKT43S', '顺德新劲力', '40尺三轴四用中置架', '6680.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('32', 'L1', 'JCT-21S', '大力士', '20尺单用骨架', '3800.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('33', 'L2', 'JCT-41SM', '大力士', '40尺二轴四用中置架', '5460.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('34', 'L3', 'JCT-43SM', '大力士', '40尺三轴四用中置架', '6613.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('35', 'L4', 'JCT-42S', '大力士', '40尺二轴鹅颈架', '4700.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('36', 'L5', 'JCT40FBM', '大力士', '40尺二轴五用平板架', '6375.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('37', 'L6', 'JCT43FBM', '大力士', '40尺三轴五用平板架', '6638.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('38', 'M1', 'M1', '韩进架', '40尺三轴四用中置架', '6270.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_brackets` VALUES ('39', 'N1', 'N1', '新劲钢', '40尺三轴四用中置架', '6370.0000', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- ----------------------------
 -- Table structure for `dict_bring_in_modes`
@@ -121,7 +121,7 @@ DROP TABLE IF EXISTS `dict_containers`;
 CREATE TABLE `dict_containers` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `code` varchar(255) DEFAULT NULL,
-  `size` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
   `valent_num` int(11) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
@@ -350,7 +350,7 @@ CREATE TABLE `dict_districts` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `code` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
-  `type` int(11) DEFAULT NULL,
+  `kind` int(11) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
@@ -1300,10 +1300,10 @@ INSERT INTO `dict_investment_modes` VALUES ('1', '1', '技术型', '0000-00-00 0
 INSERT INTO `dict_investment_modes` VALUES ('2', '2', '生产型', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- ----------------------------
--- Table structure for `dict_loadports`
+-- Table structure for `dict_load_ports`
 -- ----------------------------
-DROP TABLE IF EXISTS `dict_loadports`;
-CREATE TABLE `dict_loadports` (
+DROP TABLE IF EXISTS `dict_load_ports`;
+CREATE TABLE `dict_load_ports` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `code` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
@@ -1314,15 +1314,15 @@ CREATE TABLE `dict_loadports` (
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of dict_loadports
+-- Records of dict_load_ports
 -- ----------------------------
-INSERT INTO `dict_loadports` VALUES ('5', '5238', '凤岗车检场', '5207', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_loadports` VALUES ('7', '5294', '56号泊位', '5216', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_loadports` VALUES ('9', '5268', '寮步车检场', '5217', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_loadports` VALUES ('10', '5284', '长安车检场', '5213', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_loadports` VALUES ('12', '5269', '东莞保税（B型）/泽盛 BW521669415/', '5220', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_loadports` VALUES ('13', '5297', '装卸口岸:加贸结转', '5200', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_loadports` VALUES ('14', '5239', '虎门车检场', '5205', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_load_ports` VALUES ('5', '5238', '凤岗车检场', '5207', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_load_ports` VALUES ('7', '5294', '56号泊位', '5216', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_load_ports` VALUES ('9', '5268', '寮步车检场', '5217', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_load_ports` VALUES ('10', '5284', '长安车检场', '5213', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_load_ports` VALUES ('12', '5269', '东莞保税（B型）/泽盛 BW521669415/', '5220', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_load_ports` VALUES ('13', '5297', '装卸口岸:加贸结转', '5200', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_load_ports` VALUES ('14', '5239', '虎门车检场', '5205', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- ----------------------------
 -- Table structure for `dict_metal_cabinets`
@@ -1331,7 +1331,7 @@ DROP TABLE IF EXISTS `dict_metal_cabinets`;
 CREATE TABLE `dict_metal_cabinets` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `code` varchar(255) DEFAULT NULL,
-  `description` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
   `weight` decimal(15,4) DEFAULT NULL,
   `size` varchar(255) DEFAULT NULL,
   `created_at` datetime NOT NULL,
@@ -1683,7 +1683,7 @@ DROP TABLE IF EXISTS `dict_trucks`;
 CREATE TABLE `dict_trucks` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `code` varchar(255) DEFAULT NULL,
-  `truck_no` varchar(255) DEFAULT NULL,
+  `name` varchar(255) DEFAULT NULL,
   `ic_card` varchar(255) DEFAULT NULL,
   `corporation_name` varchar(255) DEFAULT NULL,
   `hk_truck_no` varchar(255) DEFAULT NULL,
@@ -2237,10 +2237,10 @@ INSERT INTO `dict_units` VALUES ('42', '025', '双', '0000-00-00 00:00:00', '000
 INSERT INTO `dict_units` VALUES ('43', '038', '万个', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- ----------------------------
--- Table structure for `dict_useages`
+-- Table structure for `dict_usages`
 -- ----------------------------
-DROP TABLE IF EXISTS `dict_useages`;
-CREATE TABLE `dict_useages` (
+DROP TABLE IF EXISTS `dict_usages`;
+CREATE TABLE `dict_usages` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `code` varchar(255) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
@@ -2250,14 +2250,14 @@ CREATE TABLE `dict_useages` (
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
--- Records of dict_useages
+-- Records of dict_usages
 -- ----------------------------
-INSERT INTO `dict_useages` VALUES ('1', '01', '外贸自营内销', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_useages` VALUES ('2', '02', '其他内销', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_useages` VALUES ('3', '05', '加工返销', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_useages` VALUES ('4', '04', '企业自用', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_useages` VALUES ('5', '07', '收保证金', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_useages` VALUES ('6', '11', '其它', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_usages` VALUES ('1', '01', '外贸自营内销', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_usages` VALUES ('2', '02', '其他内销', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_usages` VALUES ('3', '05', '加工返销', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_usages` VALUES ('4', '04', '企业自用', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_usages` VALUES ('5', '07', '收保证金', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_usages` VALUES ('6', '11', '其它', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- ----------------------------
 -- Table structure for `dict_wrap_types`

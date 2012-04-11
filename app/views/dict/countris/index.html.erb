@@ -1,8 +1,8 @@
 <div class="content-box">
 	<div class="content-box-header">
-		<h3>国家列表</h3>
+		<h3><%= @model_name %>列表</h3>
 		<div class="operations">
-			<%= link_to '添加新国家', new_dict_country_path %> | 
+			<%= link_to '添加新'+@model_name, new_dict_country_path %> | 
 			<%= link_to '返回字典列表', dict_path %>
 		</div>
 	</div>

@@ -1,9 +1,9 @@
 <div class="content-box">
 	<div class="content-box-header">
-		<h3>查看国家</h3>
+		<h3>查看<%= @model_name %></h3>
 		<div class="operations">
 			<%= link_to '编辑', edit_dict_country_path(@item) %> |
-			<%= link_to '返回列表', dict_countries_path %>
+			<%= link_to '返回列表', dict_countris_path %>
 		</div>
 	</div>
 	<div class="content-box-content">
@@ -12,10 +12,7 @@
 				<b>编码</b>：<%= @item.code %>
 			</p>
 			<p>
-				<b>中文名称</b>：<%= @item.name %>
-			</p>
-			<p>
-				<b>英文名称</b>：<%= @item.english_name %>
+				<b>名称</b>：<%= @item.name %>
 			</p>
 		</div>
 	</div>

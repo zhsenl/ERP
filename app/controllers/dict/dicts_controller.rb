@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 class Dict::DictsController < ApplicationController
+  before_filter :init
+  
   def index
     authorize! :index, :dict
     @title = '字典列表'
@@ -98,5 +100,9 @@ class Dict::DictsController < ApplicationController
       format.html { redirect_to action: 'index' }
       format.json { head :no_content }
     end
+  end
+  
+  def init
+    @model_name = model.model_name.human
   end
 end

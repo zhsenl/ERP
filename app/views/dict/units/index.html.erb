@@ -1,8 +1,8 @@
 <div class="content-box">
 	<div class="content-box-header">
-		<h3>单位列表</h3>
+		<h3><%= @model_name %>列表</h3>
 		<div class="operations">
-			<%= link_to '添加新单位', new_dict_unit_path %> | 
+			<%= link_to '添加新'+@model_name, new_dict_unit_path %> | 
 			<%= link_to '返回字典列表', dict_path %>
 		</div>
 	</div>
