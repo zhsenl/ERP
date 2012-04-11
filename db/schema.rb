@@ -13,28 +13,6 @@
 
 ActiveRecord::Schema.define(:version => 20120407164011) do
 
-  create_table "dict_countries", :force => true do |t|
-    t.string   "code"
-    t.string   "name"
-    t.string   "english_name"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-  end
-
-  create_table "dict_customs", :force => true do |t|
-    t.string   "code"
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  create_table "dict_units", :force => true do |t|
-    t.string   "code"
-    t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
   create_table "enterprise_custom_options", :force => true do |t|
     t.integer  "enterprise_id"
     t.string   "custom_code"
@@ -94,14 +72,6 @@ ActiveRecord::Schema.define(:version => 20120407164011) do
     t.datetime "updated_at", :null => false
   end
 
-  create_table "posts", :force => true do |t|
-    t.string   "name"
-    t.string   "title"
-    t.text     "content"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "users", :force => true do |t|
     t.string   "username"
     t.string   "email"
@@ -109,9 +79,9 @@ ActiveRecord::Schema.define(:version => 20120407164011) do
     t.string   "encrypted_password"
     t.string   "name"
     t.string   "phone"
+    t.integer  "roles_mask"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
-    t.integer  "roles_mask"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
