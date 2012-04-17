@@ -14,6 +14,18 @@
 			<p>
 				<b>名称</b>：<%= @item.name %>
 			</p>
+			<p>
+				<b>附件编码</b>：<%= @item.plus_code %>
+			</p>
+			<p>
+				<b>单位1</b>：<span class="autoload" data-url=<%= dict_units_path %> ><%= @item.unit1 %></span>
+			</p>
+			<p>
+				<b>单位2</b>：<span class="autoload" data-url=<%= dict_units_path %> ><%= @item.unit2 %></span>
+			</p>
+			<p>
+				<b>备注</b>：<%= @item.memo %>
+			</p>
 		</div>
 	</div>
 </div>

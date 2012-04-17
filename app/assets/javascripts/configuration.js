@@ -107,11 +107,11 @@ $(document).ready(function(){
 		  width = width <= 980 ? 980 : width;
 		  $("#body-wrapper").width(width + "px");
 		});
-		
+	
 	//ajax span
 	$("span.autoload").each(function(){
-		span = this;
-		url = this.getAttribute("data-url");
+		var span = this;
+		var url = this.getAttribute("data-url");
 		$.get(url + "/" + this.innerHTML +"/show_by_code.json", function(result){
 	    	if (result == null) {
 	    		span.innerHTML += " (请正确填写)";
@@ -124,9 +124,9 @@ $(document).ready(function(){
 	
 	//autocomplete field settings
 	$("input[id$='_autocomplete']").each(function(){
-		label = $("#" + this.id + "_label");
-		url = this.getAttribute("data-url");
-		minLength = this.getAttribute("data-minLength");
+		var label = $("#" + this.id + "_label");
+		var url = this.getAttribute("data-url");
+		var minLength = this.getAttribute("data-minLength");
 		if (this.value != "") {
 			$.get(url + "/" + this.value +"/show_by_code.json", function(result){
 		    	if (result == null) {

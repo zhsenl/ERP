@@ -1,3 +1,3 @@
 class Dict::MetalCabinet < Dict::Dict
-  # attr_accessible :title, :body
+  validates :weight, :numericality => true
 end
