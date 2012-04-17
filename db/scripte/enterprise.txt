@@ -1,0 +1,28 @@
+OldEnterprise.all.each do |oe|
+
+ne = Enterprise.new
+nec = EnterpriseCustomOption.new
+ne.enterprise_custom_option = nec
+ne.code = oe.ownerCode
+ne.name = oe.registeName
+ne.address = oe.address
+ne.linkman = oe.contact
+ne.telephone = oe.telephone
+ne.fax = oe.fax
+ne.bank = oe.bank
+ne.bank_account = oe.bankAccount
+
+nec.custom_code = oe.customsCode
+nec.trade_code = oe.tradeCode
+nec.platform_id = oe.jichengtongId
+nec.area_name = oe.quyujiedian
+nec.user_private_key = oe.userPrivateKey
+nec.process_no = oe.bpNo
+nec.ic_card_no = oe.icCardNo
+nec.certificate_no = oe.certificateNo
+nec.proxy_unit_price = oe.proxyCostPerDeal
+nec.service_unit_price = oe.serviceCostPerDeal
+
+ne.save
+
+end

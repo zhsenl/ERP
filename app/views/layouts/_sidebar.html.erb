@@ -70,6 +70,7 @@
 					</li>
 				</ul>
 			</li>
+			<% if current_user.is? "admin" %>
 			<li>
 				<a href="#" class="nav-top-item"> 系统管理 </a>
 				<ul>
@@ -90,6 +91,7 @@
 					</li>
 				</ul>
 			</li>
+			<% end %>
 		</ul>
 		<!-- End #main-nav -->
 		<div id="messages" style="display: none; ">
