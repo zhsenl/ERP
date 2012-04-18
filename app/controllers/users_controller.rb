@@ -50,7 +50,7 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
   
-   def detail    
+  def me    
     @user = current_user
     @title = "我的详细资料"
   end
@@ -68,10 +68,17 @@ class UsersController < ApplicationController
     @user.password = params[:user][:password]
     @user.password_confirmation = params[:user][:password_confirmation]
     if @user.save
-      redirect_to :detail, :flash => {:success => "成功修改我的资料"}
+      redirect_to :me, :flash => {:success => "成功修改我的资料"}
     else      
       @title = "编辑我的资料"
       render 'modify'
+    end
+  end
+  
+  def my_enterprises
+    @enterprises = current_user.enterprises
+    respond_to do |format|
+      format.json { render json: @enterprises }
     end
   end
   
@@ -79,6 +86,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @title = @user.username + " 的授权企业列表"
     @enterprises = @user.enterprises.paginate(:page => params[:page],:per_page => 10)
+    
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @enterprises }
+    end
   end
   
 end

@@ -3,4 +3,4 @@
 <% min_length ||= 2 %>
 <%= form.text_field attribute, :class => klass, :id => id, :"data-url" => url, :"data-minLength" => min_length %>
 <br />
-<small id="<%= label_id %>"></small>
+<small id="<%= label_id %>">输入<%= min_length %>个字符后有提示</small>

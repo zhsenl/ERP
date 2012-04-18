@@ -4,6 +4,7 @@ zh-CN:
       user: 用户
       enterprise: 企业  
       foreign_enterprise: 外商
+      contract: 合同
       dict/attachment: 随附单证
       dict/bracket: 托架
       dict/bring_in_mode: 引进方式

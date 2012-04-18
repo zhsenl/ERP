@@ -1,0 +1,82 @@
+<div class="content-box">
+	<div class="content-box-header">
+		<h3><%= @contract.manual_code %> 的合同资料</h3>
+		<div class="operations">
+			<%= link_to '编辑', edit_contract_path(@contract) %> |
+			<%= link_to '返回', contracts_path %>
+		</div>
+	</div>
+	<div class="content-box-content">
+		<div class="tab-content default-tab">
+			<p>
+			  <b>经营单位:</b>
+			  <%= @contract.operating_enterprise_code %>
+			</p>
+			
+			<p>
+			  <b>外商公司:</b>
+			  <%= @contract.foreign_enterprise_code %>
+			</p>
+			
+			<p>
+			  <b>手册编号:</b>
+			  <%= @contract.manual_code %>
+			</p>
+			
+			<p>
+			  <b>贸易方式:</b>
+			  <%= @contract.trade_mode_code %>
+			</p>
+			
+			<p>
+			  <b>征免性质:</b>
+			  <%= @contract.tax_kind_code %>
+			</p>
+			
+			<p>
+			  <b>出口合同:</b>
+			  <%= @contract.export_contract_code %>
+			</p>
+			
+			<p>
+			  <b>出口币制:</b>
+			  <%= @contract.export_currency_code %>
+			</p>
+			
+			<p>
+			  <b>出口方式:</b>
+			  <%= @contract.export_deal_mode_code %>
+			</p>
+			
+			<p>
+			  <b>出口期限:</b>
+			  <%= @contract.export_deadline.strftime('%Y-%m-%d %H:%M:%S') %>
+			</p>
+			
+			<p>
+			  <b>进口合同:</b>
+			  <%= @contract.import_contract_code %>
+			</p>
+			
+			<p>
+			  <b>进口币制:</b>
+			  <%= @contract.import_currency_code %>
+			</p>
+			
+			<p>
+			  <b>进口方式:</b>
+			  <%= @contract.import_deal_mode_code %>
+			</p>
+			
+			<p>
+			  <b>进口期限:</b>
+			  <%= @contract.import_deadline.strftime('%Y-%m-%d %H:%M:%S') %>
+			</p>
+			
+			<p>
+			  <b>录入时间:</b>
+			  <%= @contract.type_in_date.strftime('%Y-%m-%d %H:%M:%S') %>
+			</p>
+		</div>
+	</div>
+</div>

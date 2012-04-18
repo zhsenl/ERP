@@ -7,19 +7,19 @@
 	</div>
 	<div class="content-box-content">
 		<%= form_for ManageRelationship.new do |f| %>
-			<fieldset>
-				<p>
-					<input name="user_id" type="hidden" value="<%= @user.id %>"/>
-					<label>选择要授权的企业</label>
-					<input id="enterprise_autocomplete" name="enterprise_code" class="text-input medium-input" type="text" data-url="<%= enterprises_path %>" data-minLength="2" >
-					&nbsp;&nbsp;
-					<input class="button" type="submit" value="新增授权企业" name="commit">
-					<br />
-					<small id="enterprise_autocomplete_label">输入2字符后有提示</small>
-				</p>
-			</fieldset>
-			<div class="clear"></div><!-- End .clear -->
-			<% end %>
+		<fieldset>
+			<p>
+				<input name="user_id" type="hidden" value="<%= @user.id %>"/>
+				<label>选择要授权的企业</label>
+				<input id="enterprise_autocomplete" name="enterprise_code" class="text-input medium-input first_field" type="text" data-url="<%= enterprises_path %>" data-minLength="2" >
+				&nbsp;&nbsp;
+				<input class="button" type="submit" value="新增授权企业" name="commit">
+				<br />
+				<small id="enterprise_autocomplete_label">输入2字符后有提示</small>
+			</p>
+		</fieldset>
+		<div class="clear"></div><!-- End .clear -->
+		<% end %>
 	</div>
 </div>
 

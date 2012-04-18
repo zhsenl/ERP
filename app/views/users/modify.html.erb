@@ -3,13 +3,13 @@
 	<div class="content-box-header">
 		<h3>编辑我的资料</h3>
 		<div class="operations">
-			<%= link_to '返回', detail_path %>
+			<%= link_to '返回', me_path %>
 		</div>
 	</div>
 	<!-- End .content-box-header -->
 	<div class="content-box-content">
 		<%= render "shared/error_messages", :model => @user %>			
-		<%= form_tag(detail_change_path, :method => "post") do %>
+		<%= form_tag(me_change_path, :method => "post") do %>
 			<fieldset>
 				<p>
 					<label for="user_email">邮箱 Email</label>

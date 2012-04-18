@@ -1,0 +1,19 @@
+<%= form_tag(select_enterprise_path, :method => "post") do %>
+<fieldset>
+	<p>
+		<input name="url" type="hidden" value="<%= request.url %>"/>
+		<label style="display: inline;" >当前操作企业：</label>
+		<select name="current_enterprise_id" id="current_enterprise_id" class="small-input" >
+		  <option value="0">请选择企业</option>
+		  <% current_user.enterprises.each do |enterprise| %>
+		  <option value="<%= enterprise.id %>" <% if current_enterprise == enterprise %> selected="selected"<% end %>><%= enterprise.code + enterprise.name %></option>
+		  <% end %>
+		</select>		
+		&nbsp;&nbsp;
+		<input class="button" type="submit" value="切换企业" name="commit">	
+	</p>
+</fieldset>
+<div class="clear"></div><!-- End .clear -->
+<% end %>
+<br />
+

@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 ERP::Application.routes.draw do
   
+  resources :contracts
+
   resources :manage_relationships
 
   match '/options', :to => 'options#index'
@@ -10,10 +12,12 @@ ERP::Application.routes.draw do
   match '/signin', :to => 'sessions#new'
   match '/signout', :to => 'sessions#destroy'
   
-  match '/detail', :to => 'users#detail'
-  match '/detail/modify', :to => 'users#modify'
-  match '/detail/change', :to => 'users#change'
+  match '/me', :to => 'users#me'
+  match '/me/modify', :to => 'users#modify'
+  match '/me/change', :to => 'users#change'
+  match '/me/enterprises', :to => 'users#my_enterprises'
   
+  match '/select_enterprise', :to => 'pages#select_enterprise'  
   match '/dict', :to => 'pages#dict'
 
   resources :users do

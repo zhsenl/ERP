@@ -17,21 +17,14 @@
 				<%= link_to '我的首页', root_path, :class => "nav-top-item no-submenu pages_home" %>
 			</li>
 			<li>
-				<a href="#" class="nav-top-item"> <!-- Add the class "current" to current menu item --> Articles </a>
+				<a href="#" class="nav-top-item"> 合同管理 </a>
 				<ul>
 					<li>
-						<a href="#">Write a new Article</a>
+						<%= link_to '新增合同', new_contract_path, :class => "contracts_new" %>
 					</li>
 					<li>
-						<a href="#">Manage Articles</a>
-					</li>
-					<!-- Add class "current" to sub menu items also -->
-					<li>
-						<a href="#">Manage Comments</a>
-					</li>
-					<li>
-						<a href="#">Manage Categories</a>
-					</li>
+						<%= link_to '合同列表', contracts_path, :class => "contracts" %>
+					</li>					
 				</ul>
 			</li>
 			<li>
@@ -66,7 +59,7 @@
 				<a href="#" class="nav-top-item"> 设置 </a>
 				<ul>
 					<li>
-						<%= link_to '我的资料', detail_path, :class => "users_detail users_modify" %>
+						<%= link_to '我的资料', me_path, :class => "users_me users_modify" %>
 					</li>
 				</ul>
 			</li>
