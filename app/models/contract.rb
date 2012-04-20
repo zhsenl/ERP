@@ -1,9 +1,11 @@
 # -*- encoding : utf-8 -*-
 class Contract < ActiveRecord::Base
+  belongs_to :enterprise
+  has_many :contract_productions
   validates :enterprise_id, :presence => true, :numericality => true
-  validates :operating_enterprise_code, :presence => true
-  validates :trade_mode_code, :presence => true
-  validates :manual_code, :presence => true
-  validates :tax_kind_code, :presence => true
+  validates :operating_enterprise, :presence => true
+  validates :trade_mode, :presence => true
+  validates :manual, :presence => true
+  validates :tax_kind, :presence => true
   validates :type_in_date, :presence => true
 end

@@ -1,8 +1,9 @@
 <div class="content-box">
 	<div class="content-box-header">
-		<h3><%= @contract.manual_code %> 的合同资料</h3>
+		<h3>查看合同(<%= @contract.enterprise.name %>)</h3>
 		<div class="operations">
-			<%= link_to '编辑', edit_contract_path(@contract) %> |
+			<%= link_to '管理成品', contract_productions_path(:contract_id => @contract.id) %> |
+			<%= link_to '编辑合同头', edit_contract_path(@contract) %> |
 			<%= link_to '返回', contracts_path %>
 		</div>
 	</div>
@@ -10,42 +11,42 @@
 		<div class="tab-content default-tab">
 			<p>
 			  <b>经营单位:</b>
-			  <%= @contract.operating_enterprise_code %>
+			  <span class="autoload" data-url=<%= enterprises_path %> ><%= @contract.operating_enterprise %></span>
 			</p>
 			
 			<p>
 			  <b>外商公司:</b>
-			  <%= @contract.foreign_enterprise_code %>
+			  <span class="autoload" data-url=<%= foreign_enterprises_path %> ><%= @contract.foreign_enterprise %></span>
 			</p>
 			
 			<p>
 			  <b>手册编号:</b>
-			  <%= @contract.manual_code %>
+			  <%= @contract.manual %>
 			</p>
 			
 			<p>
 			  <b>贸易方式:</b>
-			  <%= @contract.trade_mode_code %>
+			  <span class="autoload" data-url=<%= dict_trade_modes_path %> ><%= @contract.trade_mode %></span>
 			</p>
 			
 			<p>
 			  <b>征免性质:</b>
-			  <%= @contract.tax_kind_code %>
+			  <span class="autoload" data-url=<%= dict_tax_kinds_path %> ><%= @contract.tax_kind %></span>
 			</p>
 			
 			<p>
 			  <b>出口合同:</b>
-			  <%= @contract.export_contract_code %>
+			  <%= @contract.export_contract %>
 			</p>
 			
 			<p>
 			  <b>出口币制:</b>
-			  <%= @contract.export_currency_code %>
+			  <span class="autoload" data-url=<%= dict_currencies_path %> ><%= @contract.export_currency %></span>
 			</p>
 			
 			<p>
 			  <b>出口方式:</b>
-			  <%= @contract.export_deal_mode_code %>
+			  <span class="autoload" data-url=<%= dict_deal_modes_path %> ><%= @contract.export_deal_mode %></span>
 			</p>
 			
 			<p>
@@ -55,19 +56,19 @@
 			
 			<p>
 			  <b>进口合同:</b>
-			  <%= @contract.import_contract_code %>
+			  <%= @contract.import_contract %>
 			</p>
 			
 			<p>
 			  <b>进口币制:</b>
-			  <%= @contract.import_currency_code %>
+			  <span class="autoload" data-url=<%= dict_currencies_path %> ><%= @contract.import_currency %></span>
 			</p>
 			
 			<p>
 			  <b>进口方式:</b>
-			  <%= @contract.import_deal_mode_code %>
+			  <span class="autoload" data-url=<%= dict_deal_modes_path %> ><%= @contract.import_deal_mode %></span>
 			</p>
-			
+						
 			<p>
 			  <b>进口期限:</b>
 			  <%= @contract.import_deadline.strftime('%Y-%m-%d %H:%M:%S') %>

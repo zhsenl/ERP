@@ -1,0 +1,77 @@
+<div class="content-box">
+	<div class="content-box-header">
+		<h3>合同成品 <%= @contract_production.code + @contract_production.plus_code %></h3>
+		<div class="operations">
+			<%= link_to '编辑', edit_contract_production_path(@contract_production) %> |
+			<%= link_to '返回', contract_productions_path(:contract_id => @contract_production.contract.id) %>
+		</div>
+	</div>
+	<div class="content-box-content">
+		<div class="tab-content default-tab">
+			<p>
+			  <b>商品编码:</b>
+			  <%= @contract_production.code %>
+			</p>
+			
+			<p>
+			  <b>附加编码:</b>
+			  <%= @contract_production.plus_code %>
+			</p>
+			
+			<p>
+			  <b>商品名称:</b>
+			  <%= @contract_production.name %>
+			</p>
+			
+			<p>
+			  <b>规格型号:</b>
+			  <%= @contract_production.specification %>
+			</p>
+			
+			<p>
+			  <b>申报单位:</b>
+			  <span class="autoload" data-url=<%= dict_units_path %> ><%= @contract_production.unit %></span>
+			</p>
+			
+			<p>
+			  <b>第一单位:</b>
+			  <span class="autoload" data-url=<%= dict_units_path %> ><%= @contract_production.unit1 %></span>
+			</p>
+			
+			<p>
+			  <b>第二单位:</b>
+			  <span class="autoload" data-url=<%= dict_units_path %> ><%= @contract_production.unit2 %></span>
+			</p>
+			
+			<p>
+			  <b>数量:</b>
+			  <%= @contract_production.quantity %>
+			</p>
+			
+			<p>
+			  <b>单价:</b>
+			  <%= @contract_production.unit_price %>
+			</p>
+			
+			<p>
+			  <b>总价:</b>
+			  <%= @contract_production.total_price %>
+			</p>
+			
+			<p>
+			  <b>产销国:</b>
+			  <span class="autoload" data-url=<%= dict_countries_path %> ><%= @contract_production.country %></span>
+			</p>
+			
+			<p>
+			  <b>征免方式:</b>
+			  <span class="autoload" data-url=<%= dict_tax_modes_path %> ><%= @contract_production.tax_mode %></span>
+			</p>
+			
+			<p>
+			  <b>序号:</b>
+			  <%= @contract_production.no %>
+			</p>
+		</div>
+	</div>
+</div>

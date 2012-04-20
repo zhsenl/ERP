@@ -35,8 +35,8 @@ class ContractsController < ApplicationController
     else
       redirect_to contracts_path, notice: '请选择要操作的企业'
     end
-    @contract.export_deal_mode_code = 3
-    @contract.import_deal_mode_code = 1
+    @contract.export_deal_mode = 3
+    @contract.import_deal_mode = 1
   end
 
   # GET /contracts/1/edit

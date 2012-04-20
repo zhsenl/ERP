@@ -11,26 +11,44 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120417155639) do
+ActiveRecord::Schema.define(:version => 20120418140157) do
+
+  create_table "contract_productions", :force => true do |t|
+    t.integer  "contract_id"
+    t.string   "code"
+    t.string   "plus_code"
+    t.string   "name"
+    t.string   "specification"
+    t.string   "unit"
+    t.string   "unit1"
+    t.string   "unit2"
+    t.decimal  "quantity",      :precision => 15, :scale => 4
+    t.decimal  "unit_price",    :precision => 15, :scale => 4
+    t.string   "country"
+    t.string   "tax_mode"
+    t.string   "no"
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
+  end
 
   create_table "contracts", :force => true do |t|
     t.integer  "enterprise_id"
-    t.string   "operating_enterprise_code"
-    t.string   "foreign_enterprise_code"
-    t.string   "manual_code"
-    t.string   "trade_mode_code"
-    t.string   "tax_kind_code"
-    t.string   "export_contract_code"
-    t.string   "export_currency_code"
-    t.string   "export_deal_mode_code"
+    t.string   "operating_enterprise"
+    t.string   "foreign_enterprise"
+    t.string   "manual"
+    t.string   "trade_mode"
+    t.string   "tax_kind"
+    t.string   "export_contract"
+    t.string   "export_currency"
+    t.string   "export_deal_mode"
     t.datetime "export_deadline"
-    t.string   "import_contract_code"
-    t.string   "import_currency_code"
-    t.string   "import_deal_mode_code"
+    t.string   "import_contract"
+    t.string   "import_currency"
+    t.string   "import_deal_mode"
     t.datetime "import_deadline"
     t.datetime "type_in_date"
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
   end
 
   create_table "dict_attachments", :force => true do |t|
@@ -285,41 +303,6 @@ ActiveRecord::Schema.define(:version => 20120417155639) do
     t.integer  "enterprise_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
-  end
-
-  create_table "old_enterprises", :force => true do |t|
-    t.string  "address"
-    t.string  "bankInfomation"
-    t.string  "contact"
-    t.string  "customsCode"
-    t.string  "fax"
-    t.binary  "isDeclare",          :limit => 1
-    t.binary  "isEnter",            :limit => 1
-    t.binary  "isReceive",          :limit => 1
-    t.binary  "isRun",              :limit => 1
-    t.binary  "isSend",             :limit => 1
-    t.string  "legalPersonCode"
-    t.string  "operateTime"
-    t.string  "operator"
-    t.string  "registeName"
-    t.string  "telephone"
-    t.string  "tradeCode"
-    t.string  "ownerCode"
-    t.string  "ediCode"
-    t.integer "runningNum",                      :null => false
-    t.string  "bank"
-    t.string  "bankAccount"
-    t.string  "bpNo"
-    t.string  "jichengtongId"
-    t.string  "quyujiedian"
-    t.string  "userPrivateKey"
-    t.string  "ftpPassword"
-    t.string  "ftpUsername"
-    t.float   "money"
-    t.string  "certificateNo"
-    t.string  "icCardNo"
-    t.float   "proxyCostPerDeal",                :null => false
-    t.float   "serviceCostPerDeal",              :null => false
   end
 
   create_table "options", :force => true do |t|
