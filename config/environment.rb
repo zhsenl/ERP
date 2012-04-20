@@ -14,6 +14,7 @@ ActionView::Base.field_error_proc = Proc.new do |html_tag, instance|
     end
   else
     html_tag
-  end
-  
+  end  
 end
+
+WillPaginate.per_page = 10

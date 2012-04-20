@@ -5,7 +5,7 @@ class ForeignEnterprisesController < ApplicationController
   # GET /foreign_enterprises
   # GET /foreign_enterprises.json
   def index
-    @foreign_enterprises = ForeignEnterprise.paginate(:page => params[:page],:per_page => 10, :order => "foreign_enterprises.updated_at DESC")
+    @foreign_enterprises = ForeignEnterprise.page(params[:page]).order("updated_at DESC")
 
     respond_to do |format|
       format.html # index.html.erb

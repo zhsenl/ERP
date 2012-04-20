@@ -4,7 +4,7 @@ class ContractsController < ApplicationController
   # GET /contracts.json
   def index
     if current_enterprise
-      @contracts = current_enterprise.contracts.paginate(:page => params[:page],:per_page => 10, :order => "contracts.updated_at DESC")
+      @contracts = current_enterprise.contracts.page(params[:page]).order("updated_at DESC")
     else
       @contracts = Enterprise.new.contracts.paginate(:page => params[:page],:per_page => 10)
     end    

@@ -5,7 +5,7 @@ class ContractProductionsController < ApplicationController
   def index
     @contract = Contract.find_by_id(params[:contract_id])
     if @contract
-      @contract_productions = @contract.contract_productions.paginate(:page => params[:page], :per_page => 10, :order => "contract_productions.no")
+      @contract_productions = @contract.contract_productions.page(params[:page]).order("no")
     else
       redirect_to contracts_path, notice: '请选择合同头'
     end  
