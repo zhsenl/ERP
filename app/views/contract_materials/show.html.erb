@@ -1,0 +1,77 @@
+<div class="content-box">
+	<div class="content-box-header">
+		<h3>合同原料 <%= @contract_material.code + @contract_material.plus_code %></h3>
+		<div class="operations">
+			<%= link_to '编辑', edit_contract_material_path(@contract_material) %> |
+			<%= link_to '返回', contract_materials_path(:contract_id => @contract_material.contract.id) %>
+		</div>
+	</div>
+	<div class="content-box-content">
+		<div class="tab-content default-tab">
+			<p>
+			  <b>商品编码:</b>
+			  <%= @contract_material.code %>
+			</p>
+			
+			<p>
+			  <b>附加编码:</b>
+			  <%= @contract_material.plus_code %>
+			</p>
+			
+			<p>
+			  <b>商品名称:</b>
+			  <%= @contract_material.name %>
+			</p>
+			
+			<p>
+			  <b>规格型号:</b>
+			  <%= @contract_material.specification %>
+			</p>
+			
+			<p>
+			  <b>申报单位:</b>
+			  <span class="autoload" data-url=<%= dict_units_path %> ><%= @contract_material.unit %></span>
+			</p>
+			
+			<p>
+			  <b>第一单位:</b>
+			  <span class="autoload" data-url=<%= dict_units_path %> ><%= @contract_material.unit1 %></span>
+			</p>
+			
+			<p>
+			  <b>第二单位:</b>
+			  <span class="autoload" data-url=<%= dict_units_path %> ><%= @contract_material.unit2 %></span>
+			</p>
+			
+			<p>
+			  <b>数量:</b>
+			  <%= @contract_material.quantity %>
+			</p>
+			
+			<p>
+			  <b>单价:</b>
+			  <%= @contract_material.unit_price %>
+			</p>
+			
+			<p>
+			  <b>总价:</b>
+			  <%= @contract_material.total_price %>
+			</p>
+			
+			<p>
+			  <b>产销国:</b>
+			  <span class="autoload" data-url=<%= dict_countries_path %> ><%= @contract_material.country %></span>
+			</p>
+			
+			<p>
+			  <b>征免方式:</b>
+			  <span class="autoload" data-url=<%= dict_tax_modes_path %> ><%= @contract_material.tax_mode %></span>
+			</p>
+			
+			<p>
+			  <b>序号:</b>
+			  <%= @contract_material.no %>
+			</p>
+		</div>
+	</div>
+</div>

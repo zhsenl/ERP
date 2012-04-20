@@ -11,7 +11,25 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120418140157) do
+ActiveRecord::Schema.define(:version => 20120420041542) do
+
+  create_table "contract_materials", :force => true do |t|
+    t.integer  "contract_id"
+    t.string   "code"
+    t.string   "plus_code"
+    t.string   "name"
+    t.string   "specification"
+    t.string   "unit"
+    t.string   "unit1"
+    t.string   "unit2"
+    t.decimal  "quantity",      :precision => 15, :scale => 4
+    t.decimal  "unit_price",    :precision => 15, :scale => 4
+    t.string   "country"
+    t.string   "tax_mode"
+    t.string   "no"
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
+  end
 
   create_table "contract_productions", :force => true do |t|
     t.integer  "contract_id"
