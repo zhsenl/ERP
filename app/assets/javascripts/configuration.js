@@ -92,15 +92,7 @@ $(document).ready(function(){
 				$(this).parent().parent().parent().parent().find("input[type='checkbox']").attr('checked', $(this).is(':checked'));   
 			}
 		);
-
-    // Initialise Facebox Modal window:
-		
-		$('a[rel*=modal]').facebox(); // Applies modal window to any link with attribute rel="modal"
-
-    // Initialise jQuery WYSIWYG:
-		
-		$(".wysiwyg").wysiwyg(); // Applies WYSIWYG editor to any textarea with the class "wysiwyg"
-	
+    
 	//on window resizing
 		$(window).resize(function() {
 		  width = $(document.body).width();
