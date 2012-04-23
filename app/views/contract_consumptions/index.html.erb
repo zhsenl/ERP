@@ -1,0 +1,29 @@
+<h1>Listing contract_consumptions</h1>
+
+<table>
+  <tr>
+    <th>Contract production</th>
+    <th>Contract material</th>
+    <th>Used</th>
+    <th>Wasted</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @contract_consumptions.each do |contract_consumption| %>
+  <tr>
+    <td><%= contract_consumption.contract_production_id %></td>
+    <td><%= contract_consumption.contract_material_id %></td>
+    <td><%= contract_consumption.used %></td>
+    <td><%= contract_consumption.wasted %></td>
+    <td><%= link_to 'Show', contract_consumption %></td>
+    <td><%= link_to 'Edit', edit_contract_consumption_path(contract_consumption) %></td>
+    <td><%= link_to 'Destroy', contract_consumption, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Contract consumption', new_contract_consumption_path %>

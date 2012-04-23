@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 class ContractMaterial < ActiveRecord::Base
   belongs_to :contract
+  has_many :contract_consumptions
   validates :contract_id, :presence => true, :numericality => true
   validates :code, :presence => true
   validates :plus_code, :presence => true

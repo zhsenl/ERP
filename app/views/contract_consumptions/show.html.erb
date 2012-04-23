@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Contract production:</b>
+  <%= @contract_consumption.contract_production_id %>
+</p>
+
+<p>
+  <b>Contract material:</b>
+  <%= @contract_consumption.contract_material_id %>
+</p>
+
+<p>
+  <b>Used:</b>
+  <%= @contract_consumption.used %>
+</p>
+
+<p>
+  <b>Wasted:</b>
+  <%= @contract_consumption.wasted %>
+</p>
+
+
+<%= link_to 'Edit', edit_contract_consumption_path(@contract_consumption) %> |
+<%= link_to 'Back', contract_consumptions_path %>

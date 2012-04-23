@@ -1,0 +1,33 @@
+<%= form_for(@contract_consumption) do |f| %>
+  <% if @contract_consumption.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@contract_consumption.errors.count, "error") %> prohibited this contract_consumption from being saved:</h2>
+
+      <ul>
+      <% @contract_consumption.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :contract_production_id %><br />
+    <%= f.number_field :contract_production_id %>
+  </div>
+  <div class="field">
+    <%= f.label :contract_material_id %><br />
+    <%= f.number_field :contract_material_id %>
+  </div>
+  <div class="field">
+    <%= f.label :used %><br />
+    <%= f.text_field :used %>
+  </div>
+  <div class="field">
+    <%= f.label :wasted %><br />
+    <%= f.text_field :wasted %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

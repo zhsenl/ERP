@@ -11,6 +11,7 @@
 			<table>
 				<thead>
 					<tr>
+						<th>序号</th>
 						<th>商品编码</th>
 						<th>附加编码</th>
 						<th>商品名称</th>
@@ -25,6 +26,7 @@
 				<tbody>
 					<% @contract_productions.each do |contract_production| %>
 					<tr>
+						<td><%= contract_production.no %></td>
 						<td><%= contract_production.code %></td>
 					    <td><%= contract_production.plus_code %></td>
 					    <td><%= link_to contract_production.name, contract_production %></td>
