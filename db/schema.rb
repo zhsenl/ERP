@@ -11,13 +11,26 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120421100921) do
+ActiveRecord::Schema.define(:version => 20120425035057) do
+
+  create_table "cargos", :force => true do |t|
+    t.integer  "enterprise_id"
+    t.string   "code"
+    t.string   "name"
+    t.string   "specification"
+    t.string   "unit"
+    t.string   "unit1"
+    t.string   "unit2"
+    t.string   "country"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
 
   create_table "contract_consumptions", :force => true do |t|
     t.integer  "contract_production_id"
     t.integer  "contract_material_id"
-    t.decimal  "used",                   :precision => 15, :scale => 4
-    t.decimal  "wasted",                 :precision => 15, :scale => 4
+    t.decimal  "used",                   :precision => 10, :scale => 0
+    t.decimal  "wasted",                 :precision => 10, :scale => 0
     t.datetime "created_at",                                            :null => false
     t.datetime "updated_at",                                            :null => false
   end
@@ -25,7 +38,6 @@ ActiveRecord::Schema.define(:version => 20120421100921) do
   create_table "contract_materials", :force => true do |t|
     t.integer  "contract_id"
     t.string   "code"
-    t.string   "plus_code"
     t.string   "name"
     t.string   "specification"
     t.string   "unit"
@@ -43,7 +55,6 @@ ActiveRecord::Schema.define(:version => 20120421100921) do
   create_table "contract_productions", :force => true do |t|
     t.integer  "contract_id"
     t.string   "code"
-    t.string   "plus_code"
     t.string   "name"
     t.string   "specification"
     t.string   "unit"

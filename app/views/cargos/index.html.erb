@@ -1,0 +1,42 @@
+<%= render "shared/enterprise_selector" %>
+
+<div class="content-box">
+	<div class="content-box-header">
+		<h3>货物列表</h3>
+		<div class="operations">
+			<%= link_to '添加新货物', new_cargo_path %>
+		</div>
+	</div>
+	<div class="content-box-content">
+		<div class="tab-content default-tab">
+			<table>
+				<thead>
+					<tr>
+						<th>货物编码</th>
+						<th>货物名称</th>
+						<th>货物规格</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+						<td colspan="6"> <%= will_paginate @cargos %> </td>
+					</tr>
+				</tfoot>
+				<tbody>
+					<% @cargos.each do |cargo| %>
+					<tr>
+						<td><%= cargo.code %></td>
+						<td><%= link_to cargo.name, cargo %></td>
+						<td><%= cargo.specification %></td>
+						<td> <%= link_to image_tag("icons/pencil.png", :alt => "Edit"), edit_cargo_path(cargo) %>
+						<%= link_to image_tag("icons/cross.png", :alt => "Delete"), cargo, confirm: '确定删除?', method: :delete %> </td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+

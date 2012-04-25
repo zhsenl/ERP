@@ -4,6 +4,7 @@ class Enterprise < ActiveRecord::Base
   accepts_nested_attributes_for :enterprise_custom_option
   validates_associated :enterprise_custom_option
   
+  has_many :cargos
   has_many :contracts
   
   validates :code, :presence => true, :uniqueness => true

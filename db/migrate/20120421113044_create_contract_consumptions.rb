@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateContractConsumptions < ActiveRecord::Migration
   def change
     create_table :contract_consumptions do |t|

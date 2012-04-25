@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ContractConsumption < ActiveRecord::Base
   belongs_to :contract_production
   belongs_to :contract_material

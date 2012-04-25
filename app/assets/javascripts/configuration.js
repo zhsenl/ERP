@@ -267,7 +267,7 @@ $(document).ready(function(){
 	});
 	
 	//first form field focus
-	$(".first_field").focus();
+	$(".first-field").focus();
 	
 });
   

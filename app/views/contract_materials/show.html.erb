@@ -1,6 +1,6 @@
 <div class="content-box">
 	<div class="content-box-header">
-		<h3>合同原料 <%= @contract_material.code + @contract_material.plus_code %></h3>
+		<h3>合同原料 <%= @contract_material.code %></h3>
 		<div class="operations">
 			<%= link_to '编辑', edit_contract_material_path(@contract_material) %> |
 			<%= link_to '返回', contract_materials_path(:contract_id => @contract_material.contract.id) %>
@@ -11,11 +11,6 @@
 			<p>
 			  <b>商品编码:</b>
 			  <%= @contract_material.code %>
-			</p>
-			
-			<p>
-			  <b>附加编码:</b>
-			  <%= @contract_material.plus_code %>
 			</p>
 			
 			<p>
@@ -59,7 +54,7 @@
 			</p>
 			
 			<p>
-			  <b>产销国:</b>
+			  <b>原产国:</b>
 			  <span class="autoload" data-url=<%= dict_countries_path %> ><%= @contract_material.country %></span>
 			</p>
 			

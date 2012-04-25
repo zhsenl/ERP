@@ -17,6 +17,17 @@
 				<%= link_to '我的首页', root_path, :class => "nav-top-item no-submenu pages_home" %>
 			</li>
 			<li>
+				<a href="#" class="nav-top-item"> 报关数据 </a>
+				<ul>
+					<li>
+						<%= link_to '添加货物', new_cargo_path, :class => "cargos_new" %>
+					</li>
+					<li>
+						<%= link_to '货物列表', cargos_path, :class => "cargos" %>
+					</li>
+				</ul>
+			</li>
+			<li>
 				<a href="#" class="nav-top-item"> 合同管理 </a>
 				<ul>
 					<li>
@@ -26,18 +37,7 @@
 						<%= link_to '合同列表', contracts_path, :class => "contracts contract" %>
 					</li>					
 				</ul>
-			</li>
-			<li>
-				<a href="#" class="nav-top-item"> Pages </a>
-				<ul>
-					<li>
-						<a href="#">Create a new Page</a>
-					</li>
-					<li>
-						<a href="#">Manage Pages</a>
-					</li>
-				</ul>
-			</li>
+			</li>			
 			<li>
 				<a href="#" class="nav-top-item"> Image Gallery </a>
 				<ul>

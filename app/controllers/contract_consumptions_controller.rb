@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class ContractConsumptionsController < ApplicationController
   # GET /contract_consumptions
   # GET /contract_consumptions.json

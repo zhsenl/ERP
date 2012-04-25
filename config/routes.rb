@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 ERP::Application.routes.draw do
   
+  resources :cargos
+
   resources :contract_consumptions
 
   resources :contract_materials

@@ -3,8 +3,7 @@ class ContractMaterial < ActiveRecord::Base
   belongs_to :contract
   has_many :contract_consumptions
   validates :contract_id, :presence => true, :numericality => true
-  validates :code, :presence => true
-  validates :plus_code, :presence => true
+  validates :code, :presence => true, :length => { :is => 10 }
   validates :name, :presence => true
   validates :unit, :presence => true
   validates :quantity, :presence => true, :numericality => true
