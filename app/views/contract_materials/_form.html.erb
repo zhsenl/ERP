@@ -6,7 +6,32 @@
 		<label>商品编码</label>
 		<%= f.text_field :code, :class => "text-input small-input first-field" %>
 		<br />
+		<small>输入2个字符后有提示</small>
 	</p>
+	<script>
+		$(document).ready(function(){
+			$("#contract_material_code").autocomplete({
+			source : function(request, response) {
+				$.get( "<%= cargos_path %>/search.json?term="+request.term, function(result){
+					response($.map(result, function(item) {
+						item.label = item.code + ":" + item.name;
+						item.value = item.code;
+						return item;
+					}));
+			  	});
+			},
+			minLength : 2,
+			select: function( event, ui ) {
+				$("#contract_material_name").val(ui.item.name);
+				$("#contract_material_specification").val(ui.item.specification);
+				$("#unit_autocomplete").val(ui.item.unit).blur();
+				$("#unit1_autocomplete").val(ui.item.unit1).blur();
+				$("#unit2_autocomplete").val(ui.item.unit2).blur();
+				$("#country_autocomplete").val(ui.item.country).blur();
+			}
+		});
+		});		
+	</script>
 	<p>
 		<label>商品名称</label>
 		<%= f.text_field :name, :class => "text-input small-input" %>

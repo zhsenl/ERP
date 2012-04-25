@@ -3,7 +3,7 @@
 		<h3>合同成品 <%= @contract_product.code %></h3>
 		<div class="operations">
 			<%= link_to '编辑', edit_contract_product_path(@contract_product) %> |
-			<%= link_to '返回', contract_products_path(:contract_id => @contract_product.contract.id) %>
+			<%= link_to '返回', contract_products_path(:contract_id => @contract_product.contract_id) %>
 		</div>
 	</div>
 	<div class="content-box-content">
