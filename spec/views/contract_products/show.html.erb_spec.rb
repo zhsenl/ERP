@@ -1,9 +1,9 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe "contract_productions/show" do
+describe "contract_products/show" do
   before(:each) do
-    @contract_production = assign(:contract_production, stub_model(ContractProduction,
+    @contract_product = assign(:contract_product, stub_model(ContractProduct,
       :code => "Code",
       :plus_code => "Plus Code",
       :name => "Name",

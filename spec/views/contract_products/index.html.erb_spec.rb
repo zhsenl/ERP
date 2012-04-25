@@ -1,10 +1,10 @@
 # -*- encoding : utf-8 -*-
 require 'spec_helper'
 
-describe "contract_productions/index" do
+describe "contract_products/index" do
   before(:each) do
-    assign(:contract_productions, [
-      stub_model(ContractProduction,
+    assign(:contract_products, [
+      stub_model(ContractProduct,
         :code => "Code",
         :plus_code => "Plus Code",
         :name => "Name",
@@ -19,7 +19,7 @@ describe "contract_productions/index" do
         :tax_mode => "Tax Mode",
         :no => "No"
       ),
-      stub_model(ContractProduction,
+      stub_model(ContractProduct,
         :code => "Code",
         :plus_code => "Plus Code",
         :name => "Name",
@@ -37,7 +37,7 @@ describe "contract_productions/index" do
     ])
   end
 
-  it "renders a list of contract_productions" do
+  it "renders a list of contract_products" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "tr>td", :text => "Code".to_s, :count => 2

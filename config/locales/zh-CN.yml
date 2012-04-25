@@ -6,7 +6,7 @@ zh-CN:
       foreign_enterprise: 外商
       cargo: 货物
       contract: 合同
-      contract_production: 合同成品
+      contract_product: 合同成品
       contract_material: 合同原料
       dict/attachment: 随附单证
       dict/bracket: 托架

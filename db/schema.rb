@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(:version => 20120425035057) do
   end
 
   create_table "contract_consumptions", :force => true do |t|
-    t.integer  "contract_production_id"
+    t.integer  "contract_product_id"
     t.integer  "contract_material_id"
     t.decimal  "used",                   :precision => 10, :scale => 0
     t.decimal  "wasted",                 :precision => 10, :scale => 0
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(:version => 20120425035057) do
     t.datetime "updated_at",                                   :null => false
   end
 
-  create_table "contract_productions", :force => true do |t|
+  create_table "contract_products", :force => true do |t|
     t.integer  "contract_id"
     t.string   "code"
     t.string   "name"

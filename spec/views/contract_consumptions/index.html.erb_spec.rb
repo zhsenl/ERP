@@ -5,13 +5,13 @@ describe "contract_consumptions/index" do
   before(:each) do
     assign(:contract_consumptions, [
       stub_model(ContractConsumption,
-        :contract_production_id => 1,
+        :contract_product_id => 1,
         :contract_material_id => 2,
         :used => "9.99",
         :wasted => "9.99"
       ),
       stub_model(ContractConsumption,
-        :contract_production_id => 1,
+        :contract_product_id => 1,
         :contract_material_id => 2,
         :used => "9.99",
         :wasted => "9.99"

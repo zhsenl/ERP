@@ -1,35 +1,35 @@
 # -*- encoding : utf-8 -*-
 require "spec_helper"
 
-describe ContractProductionsController do
+describe ContractProductsController do
   describe "routing" do
 
     it "routes to #index" do
-      get("/contract_productions").should route_to("contract_productions#index")
+      get("/contract_products").should route_to("contract_products#index")
     end
 
     it "routes to #new" do
-      get("/contract_productions/new").should route_to("contract_productions#new")
+      get("/contract_products/new").should route_to("contract_products#new")
     end
 
     it "routes to #show" do
-      get("/contract_productions/1").should route_to("contract_productions#show", :id => "1")
+      get("/contract_products/1").should route_to("contract_products#show", :id => "1")
     end
 
     it "routes to #edit" do
-      get("/contract_productions/1/edit").should route_to("contract_productions#edit", :id => "1")
+      get("/contract_products/1/edit").should route_to("contract_products#edit", :id => "1")
     end
 
     it "routes to #create" do
-      post("/contract_productions").should route_to("contract_productions#create")
+      post("/contract_products").should route_to("contract_products#create")
     end
 
     it "routes to #update" do
-      put("/contract_productions/1").should route_to("contract_productions#update", :id => "1")
+      put("/contract_products/1").should route_to("contract_products#update", :id => "1")
     end
 
     it "routes to #destroy" do
-      delete("/contract_productions/1").should route_to("contract_productions#destroy", :id => "1")
+      delete("/contract_products/1").should route_to("contract_products#destroy", :id => "1")
     end
 
   end

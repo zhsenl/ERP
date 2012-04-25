@@ -1,0 +1,39 @@
+<div class="content-box">
+	<div class="content-box-header">
+		<h3>合同<%= @contract.manual %>成品列表</h3>
+		<div class="operations">			
+			<%= link_to '添加新合同成品', new_contract_product_path(:contract_id => @contract.id) %> |
+			<%= link_to '返回合同头', @contract %>
+		</div>
+	</div>
+	<div class="content-box-content">
+		<div class="tab-content default-tab">
+			<table>
+				<thead>
+					<tr>
+						<th>序号</th>
+						<th>商品编码</th>
+						<th>商品名称</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+						<td colspan="6"> <%= will_paginate @contract_products %> </td>
+					</tr>
+				</tfoot>
+				<tbody>
+					<% @contract_products.each do |contract_product| %>
+					<tr>
+						<td><%= contract_product.no %></td>
+						<td><%= contract_product.code %></td>
+					    <td><%= link_to contract_product.name, contract_product %></td>
+					    <td> <%= link_to image_tag("icons/pencil.png", :alt => "编辑", :title => "编辑"), edit_contract_product_path(contract_product) %>
+					    	<%= link_to image_tag("icons/cross.png", :alt => "删除", :title => "删除"), contract_product, confirm: '确定删除?', method: :delete %></td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

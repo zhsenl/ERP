@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
-class CreateContractProductions < ActiveRecord::Migration
+class CreateContractProducts < ActiveRecord::Migration
   def change
-    create_table :contract_productions do |t|
+    create_table :contract_products do |t|
       t.integer :contract_id 
       t.string :code
       t.string :plus_code

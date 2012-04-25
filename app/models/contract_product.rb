@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-class ContractProduction < ActiveRecord::Base
+class ContractProduct < ActiveRecord::Base
   belongs_to :contract
   has_many :contract_consumptions
   validates :contract_id, :presence => true, :numericality => true

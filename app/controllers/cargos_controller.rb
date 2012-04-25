@@ -14,6 +14,20 @@ class CargosController < ApplicationController
       format.json { render json: @cargos }
     end
   end
+  
+  # GET /cargos/search.json
+  def search
+    term = params[:term]
+    if term.blank?
+      @cargos = []
+    else
+      @cargos = Cargo.where("code like ? or name like ?", term + '%', '%' + term +'%')
+    end
+
+    respond_to do |format|
+      format.json { render json: @cargos }
+    end
+  end
 
   # GET /cargos/1
   # GET /cargos/1.json

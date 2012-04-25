@@ -2,7 +2,7 @@
 	<div class="content-box-header">
 		<h3>查看合同(<%= @contract.enterprise.name %>)</h3>
 		<div class="operations">
-			<%= link_to '管理成品', contract_productions_path(:contract_id => @contract.id) %> |
+			<%= link_to '管理成品', contract_products_path(:contract_id => @contract.id) %> |
 			<%= link_to '管理原料', contract_materials_path(:contract_id => @contract.id) %> |
 			<%= link_to '编辑合同头', edit_contract_path(@contract) %> |
 			<%= link_to '返回', contracts_path %>

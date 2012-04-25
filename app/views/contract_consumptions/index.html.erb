@@ -2,7 +2,7 @@
 
 <table>
   <tr>
-    <th>Contract production</th>
+    <th>Contract product</th>
     <th>Contract material</th>
     <th>Used</th>
     <th>Wasted</th>
@@ -13,7 +13,7 @@
 
 <% @contract_consumptions.each do |contract_consumption| %>
   <tr>
-    <td><%= contract_consumption.contract_production_id %></td>
+    <td><%= contract_consumption.contract_product_id %></td>
     <td><%= contract_consumption.contract_material_id %></td>
     <td><%= contract_consumption.used %></td>
     <td><%= contract_consumption.wasted %></td>
