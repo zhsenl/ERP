@@ -28,7 +28,7 @@ class ContractProductsController < ApplicationController
     @contract = Contract.find_by_id(params[:contract_id])
     if @contract
       @contract_product = ContractProduct.new
-      @contract_product.contract_id = @contract.id
+      @contract_product.contract = @contract
       @contract_product.tax_mode = 3
       @contract_product.no = @contract.contract_products.size + 1
     else
@@ -49,7 +49,7 @@ class ContractProductsController < ApplicationController
 
     respond_to do |format|
       if @contract_product.save
-        format.html { redirect_to @contract_product, notice: 'Contract product was successfully created.' }
+        format.html { redirect_to new_contract_product_url(:contract_id => @contract_product.contract_id), notice: 'Contract product was successfully created.' }
         format.json { render json: @contract_product, status: :created, location: @contract_product }
       else
         format.html { render action: "new" }
@@ -81,7 +81,7 @@ class ContractProductsController < ApplicationController
     @contract_product.destroy
 
     respond_to do |format|
-      format.html { redirect_to contract_products_url }
+      format.html { redirect_to contract_products_url(:contract_id => @contract_product.contract_id) }
       format.json { head :no_content }
     end
   end

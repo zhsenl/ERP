@@ -1,33 +1,31 @@
+<%= render "shared/error_messages", :model => @contract_consumption %>
 <%= form_for(@contract_consumption) do |f| %>
-  <% if @contract_consumption.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@contract_consumption.errors.count, "error") %> prohibited this contract_consumption from being saved:</h2>
-
-      <ul>
-      <% @contract_consumption.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :contract_product_id %><br />
-    <%= f.number_field :contract_product_id %>
-  </div>
-  <div class="field">
-    <%= f.label :contract_material_id %><br />
-    <%= f.number_field :contract_material_id %>
-  </div>
-  <div class="field">
-    <%= f.label :used %><br />
-    <%= f.text_field :used %>
-  </div>
-  <div class="field">
-    <%= f.label :wasted %><br />
-    <%= f.text_field :wasted %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<fieldset>
+	<%= f.hidden_field :contract_product_id %>	
+	<p>
+		<label>合同料件</label>
+		<% contract_materials_array = @contract_product.contract.contract_materials.map { |contract_material| [contract_material.no + contract_material.name, contract_material.id] } %>
+		<%= f.select :contract_material_id, options_for_select(contract_materials_array), {}, { :class => "medium-input first-field" } %>
+	  	<br />
+	  	<script>
+			$(function() {
+				$("#contract_consumption_contract_material_id").combobox();
+			});
+		</script>
+	</p>	
+	<p>
+		<label>单耗</label>
+		<%= f.text_field :used, :class => "text-input small-input" %>
+	  	<br />
+	</p>
+	<p>
+		<label>损耗%</label>
+		<%= f.text_field :wasted, :class => "text-input small-input" %>
+	  	<br />
+	</p>		
+	<p>
+		<%= f.submit :class => "button" %>
+	</p>
+</fieldset>
+<div class="clear"></div><!-- End .clear -->
 <% end %>

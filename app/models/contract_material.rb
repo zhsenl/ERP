@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 class ContractMaterial < ActiveRecord::Base
   belongs_to :contract
-  has_many :contract_consumptions
+  has_many :contract_consumptions, :dependent => :destroy
   validates :contract_id, :presence => true, :numericality => true
   validates :code, :presence => true, :length => { :is => 10 }
   validates :name, :presence => true

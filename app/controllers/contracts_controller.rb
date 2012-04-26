@@ -83,7 +83,7 @@ class ContractsController < ApplicationController
     @contract.destroy
 
     respond_to do |format|
-      format.html { redirect_to contracts_url }
+      format.html { redirect_to contracts_url(:enterprise_id => @contract.enterprise_id) }
       format.json { head :no_content }
     end
   end

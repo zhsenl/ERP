@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 class Contract < ActiveRecord::Base
   belongs_to :enterprise
-  has_many :contract_products
-  has_many :contract_materials
+  has_many :contract_products, :dependent => :destroy
+  has_many :contract_materials, :dependent => :destroy
   validates :enterprise_id, :presence => true, :numericality => true
   validates :operating_enterprise, :presence => true
   validates :trade_mode, :presence => true

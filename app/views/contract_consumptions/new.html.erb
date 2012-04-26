@@ -1,5 +1,28 @@
-<h1>New contract_consumption</h1>
+<%= form_tag(new_contract_consumption_path, :method => "get") do %>
+<p>	
+	<label style="display: inline;" >合同成品：</label>
+	<% contract_products_array = @contract_product.contract.contract_products.map { |contract_product| [contract_product.no + contract_product.name, contract_product.id] } %>
+	<%= select_tag :contract_product_id, options_for_select(contract_products_array, @contract_product.id), :class => "medium-input first-field" %>	
+	<script>
+	$(function() {
+		$("#contract_product_id").combobox();
+	});
+	</script>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<input class="button" type="submit" value="切换成品" name="commit">	
+</p>
+<div class="clear"></div><!-- End .clear -->
+<% end %>
+<br />
 
-<%= render 'form' %>
-
-<%= link_to 'Back', contract_consumptions_path %>
+<div class="content-box">
+	<div class="content-box-header">
+		<h3>添加新单耗</h3>
+		<div class="operations">
+			<%= link_to '返回列表', contract_consumptions_path(:contract_product_id => @contract_product.id) %>
+		</div>
+	</div>
+	<div class="content-box-content">
+		<%= render 'form' %>
+	</div>
+</div>

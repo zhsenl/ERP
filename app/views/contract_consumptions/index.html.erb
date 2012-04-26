@@ -1,29 +1,56 @@
-<h1>Listing contract_consumptions</h1>
-
-<table>
-  <tr>
-    <th>Contract product</th>
-    <th>Contract material</th>
-    <th>Used</th>
-    <th>Wasted</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @contract_consumptions.each do |contract_consumption| %>
-  <tr>
-    <td><%= contract_consumption.contract_product_id %></td>
-    <td><%= contract_consumption.contract_material_id %></td>
-    <td><%= contract_consumption.used %></td>
-    <td><%= contract_consumption.wasted %></td>
-    <td><%= link_to 'Show', contract_consumption %></td>
-    <td><%= link_to 'Edit', edit_contract_consumption_path(contract_consumption) %></td>
-    <td><%= link_to 'Destroy', contract_consumption, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
+<%= form_tag(contract_consumptions_path, :method => "get") do %>
+<p>	
+	<label style="display: inline;" >合同成品：</label>
+	<% contract_products_array = @contract.contract_products.map { |contract_product| [contract_product.no + contract_product.name, contract_product.id] } %>
+	<%= select_tag :contract_product_id, options_for_select(contract_products_array, @contract_product.id), :class => "medium-input first-field" %>	
+	<script>
+	$(function() {
+		$("#contract_product_id").combobox();
+	});
+	</script>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	<input class="button" type="submit" value="切换成品" name="commit">	
+</p>
+<div class="clear"></div><!-- End .clear -->
 <% end %>
-</table>
-
 <br />
 
-<%= link_to 'New Contract consumption', new_contract_consumption_path %>
+<div class="content-box">
+	<div class="content-box-header">
+		<h3>单耗列表</h3>
+		<div class="operations">
+			<%= link_to '添加新单耗', new_contract_consumption_path(:contract_product_id => @contract_product.id) %> |
+			<%= link_to '返回合同头', @contract %>
+		</div>
+	</div>
+	<div class="content-box-content">
+		<div class="tab-content default-tab">
+			<table>
+				<thead>
+					<tr>
+						<th>料件</th>
+						<th>单耗</th>
+						<th>损耗</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+						<td colspan="6"> <%= will_paginate @contract_consumptions %> </td>
+					</tr>
+				</tfoot>
+				<tbody>
+					<% @contract_consumptions.each do |contract_consumption| %>
+					<tr>
+						<td><%= link_to contract_consumption.contract_material.name, contract_consumption %></td>
+						<td><%= contract_consumption.used %></td>
+						<td><%= contract_consumption.wasted %></td>
+						<td> <%= link_to image_tag("icons/pencil.png", :alt => "Edit"), edit_contract_consumption_path(contract_consumption) %>
+						<%= link_to image_tag("icons/cross.png", :alt => "Delete"), contract_consumption, confirm: '确定删除?', method: :delete %> </td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
