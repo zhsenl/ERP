@@ -1,7 +1,6 @@
 # -*- encoding : utf-8 -*-
 class ContractsController < ApplicationController
   include ContractsHelper
-  
   # GET /contracts
   # GET /contracts.json
   def index
@@ -96,14 +95,16 @@ class ContractsController < ApplicationController
   def upload
     uploaded_io = params[:contract]
     begin
-      File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
+      file_path = Rails.root.join('tmp', uploaded_io.original_filename)
+      File.open(file_path, 'wb') do |file|
         file.write(uploaded_io.read)
         if import_contract(file)
           flash[:success] = "成功导入合同"
         else
           flash[:attention] = "导入合同时有错误发生"
         end
-      end      
+      end
+      File.delete(file_path)
     rescue => err
       puts err
       flash[:error] = "导入合同失败"
