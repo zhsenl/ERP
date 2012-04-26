@@ -11,7 +11,10 @@ ERP::Application.routes.draw do
 
   resources :contract_products
 
-  resources :contracts
+  resources :contracts do
+    get 'import', :on => :collection
+    post 'upload', :on => :collection
+  end
 
   resources :manage_relationships
 

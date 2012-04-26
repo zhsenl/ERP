@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 class ContractsController < ApplicationController
+  include ContractsHelper
+  
   # GET /contracts
   # GET /contracts.json
   def index
@@ -7,7 +9,7 @@ class ContractsController < ApplicationController
       @contracts = current_enterprise.contracts.page(params[:page]).order("updated_at DESC")
     else
       @contracts = Enterprise.new.contracts.paginate(:page => params[:page],:per_page => 10)
-    end    
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -86,5 +88,26 @@ class ContractsController < ApplicationController
       format.html { redirect_to contracts_url(:enterprise_id => @contract.enterprise_id) }
       format.json { head :no_content }
     end
+  end
+
+  def import
+  end
+
+  def upload
+    uploaded_io = params[:contract]
+    begin
+      File.open(Rails.root.join('public', 'uploads', uploaded_io.original_filename), 'wb') do |file|
+        file.write(uploaded_io.read)
+        if import_contract(file)
+          flash[:success] = "成功导入合同"
+        else
+          flash[:attention] = "导入合同时有错误发生"
+        end
+      end      
+    rescue => err
+      puts err
+      flash[:error] = "导入合同失败"
+    end
+    redirect_to import_contracts_url
   end
 end

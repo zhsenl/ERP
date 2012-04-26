@@ -6,7 +6,7 @@ class Contract < ActiveRecord::Base
   validates :enterprise_id, :presence => true, :numericality => true
   validates :operating_enterprise, :presence => true
   validates :trade_mode, :presence => true
-  validates :manual, :presence => true
+  validates :manual, :presence => true, :uniqueness => true
   validates :tax_kind, :presence => true
   validates :type_in_date, :presence => true
 end

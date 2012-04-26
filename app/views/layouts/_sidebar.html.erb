@@ -31,6 +31,9 @@
 				<a href="#" class="nav-top-item"> 合同管理 </a>
 				<ul>
 					<li>
+						<%= link_to '导入合同', import_contracts_path, :class => "contracts_import" %>
+					</li>
+					<li>
 						<%= link_to '新增合同', new_contract_path, :class => "contracts_new" %>
 					</li>
 					<li>

@@ -29,10 +29,10 @@ ActiveRecord::Schema.define(:version => 20120425035057) do
   create_table "contract_consumptions", :force => true do |t|
     t.integer  "contract_product_id"
     t.integer  "contract_material_id"
-    t.decimal  "used",                   :precision => 10, :scale => 0
-    t.decimal  "wasted",                 :precision => 10, :scale => 0
-    t.datetime "created_at",                                            :null => false
-    t.datetime "updated_at",                                            :null => false
+    t.decimal  "used",                 :precision => 15, :scale => 4
+    t.decimal  "wasted",               :precision => 15, :scale => 4
+    t.datetime "created_at",                                          :null => false
+    t.datetime "updated_at",                                          :null => false
   end
 
   create_table "contract_materials", :force => true do |t|
