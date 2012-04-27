@@ -3,7 +3,7 @@
 		<h3>查看合同(<%= @contract.enterprise.name %>)</h3>
 		<div class="operations">
 			<%= link_to '成品', contract_products_path(:contract_id => @contract.id) %> |
-			<%= link_to '原料', contract_materials_path(:contract_id => @contract.id) %> |
+			<%= link_to '料件', contract_materials_path(:contract_id => @contract.id) %> |
 			<% if @contract.contract_products.size > 0 %> <%= link_to '单耗', contract_consumptions_path(:contract_product_id => @contract.contract_products.first.id) %> |<% end %>
 			<%= link_to '编辑合同头', edit_contract_path(@contract) %> |
 			<%= link_to '返回', contracts_path %>
@@ -13,7 +13,7 @@
 		<div class="tab-content default-tab">
 			<p>
 			  <b>经营单位:</b>
-			  <span class="autoload" data-url=<%= enterprises_path %> ><%= @contract.operating_enterprise %></span>
+			  <span class="autoload" data-url=<%= enterprises_path %> ><%= @contract.operate_enterprise %></span>
 			</p>
 			
 			<p>

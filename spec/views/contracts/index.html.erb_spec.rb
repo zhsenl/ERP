@@ -6,7 +6,7 @@ describe "contracts/index" do
     assign(:contracts, [
       stub_model(Contract,
         :enterprise_id => 1,
-        :operating_enterprise_code => "Operating Enterprise Code",
+        :operate_enterprise_code => "Operate Enterprise Code",
         :foreign_enterprise_code => "Foreign Enterprise Code",
         :manual_code => "Manual Code",
         :trade_mode_code => "Trade Mode Code",
@@ -20,7 +20,7 @@ describe "contracts/index" do
       ),
       stub_model(Contract,
         :enterprise_id => 1,
-        :operating_enterprise_code => "Operating Enterprise Code",
+        :operate_enterprise_code => "Operate Enterprise Code",
         :foreign_enterprise_code => "Foreign Enterprise Code",
         :manual_code => "Manual Code",
         :trade_mode_code => "Trade Mode Code",
@@ -39,7 +39,7 @@ describe "contracts/index" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "tr>td", :text => 1.to_s, :count => 2
-    assert_select "tr>td", :text => "Operating Enterprise Code".to_s, :count => 2
+    assert_select "tr>td", :text => "Operate Enterprise Code".to_s, :count => 2
     assert_select "tr>td", :text => "Foreign Enterprise Code".to_s, :count => 2
     assert_select "tr>td", :text => "Manual Code".to_s, :count => 2
     assert_select "tr>td", :text => "Trade Mode Code".to_s, :count => 2

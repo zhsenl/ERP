@@ -5,7 +5,7 @@ describe "contracts/show" do
   before(:each) do
     @contract = assign(:contract, stub_model(Contract,
       :enterprise_id => 1,
-      :operating_enterprise_code => "Operating Enterprise Code",
+      :operate_enterprise_code => "Operate Enterprise Code",
       :foreign_enterprise_code => "Foreign Enterprise Code",
       :manual_code => "Manual Code",
       :trade_mode_code => "Trade Mode Code",
@@ -23,7 +23,7 @@ describe "contracts/show" do
     render
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     rendered.should match(/1/)
-    rendered.should match(/Operating Enterprise Code/)
+    rendered.should match(/Operate Enterprise Code/)
     rendered.should match(/Foreign Enterprise Code/)
     rendered.should match(/Manual Code/)
     rendered.should match(/Trade Mode Code/)

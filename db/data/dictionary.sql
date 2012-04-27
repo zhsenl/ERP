@@ -1519,7 +1519,7 @@ CREATE TABLE `dict_process_types` (
 -- Records of dict_process_types
 -- ----------------------------
 INSERT INTO `dict_process_types` VALUES ('1', '1', '增值加工', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
-INSERT INTO `dict_process_types` VALUES ('2', '2', '原料加工', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+INSERT INTO `dict_process_types` VALUES ('2', '2', '料件加工', '0000-00-00 00:00:00', '0000-00-00 00:00:00');
 
 -- ----------------------------
 -- Table structure for `dict_receipt_statuses`
