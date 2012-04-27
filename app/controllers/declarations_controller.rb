@@ -1,4 +1,6 @@
 class DeclarationsController < ApplicationController
+  before_filter :set_type_mark
+  
   # GET /declarations
   # GET /declarations.json
   def index
@@ -79,5 +81,9 @@ class DeclarationsController < ApplicationController
       format.html { redirect_to declarations_url }
       format.json { head :no_content }
     end
+  end
+  
+  def set_type_mark
+    @mark = params[:declaration_type]
   end
 end

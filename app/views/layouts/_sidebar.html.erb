@@ -37,24 +37,24 @@
 						<%= link_to '新增合同', new_contract_path, :class => "contracts_new" %>
 					</li>
 					<li>
-						<%= link_to '合同列表', contracts_path, :class => "contracts contract" %>
+						<%= link_to '合同管理', contracts_path, :class => "contracts contract" %>
 					</li>					
 				</ul>
 			</li>			
 			<li>
-				<a href="#" class="nav-top-item"> Image Gallery </a>
+				<a href="#" class="nav-top-item"> 报关单管理 </a>
 				<ul>
 					<li>
-						<a href="#">Upload Images</a>
+						<%= link_to '新增出口报关单', new_declaration_path(:declaration_type => 'export'), :class => "export_declarations_new" %>
 					</li>
 					<li>
-						<a href="#">Manage Galleries</a>
+						<%= link_to '出口报关单管理', declarations_path(:declaration_type => 'export'), :class => "export_declarations export_declaration" %>
 					</li>
 					<li>
-						<a href="#">Manage Albums</a>
+						<%= link_to '新增进口报关单', new_declaration_path(:declaration_type => 'import'), :class => "import_declarations_new" %>
 					</li>
 					<li>
-						<a href="#">Gallery Settings</a>
+						<%= link_to '进口报关单管理', declarations_path(:declaration_type => 'import'), :class => "import_declarations import_declaration" %>
 					</li>
 				</ul>
 			</li>

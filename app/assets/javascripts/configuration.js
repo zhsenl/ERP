@@ -1,6 +1,6 @@
 $(document).ready(function(){
 	//get controller and action
-		var locations = ($("#controller").val().replace("/","_") + "_" + $("#action").val()).split("_");
+		var locations = ($("#mark").val() + "_" + $("#controller").val().replace("/","_") + "_" + $("#action").val()).split("_");
 		for (var i = 0; i < locations.length; i++) {
 			if (i == 0) {
 				current_item = locations[0];

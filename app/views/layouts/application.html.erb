@@ -8,7 +8,8 @@
 		<%= stylesheet_link_tag "application" %>
 	</head>
 	<body>
-		<div id="body-wrapper">		
+		<div id="body-wrapper">	
+			<input id="mark" type="hidden" value="<%= @mark %>" />	
 			<input id="controller" type="hidden" value="<%= params[:controller] %>" />
 			<input id="action" type="hidden" value="<%= params[:action] %>" />
 			<!-- Wrapper for the radial gradient background -->

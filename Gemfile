@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.3'
+gem 'jquery-rails', '2.0.2'
 gem 'mysql2', '0.3.11'
 gem 'will_paginate', '3.0.3'
 gem 'cancan', '1.6.7'
@@ -18,8 +19,6 @@ group :development do
   gem 'rspec-rails', '2.9.0'
   gem 'faker', '1.0.1'
 end
-
-gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
