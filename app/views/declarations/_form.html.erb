@@ -1,0 +1,133 @@
+<%= form_for(@declaration) do |f| %>
+  <% if @declaration.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@declaration.errors.count, "error") %> prohibited this declaration from being saved:</h2>
+
+      <ul>
+      <% @declaration.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :pre_entry_no %><br />
+    <%= f.text_field :pre_entry_no %>
+  </div>
+  <div class="field">
+    <%= f.label :entry_no %><br />
+    <%= f.text_field :entry_no %>
+  </div>
+  <div class="field">
+    <%= f.label :eport_no %><br />
+    <%= f.text_field :eport_no %>
+  </div>
+  <div class="field">
+    <%= f.label :declarant %><br />
+    <%= f.text_field :declarant %>
+  </div>
+  <div class="field">
+    <%= f.label :declare_enterprise %><br />
+    <%= f.text_field :declare_enterprise %>
+  </div>
+  <div class="field">
+    <%= f.label :operate_enterprise %><br />
+    <%= f.text_field :operate_enterprise %>
+  </div>
+  <div class="field">
+    <%= f.label :custom %><br />
+    <%= f.text_field :custom %>
+  </div>
+  <div class="field">
+    <%= f.label :enrol_no %><br />
+    <%= f.text_field :enrol_no %>
+  </div>
+  <div class="field">
+    <%= f.label :declare_date %><br />
+    <%= f.date_select :declare_date %>
+  </div>
+  <div class="field">
+    <%= f.label :transport_mode %><br />
+    <%= f.text_field :transport_mode %>
+  </div>
+  <div class="field">
+    <%= f.label :transport_tool %><br />
+    <%= f.text_field :transport_tool %>
+  </div>
+  <div class="field">
+    <%= f.label :truck %><br />
+    <%= f.text_field :truck %>
+  </div>
+  <div class="field">
+    <%= f.label :bill_no %><br />
+    <%= f.text_field :bill_no %>
+  </div>
+  <div class="field">
+    <%= f.label :trade_mode %><br />
+    <%= f.text_field :trade_mode %>
+  </div>
+  <div class="field">
+    <%= f.label :tax_kind %><br />
+    <%= f.text_field :tax_kind %>
+  </div>
+  <div class="field">
+    <%= f.label :trade_country %><br />
+    <%= f.text_field :trade_country %>
+  </div>
+  <div class="field">
+    <%= f.label :port %><br />
+    <%= f.text_field :port %>
+  </div>
+  <div class="field">
+    <%= f.label :destination %><br />
+    <%= f.text_field :destination %>
+  </div>
+  <div class="field">
+    <%= f.label :pay_way %><br />
+    <%= f.text_field :pay_way %>
+  </div>
+  <div class="field">
+    <%= f.label :certification %><br />
+    <%= f.text_field :certification %>
+  </div>
+  <div class="field">
+    <%= f.label :deal_mode %><br />
+    <%= f.text_field :deal_mode %>
+  </div>
+  <div class="field">
+    <%= f.label :package_amount %><br />
+    <%= f.number_field :package_amount %>
+  </div>
+  <div class="field">
+    <%= f.label :wrap_type %><br />
+    <%= f.text_field :wrap_type %>
+  </div>
+  <div class="field">
+    <%= f.label :gross_weight %><br />
+    <%= f.text_field :gross_weight %>
+  </div>
+  <div class="field">
+    <%= f.label :net_weight %><br />
+    <%= f.text_field :net_weight %>
+  </div>
+  <div class="field">
+    <%= f.label :load_port %><br />
+    <%= f.text_field :load_port %>
+  </div>
+  <div class="field">
+    <%= f.label :memo %><br />
+    <%= f.text_field :memo %>
+  </div>
+  <div class="field">
+    <%= f.label :attachments %><br />
+    <%= f.text_field :attachments %>
+  </div>
+  <div class="field">
+    <%= f.label :import_export_date %><br />
+    <%= f.date_select :import_export_date %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

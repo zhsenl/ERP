@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120425035057) do
+ActiveRecord::Schema.define(:version => 20120427160622) do
 
   create_table "cargos", :force => true do |t|
     t.integer  "enterprise_id"
@@ -79,14 +79,49 @@ ActiveRecord::Schema.define(:version => 20120425035057) do
     t.string   "export_contract"
     t.string   "export_currency"
     t.string   "export_deal_mode"
-    t.datetime "export_deadline"
+    t.date     "export_deadline"
     t.string   "import_contract"
     t.string   "import_currency"
     t.string   "import_deal_mode"
-    t.datetime "import_deadline"
-    t.datetime "type_in_date"
-    t.datetime "created_at",           :null => false
-    t.datetime "updated_at",           :null => false
+    t.date     "import_deadline"
+    t.date     "type_in_date"
+    t.datetime "created_at",         :null => false
+    t.datetime "updated_at",         :null => false
+  end
+
+  create_table "declarations", :force => true do |t|
+    t.string   "declaration_type"
+    t.string   "pre_entry_no"
+    t.string   "entry_no"
+    t.string   "eport_no"
+    t.string   "declarant"
+    t.string   "declare_enterprise"
+    t.string   "operate_enterprise"
+    t.string   "custom"
+    t.string   "enrol_no"
+    t.date     "declare_date"
+    t.string   "transport_mode"
+    t.string   "transport_tool"
+    t.string   "truck"
+    t.string   "bill_no"
+    t.string   "trade_mode"
+    t.string   "tax_kind"
+    t.string   "trade_country"
+    t.string   "port"
+    t.string   "destination"
+    t.string   "pay_way"
+    t.string   "certification"
+    t.string   "deal_mode"
+    t.integer  "package_amount"
+    t.string   "wrap_type"
+    t.decimal  "gross_weight",       :precision => 10, :scale => 0
+    t.decimal  "net_weight",         :precision => 10, :scale => 0
+    t.string   "load_port"
+    t.string   "memo"
+    t.string   "attachments"
+    t.date     "import_export_date"
+    t.datetime "created_at",                                        :null => false
+    t.datetime "updated_at",                                        :null => false
   end
 
   create_table "dict_attachments", :force => true do |t|

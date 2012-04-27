@@ -11,12 +11,12 @@ class CreateContracts < ActiveRecord::Migration
       t.string :export_contract
       t.string :export_currency
       t.string :export_deal_mode
-      t.datetime :export_deadline
+      t.date :export_deadline
       t.string :import_contract
       t.string :import_currency
       t.string :import_deal_mode
-      t.datetime :import_deadline
-      t.datetime :type_in_date
+      t.date :import_deadline
+      t.date :type_in_date
 
       t.timestamps
     end

@@ -3,11 +3,12 @@ module ContractsHelper
   def import_contract(file)
     import_result = true
     Spreadsheet.client_encoding = 'UTF-8'
+    
+    contract = Contract.new
 
     Spreadsheet.open file.path do |workbook|
       
-      worksheet = workbook.worksheet(0)
-      contract = Contract.new
+      worksheet = workbook.worksheet(0)      
       contract.manual = worksheet.row(2).at(3).to_s
       contract.operate_enterprise = worksheet.row(4).at(1).to_s
       enterprise = Enterprise.find_by_code(worksheet.row(4).at(5).to_s)
@@ -83,6 +84,6 @@ module ContractsHelper
       end
     end
 
-    return import_result
+    return {:result => import_result, :contract => contract}
   end
 end

@@ -98,16 +98,16 @@ class ContractsController < ApplicationController
       file_path = Rails.root.join('tmp', uploaded_io.original_filename)
       File.open(file_path, 'wb') do |file|
         file.write(uploaded_io.read)
-        if import_contract(file)
-          flash[:success] = "成功导入合同"
+        import_status = import_contract(file)
+        if import_status[:result]
+          flash[:success] = ('成功导入合同, <a href="' + contract_url(import_status[:contract]) + '" >点击查看</a>').html_safe
         else
-          flash[:attention] = "导入合同时有错误发生"
+          flash[:attention] = '导入合同时有错误发生'
         end
       end
       File.delete(file_path)
-    rescue => err
-      puts err
-      flash[:error] = "导入合同失败"
+    rescue
+      flash[:error] = '导入合同失败'
     end
     redirect_to import_contracts_url
   end

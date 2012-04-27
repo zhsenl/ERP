@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 ERP::Application.routes.draw do
   
+  resources :declarations
+
   resources :cargos do
     get 'search', :on => :collection
   end
