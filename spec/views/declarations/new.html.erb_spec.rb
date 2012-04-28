@@ -11,7 +11,7 @@ describe "declarations/new" do
       :declare_enterprise => "MyString",
       :operate_enterprise => "MyString",
       :custom => "MyString",
-      :enrol_no => "MyString",
+      :contract_manual => "MyString",
       :transport_mode => "MyString",
       :transport_tool => "MyString",
       :truck => "MyString",
@@ -46,7 +46,7 @@ describe "declarations/new" do
       assert_select "input#declaration_declare_enterprise", :name => "declaration[declare_enterprise]"
       assert_select "input#declaration_operate_enterprise", :name => "declaration[operate_enterprise]"
       assert_select "input#declaration_custom", :name => "declaration[custom]"
-      assert_select "input#declaration_enrol_no", :name => "declaration[enrol_no]"
+      assert_select "input#declaration_contract_manual", :name => "declaration[contract_manual]"
       assert_select "input#declaration_transport_mode", :name => "declaration[transport_mode]"
       assert_select "input#declaration_transport_tool", :name => "declaration[transport_tool]"
       assert_select "input#declaration_truck", :name => "declaration[truck]"

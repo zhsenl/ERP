@@ -115,7 +115,7 @@ ActiveRecord::Schema.define(:version => 20120428013903) do
     t.string   "declare_enterprise"
     t.string   "operate_enterprise"
     t.string   "custom"
-    t.string   "enrol_no"
+    t.string   "contract_manual"
     t.date     "declare_date"
     t.string   "transport_mode"
     t.string   "transport_tool"

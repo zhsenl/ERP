@@ -11,7 +11,7 @@ describe "declarations/show" do
       :declare_enterprise => "Declare Enterprise",
       :operate_enterprise => "Operate Enterprise",
       :custom => "Custom",
-      :enrol_no => "Enrol No",
+      :contract_manual => "Enrol No",
       :transport_mode => "Transport Mode",
       :transport_tool => "Transport Tool",
       :truck => "Truck",

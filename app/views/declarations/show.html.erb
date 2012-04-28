@@ -1,150 +1,129 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Pre entry no:</b>
-  <%= @declaration.pre_entry_no %>
-</p>
-
-<p>
-  <b>Entry no:</b>
-  <%= @declaration.entry_no %>
-</p>
-
-<p>
-  <b>Eport no:</b>
-  <%= @declaration.eport_no %>
-</p>
-
-<p>
-  <b>Declarant:</b>
-  <%= @declaration.declarant %>
-</p>
-
-<p>
-  <b>Declare enterprise:</b>
-  <%= @declaration.declare_enterprise %>
-</p>
-
-<p>
-  <b>Operate enterprise:</b>
-  <%= @declaration.operate_enterprise %>
-</p>
-
-<p>
-  <b>Custom:</b>
-  <%= @declaration.custom %>
-</p>
-
-<p>
-  <b>Enrol no:</b>
-  <%= @declaration.enrol_no %>
-</p>
-
-<p>
-  <b>Declare date:</b>
-  <%= @declaration.declare_date %>
-</p>
-
-<p>
-  <b>Transport mode:</b>
-  <%= @declaration.transport_mode %>
-</p>
-
-<p>
-  <b>Transport tool:</b>
-  <%= @declaration.transport_tool %>
-</p>
-
-<p>
-  <b>Truck:</b>
-  <%= @declaration.truck %>
-</p>
-
-<p>
-  <b>Bill no:</b>
-  <%= @declaration.bill_no %>
-</p>
-
-<p>
-  <b>Trade mode:</b>
-  <%= @declaration.trade_mode %>
-</p>
-
-<p>
-  <b>Tax kind:</b>
-  <%= @declaration.tax_kind %>
-</p>
-
-<p>
-  <b>Trade country:</b>
-  <%= @declaration.trade_country %>
-</p>
-
-<p>
-  <b>Port:</b>
-  <%= @declaration.port %>
-</p>
-
-<p>
-  <b>Destination:</b>
-  <%= @declaration.destination %>
-</p>
-
-<p>
-  <b>Pay way:</b>
-  <%= @declaration.pay_way %>
-</p>
-
-<p>
-  <b>Certification:</b>
-  <%= @declaration.certification %>
-</p>
-
-<p>
-  <b>Deal mode:</b>
-  <%= @declaration.deal_mode %>
-</p>
-
-<p>
-  <b>Package amount:</b>
-  <%= @declaration.package_amount %>
-</p>
-
-<p>
-  <b>Wrap type:</b>
-  <%= @declaration.wrap_type %>
-</p>
-
-<p>
-  <b>Gross weight:</b>
-  <%= @declaration.gross_weight %>
-</p>
-
-<p>
-  <b>Net weight:</b>
-  <%= @declaration.net_weight %>
-</p>
-
-<p>
-  <b>Load port:</b>
-  <%= @declaration.load_port %>
-</p>
-
-<p>
-  <b>Memo:</b>
-  <%= @declaration.memo %>
-</p>
-
-<p>
-  <b>Attachments Mark:</b>
-  <%= @declaration.attachments_mark %>
-</p>
-
-<p>
-  <b>Import export date:</b>
-  <%= @declaration.import_export_date %>
-</p>
-
-
-<%= link_to 'Edit', edit_declaration_path(@declaration) %> |
-<%= link_to 'Back', declarations_path %>
+<div class="content-box">
+	<div class="content-box-header">
+		<h3>查看报关单(<%= @declaration.pre_entry_no %>)</h3>
+		<div class="operations">
+			<%= link_to '编辑', edit_declaration_path(@declaration) %> |
+			<%= link_to '返回', declarations_path(:declaration_type => @declaration_type) %>
+		</div>
+	</div>
+	<div class="content-box-content">
+		<div class="tab-content default-tab">
+			<p>
+				<b>Pre entry no:</b>
+				<%= @declaration.pre_entry_no %>
+			</p>
+			<p>
+				<b>Entry no:</b>
+				<%= @declaration.entry_no %>
+			</p>
+			<p>
+				<b>Eport no:</b>
+				<%= @declaration.eport_no %>
+			</p>
+			<p>
+				<b>Declarant:</b>
+				<%= @declaration.declarant %>
+			</p>
+			<p>
+				<b>Declare enterprise:</b>
+				<%= @declaration.declare_enterprise %>
+			</p>
+			<p>
+				<b>Operate enterprise:</b>
+				<%= @declaration.operate_enterprise %>
+			</p>
+			<p>
+				<b>Custom:</b>
+				<%= @declaration.custom %>
+			</p>
+			<p>
+				<b>Enrol no:</b>
+				<%= @declaration.contract_id %>
+			</p>
+			<p>
+				<b>Declare date:</b>
+				<%= @declaration.declare_date %>
+			</p>
+			<p>
+				<b>Transport mode:</b>
+				<%= @declaration.transport_mode %>
+			</p>
+			<p>
+				<b>Transport tool:</b>
+				<%= @declaration.transport_tool %>
+			</p>
+			<p>
+				<b>Truck:</b>
+				<%= @declaration.truck %>
+			</p>
+			<p>
+				<b>Bill no:</b>
+				<%= @declaration.bill_no %>
+			</p>
+			<p>
+				<b>Trade mode:</b>
+				<%= @declaration.trade_mode %>
+			</p>
+			<p>
+				<b>Tax kind:</b>
+				<%= @declaration.tax_kind %>
+			</p>
+			<p>
+				<b>Trade country:</b>
+				<%= @declaration.trade_country %>
+			</p>
+			<p>
+				<b>Port:</b>
+				<%= @declaration.port %>
+			</p>
+			<p>
+				<b>Destination:</b>
+				<%= @declaration.destination %>
+			</p>
+			<p>
+				<b>Pay way:</b>
+				<%= @declaration.pay_way %>
+			</p>
+			<p>
+				<b>Certification:</b>
+				<%= @declaration.certification %>
+			</p>
+			<p>
+				<b>Deal mode:</b>
+				<%= @declaration.deal_mode %>
+			</p>
+			<p>
+				<b>Package amount:</b>
+				<%= @declaration.package_amount %>
+			</p>
+			<p>
+				<b>Wrap type:</b>
+				<%= @declaration.wrap_type %>
+			</p>
+			<p>
+				<b>Gross weight:</b>
+				<%= @declaration.gross_weight %>
+			</p>
+			<p>
+				<b>Net weight:</b>
+				<%= @declaration.net_weight %>
+			</p>
+			<p>
+				<b>Load port:</b>
+				<%= @declaration.load_port %>
+			</p>
+			<p>
+				<b>Memo:</b>
+				<%= @declaration.memo %>
+			</p>
+			<p>
+				<b>Attachments Mark:</b>
+				<%= @declaration.attachments_mark %>
+			</p>
+			<p>
+				<b>Import export date:</b>
+				<%= @declaration.import_export_date %>
+			</p>
+		</div>
+	</div>
+</div>

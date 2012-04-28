@@ -11,7 +11,7 @@ class CreateDeclarations < ActiveRecord::Migration
       t.string :declare_enterprise
       t.string :operate_enterprise
       t.string :custom
-      t.string :enrol_no
+      t.string :contract_id
       t.date :declare_date
       t.string :transport_mode
       t.string :transport_tool

@@ -1,9 +1,15 @@
 # -*- encoding : utf-8 -*-
 class DeclarationsController < ApplicationController
+  include ApplicationHelper
   before_filter :init
   
   def init
-    @declaration_type = params[:declaration_type]
+    if params[:id]
+      @declaration = Declaration.find(params[:id])
+      @declaration_type = @declaration.declaration_type
+    else
+      @declaration_type = params[:declaration_type] || params[:declaration][:declaration_type]
+    end
     @mark = @declaration_type
   end
   
@@ -25,7 +31,6 @@ class DeclarationsController < ApplicationController
   # GET /declarations/1
   # GET /declarations/1.json
   def show
-    @declaration = Declaration.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -36,7 +41,13 @@ class DeclarationsController < ApplicationController
   # GET /declarations/new
   # GET /declarations/new.json
   def new
-    @declaration = Declaration.new
+    pre_entry_no = Time.now.strftime('%Y%m%d%H%M%S') + system_serial_no
+    @declaration = Declaration.new(:enterprise_id => current_enterprise.id, 
+                                   :declaration_type => @declaration_type,
+                                   :pre_entry_no => pre_entry_no,
+                                   :pay_way => "7",
+                                   :deal_mode => @declaration_type == "export" ? "3" : "1",
+                                   :declare_enterprise => "4419980074")
     if current_enterprise
       @declaration.enterprise = current_enterprise
     else
@@ -46,7 +57,6 @@ class DeclarationsController < ApplicationController
 
   # GET /declarations/1/edit
   def edit
-    @declaration = Declaration.find(params[:id])
   end
 
   # POST /declarations
@@ -59,7 +69,7 @@ class DeclarationsController < ApplicationController
         format.html { redirect_to @declaration, notice: 'Declaration was successfully created.' }
         format.json { render json: @declaration, status: :created, location: @declaration }
       else
-        format.html { render action: "new" }
+        format.html { render action: "new", :declaration_type => 1 }
         format.json { render json: @declaration.errors, status: :unprocessable_entity }
       end
     end
@@ -68,7 +78,6 @@ class DeclarationsController < ApplicationController
   # PUT /declarations/1
   # PUT /declarations/1.json
   def update
-    @declaration = Declaration.find(params[:id])
 
     respond_to do |format|
       if @declaration.update_attributes(params[:declaration])
@@ -84,7 +93,6 @@ class DeclarationsController < ApplicationController
   # DELETE /declarations/1
   # DELETE /declarations/1.json
   def destroy
-    @declaration = Declaration.find(params[:id])
     @declaration.destroy
 
     respond_to do |format|

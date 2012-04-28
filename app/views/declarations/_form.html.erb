@@ -1,7 +1,111 @@
 <%= render "shared/error_messages", :model => @declaration %>
 <%= form_for @declaration do |f| %>
 <fieldset>
-	<%= f.hidden_field :enterprise_id %>	
+	<%= f.hidden_field :enterprise_id %>
+	<%= f.hidden_field :declaration_type %>	
+	<p>
+		<label>经营单位</label>
+		<%= render "shared/autocomplete_field", :form => f, :attribute => :operate_enterprise, :url => enterprises_path, :klass => "text-input small-input" %> 
+	</p>
+	<p>
+		<label><%= @declaration_type == "export" ? "出口" : "进口"  %>口岸</label>
+		<%= render "shared/autocomplete_field", :form => f, :attribute => :custom, :url => dict_customs_path, :klass => "text-input small-input" %> 
+	</p>
+	<p>
+		<label>备案号</label>
+		<% contracts_array = current_enterprise.contracts.map { |contract| [contract.manual, contract.id] } %>
+		<% contracts_array = [["请选择" , 0]] + contracts_array %>
+		<%= f.select :contract_id, options_for_select(contracts_array), {}, { :class => "small-input first-field" } %>
+	  	<br />
+	  	<script>
+			$(function() {
+				$("#declaration_contract_id").combobox();
+			});
+		</script>
+	</p>	
+	<p>
+		<label>申报日期</label>
+		<%= f.date_select :declare_date, :class => "text-input small-input" %>
+	</p>
+	<p>
+		<label>运输方式</label>
+		<%= render "shared/autocomplete_field", :form => f, :attribute => :transport_mode, :url => dict_transport_modes_path, :min_length => 1, :klass => "text-input small-input" %> 
+	</p>
+	<p>
+		<label>运输工具</label>
+		<%= f.text_field :transport_tool, :class => "text-input small-input" %>
+	</p>
+	<p>
+		<label>汽车编号</label>
+		<%= render "shared/autocomplete_field", :form => f, :attribute => :truck, :url => dict_trucks_path, :min_length => 6, :klass => "text-input small-input" %> 
+	</p>
+	<p>
+		<label>提运单号</label>
+		<%= f.text_field :bill_no, :class => "text-input small-input" %>
+	</p>
+	<p>
+		<label>贸易方式</label>
+		<%= render "shared/autocomplete_field", :form => f, :attribute => :trade_mode, :url => dict_trade_modes_path, :klass => "text-input small-input" %> 
+	</p>
+	<p>
+		<label>征免性质</label>
+		<%= render "shared/autocomplete_field", :form => f, :attribute => :tax_kind, :url => dict_tax_kinds_path, :klass => "text-input small-input" %> 
+	</p>
+	<p>
+		<label><%= @declaration_type == "export" ? "运抵国" : "启运国"  %></label>
+		<%= render "shared/autocomplete_field", :form => f, :attribute => :trade_country, :url => dict_countries_path, :klass => "text-input small-input" %> 
+	</p>
+	<p>
+		<label><%= @declaration_type == "export" ? "指运港" : "装货港"  %></label>
+		<%= render "shared/autocomplete_field", :form => f, :attribute => :port, :url => dict_ports_path, :klass => "text-input small-input" %> 
+	</p>
+	<p>
+		<label><%= @declaration_type == "export" ? "境内货源地" : "境内目的地"  %></label>
+		<%= render "shared/autocomplete_field", :form => f, :attribute => :destination, :url => dict_districts_path, :klass => "text-input small-input" %> 
+	</p>
+	<% if @declaration_type == "export" %>
+	<p>
+		<label>结汇方式</label>
+		<%= render "shared/autocomplete_field", :form => f, :attribute => :pay_way, :url => dict_pay_ways_path, :min_length => 1, :klass => "text-input small-input" %> 
+	</p>
+	<p>
+		<label>批准文号</label>
+		<%= f.text_field :certification, :class => "text-input small-input" %>
+	</p>
+	<% end %>
+	<p>
+		<label>成交方式</label>
+		<%= render "shared/autocomplete_field", :form => f, :attribute => :deal_mode, :url => dict_deal_modes_path, :min_length => 1, :klass => "text-input small-input" %> 
+	</p>
+	<p>
+		<label>合同号</label>
+		<%= f.text_field :contract_no, :class => "text-input small-input" %>
+	</p>
+	<p>
+		<label>件数</label>
+		<%= f.text_field :package_amount, :class => "text-input small-input" %>
+	</p>
+	<p>
+		<label>包装种类</label>
+		<%= render "shared/autocomplete_field", :form => f, :attribute => :wrap_type, :url => dict_wrap_types_path, :min_length => 1, :klass => "text-input small-input" %> 
+	</p>
+	<p>
+		<label>毛重</label>
+		<%= f.text_field :gross_weight, :class => "text-input small-input" %>
+	</p>
+	<p>
+		<label>净重</label>
+		<%= f.text_field :net_weight, :class => "text-input small-input" %>
+	</p>
+	<p>
+		<label>装卸口岸</label>
+		<%= render "shared/autocomplete_field", :form => f, :attribute => :load_port, :url => dict_load_ports_path, :min_length => 2, :klass => "text-input small-input" %> 
+	</p>
+	<p>
+		<label>备注</label>
+		<%= f.text_field :memo, :class => "text-input small-input" %>
+	</p>
+	
 	
 	
 	<p>
