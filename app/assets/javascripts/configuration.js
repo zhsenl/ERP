@@ -30,7 +30,7 @@ $(document).ready(function(){
 				window.location.href=(this.href); // Just open the link instead of a sub menu
 				return false;
 			}
-		); 
+		);
 
     // Sidebar Accordion Menu Hover Effect:
 		
@@ -103,6 +103,9 @@ $(document).ready(function(){
 		  width = width <= 980 ? 980 : width;
 		  $("#body-wrapper").width(width + "px");
 		});
+		
+	//first form field focus
+	$(".first-field").focus();
 	
 	//ajax span
 	$("span.autoload").each(function(){
@@ -271,8 +274,7 @@ $(document).ready(function(){
 		}
 	});
 	
-	//first form field focus
-	$(".first-field").focus();
+	
 	
 });
   

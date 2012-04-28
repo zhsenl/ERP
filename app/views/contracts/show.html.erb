@@ -53,7 +53,7 @@
 			
 			<p>
 			  <b>出口期限:</b>
-			  <%= @contract.export_deadline.strftime('%Y-%m-%d') %>
+			  <%= @contract.export_deadline %>
 			</p>
 			
 			<p>
@@ -73,12 +73,12 @@
 						
 			<p>
 			  <b>进口期限:</b>
-			  <%= @contract.import_deadline.strftime('%Y-%m-%d') %>
+			  <%= @contract.import_deadline %>
 			</p>
 			
 			<p>
 			  <b>录入日期:</b>
-			  <%= @contract.type_in_date.strftime('%Y-%m-%d') %>
+			  <%= @contract.type_in_date %>
 			</p>
 		</div>
 	</div>

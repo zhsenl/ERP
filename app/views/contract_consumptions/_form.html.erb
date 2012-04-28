@@ -5,7 +5,7 @@
 	<p>
 		<label>合同料件</label>
 		<% contract_materials_array = @contract_product.contract.contract_materials.map { |contract_material| [contract_material.no + contract_material.name, contract_material.id] } %>
-		<%= f.select :contract_material_id, options_for_select(contract_materials_array), {}, { :class => "medium-input first-field" } %>
+		<%= f.select :contract_material_id, options_for_select(contract_materials_array, @contract_consumption.contract_material_id), {}, { :class => "medium-input first-field" } %>
 	  	<br />
 	  	<script>
 			$(function() {

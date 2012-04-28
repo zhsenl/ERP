@@ -9,121 +9,135 @@
 	<div class="content-box-content">
 		<div class="tab-content default-tab">
 			<p>
-				<b>Pre entry no:</b>
+				<b>预录入号:</b>
 				<%= @declaration.pre_entry_no %>
 			</p>
 			<p>
-				<b>Entry no:</b>
+				<b>报关单号:</b>
 				<%= @declaration.entry_no %>
 			</p>
 			<p>
-				<b>Eport no:</b>
+				<b>电子口岸号:</b>
 				<%= @declaration.eport_no %>
 			</p>
 			<p>
-				<b>Declarant:</b>
+				<b>报关员:</b>
 				<%= @declaration.declarant %>
 			</p>
 			<p>
-				<b>Declare enterprise:</b>
-				<%= @declaration.declare_enterprise %>
+				<b>申报企业:</b>
+				<span class="autoload" data-url=<%= enterprises_path %> ><%= @declaration.declare_enterprise %></span>
 			</p>
 			<p>
-				<b>Operate enterprise:</b>
-				<%= @declaration.operate_enterprise %>
+			  	<b>经营单位:</b>
+			  	<span class="autoload" data-url=<%= enterprises_path %> ><%= @declaration.operate_enterprise %></span>
 			</p>
 			<p>
-				<b>Custom:</b>
-				<%= @declaration.custom %>
+				<b><%= @declaration_type == "export" ? "出口" : "进口"  %>口岸:</b>
+				<span class="autoload" data-url=<%= dict_customs_path %> ><%= @declaration.custom %></span>
 			</p>
 			<p>
-				<b>Enrol no:</b>
-				<%= @declaration.contract_id %>
+				<b>备案号:</b>
+				<% if @declaration.contract %>
+				<%= @declaration.contract.manual %>
+				<% end %>
 			</p>
+			<% if @declaration_type == "import" %>
 			<p>
-				<b>Declare date:</b>
+				<b>进口日期</b>
+				<%= @declaration.import_export_date %>
+			</p>
+			<% end %>
+			<p>
+				<b>申报日期:</b>
 				<%= @declaration.declare_date %>
 			</p>
 			<p>
-				<b>Transport mode:</b>
-				<%= @declaration.transport_mode %>
+				<b>运输方式:</b>
+				<span class="autoload" data-url=<%= dict_transport_modes_path %> ><%= @declaration.transport_mode %></span>
 			</p>
 			<p>
-				<b>Transport tool:</b>
+				<b>运输工具:</b>
 				<%= @declaration.transport_tool %>
 			</p>
 			<p>
-				<b>Truck:</b>
-				<%= @declaration.truck %>
+				<b>汽车编号:</b>
+				<span class="autoload" data-url=<%= dict_trucks_path %> ><%= @declaration.truck %></span>
 			</p>
 			<p>
-				<b>Bill no:</b>
+				<b>提运单号:</b>
 				<%= @declaration.bill_no %>
 			</p>
 			<p>
-				<b>Trade mode:</b>
-				<%= @declaration.trade_mode %>
+				<b>贸易方式:</b>
+				<span class="autoload" data-url=<%= dict_trade_modes_path %> ><%= @declaration.trade_mode %></span>
 			</p>
 			<p>
-				<b>Tax kind:</b>
-				<%= @declaration.tax_kind %>
+				<b>征免性质:</b>
+				<span class="autoload" data-url=<%= dict_tax_kinds_path %> ><%= @declaration.tax_kind %></span>
 			</p>
 			<p>
-				<b>Trade country:</b>
-				<%= @declaration.trade_country %>
+				<b><%= @declaration_type == "export" ? "运抵国" : "启运国"  %>:</b>
+				<span class="autoload" data-url=<%= dict_countries_path %> ><%= @declaration.trade_country %></span>
 			</p>
 			<p>
-				<b>Port:</b>
-				<%= @declaration.port %>
+				<b><%= @declaration_type == "export" ? "指运港" : "装货港"  %>:</b>
+				<span class="autoload" data-url=<%= dict_ports_path %> ><%= @declaration.port %></span>
 			</p>
 			<p>
-				<b>Destination:</b>
-				<%= @declaration.destination %>
+				<b><%= @declaration_type == "export" ? "境内货源地" : "境内目的地"  %>:</b>
+				<span class="autoload" data-url=<%= dict_districts_path %> ><%= @declaration.destination %></span>
+			</p>
+			<% if @declaration_type == "export" %>
+			<p>
+				<b>结汇方式:</b>
+				<span class="autoload" data-url=<%= dict_pay_ways_path %> ><%= @declaration.pay_way %></span>
 			</p>
 			<p>
-				<b>Pay way:</b>
-				<%= @declaration.pay_way %>
-			</p>
-			<p>
-				<b>Certification:</b>
+				<b>批准文号:</b>
 				<%= @declaration.certification %>
 			</p>
+			<% end %>
 			<p>
-				<b>Deal mode:</b>
-				<%= @declaration.deal_mode %>
+				<b>成交方式:</b>
+				<span class="autoload" data-url=<%= dict_deal_modes_path %> ><%= @declaration.deal_mode %></span>
 			</p>
 			<p>
-				<b>Package amount:</b>
+				<b>合同号:</b>
+				<%= @declaration.contract_no %>
+			</p>
+			<p>
+				<b>件数:</b>
 				<%= @declaration.package_amount %>
 			</p>
 			<p>
-				<b>Wrap type:</b>
-				<%= @declaration.wrap_type %>
+				<b>包装种类:</b>
+				<span class="autoload" data-url=<%= dict_wrap_types_path %> ><%= @declaration.wrap_type %></span>
 			</p>
 			<p>
-				<b>Gross weight:</b>
+				<b>毛重:</b>
 				<%= @declaration.gross_weight %>
 			</p>
 			<p>
-				<b>Net weight:</b>
+				<b>净重:</b>
 				<%= @declaration.net_weight %>
 			</p>
 			<p>
-				<b>Load port:</b>
-				<%= @declaration.load_port %>
+				<b>装卸口岸:</b>
+				<span class="autoload" data-url=<%= dict_load_ports_path %> ><%= @declaration.load_port %></span>
 			</p>
 			<p>
-				<b>Memo:</b>
+				<b>备注:</b>
 				<%= @declaration.memo %>
 			</p>
+			<% @declaration.attachments.each do |key, value| %>
+				<% if !value.blank? %>
 			<p>
-				<b>Attachments Mark:</b>
-				<%= @declaration.attachments_mark %>
+				<b><span class="autoload" data-url=<%= dict_attachments_path %> ><%= key %></span>:</b>
+				<%= value %>
 			</p>
-			<p>
-				<b>Import export date:</b>
-				<%= @declaration.import_export_date %>
-			</p>
+				<% end %>
+			<% end %>
 		</div>
 	</div>
 </div>

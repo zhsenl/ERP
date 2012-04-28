@@ -48,6 +48,7 @@ class DeclarationsController < ApplicationController
                                    :pay_way => "7",
                                    :deal_mode => @declaration_type == "export" ? "3" : "1",
                                    :declare_enterprise => "4419980074")
+    @declaration.declaration_transit_information = DeclarationTransitInformation.new
     if current_enterprise
       @declaration.enterprise = current_enterprise
     else
@@ -96,7 +97,7 @@ class DeclarationsController < ApplicationController
     @declaration.destroy
 
     respond_to do |format|
-      format.html { redirect_to declarations_url }
+      format.html { redirect_to declarations_url(:declaration_type => @declaration_type) }
       format.json { head :no_content }
     end
   end  

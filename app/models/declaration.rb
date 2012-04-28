@@ -2,8 +2,8 @@
 class Declaration < ActiveRecord::Base
   belongs_to :enterprise
   belongs_to :contract
-  has_one :declaration_transit_imformation, :dependent => :destroy
-  accepts_nested_attributes_for :declaration_transit_imformation
+  has_one :declaration_transit_information, :dependent => :destroy
+  accepts_nested_attributes_for :declaration_transit_information
   
   validates :enterprise_id, :presence => true, :numericality => true
   validates :declaration_type, :presence => true
@@ -17,4 +17,17 @@ class Declaration < ActiveRecord::Base
   validates :package_amount, :presence => true, :numericality => true
   validates :gross_weight, :presence => true, :numericality => true
   validates :net_weight, :presence => true, :numericality => true
+  
+  def attachments=(attachment_hash)
+    self.attachments_mark = attachment_hash.to_json
+  end
+  
+  def attachments
+    if self.attachments_mark.blank?
+      Hash.new
+    else
+      ActiveSupport::JSON.decode(self.attachments_mark)
+    end    
+  end
+  
 end
