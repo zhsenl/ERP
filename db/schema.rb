@@ -1,4 +1,4 @@
-# encoding: UTF-8
+# -*- encoding : utf-8 -*-
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120427160622) do
+ActiveRecord::Schema.define(:version => 20120428013903) do
 
   create_table "cargos", :force => true do |t|
     t.integer  "enterprise_id"
@@ -89,7 +89,24 @@ ActiveRecord::Schema.define(:version => 20120427160622) do
     t.datetime "updated_at",         :null => false
   end
 
+  create_table "declaration_transit_informations", :force => true do |t|
+    t.integer  "declaration_id"
+    t.string   "corporation_name"
+    t.string   "corporation_code"
+    t.string   "transport_tool_code"
+    t.string   "transport_tool_name"
+    t.string   "transport_tool_voyage_no"
+    t.string   "bill_no"
+    t.string   "local_transport_mode"
+    t.string   "local_transport_tool_code"
+    t.string   "local_transport_tool_name"
+    t.string   "local_transport_tool_voyage_no"
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
   create_table "declarations", :force => true do |t|
+    t.integer  "enterprise_id"
     t.string   "declaration_type"
     t.string   "pre_entry_no"
     t.string   "entry_no"
@@ -112,13 +129,14 @@ ActiveRecord::Schema.define(:version => 20120427160622) do
     t.string   "pay_way"
     t.string   "certification"
     t.string   "deal_mode"
+    t.string   "contract_no"
     t.integer  "package_amount"
     t.string   "wrap_type"
     t.decimal  "gross_weight",       :precision => 10, :scale => 0
     t.decimal  "net_weight",         :precision => 10, :scale => 0
     t.string   "load_port"
     t.string   "memo"
-    t.string   "attachments"
+    t.string   "attachments_mark"
     t.date     "import_export_date"
     t.datetime "created_at",                                        :null => false
     t.datetime "updated_at",                                        :null => false

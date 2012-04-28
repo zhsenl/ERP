@@ -9,6 +9,7 @@ zh-CN:
       contract_product: 合同成品
       contract_material: 合同料件
       contract_consumption: 合同单耗
+      declaration: 报关单
       dict/attachment: 随附单证
       dict/bracket: 托架
       dict/bring_in_mode: 引进方式

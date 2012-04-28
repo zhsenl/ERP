@@ -1,6 +1,10 @@
 $(document).ready(function(){
 	//get controller and action
-		var locations = ($("#mark").val() + "_" + $("#controller").val().replace("/","_") + "_" + $("#action").val()).split("_");
+		var controller_and_action = $("#controller").val().replace("/","_") + "_" + $("#action").val();
+		if ($("#mark").val() != "") {
+			controller_and_action = $("#mark").val() + "_" + controller_and_action;
+		}
+		var locations = controller_and_action.split("_");
 		for (var i = 0; i < locations.length; i++) {
 			if (i == 0) {
 				current_item = locations[0];
@@ -117,6 +121,7 @@ $(document).ready(function(){
 	//autocomplete field settings
 	$("input[id$='_autocomplete']").each(function(){
 		var label = $("#" + this.id + "_label");
+		var label_content = label.html();
 		var url = this.getAttribute("data-url");
 		var minLength = this.getAttribute("data-minLength");
 		if (this.value != "") {
@@ -155,7 +160,7 @@ $(document).ready(function(){
 				    	}
 			  	});
 			} else {
-				label.html("");
+				label.html(label_content);
 			}			
 		})
 	});

@@ -7,7 +7,7 @@ class ContractsController < ApplicationController
     if current_enterprise
       @contracts = current_enterprise.contracts.page(params[:page]).order("updated_at DESC")
     else
-      @contracts = Enterprise.new.contracts.paginate(:page => params[:page],:per_page => 10)
+      @contracts = Enterprise.new.contracts.page(params[:page])
     end
 
     respond_to do |format|

@@ -1,79 +1,38 @@
-<h1>Listing declarations</h1>
+<%= render "shared/enterprise_selector" %>
 
-<table>
-  <tr>
-    <th>Pre entry no</th>
-    <th>Entry no</th>
-    <th>Eport no</th>
-    <th>Declarant</th>
-    <th>Declare enterprise</th>
-    <th>Operate enterprise</th>
-    <th>Custom</th>
-    <th>Enrol no</th>
-    <th>Declare date</th>
-    <th>Transport mode</th>
-    <th>Transport tool</th>
-    <th>Truck</th>
-    <th>Bill no</th>
-    <th>Trade mode</th>
-    <th>Tax kind</th>
-    <th>Trade country</th>
-    <th>Port</th>
-    <th>Destination</th>
-    <th>Pay way</th>
-    <th>Certification</th>
-    <th>Deal mode</th>
-    <th>Package amount</th>
-    <th>Wrap type</th>
-    <th>Gross weight</th>
-    <th>Net weight</th>
-    <th>Load port</th>
-    <th>Memo</th>
-    <th>Attachments</th>
-    <th>Import export date</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @declarations.each do |declaration| %>
-  <tr>
-    <td><%= declaration.pre_entry_no %></td>
-    <td><%= declaration.entry_no %></td>
-    <td><%= declaration.eport_no %></td>
-    <td><%= declaration.declarant %></td>
-    <td><%= declaration.declare_enterprise %></td>
-    <td><%= declaration.operate_enterprise %></td>
-    <td><%= declaration.custom %></td>
-    <td><%= declaration.enrol_no %></td>
-    <td><%= declaration.declare_date %></td>
-    <td><%= declaration.transport_mode %></td>
-    <td><%= declaration.transport_tool %></td>
-    <td><%= declaration.truck %></td>
-    <td><%= declaration.bill_no %></td>
-    <td><%= declaration.trade_mode %></td>
-    <td><%= declaration.tax_kind %></td>
-    <td><%= declaration.trade_country %></td>
-    <td><%= declaration.port %></td>
-    <td><%= declaration.destination %></td>
-    <td><%= declaration.pay_way %></td>
-    <td><%= declaration.certification %></td>
-    <td><%= declaration.deal_mode %></td>
-    <td><%= declaration.package_amount %></td>
-    <td><%= declaration.wrap_type %></td>
-    <td><%= declaration.gross_weight %></td>
-    <td><%= declaration.net_weight %></td>
-    <td><%= declaration.load_port %></td>
-    <td><%= declaration.memo %></td>
-    <td><%= declaration.attachments %></td>
-    <td><%= declaration.import_export_date %></td>
-    <td><%= link_to 'Show', declaration %></td>
-    <td><%= link_to 'Edit', edit_declaration_path(declaration) %></td>
-    <td><%= link_to 'Destroy', declaration, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Declaration', new_declaration_path %>
+<div class="content-box">
+	<div class="content-box-header">
+		<h3><%= @declaration_type == "export" ? "出口" : "进口"  %>报关单列表</h3>
+		<div class="operations">
+			<%= link_to "添加新#{@declaration_type == 'export' ? '出口' : '进口'}报关单", new_declaration_path(:declaration_type => @declaration_type) %>
+		</div>
+	</div>
+	<div class="content-box-content">
+		<div class="tab-content default-tab">
+			<table>
+				<thead>
+					<tr>
+						<th>预录入号</th>
+						<th>申报日期</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+						<td colspan="6"> <%= will_paginate @declarations %> </td>
+					</tr>
+				</tfoot>
+				<tbody>
+					<% @declarations.each do |declaration| %>
+					<tr>
+						<td><%= link_to declaration.pre_entry_no, declaration %></td>
+						<td><%= declaration.declarate_date.strftime('%Y-%m-%d') %></td>
+						<td> <%= link_to image_tag("icons/pencil.png", :alt => "Edit"), edit_declaration_path(declaration) %>
+						<%= link_to image_tag("icons/cross.png", :alt => "Delete"), declaration, confirm: '确定删除?', method: :delete %> </td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

@@ -1,10 +1,20 @@
+# -*- encoding : utf-8 -*-
 class DeclarationsController < ApplicationController
-  before_filter :set_type_mark
+  before_filter :init
+  
+  def init
+    @declaration_type = params[:declaration_type]
+    @mark = @declaration_type
+  end
   
   # GET /declarations
   # GET /declarations.json
   def index
-    @declarations = Declaration.all
+    if current_enterprise
+      @declarations = Declaration.where("enterprise_id = ? and declaration_type = ?", current_enterprise.id, @declaration_type).page(params[:page]).order("updated_at DESC")
+    else
+      @declarations = Enterprise.new.declarations.page(params[:page])
+    end
 
     respond_to do |format|
       format.html # index.html.erb
@@ -27,10 +37,10 @@ class DeclarationsController < ApplicationController
   # GET /declarations/new.json
   def new
     @declaration = Declaration.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @declaration }
+    if current_enterprise
+      @declaration.enterprise = current_enterprise
+    else
+      redirect_to declarations_path(:declaration_type => @declaration_type), notice: '请选择要操作的企业'
     end
   end
 
@@ -81,9 +91,5 @@ class DeclarationsController < ApplicationController
       format.html { redirect_to declarations_url }
       format.json { head :no_content }
     end
-  end
-  
-  def set_type_mark
-    @mark = params[:declaration_type]
-  end
+  end  
 end

@@ -1,6 +1,8 @@
+# -*- encoding : utf-8 -*-
 class CreateDeclarations < ActiveRecord::Migration
   def change
     create_table :declarations do |t|
+      t.integer :enterprise_id
       t.string :declaration_type
       t.string :pre_entry_no
       t.string :entry_no
@@ -23,13 +25,14 @@ class CreateDeclarations < ActiveRecord::Migration
       t.string :pay_way
       t.string :certification
       t.string :deal_mode
+      t.string :contract_no
       t.integer :package_amount
       t.string :wrap_type
       t.decimal :gross_weight
       t.decimal :net_weight
       t.string :load_port
       t.string :memo
-      t.string :attachments
+      t.string :attachments_mark
       t.date :import_export_date
 
       t.timestamps

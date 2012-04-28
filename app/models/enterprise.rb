@@ -6,6 +6,7 @@ class Enterprise < ActiveRecord::Base
   
   has_many :cargos, :dependent => :destroy
   has_many :contracts, :dependent => :destroy
+  has_many :declarations, :dependent => :destroy
   
   validates :code, :presence => true, :uniqueness => true
   validates :name, :presence => true
