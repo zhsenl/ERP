@@ -7,6 +7,22 @@ class UsersController < ApplicationController
     @users = User.page(params[:page]).order("updated_at DESC")
   end
   
+  # GET /users/search
+  # GET /users/search.json
+  def search
+    @term = params[:term]
+    if @term.blank?
+      @users = []
+    else
+      @users = User.where("username like ? or name like ?", '%' + @term + '%', '%' + @term +'%')
+    end
+
+    respond_to do |format|
+      format.html { render action: "index" }
+      format.json { render json: @users, :except => [:encrypted_password, :salt] }
+    end
+  end
+  
   def show    
     @user = User.find(params[:id])
     @title = @user.username + " 用户详细信息"

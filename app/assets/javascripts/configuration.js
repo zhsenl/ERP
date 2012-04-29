@@ -96,6 +96,10 @@ $(document).ready(function(){
 				$(this).parent().parent().parent().parent().find("input[type='checkbox']").attr('checked', $(this).is(':checked'));   
 			}
 		);
+		
+	// Initialise Facebox Modal window:
+
+		$('a[rel*=facebox]').facebox(); // Applies modal window to any link with attribute rel="modal"
     
 	//on window resizing
 		$(window).resize(function() {

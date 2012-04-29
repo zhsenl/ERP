@@ -6,7 +6,6 @@
 	<!-- End .content-box-header -->
 	<div class="content-box-content">
 		<%= form_tag(options_update_path, :method => "post") do %>
-			<fieldset>
 				<p>
 					<label>公司名称</label>
 					<input name="options[company_name]" type="text" value="<%= @options["company_name"] %>" class="text-input small-input first-field" />
@@ -35,7 +34,6 @@
 				<p>
 					<input class="button" type="submit" value="确定" name="submit">
 				</p>
-			</fieldset>
 			<div class="clear"></div><!-- End .clear -->		
 		<% end %>
 	</div>

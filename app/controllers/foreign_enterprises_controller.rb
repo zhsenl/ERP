@@ -13,16 +13,18 @@ class ForeignEnterprisesController < ApplicationController
     end
   end
   
+  # GET /foreign_enterprises/search
   # GET /foreign_enterprises/search.json
   def search
-    term = params[:term]
-    if term.blank?
+    @term = params[:term]
+    if @term.blank?
       @foreign_enterprises = []
     else
-      @foreign_enterprises = ForeignEnterprise.where("code like ? or name like ?", term + '%', '%' + term +'%')
+      @foreign_enterprises = ForeignEnterprise.where("code like ? or name like ?", '%' + @term + '%', '%' + @term +'%')
     end
 
     respond_to do |format|
+      format.html { render action: "index" }
       format.json { render json: @foreign_enterprises }
     end
   end

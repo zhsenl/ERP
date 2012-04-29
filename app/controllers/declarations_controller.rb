@@ -48,7 +48,7 @@ class DeclarationsController < ApplicationController
                                    :pay_way => "7",
                                    :deal_mode => @declaration_type == "export" ? "3" : "1",
                                    :declare_enterprise => "4419980074")
-    @declaration.declaration_transit_information = DeclarationTransitInformation.new
+    @declaration.declaration_transit_information = DeclarationTransitInformation.new(:local_transport_mode => 4)
     if current_enterprise
       @declaration.enterprise = current_enterprise
     else
@@ -79,7 +79,6 @@ class DeclarationsController < ApplicationController
   # PUT /declarations/1
   # PUT /declarations/1.json
   def update
-
     respond_to do |format|
       if @declaration.update_attributes(params[:declaration])
         format.html { redirect_to @declaration, notice: 'Declaration was successfully updated.' }

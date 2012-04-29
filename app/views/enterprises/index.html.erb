@@ -1,9 +1,20 @@
+<%= render "shared/search_form", :model => Enterprise %>
+
+
 <div class="content-box">
 	<div class="content-box-header">
+		<% if params[:action] == "index" %>
 		<h3>企业列表</h3>
 		<div class="operations">
 			<%= link_to '添加新企业', new_enterprise_path %>
 		</div>
+		<% end %>
+		<% if params[:action] == "search" %>
+		<h3>关键字"<%= @term %>"的企业搜索结果:<%= @enterprises.size %>条</h3>
+		<div class="operations">
+			<%= link_to '返回列表', enterprises_path %>
+		</div>
+		<% end %>
 	</div>
 	<div class="content-box-content">
 		<div class="tab-content default-tab">
@@ -18,9 +29,11 @@
 					</tr>
 				</thead>
 				<tfoot>
+					<% if params[:action] == "index" %>
 					<tr>
 						<td colspan="6"> <%= will_paginate @enterprises %> </td>
 					</tr>
+					<% end %>
 				</tfoot>
 				<tbody>
 					<% @enterprises.each do |enterprise| %>

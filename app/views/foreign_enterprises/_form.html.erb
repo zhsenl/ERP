@@ -1,40 +1,37 @@
 <%= render "shared/error_messages", :model => @foreign_enterprise %>
 <%= form_for @foreign_enterprise do |f| %>
-<fieldset>
-	<p>
-		<label>单位代码</label>
-		<%= f.text_field :code, :class => "text-input small-input first-field" %>
-		<br />
-	</p>
-	<p>
-		<label>单位名称</label>
-		<%= f.text_field :name, :class => "text-input small-input" %>
-		<br />
-	</p>
-	<p>
-		<label>地址</label>
-		<%= f.text_field :address, :class => "text-input medium-input" %>
-		<br />
-	</p>
-	<p>
-		<label>联系人</label>
-		<%= f.text_field :linkman, :class => "text-input small-input" %>
-		<br />
-	</p>
-	<p>
-		<label>电话</label>
-		<%= f.telephone_field :telephone, :class => "text-input small-input" %>
-		<br />
-	</p>
-	<p>
-		<label>传真</label>
-		<%= f.telephone_field :fax, :class => "text-input small-input" %>
-		<br />
-	</p>	
-	<p>
-		<%= f.submit :class => "button" %>
-	</p>
-</fieldset>
+<p>
+	<label>单位代码</label>
+	<%= f.text_field :code, :class => "text-input small-input first-field" %>
+	<br />
+</p>
+<p>
+	<label>单位名称</label>
+	<%= f.text_field :name, :class => "text-input small-input" %>
+	<br />
+</p>
+<p>
+	<label>地址</label>
+	<%= f.text_field :address, :class => "text-input medium-input" %>
+	<br />
+</p>
+<p>
+	<label>联系人</label>
+	<%= f.text_field :linkman, :class => "text-input small-input" %>
+	<br />
+</p>
+<p>
+	<label>电话</label>
+	<%= f.telephone_field :telephone, :class => "text-input small-input" %>
+	<br />
+</p>
+<p>
+	<label>传真</label>
+	<%= f.telephone_field :fax, :class => "text-input small-input" %>
+	<br />
+</p>
+<p>
+	<%= f.submit :class => "button" %>
+</p>
 <div class="clear"></div>
-<% end %>
-
+<% end %> 

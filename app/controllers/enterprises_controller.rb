@@ -11,17 +11,19 @@ class EnterprisesController < ApplicationController
       format.json { render json: @enterprises }
     end
   end
-  
+
+  # GET /enterprises/search
   # GET /enterprises/search.json
   def search
-    term = params[:term]
-    if term.blank?
+    @term = params[:term]
+    if @term.blank?
       @enterprises = []
     else
-      @enterprises = Enterprise.where("code like ? or name like ?", term + '%', '%' + term +'%')
+      @enterprises = Enterprise.where("code like ? or name like ?", '%' + @term + '%', '%' + @term +'%')
     end
 
     respond_to do |format|
+      format.html { render action: "index" }
       format.json { render json: @enterprises }
     end
   end
@@ -36,7 +38,7 @@ class EnterprisesController < ApplicationController
       format.json { render json: @enterprise }
     end
   end
-  
+
   # GET /enterprises/1/show_by_code.json
   # get enterprise by code
   def show_by_code

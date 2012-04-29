@@ -1,7 +1,11 @@
 # -*- encoding : utf-8 -*-
 ERP::Application.routes.draw do
   
-  resources :declarations
+  get "declaration_transit_informations/edit"
+
+  get "declaration_transit_informations/update"
+
+  resources :declarations  
 
   resources :cargos do
     get 'search', :on => :collection
@@ -35,6 +39,7 @@ ERP::Application.routes.draw do
   
 
   resources :users do
+    get 'search', :on => :collection
     get 'enterprises', :on => :member
   end
   

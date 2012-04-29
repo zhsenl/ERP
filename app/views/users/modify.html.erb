@@ -8,40 +8,38 @@
 	</div>
 	<!-- End .content-box-header -->
 	<div class="content-box-content">
-		<%= render "shared/error_messages", :model => @user %>			
+		<%= render "shared/error_messages", :model => @user %>
 		<%= form_tag(me_change_path, :method => "post") do %>
-			<fieldset>
-				<p>
-					<label for="user_email">邮箱 Email</label>
-					<%= email_field :user, :email, :class => "text-input medium-input first-field" %>
-					<br />
-				</p>
-				<p>
-					<label for="user_name">姓名</label>
-					<%= text_field :user, :name, :class => "text-input small-input" %>
-					<br />
-				</p>
-				<p>
-					<label for="user_phone">手机</label>
-					<%= phone_field :user, :phone, :class => "text-input small-input" %>
-					<br />
-				</p>
-				<p>
-					<label for="user_password">密码</label>
-					<%= password_field :user, :password, :class => "text-input small-input" %>
-					<br />
-					<small>不想修改密码则留空</small>
-				</p>
-				<p>
-					<label for="user_password_confirmation">重复密码</label>
-					<%= password_field :user, :password_confirmation, :class => "text-input small-input" %>
-					<br />
-				</p>
-				<p>
-					<input class="button" type="submit" value="确定" name="submit">
-				</p>
-			</fieldset>
-			<div class="clear"></div><!-- End .clear -->		
+		<p>
+			<label for="user_email">邮箱 Email</label>
+			<%= email_field :user, :email, :class => "text-input medium-input first-field" %>
+			<br />
+		</p>
+		<p>
+			<label for="user_name">姓名</label>
+			<%= text_field :user, :name, :class => "text-input small-input" %>
+			<br />
+		</p>
+		<p>
+			<label for="user_phone">手机</label>
+			<%= phone_field :user, :phone, :class => "text-input small-input" %>
+			<br />
+		</p>
+		<p>
+			<label for="user_password">密码</label>
+			<%= password_field :user, :password, :class => "text-input small-input" %>
+			<br />
+			<small>不想修改密码则留空</small>
+		</p>
+		<p>
+			<label for="user_password_confirmation">重复密码</label>
+			<%= password_field :user, :password_confirmation, :class => "text-input small-input" %>
+			<br />
+		</p>
+		<p>
+			<input class="button" type="submit" value="确定" name="submit">
+		</p>
+		<div class="clear"></div><!-- End .clear -->
 		<% end %>
 	</div>
 	<!-- End .content-box-content -->

@@ -8,6 +8,8 @@
 	</div>
 	<div class="content-box-content">
 		<div class="tab-content default-tab">
+			<fieldset>
+			<legend>基本信息：</legend>
 			<p>
 				<b>组织机构代码:</b>
 				<%= @enterprise.code %>
@@ -40,9 +42,15 @@
 				<b>银行账号:</b>
 				<%= @enterprise.bank_account %>
 			</p>
-			
+			</fieldset>
+			<fieldset>
+			<legend>报关信息：</legend>
 			<p>
-				<b>海关编码:</b>
+				<b>交易代码:</b>
+			  	<%= @enterprise.enterprise_custom_option.trade_code %>
+			</p>
+			<p>
+				<b>所属关区:</b>
 				<span class="autoload" data-url=<%= dict_customs_path %> ><%= @enterprise.enterprise_custom_option.custom_code %></span>
 			</p>
 			<p>
@@ -77,6 +85,7 @@
 				<b>每单服务费:</b>
 			  	<%= @enterprise.enterprise_custom_option.service_unit_price %>
 			</p>
+			</fieldset>
 		</div>
 	</div>
 </div>

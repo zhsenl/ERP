@@ -1,9 +1,19 @@
+<%= render "shared/search_form", :model => User %>
+
 <div class="content-box">
 	<div class="content-box-header">
+		<% if params[:action] == "index" %>
 		<h3>用户列表</h3>
 		<div class="operations">
 			<%= link_to '添加新用户', new_user_path %>
 		</div>
+		<% end %>
+		<% if params[:action] == "search" %>
+		<h3>关键字"<%= @term %>"的用户搜索结果:<%= @users.size %>条</h3>
+		<div class="operations">
+			<%= link_to '返回列表', users_path %>
+		</div>
+		<% end %>
 	</div>
 	<div class="content-box-content">
 		<div class="tab-content default-tab">
@@ -18,9 +28,11 @@
 					</tr>
 				</thead>
 				<tfoot>
+					<% if params[:action] == "index" %>
 					<tr>
 						<td colspan="6"> <%= will_paginate @users %> </td>
 					</tr>
+					<% end %>
 				</tfoot>
 				<tbody>
 					<% @users.each do |user| %>

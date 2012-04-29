@@ -1,50 +1,48 @@
 <%= render "shared/error_messages", :model => @user %>
 <%= form_for @user do |f| %>
-<fieldset>
-	<p>
-		<%= f.label :username %>
-		<%= f.text_field :username, :class => "text-input small-input first-field" %>
-		<br />
-	</p>
-	<p>
-		<%= f.label :email %>
-		<%= f.email_field :email, :class => "text-input medium-input" %>
-		<br />
-	</p>
-	<p>
-		<%= f.label :password %>
-		<%= f.password_field :password, :class => "text-input small-input" %>
-		<br />
-		<% if params[:action] == "edit" %><small>不想修改密码则留空</small><% end %>
-	</p>
-	<p>
-		<%= f.label :password_confirmation %>
-		<%= f.password_field :password_confirmation, :class => "text-input small-input" %>
-		<br />
-	</p>
-	<p>
-		<%= f.label :name %>
-		<%= f.text_field :name, :class => "text-input small-input" %>
-		<br />
-	</p>
-	<p>
-		<%= f.label :phone %>
-		<%= f.phone_field :phone, :class => "text-input small-input" %>
-		<br />
-	</p>
-	<p>
-		<%= check_box_tag "user[roles][]", "admin", @user.roles.include?("admin") %>
-		超级管理员&nbsp;&nbsp;
-		<%= check_box_tag "user[roles][]", "staff", @user.roles.include?("staff") %>
-		工作人员&nbsp;&nbsp;
-		<%= check_box_tag "user[roles][]", "enterprise", @user.roles.include?("enterprise") %>
-		企业管理员&nbsp;&nbsp;
-		<%= check_box_tag "user[roles][]", "operator", @user.roles.include?("operator") %>
-		企业操作员&nbsp;&nbsp;	
-	</p>
-	<p>
-		<%= f.submit :class => "button" %>
-	</p>
-</fieldset>
+<p>
+	<%= f.label :username %>
+	<%= f.text_field :username, :class => "text-input small-input first-field" %>
+	<br />
+</p>
+<p>
+	<%= f.label :email %>
+	<%= f.email_field :email, :class => "text-input medium-input" %>
+	<br />
+</p>
+<p>
+	<%= f.label :password %>
+	<%= f.password_field :password, :class => "text-input small-input" %>
+	<br />
+	<% if params[:action] == "edit" %><small>不想修改密码则留空</small><% end %>
+</p>
+<p>
+	<%= f.label :password_confirmation %>
+	<%= f.password_field :password_confirmation, :class => "text-input small-input" %>
+	<br />
+</p>
+<p>
+	<%= f.label :name %>
+	<%= f.text_field :name, :class => "text-input small-input" %>
+	<br />
+</p>
+<p>
+	<%= f.label :phone %>
+	<%= f.phone_field :phone, :class => "text-input small-input" %>
+	<br />
+</p>
+<p>
+	<%= check_box_tag "user[roles][]", "admin", @user.roles.include?("admin") %>
+	超级管理员&nbsp;&nbsp;
+	<%= check_box_tag "user[roles][]", "staff", @user.roles.include?("staff") %>
+	工作人员&nbsp;&nbsp;
+	<%= check_box_tag "user[roles][]", "enterprise", @user.roles.include?("enterprise") %>
+	企业管理员&nbsp;&nbsp;
+	<%= check_box_tag "user[roles][]", "operator", @user.roles.include?("operator") %>
+	企业操作员&nbsp;&nbsp;
+</p>
+<p>
+	<%= f.submit :class => "button" %>
+</p>
 <div class="clear"></div><!-- End .clear -->
 <% end %>
