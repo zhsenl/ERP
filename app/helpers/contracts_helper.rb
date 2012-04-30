@@ -44,8 +44,8 @@ module ContractsHelper
         contract_materail.unit = unit.code if !unit.nil?
         contract_materail.quantity = row.at(9).to_s
         contract_materail.unit_price = row.at(10).to_s
-        country = Dict::Country.find_by_name(row.at(13).to_s)
-        contract_materail.country = country.code if !country.nil?
+        trade_country = Dict::Country.find_by_name(row.at(13).to_s)
+        contract_materail.trade_country = trade_country.code if !trade_country.nil?
         tax_mode = Dict::TaxMode.find_by_name(row.at(15).to_s)
         contract_materail.tax_mode = tax_mode.code if !tax_mode.nil?
         import_result &= contract_materail.save
@@ -62,8 +62,8 @@ module ContractsHelper
         contract_product.unit = unit.code if !unit.nil?
         contract_product.quantity = row.at(8).to_s
         contract_product.unit_price = row.at(9).to_s
-        country = Dict::Country.find_by_name(row.at(12).to_s)
-        contract_product.country = country.code if !country.nil?
+        trade_country = Dict::Country.find_by_name(row.at(12).to_s)
+        contract_product.trade_country = trade_country.code if !trade_country.nil?
         tax_mode = Dict::TaxMode.find_by_name(row.at(14).to_s)
         contract_product.tax_mode = tax_mode.code if !tax_mode.nil?
         import_result &= contract_product.save

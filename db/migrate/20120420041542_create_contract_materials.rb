@@ -12,7 +12,7 @@ class CreateContractMaterials < ActiveRecord::Migration
       t.string :unit2
       t.decimal :quantity, :precision => 15, :scale => 4
       t.decimal :unit_price, :precision => 15, :scale => 4
-      t.string :country
+      t.string :trade_country
       t.string :tax_mode
       t.string :no
 

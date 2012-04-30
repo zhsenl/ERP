@@ -2,10 +2,18 @@
 
 <div class="content-box">
 	<div class="content-box-header">
+		<% if params[:action] == "index" %>		
 		<h3><%= @declaration_type == "export" ? "出口" : "进口"  %>报关单列表</h3>
 		<div class="operations">
 			<%= link_to "添加新#{@declaration_type == 'export' ? '出口' : '进口'}报关单", new_declaration_path(:declaration_type => @declaration_type) %>
 		</div>
+		<% end %>
+		<% if params[:action] == "search" %>
+		<h3>关键字"<%= @term %>"的报关单搜索结果:<%= @declarations.size %>条</h3>
+		<div class="operations">
+			<%= link_to '返回列表', declarations_path %>
+		</div>
+		<% end %>
 	</div>
 	<div class="content-box-content">
 		<div class="tab-content default-tab">
@@ -18,9 +26,11 @@
 					</tr>
 				</thead>
 				<tfoot>
+					<% if params[:action] == "index" %>
 					<tr>
 						<td colspan="6"> <%= will_paginate @declarations %> </td>
 					</tr>
+					<% end %>
 				</tfoot>
 				<tbody>
 					<% @declarations.each do |declaration| %>

@@ -32,7 +32,7 @@ class ContractsController < ApplicationController
   def new
     @contract = Contract.new
     if current_enterprise
-      @contract.enterprise = current_enterprise
+      @contract = Contract.new(:enterprise_id => current_enterprise.id)
     else
       redirect_to contracts_path, notice: '请选择要操作的企业'
     end

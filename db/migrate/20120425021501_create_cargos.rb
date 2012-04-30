@@ -9,7 +9,7 @@ class CreateCargos < ActiveRecord::Migration
       t.string :unit
       t.string :unit1
       t.string :unit2
-      t.string :country
+      t.string :trade_country
 
       t.timestamps
     end

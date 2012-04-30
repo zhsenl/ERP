@@ -1,0 +1,12 @@
+<div class="content-box">
+	<div class="content-box-header">
+		<h3>编辑<%= @declaration_type == "export" ? "出口成品" : "进口料件" %></h3>
+		<div class="operations">
+			<%= link_to '查看', @declaration_cargo %> | 
+			<%= link_to '返回列表', declaration_cargos_path(:declaration_id => @declaration.id) %>
+		</div>
+	</div>
+	<div class="content-box-content">
+		<%= render 'form' %>
+	</div>
+</div>

@@ -2,6 +2,7 @@
 	<div class="content-box-header">
 		<h3>查看报关单(<%= @declaration.pre_entry_no %>)</h3>
 		<div class="operations">
+			<%= link_to @declaration_type == "export" ? "出口成品" : "进口料件", declaration_cargos_path(:declaration_id => @declaration.id) %> |
 			<%= link_to '编辑', edit_declaration_path(@declaration) %> |
 			<%= link_to '返回列表', declarations_path(:declaration_type => @declaration_type) %>
 		</div>

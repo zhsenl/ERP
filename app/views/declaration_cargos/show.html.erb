@@ -1,0 +1,94 @@
+<div class="content-box">
+	<div class="content-box-header">
+		<h3>查看<%= @declaration_type == "export" ? "出口成品" : "进口料件" %></h3>
+		<div class="operations">
+			<%= link_to '编辑', edit_declaration_cargo_path(@declaration_cargo) %> |
+			<%= link_to '返回', declaration_cargos_path(:declaration_id => @declaration.id) %>
+		</div>
+	</div>
+	<div class="content-box-content">
+		<div class="tab-content default-tab">
+			<p>
+			  <b>合同<%= @declaration_type == "export" ? "成品" : "料件"  %>序号:</b>
+			  <%= @declaration_cargo.no_in_contract %>
+			</p>
+			
+			<p>
+			  <b>商品编码:</b>
+			  <%= @declaration_cargo.code %>
+			</p>
+			
+			<p>
+			  <b>商品名称:</b>
+			  <%= @declaration_cargo.name %>
+			</p>
+			
+			<p>
+			  <b>规格型号:</b>
+			  <%= @declaration_cargo.specification %>
+			</p>
+			
+			<p>
+			  <b>申报数量:</b>
+			  <%= @declaration_cargo.quantity %>
+			</p>
+			
+			<p>
+			  <b>申报单位:</b>
+			  <%= @declaration_cargo.unit %>
+			</p>
+			
+			<p>
+			  <b>第一数量1:</b>
+			  <%= @declaration_cargo.quantity1 %>
+			</p>
+			
+			<p>
+			  <b>第一单位:</b>
+			  <%= @declaration_cargo.unit1 %>
+			</p>
+			
+			<p>
+			  <b>第二数量:</b>
+			  <%= @declaration_cargo.quantity2 %>
+			</p>
+			
+			<p>
+			  <b>第二单位:</b>
+			  <%= @declaration_cargo.unit2 %>
+			</p>
+			
+			<p>
+			  <b><%= @declaration_type == "export" ? "目的国" : "原产国" %>:</b>
+			  <%= @declaration_cargo.trade_country %>
+			</p>
+			
+			<p>
+			  <b>单价:</b>
+			  <%= @declaration_cargo.unit_price %>
+			</p>
+			
+			<p>
+			  <b>币制:</b>
+			  <%= @declaration_cargo.currency %>
+			</p>
+			
+			<p>
+			  <b>征免方式:</b>
+			  <%= @declaration_cargo.tax_mode %>
+			</p>
+			
+			<p>
+			  <b>版本号:</b>
+			  <%= @declaration_cargo.goods_version %>
+			</p>
+			
+			<p>
+			  <b>序号:</b>
+			  <%= @declaration_cargo.no %>
+			</p>
+		</div>
+	</div>
+</div>
+
+

@@ -1,6 +1,5 @@
 <%= render "shared/error_messages", :model => @contract_product %>
 <%= form_for @contract_product do |f| %>
-<fieldset>
 	<%= f.hidden_field :contract_id %>
 	<p>
 		<label>商品编码</label>
@@ -27,7 +26,7 @@
 				$("#unit_autocomplete").val(ui.item.unit).blur();
 				$("#unit1_autocomplete").val(ui.item.unit1).blur();
 				$("#unit2_autocomplete").val(ui.item.unit2).blur();
-				$("#country_autocomplete").val(ui.item.country).blur();
+				$("#trade_country_autocomplete").val(ui.item.trade_country).blur();
 			}
 		});
 		});		
@@ -62,7 +61,7 @@
 	</p>
 	<p>
 		<label>销售国</label>
-		<%= render "shared/autocomplete_field", :form => f, :attribute => :country, :url => dict_countries_path, :klass => "text-input small-input" %> 
+		<%= render "shared/autocomplete_field", :form => f, :attribute => :trade_country, :url => dict_countries_path, :klass => "text-input small-input" %> 
 	</p>
 	<p>
 		<label>征免方式</label>
@@ -75,7 +74,6 @@
 	<p>
 		<%= f.submit :class => "button" %>
 	</p>
-</fieldset>
 <div class="clear"></div><!-- End .clear -->
 <% end %>
 

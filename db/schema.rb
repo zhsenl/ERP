@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120428013903) do
+ActiveRecord::Schema.define(:version => 20120430125319) do
 
   create_table "cargos", :force => true do |t|
     t.integer  "enterprise_id"
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(:version => 20120428013903) do
     t.string   "unit"
     t.string   "unit1"
     t.string   "unit2"
-    t.string   "country"
+    t.string   "trade_country"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
   end
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(:version => 20120428013903) do
     t.string   "unit2"
     t.decimal  "quantity",      :precision => 15, :scale => 4
     t.decimal  "unit_price",    :precision => 15, :scale => 4
-    t.string   "country"
+    t.string   "trade_country"
     t.string   "tax_mode"
     t.string   "no"
     t.datetime "created_at",                                   :null => false
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(:version => 20120428013903) do
     t.string   "unit2"
     t.decimal  "quantity",      :precision => 15, :scale => 4
     t.decimal  "unit_price",    :precision => 15, :scale => 4
-    t.string   "country"
+    t.string   "trade_country"
     t.string   "tax_mode"
     t.string   "no"
     t.datetime "created_at",                                   :null => false
@@ -87,6 +87,28 @@ ActiveRecord::Schema.define(:version => 20120428013903) do
     t.date     "type_in_date"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
+  end
+
+  create_table "declaration_cargos", :force => true do |t|
+    t.integer  "declaration_id"
+    t.integer  "no_in_contract"
+    t.string   "code"
+    t.string   "name"
+    t.string   "specification"
+    t.decimal  "quantity",       :precision => 15, :scale => 4
+    t.string   "unit"
+    t.decimal  "quantity1",      :precision => 15, :scale => 4
+    t.string   "unit1"
+    t.decimal  "quantity2",      :precision => 15, :scale => 4
+    t.string   "unit2"
+    t.string   "trade_country"
+    t.decimal  "unit_price",     :precision => 15, :scale => 4
+    t.string   "currency"
+    t.string   "tax_mode"
+    t.string   "goods_version"
+    t.integer  "no"
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
   end
 
   create_table "declaration_transit_informations", :force => true do |t|
@@ -115,7 +137,7 @@ ActiveRecord::Schema.define(:version => 20120428013903) do
     t.string   "declare_enterprise"
     t.string   "operate_enterprise"
     t.string   "custom"
-    t.string   "contract_manual"
+    t.string   "contract_id"
     t.date     "declare_date"
     t.string   "transport_mode"
     t.string   "transport_tool"

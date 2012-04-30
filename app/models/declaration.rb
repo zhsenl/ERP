@@ -3,6 +3,7 @@ class Declaration < ActiveRecord::Base
   belongs_to :enterprise
   belongs_to :contract
   has_one :declaration_transit_information, :dependent => :destroy
+  has_many :declaration_cargos, :dependent => :destroy
   accepts_nested_attributes_for :declaration_transit_information
   
   validates :enterprise_id, :presence => true, :numericality => true

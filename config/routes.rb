@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 ERP::Application.routes.draw do
   
+  resources :declaration_cargos
+
   get "declaration_transit_informations/edit"
 
   get "declaration_transit_informations/update"
@@ -13,9 +15,13 @@ ERP::Application.routes.draw do
 
   resources :contract_consumptions
 
-  resources :contract_materials
+  resources :contract_materials do
+    get 'search', :on => :collection
+  end
 
-  resources :contract_products
+  resources :contract_products do
+    get 'search', :on => :collection
+  end
 
   resources :contracts do
     get 'import', :on => :collection
