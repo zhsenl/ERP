@@ -1,13 +1,17 @@
 # -*- encoding : utf-8 -*-
 ERP::Application.routes.draw do
-  
+
+  resources :messages do 
+    get 'unread', :on => :collection
+    post 'read', :on => :member
+    get 'search', :on => :collection
+  end
+
   resources :declaration_cargos
 
-  get "declaration_transit_informations/edit"
-
-  get "declaration_transit_informations/update"
-
-  resources :declarations  
+  resources :declarations do 
+    get 'search', :on => :collection
+  end
 
   resources :cargos do
     get 'search', :on => :collection

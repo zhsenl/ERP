@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   
   has_many :manage_relationships, :dependent => :destroy
   has_many :enterprises, :through => :manage_relationships
+  has_many :messages, :dependent => :destroy
   
   #validation start
   email_regex = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i

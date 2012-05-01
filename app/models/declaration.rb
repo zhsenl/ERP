@@ -6,6 +6,9 @@ class Declaration < ActiveRecord::Base
   has_many :declaration_cargos, :dependent => :destroy
   accepts_nested_attributes_for :declaration_transit_information
   
+  scope :export, where(:declaration_type => "export")
+  scope :import, where(:declaration_type => "import")
+  
   validates :enterprise_id, :presence => true, :numericality => true
   validates :declaration_type, :presence => true
   validates :pre_entry_no, :presence => true, :uniqueness => true

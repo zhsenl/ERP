@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120430125319) do
+ActiveRecord::Schema.define(:version => 20120501051657) do
 
   create_table "cargos", :force => true do |t|
     t.integer  "enterprise_id"
@@ -163,6 +163,22 @@ ActiveRecord::Schema.define(:version => 20120430125319) do
     t.datetime "created_at",                                        :null => false
     t.datetime "updated_at",                                        :null => false
   end
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.string   "queue"
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "dict_attachments", :force => true do |t|
     t.string   "code"
@@ -416,6 +432,17 @@ ActiveRecord::Schema.define(:version => 20120430125319) do
     t.integer  "enterprise_id"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+  end
+
+  create_table "messages", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "peer"
+    t.string   "subject"
+    t.string   "body"
+    t.boolean  "sent"
+    t.boolean  "read"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "options", :force => true do |t|

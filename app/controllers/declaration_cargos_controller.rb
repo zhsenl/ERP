@@ -40,7 +40,6 @@ class DeclarationCargosController < ApplicationController
   # GET /declaration_cargos/new.json
   def new
     @declaration_cargo = DeclarationCargo.new(:declaration_id => @declaration.id,
-                                              :quantity => 0,
                                               :quantity1 => 0,
                                               :quantity2 => 0,
                                               :tax_mode => 3,
