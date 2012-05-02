@@ -108,8 +108,26 @@ $(document).ready(function(){
 		  $("#body-wrapper").width(width + "px");
 		});
 	
-	//load unread messages
 	
+	function load_unread_messages(){
+		$.get("../messages/unread.json", function(result){
+			if (result.length == 0 ){return;}
+			$("#welcome_message").html("你有 <a href=\"#messages\" class=\"unread_message_size\" rel=\"facebox\"></a>")
+	    	$(".unread_message_size").html(result.length + "条未读消息")
+	    	$("#body-wrapper #messages p").detach();
+	    	for (var i in result) {
+	    		var message_html = '<p><strong>' + result[i].subject +'</strong> '
+	    		+ result[i].created_at + ' 来自 ' + result[i].peer + ' <br />'
+	    		+ result[i].body +'<small><a href=\"../messages/' + result[i].id + '/read.json\" onclick=\"read_message(this);return false;\" class=\"remove-link\" >标记为已读</a></small></p>';
+	    		$("#messages").append(message_html);
+	    	}
+	    	$('a[rel*=facebox]').facebox();	    	
+	    });
+	}
+	load_unread_messages();
+	setInterval(function(){
+		load_unread_messages();
+	}, 180000);
 	
 		
 	//first form field focus
@@ -282,9 +300,23 @@ $(document).ready(function(){
 		}
 	});
 	
-	
-	
 });
   
-  
+
+//unread messages
+function read_message(link) {
+	var p = $(link).parent().parent();
+	var href = $(link).attr("href")
+	$.post(href, function(){
+		p.slideUp("normal", function(){
+			$("[href='" + href + "']").parent().parent().detach();
+			$(".unread_message_size").html($(".content .remove-link").length + "条未读消息")
+			if ($(".content .remove-link").length == 0) {
+				$("#welcome_message").html("欢迎你");
+				$("#facebox").fadeOut();
+			}
+		});
+	});	
+}
+
   

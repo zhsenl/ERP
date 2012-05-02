@@ -6,7 +6,7 @@
 		<%= f.text_field :code, :class => "text-input small-input first-field" %>
 		<br />
 		<% if @declaration.contract %>
-		<small>输入合同<%= @declaration_type == "export" ? "成品" : "料件" %>序号、编码或名字后有提示</small>
+		<small>输入合同<%= @declaration_type == "export" ? "成品" : "料件" %>序号或名字后有提示</small>
 		<% else %>
 		<small>输入编码或名字后有提示</small>
 		<% end%>

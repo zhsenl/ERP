@@ -24,7 +24,7 @@ class ContractMaterialsController < ApplicationController
     else
       term = '%' + @term + '%'
       contract_id = @contract ? @contract.id : 0
-      @contract_materials = ContractMaterial.where("contract_id = ? and (no like ? or code like ? or name like ?)", contract_id, term, term, term)
+      @contract_materials = ContractMaterial.where("contract_id = ? and (no like ? or name like ?)", contract_id, term, term)
     end
 
     respond_to do |format|

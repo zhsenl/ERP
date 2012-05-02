@@ -1,33 +1,7 @@
 <div id="messages" style="display: none"> 
-	<% @unread_messages = current_user.messages.unread %>
-	<h3 class="unread_message_size"><%= @unread_messages.size %>条未读消息</h3>
- 	<% @unread_messages.each do |message| %>
-	<p>
-		<strong><%= message.subject %></strong> <%= message.created_at.strftime('%Y-%m-%d %H:%M:%S') %> 来自 <%= message.peer %><br />
-		<%= message.body %>
-		<small><%= link_to "标记为已读", read_message_path(message), :class => "remove-link" %></small>
-	</p>
- 	<% end %>	
- 	<script>
- 		$(".content .remove-link").click(function(){
- 			var p = $(this).parent().parent();
- 			var href = $(this).attr("href")
- 			$.post(href+".json", function(){
- 				p.slideUp("normal", function(){
- 					$("[href='" + href + "']").parent().parent().detach();
- 					$(".unread_message_size").html($(".content .remove-link").length + "条未读消息")
- 					if ($(".content .remove-link").length = 0) {
- 						
- 					}
- 				});
- 			});
- 			return false;
- 		});
- 	</script>
- 	
+	<h3 class="unread_message_size"></h3>
 </div> 
 <!-- End #messages -->
-
 
 
 <div id="sidebar">
@@ -38,7 +12,7 @@
 		<%= link_to image_tag("logo.png", :id => "logo", :alt => "Simpla Admin logo"), root_path %>
 		<!-- Sidebar Profile links -->
 		<div id="profile-links">
-			你好, <%= link_to current_user.name, me_path %>, <span id="welcome_message">你有 <a href="#messages" class="unread_message_size" rel="facebox"><%= @unread_messages.size %>条未读消息</a></span>
+			你好, <%= link_to current_user.name, me_path %>, <span id="welcome_message">欢迎你</span>
 			<br />
 			<br />
 			<%= link_to '首页', root_path %> | <%= link_to '我的资料', me_path %> | <%= link_to '安全退出', signout_path %>
