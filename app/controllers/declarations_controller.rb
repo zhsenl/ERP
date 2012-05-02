@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class DeclarationsController < ApplicationController
-  include ApplicationHelper
+  include ApplicationHelper, PrintHelper
   before_filter :init
   def init
     if params[:id]
@@ -9,7 +9,7 @@ class DeclarationsController < ApplicationController
     else
       @declaration_type = params[:declaration_type] || params[:declaration][:declaration_type]
     end
-    @mark = @declaration_type
+    @mark = @declaration_type    
   end
 
   # GET /declarations
@@ -34,6 +34,16 @@ class DeclarationsController < ApplicationController
       format.html # show.html.erb
       format.json { render json: @declaration }
     end
+  end
+  
+  def print_declaration 
+    @declaration_cargos = @declaration.declaration_cargos
+    @groups = Array.new(@declaration_cargos.size / 5 + 1, Array.new)
+    @declaration_cargos.each_with_index do |declaration_cargo, index|
+      @groups[index / 5][index % 5] = declaration_cargo
+    end
+    @title = '打印报关单'
+    render :layout => 'print'
   end
 
   # GET /declarations/new

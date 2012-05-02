@@ -69,7 +69,7 @@ class DeclarationCargosController < ApplicationController
 
     respond_to do |format|
       if @declaration_cargo.save
-        format.html { redirect_to @declaration_cargo, notice: 'Declaration cargo was successfully created.' }
+        format.html { redirect_to new_declaration_cargo_url(:declaration_id => @declaration_cargo.declaration_id), notice: 'Declaration cargo was successfully created.' }
         format.json { render json: @declaration_cargo, status: :created, location: @declaration_cargo }
       else
         format.html { render action: "new" }

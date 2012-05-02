@@ -23,7 +23,7 @@ class Declaration < ActiveRecord::Base
   validates :net_weight, :presence => true, :numericality => true
   
   def attachments=(attachment_hash)
-    self.attachments_mark = attachment_hash.to_json
+    self.attachments_mark = attachment_hash.select{|key, val| !val.blank?}.to_json
   end
   
   def attachments

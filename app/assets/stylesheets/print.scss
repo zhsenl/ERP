@@ -1,0 +1,32 @@
+body {
+	margin:0;	
+	font-size: 16px;
+	background: #fff;
+	text-align: center;
+}
+
+#toolbar{
+	font-size: 16px;
+	width:100%;
+	height: 35px;
+	padding-top:10px;
+	text-align:center;
+	background-color: #a19b9b;
+	border-bottom: 1px solid #737070;
+}
+
+#print-wrapper {
+	margin: 0 auto;
+	width: 702px;
+	text-align: left;
+}
+
+.clear {
+	clear: both;
+}
+
+@media print {	
+	.noprint {
+		display:none;
+	}
+}

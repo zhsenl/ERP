@@ -11,6 +11,7 @@ ERP::Application.routes.draw do
 
   resources :declarations do 
     get 'search', :on => :collection
+    get 'print_declaration', :on => :member
   end
 
   resources :cargos do

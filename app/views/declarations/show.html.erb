@@ -3,6 +3,7 @@
 		<h3>查看报关单(<%= @declaration.pre_entry_no %>)</h3>
 		<div class="operations">
 			<%= link_to @declaration_type == "export" ? "出口成品" : "进口料件", declaration_cargos_path(:declaration_id => @declaration.id) %> |
+			<%= link_to '打印', print_declaration_declaration_path(@declaration), :target => "_blank" %> |
 			<%= link_to '编辑', edit_declaration_path(@declaration) %> |
 			<%= link_to '返回列表', declarations_path(:declaration_type => @declaration_type) %>
 		</div>
@@ -134,12 +135,10 @@
 					<%= @declaration.memo %>
 				</p>
 				<% @declaration.attachments.each do |key, value| %>
-				<% if !value.blank? %>
 				<p>
 					<b><span class="autoload" data-url=<%= dict_attachments_path %> ><%= key %></span>:</b>
 					<%= value %>
 				</p>
-				<% end %>
 				<% end %>
 			</fieldset>
 			<fieldset>

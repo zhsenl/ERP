@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title><%= @title ? @title + " | " : "" %>新泽公司ERP系统</title>
+		<%= csrf_meta_tags %> 
+		<%= javascript_include_tag "print" %>	
+		<%= stylesheet_link_tag "print" %>
+	</head>
+	<body>
+		<div id="toolbar" >
+			<button type="button" onclick="javascript:preview_all();">打印预览</button>
+			<button type="button" onclick="javascript:$('#toolbar').hide();preview(true);window.print();">打印</button>
+			&nbsp;
+			<button type="button" onclick="javascript:preview_content();">套打预览</button>
+			<button type="button" onclick="javascript:$('#toolbar').hide();preview(false);window.print();">套打</button>
+		</div>
+		<%= yield %>		
+		<%= debug(params) if Rails.env.development? %>
+	</body>
+</html>
