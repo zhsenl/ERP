@@ -24,7 +24,7 @@
 		width:45%;
 		text-align: right;
 	}
-	#title {
+	.title {
 		padding-top: 10px;
 		text-align: center;
 		height: 60px;
@@ -126,7 +126,7 @@
 	<div style="width:100%;height:80px;">
 		
 	</div>
-	<div id="title">
+	<div class="title" >
 		<h1>中华人民共和国海关<%= @declaration_type == "export" ? "出口" : "进口"  %>货物报关单</h1>			
 	</div>
 	<div id="top">
@@ -194,7 +194,7 @@
 			end
 		%>
 		<div class="tr" style="height: 67px;">
-			<div class="td last-td" style="width:696px;height:60px;text-align: left;"><div class="bg-text">标记唛码及备注</div> <span class="content">[装卸口岸]<%= dict_name Dict::LoadPort, @declaration.load_port %>&nbsp;&nbsp;<%= @declaration.memo %>&nbsp;&nbsp;<%= attachments.join(" ") %></span></div>
+			<div class="td last-td" style="width:696px;height:60px;text-align: left;"><div class="bg-text">标记唛码及备注</div> <span class="content">[装卸口岸]<%= dict_name Dict::LoadPort, @declaration.load_port %> <%= @declaration.memo %> <%= attachments.join(" ") %></span></div>
 		</div>
 		
 		
@@ -244,6 +244,7 @@
 		<div class="tr" style="height: 173px;">
 			<div class="td last-td" style="width:696px;height:150px;">
 				<div class="bg-text">税费征收情况</div> 
+				<span class="content"></span>
 			</div>
 		</div>
 		

@@ -15,6 +15,13 @@
 			<button type="button" onclick="javascript:preview_content();">套打预览</button>
 			<button type="button" onclick="javascript:preview_content();window.print();">套打</button>
 		</div>
-		<%= yield %>		
+		<div id="top-blank" class="noprint" ></div>
+		<%= yield %>
+		<div id="mytip" style="display: none;">
+			<textarea id="textarea" ></textarea>
+		</div>
 	</body>
 </html>
+
+
+
