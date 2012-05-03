@@ -120,7 +120,8 @@
 	
 </style>
 
-<% @groups.each_with_index do |group, index| %>
+<% @groups.each_with_index do |group, group_index| %>
+
 <div class="frame">
 	<div style="width:100%;height:80px;">
 		
@@ -142,7 +143,7 @@
 			<div class="td last-td" style="width:128px;"><div class="bg-text">申报日期</div> <span class="content"><%= @declaration.declare_date.strftime('%Y%m%d') if @declaration.declare_date %></span></div>
 		</div>
 		<div class="tr">
-			<div class="td" style="width:295px;"><div class="bg-text">经营单位</div> <span class="content"><%= enterprise_name_and_trade_code @declaration.operate_enterprise %></span></div>
+			<div class="td" style="width:295px;"><div class="bg-text">经营单位</div> <span class="content"><%= enterprise_name_and_trade_code @declaration.operate_enterprise_code %></span></div>
 			<div class="td" style="width:79px;"><div class="bg-text">运输方式</div> <span class="content"><%= dict_name Dict::TransportMode, @declaration.transport_mode %></span></div>
 			<div class="td" style="width:171px;"><div class="bg-text">运输工具名称</div> <span class="content"><%= @declaration.transport_tool %></span></div>
 			<div class="td last-td" style="width:190px;"><div class="bg-text">提运单号</div> <span class="content"><%= @declaration.bill_no %></span></div>
@@ -192,7 +193,7 @@
 				attachments << ( key + ":" + val )
 			end
 		%>
-		<div class="tr" style="height: 67px;margin: 5px 0 0 5px;">
+		<div class="tr" style="height: 67px;">
 			<div class="td last-td" style="width:696px;height:60px;text-align: left;"><div class="bg-text">标记唛码及备注</div> <span class="content">[装卸口岸]<%= dict_name Dict::LoadPort, @declaration.load_port %>&nbsp;&nbsp;<%= @declaration.memo %>&nbsp;&nbsp;<%= attachments.join(" ") %></span></div>
 		</div>
 		
@@ -203,38 +204,29 @@
 				<div class="td" style="width:80px;">商品编号</div>
 				<div class="td" style="width:185px;">商品名称、规格型号</div>
 				<div class="td" style="width:105px;">数量及单位</div>
-				<div class="td" style="width:180px;"><#if customsDeclarationHead.isExport>最终目的国（地区）单价<#else>原产国（地区）单价</#if></div>
+				<div class="td" style="width:180px;"><%= @declaration_type == "export" ? "最终目的国" : "原产国" %>（地区）单价</div>
 				<div class="td" style="width:80px;">总价</div>
 				<div class="td" style="width:35px;">币制</div>
 				<div class="td last-td" style="width:30px;">征免</div>
 			</div>
 		</div>
 		<div id="goodlist-items">
-			<#if (goods?size>5)>
-				<#assign listlen=5>
-			<#else>
-				<#assign listlen=goods?size>
-			</#if>
-			<#if (goods?size>0)>
-				<#list goods[0..listlen-1] as customsDeclarationGood>	
-				<div class="tr<#if customsDeclarationGood_index=4> goodlist-last</#if>">
-					<div class="td goodlist-items-first" style="width:46px;"><span class="content">${customsDeclarationGood.no!""}<br/><#if !isNomalTrade><#if customsDeclarationGood.noInContract??>(${customsDeclarationGood.noInContract!""})</#if></#if></span></div>
-					<div class="td" style="width:86px; margin-left: -20px;"><span class="content">${customsDeclarationGood.codeTS!""}</span></div>
-					<div class="td" style="width:206px;"><span class="content">${customsDeclarationGood.name!""}<#if customsDeclarationGood.shenbaoguifan??>/</#if>${customsDeclarationGood.shenbaoguifan!""}</span></div>
-					<div class="td" style="width:85px; text-align: right;"><span class="content">${customsDeclarationGood.quantity?string("0.###")!""}${customsDeclarationGood.declareUnit!""}<br/>${customsDeclarationGood.quantity1?string("0.###")!""}${customsDeclarationGood.unit1!""}<br/><#if customsDeclarationGood.quantity2 != 0> ${customsDeclarationGood.quantity2?string("0.###")!""}${customsDeclarationGood.unit2!""}</#if></span></div>
-					<div class="td" style="width:66px; padding-left: 3px;"><span class="content">${customsDeclarationGood.originCountry!""}</span></div>
-					<div class="td" style="width:81px;"><span class="content">${customsDeclarationGood.declarePrice?string("0.00##")!""}</span></div>
-					<div class="td" style="width:93px;"><span class="content">${customsDeclarationGood.totalPrice?string("0.00##")!""}<#if customsDeclarationHead.isExport><br/>${customsDeclarationHead.useage!""}</#if></span></div>
-					<div class="td" style="width:42px;"><span class="content">${customsDeclarationGood.currency!""}</span></div>
-					<div class="td last-td" style="width:52px;"><span class="content">${customsDeclarationGood.taxMode!""}</span></div>
-				</div>
-				</#list>
-			</#if>
+			<% group.each_with_index do |cargo, cargo_index| %>
+			<div class="tr<% if cargo_index == 4 %> goodlist-last<% end %>">
+				<div class="td goodlist-items-first" style="width:46px;"><span class="content"><%= cargo.no %></span><br/><span class="content"><%= "(" + cargo.no_in_contract + ")" if cargo.no_in_contract.blank? %></span></div>
+				<div class="td" style="width:86px; margin-left: -20px;"><span class="content"><%= cargo.code %></span></div>
+				<div class="td" style="width:206px;"><span class="content"><%= cargo.name %><%= "/" + cargo.specification if !cargo.specification.blank? %></span></div>
+				<div class="td" style="width:85px; text-align: right;"><span class="content"><%= cargo.quantity.to_s + dict_name(Dict::Unit, cargo.unit) %></span><br/><span class="content"><%= cargo.quantity1.to_s + dict_name(Dict::Unit, cargo.unit1) if cargo.quantity1 != 0 %></span><br/><span class="content"><%= cargo.quantity2.to_s + dict_name(Dict::Unit, cargo.unit2) if cargo.quantity2 != 0 %></span></div>
+				<div class="td" style="width:66px; padding-left: 3px;"><span class="content"><%= dict_name Dict::Country, cargo.trade_country %></span><br /><span class="content">(<%= cargo.trade_country %>)</span></div>
+				<div class="td" style="width:81px;"><span class="content"><%= sprintf "%0.4f", cargo.unit_price %></span></div>
+				<div class="td" style="width:93px;"><span class="content"><%= sprintf "%0.2f", cargo.total_price %></span></div>
+				<div class="td" style="width:42px;"><span class="content"><%= dict_name Dict::Currency, cargo.currency %></span><br /><span class="content">(<%= cargo.currency %>)</span></div>
+				<div class="td last-td" style="width:52px;"><span class="content"><%= dict_name Dict::TaxMode, cargo.tax_mode %></span></div>
+			</div>
+			<% end %>
 			
-			<#if (listlen<5)>
-				<#list 1..5-listlen as a>
-				
-			<div class="tr<#if a_index=4-listlen> goodlist-last</#if>">
+			<% (1..(5-group.size)).each_with_index do |i, rest_index| %>	
+			<div class="tr<% if rest_index == 4-group.size %> goodlist-last<% end %>">
 				<div class="td goodlist-items-first" style="width:32px;"></div>
 				<div class="td" style="width:80px;"></div>
 				<div class="td" style="width:175px;"></div>
@@ -244,10 +236,8 @@
 				<div class="td" style="width:65px;"></div>
 				<div class="td" style="width:55px;"></div>
 				<div class="td last-td" style="width:50px;"></div>
-			</div>
-				
-				</#list>	
-			</#if>	
+			</div>	
+			<% end %>				
 			
 		</div>
 		
@@ -260,18 +250,18 @@
 		<div class="tr last-tr" style="height: 166px;">
 			<div class="td" style="width:248px;height:166px; border-right: none;">
 				<div class="tr" style="height: 45px; border-bottom: none;">
-					<div class="td" style="width:93px;height:45px;border-bottom:1px solid;border-right: none;"><div class="bg-text">录入员</div> <span class="content">${customsDeclarationHead.operator!""}</span></div>
+					<div class="td" style="width:93px;height:45px;border-bottom:1px solid;border-right: none;"><div class="bg-text">录入员</div> <span class="content"></span></div>
 					<div class="td" style="width:116px;height:45px;border-bottom:1px solid;"><div class="bg-text">录入单位</div> <span class="content"></span></div>				
 				</div>	
 				<div class="tr" style="height: 45px; border-bottom: none;">
-					<div class="td last-td" style="width:200px;height:45px;"><div class="bg-text">报关员</div> <span class="content">${customsDeclarationHead.declarant!""}</span></div>				
+					<div class="td last-td" style="width:200px;height:45px;"><div class="bg-text">报关员</div> <span class="content"><%= @declaration.declarant %></span></div>				
 				</div>
 				<div class="tr" style="height: 50px; border-bottom: none;">
-					<div class="td last-td" style="width:200px;height:50px;"><div class="bg-text">单位地址</div> </div>				
+					<div class="td last-td" style="width:200px;height:50px;"><div class="bg-text">单位地址</div><span class="content"></span> </div>				
 				</div>	
 				<div class="tr" style="height: 14px; border-bottom: none;">
 					<div class="td last-td" style="width:117px;height:16px;"><div class="bg-text">邮编&nbsp;<span class="content"></span></div></div>	
-					<div class="td last-td" style="width:121px;height:16px;"><div class="bg-text">电话&nbsp;<span class="content">${runEnterprise.phone!""}</span></div></div>				
+					<div class="td last-td" style="width:125px;height:16px;">电话&nbsp;<span class="content"><%= @declaration.operate_enterprise.telephone %></span></div>				
 				</div>							
 			</div>
 			<div class="td" style="width:236px;height:166px;">
@@ -279,14 +269,14 @@
 					<div class="td last-td" style="width:100%;height:75px;"><div class="bg-text">兹声明以上申报无讹并承担法律责任</div> </div>				
 				</div>	
 				<div class="tr" style="height: 65px; border-bottom: none;">
-					<div class="td last-td" style="width:100%;height:65px;"><div class="bg-text" style="margin-left: 20px;">申报单位（签章）</div><span class="content">${declareEnterprise.registeName!""}</span><br/><span class="content">${declareEnterprise.tradeCode!""}</span> </div>				
+					<div class="td last-td" style="width:100%;height:65px;"><div class="bg-text" style="margin-left: 20px;">申报单位（签章）</div><span class="content"><%= @declaration.declare_enterprise.name %></span><br/><span class="content"><%= @declaration.declare_enterprise.enterprise_custom_option.trade_code %></span> </div>				
 				</div>	
 				<div class="tr" style="height: 14px; border-bottom: none;">
-					<div class="td last-td" style="width:100%;height:16px;"><div class="bg-text"  style="margin-left: 20px;">填制日期&nbsp;<span class="content">${(customsDeclarationHead.declareTime?string("yyyyMMdd"))!""}</span></div></div>	
+					<div class="td last-td" style="width:100%;height:16px;"><div class="bg-text"  style="margin-left: 20px;">填制日期&nbsp;<span class="content"><%= @declaration.declare_date.strftime('%Y%m%d') if @declaration.declare_date %></span></div></div>	
 				</div>	
 			</div>
 			
-			<div class="td last-td" style="width:266px;height:166px;">
+			<div class="td last-td" style="width:265px;height:166px;">
 				<div class="tr" style="height: 38px; border-bottom: none;">
 					<div class="td last-td" style="width:100%;height:38px;"><div class="bg-text">海关审单批注及放行日期（签章）</div></div>				
 				</div>	
@@ -309,9 +299,8 @@
 	<div style="width:100%;height:20px;"></div>
 	
 	
-	
 </div>
-<% if index != @groups.size - 1 %>
+<% if group_index != @groups.size - 1 %>
 <div style="page-break-before: always;"></div>
 <% end %>
 <% end %>

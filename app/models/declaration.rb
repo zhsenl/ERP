@@ -12,8 +12,8 @@ class Declaration < ActiveRecord::Base
   validates :enterprise_id, :presence => true, :numericality => true
   validates :declaration_type, :presence => true
   validates :pre_entry_no, :presence => true, :uniqueness => true
-  validates :operate_enterprise, :presence => true
-  validates :declare_enterprise, :presence => true
+  validates :operate_enterprise_code, :presence => true
+  validates :declare_enterprise_code, :presence => true
   validates :declare_date, :presence => true
   validates :custom, :presence => true
   validates :load_port, :presence => true
@@ -32,6 +32,22 @@ class Declaration < ActiveRecord::Base
     else
       ActiveSupport::JSON.decode(self.attachments_mark)
     end    
+  end
+  
+  def operate_enterprise=(enterprise)
+    operate_enterprise_code = enterprise.code
+  end
+  
+  def operate_enterprise
+    Enterprise.find_by_code(operate_enterprise_code)
+  end
+  
+  def declare_enterprise=(enterprise)
+    declare_enterprise_code = enterprise.code
+  end
+  
+  def declare_enterprise
+    Enterprise.find_by_code(declare_enterprise_code)
   end
   
 end

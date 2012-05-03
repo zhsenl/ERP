@@ -8,8 +8,8 @@ describe "declarations/edit" do
       :entry_no => "MyString",
       :eport_no => "MyString",
       :declarant => "MyString",
-      :declare_enterprise => "MyString",
-      :operate_enterprise => "MyString",
+      :declare_enterprise_code => "MyString",
+      :operate_enterprise_code => "MyString",
       :custom => "MyString",
       :contract_manual => "MyString",
       :transport_mode => "MyString",
@@ -43,8 +43,8 @@ describe "declarations/edit" do
       assert_select "input#declaration_entry_no", :name => "declaration[entry_no]"
       assert_select "input#declaration_eport_no", :name => "declaration[eport_no]"
       assert_select "input#declaration_declarant", :name => "declaration[declarant]"
-      assert_select "input#declaration_declare_enterprise", :name => "declaration[declare_enterprise]"
-      assert_select "input#declaration_operate_enterprise", :name => "declaration[operate_enterprise]"
+      assert_select "input#declaration_declare_enterprise_code", :name => "declaration[declare_enterprise_code]"
+      assert_select "input#declaration_operate_enterprise_code", :name => "declaration[operate_enterprise_code]"
       assert_select "input#declaration_custom", :name => "declaration[custom]"
       assert_select "input#declaration_contract_manual", :name => "declaration[contract_manual]"
       assert_select "input#declaration_transport_mode", :name => "declaration[transport_mode]"

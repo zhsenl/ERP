@@ -10,7 +10,7 @@ module ContractsHelper
       
       worksheet = workbook.worksheet(0)      
       contract.manual = worksheet.row(2).at(3).to_s
-      contract.operate_enterprise = worksheet.row(4).at(1).to_s
+      contract.operate_enterprise_code = worksheet.row(4).at(1).to_s
       enterprise = Enterprise.find_by_code(worksheet.row(4).at(5).to_s)
       contract.enterprise_id = enterprise.id
       foreign_enterprise = ForeignEnterprise.find_by_name(worksheet.row(5).at(1).to_s)

@@ -25,8 +25,15 @@ body {
 	clear: both;
 }
 
-@media print {	
+.content {
+	border: 1px dotted;
+}
+
+@media print {
 	.noprint {
 		display:none;
+	}
+	.content {
+		border: none;
 	}
 }

@@ -5,7 +5,7 @@ describe "contracts/new" do
   before(:each) do
     assign(:contract, stub_model(Contract,
       :enterprise_id => 1,
-      :operate_enterprise_code => "MyString",
+      :operate_enterprise_code_code => "MyString",
       :foreign_enterprise_code => "MyString",
       :manual_code => "MyString",
       :trade_mode_code => "MyString",
@@ -25,7 +25,7 @@ describe "contracts/new" do
     # Run the generator again with the --webrat flag if you want to use webrat matchers
     assert_select "form", :action => contracts_path, :method => "post" do
       assert_select "input#contract_enterprise_id", :name => "contract[enterprise_id]"
-      assert_select "input#contract_operate_enterprise_code", :name => "contract[operate_enterprise_code]"
+      assert_select "input#contract_operate_enterprise_code_code", :name => "contract[operate_enterprise_code_code]"
       assert_select "input#contract_foreign_enterprise_code", :name => "contract[foreign_enterprise_code]"
       assert_select "input#contract_manual_code", :name => "contract[manual_code]"
       assert_select "input#contract_trade_mode_code", :name => "contract[trade_mode_code]"

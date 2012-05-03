@@ -37,8 +37,8 @@ class DeclarationsController < ApplicationController
   end
   
   def print_declaration 
-    @declaration_cargos = @declaration.declaration_cargos
-    @groups = Array.new(@declaration_cargos.size / 5 + 1, Array.new)
+    @declaration_cargos = @declaration.declaration_cargos.order("no")
+    @groups = Array.new(@declaration_cargos.size / 5 + 1){Array.new}
     @declaration_cargos.each_with_index do |declaration_cargo, index|
       @groups[index / 5][index % 5] = declaration_cargo
     end
@@ -56,7 +56,7 @@ class DeclarationsController < ApplicationController
                                       :pre_entry_no => pre_entry_no,
                                       :pay_way => "7",
                                       :deal_mode => @declaration_type == "export" ? "3" : "1",
-                                      :declare_enterprise => "4419980074")
+                                      :declare_enterprise_code => "4419980074")
       @declaration.declaration_transit_information = DeclarationTransitInformation.new(:local_transport_mode => 4)
     else
       redirect_to declarations_path(:declaration_type => @declaration_type), notice: '请选择要操作的企业'

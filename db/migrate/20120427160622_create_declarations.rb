@@ -8,8 +8,8 @@ class CreateDeclarations < ActiveRecord::Migration
       t.string :entry_no
       t.string :eport_no
       t.string :declarant
-      t.string :declare_enterprise
-      t.string :operate_enterprise
+      t.string :declare_enterprise_code
+      t.string :operate_enterprise_code
       t.string :custom
       t.string :contract_id
       t.date :declare_date
@@ -28,8 +28,8 @@ class CreateDeclarations < ActiveRecord::Migration
       t.string :contract_no
       t.integer :package_amount
       t.string :wrap_type
-      t.decimal :gross_weight
-      t.decimal :net_weight
+      t.decimal :gross_weight, :precision => 15, :scale => 4
+      t.decimal :net_weight, :precision => 15, :scale => 4
       t.string :load_port
       t.string :memo
       t.string :attachments_mark

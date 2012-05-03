@@ -71,7 +71,7 @@ ActiveRecord::Schema.define(:version => 20120501051657) do
 
   create_table "contracts", :force => true do |t|
     t.integer  "enterprise_id"
-    t.string   "operate_enterprise"
+    t.string   "operate_enterprise_code"
     t.string   "foreign_enterprise"
     t.string   "manual"
     t.string   "trade_mode"
@@ -134,8 +134,8 @@ ActiveRecord::Schema.define(:version => 20120501051657) do
     t.string   "entry_no"
     t.string   "eport_no"
     t.string   "declarant"
-    t.string   "declare_enterprise"
-    t.string   "operate_enterprise"
+    t.string   "declare_enterprise_code"
+    t.string   "operate_enterprise_code"
     t.string   "custom"
     t.string   "contract_id"
     t.date     "declare_date"

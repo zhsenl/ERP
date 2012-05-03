@@ -3,7 +3,7 @@
 <%= f.hidden_field :enterprise_id %>
 <p>
 	<label>经营单位</label>
-	<%= render "shared/autocomplete_field", :form => f, :attribute => :operate_enterprise, :url => enterprises_path, :klass => "text-input small-input first-field" %>
+	<%= render "shared/autocomplete_field", :form => f, :attribute => :operate_enterprise_code, :url => enterprises_path, :klass => "text-input small-input first-field" %>
 </p>
 <p>
 	<label>外商公司</label>

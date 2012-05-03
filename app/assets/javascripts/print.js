@@ -3,7 +3,7 @@
 
 function preview_all(){
 	$(".frame div").css("border-color","#000000");
-	$("#print-wrapper div").css("color","#000000");
+	$(".frame div").css("color","#000000");
 }
 
 function preview_content(){
@@ -11,3 +11,11 @@ function preview_content(){
 	$(".frame div").css("color","#ffffff");
 	$(".frame .content").css("color","#000000");
 }
+
+$(document).ready(function(){
+	$(".content").each(function(){
+		if ($(this).html() == ""){
+			$(this).html("&nbsp;");
+		}		
+	});
+});

@@ -5,7 +5,7 @@ describe "contracts/show" do
   before(:each) do
     @contract = assign(:contract, stub_model(Contract,
       :enterprise_id => 1,
-      :operate_enterprise_code => "Operate Enterprise Code",
+      :operate_enterprise_code_code => "Operate Enterprise Code",
       :foreign_enterprise_code => "Foreign Enterprise Code",
       :manual_code => "Manual Code",
       :trade_mode_code => "Trade Mode Code",

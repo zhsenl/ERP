@@ -5,17 +5,16 @@
 		<title><%= @title ? @title + " | " : "" %>新泽公司ERP系统</title>
 		<%= csrf_meta_tags %> 
 		<%= javascript_include_tag "print" %>	
-		<%= stylesheet_link_tag "print" %>
+		<%= stylesheet_link_tag "print", :media => "all" %>
 	</head>
 	<body>
-		<div id="toolbar" >
+		<div id="toolbar" class="noprint" >
 			<button type="button" onclick="javascript:preview_all();">打印预览</button>
-			<button type="button" onclick="javascript:$('#toolbar').hide();preview(true);window.print();">打印</button>
+			<button type="button" onclick="javascript:preview_all();window.print();">打印</button>
 			&nbsp;
 			<button type="button" onclick="javascript:preview_content();">套打预览</button>
-			<button type="button" onclick="javascript:$('#toolbar').hide();preview(false);window.print();">套打</button>
+			<button type="button" onclick="javascript:preview_content();window.print();">套打</button>
 		</div>
 		<%= yield %>		
-		<%= debug(params) if Rails.env.development? %>
 	</body>
 </html>

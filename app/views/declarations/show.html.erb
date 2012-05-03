@@ -30,11 +30,11 @@
 				</p>
 				<p>
 					<b>申报企业:</b>
-					<span class="autoload" data-url=<%= enterprises_path %> ><%= @declaration.declare_enterprise %></span>
+					<span class="autoload" data-url=<%= enterprises_path %> ><%= @declaration.declare_enterprise_code %></span>
 				</p>
 				<p>
 					<b>经营单位:</b>
-					<span class="autoload" data-url=<%= enterprises_path %> ><%= @declaration.operate_enterprise %></span>
+					<span class="autoload" data-url=<%= enterprises_path %> ><%= @declaration.operate_enterprise_code %></span>
 				</p>
 				<p>
 					<b><%= @declaration_type == "export" ? "出口" : "进口"  %>口岸:</b>

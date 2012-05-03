@@ -6,7 +6,7 @@
 	<%= f.hidden_field :declaration_type %>
 	<p>
 		<label>经营单位</label>
-		<%= render "shared/autocomplete_field", :form => f, :attribute => :operate_enterprise, :url => enterprises_path, :klass => "text-input small-input first-field" %>
+		<%= render "shared/autocomplete_field", :form => f, :attribute => :operate_enterprise_code, :url => enterprises_path, :klass => "text-input small-input first-field" %>
 	</p>
 	<p>
 		<label><%= @declaration_type == "export" ? "出口" : "进口"  %>口岸</label>
@@ -121,7 +121,7 @@
 	<% end %>
 	<p>
 		<label>申报单位</label>
-		<%= render "shared/autocomplete_field", :form => f, :attribute => :declare_enterprise, :url => enterprises_path, :klass => "text-input small-input" %>
+		<%= render "shared/autocomplete_field", :form => f, :attribute => :declare_enterprise_code, :url => enterprises_path, :klass => "text-input small-input" %>
 	</p>
 	<p>
 		<label>报关员</label>
