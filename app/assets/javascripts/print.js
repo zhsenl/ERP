@@ -12,6 +12,13 @@ function preview_content() {
 	$(".frame .content").css("color", "#000000");
 }
 
+function html_decode(text){
+	return text.replace(/&nbsp;/g, " ");
+}
+
+function html_encode(text){
+	return text.replace(/ /g, "&nbsp;");
+}
 
 $(document).ready(function() {
 
@@ -38,9 +45,14 @@ $(document).ready(function() {
 			if (inner_text == "&nbsp;") {
 				textarea.val("");
 			} else {
-				textarea.val(inner_text);
+				textarea.val(html_decode(inner_text));
 			}
-			textarea.focus();			
+			var trigger = this.getTrigger();
+			textarea.unbind("keyup");
+			textarea.keyup(function(){
+				trigger.html(html_encode($(this).val()));
+			});
+			textarea.focus();		
 		},
 		onHide : function(){
 			var textarea = this.getTip().find("#textarea");
@@ -48,7 +60,7 @@ $(document).ready(function() {
 			if (inner_text == "" ) {
 				inner_text = "&nbsp;";
 			};
-			this.getTrigger().html(inner_text);
+			this.getTrigger().html(html_encode(inner_text));
 			this.getTrigger().parent().find(".tooltip").each(function(){
 				var position = $(this).css("position")
 				if ($(this).css("position") != "absolute") {
