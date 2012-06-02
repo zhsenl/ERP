@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120501051657) do
+ActiveRecord::Schema.define(:version => 20120602112049) do
 
   create_table "cargos", :force => true do |t|
     t.integer  "enterprise_id"
@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(:version => 20120501051657) do
   create_table "contracts", :force => true do |t|
     t.integer  "enterprise_id"
     t.string   "operate_enterprise_code"
-    t.string   "foreign_enterprise"
+    t.string   "foreign_enterprise_code"
     t.string   "manual"
     t.string   "trade_mode"
     t.string   "tax_kind"
@@ -85,8 +85,8 @@ ActiveRecord::Schema.define(:version => 20120501051657) do
     t.string   "import_deal_mode"
     t.date     "import_deadline"
     t.date     "type_in_date"
-    t.datetime "created_at",         :null => false
-    t.datetime "updated_at",         :null => false
+    t.datetime "created_at",              :null => false
+    t.datetime "updated_at",              :null => false
   end
 
   create_table "declaration_cargos", :force => true do |t|
@@ -154,14 +154,15 @@ ActiveRecord::Schema.define(:version => 20120501051657) do
     t.string   "contract_no"
     t.integer  "package_amount"
     t.string   "wrap_type"
-    t.decimal  "gross_weight",       :precision => 10, :scale => 0
-    t.decimal  "net_weight",         :precision => 10, :scale => 0
+    t.decimal  "gross_weight",            :precision => 15, :scale => 4
+    t.decimal  "net_weight",              :precision => 15, :scale => 4
     t.string   "load_port"
     t.string   "memo"
     t.string   "attachments_mark"
     t.date     "import_export_date"
-    t.datetime "created_at",                                        :null => false
-    t.datetime "updated_at",                                        :null => false
+    t.datetime "created_at",                                             :null => false
+    t.datetime "updated_at",                                             :null => false
+    t.string   "voyage_no"
   end
 
   create_table "delayed_jobs", :force => true do |t|

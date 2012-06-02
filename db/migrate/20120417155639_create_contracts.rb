@@ -4,7 +4,7 @@ class CreateContracts < ActiveRecord::Migration
     create_table :contracts do |t|
       t.integer :enterprise_id
       t.string :operate_enterprise_code
-      t.string :foreign_enterprise
+      t.string :foreign_enterprise_code
       t.string :manual
       t.string :trade_mode
       t.string :tax_kind
