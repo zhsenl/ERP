@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 ERP::Application.routes.draw do
 
+  resources :declaration_containers
+
   resources :messages do 
     get 'unread', :on => :collection
     post 'read', :on => :member

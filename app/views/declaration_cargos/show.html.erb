@@ -35,7 +35,7 @@
 			
 			<p>
 			  <b>申报单位:</b>
-			  <%= @declaration_cargo.unit %>
+			  <span class="autoload" data-url=<%= dict_units_path %> ><%= @declaration_cargo.unit %></span>
 			</p>
 			
 			<p>
@@ -45,7 +45,7 @@
 			
 			<p>
 			  <b>第一单位:</b>
-			  <%= @declaration_cargo.unit1 %>
+			  <span class="autoload" data-url=<%= dict_units_path %> ><%= @declaration_cargo.unit1 %></span>
 			</p>
 			
 			<p>
@@ -55,12 +55,12 @@
 			
 			<p>
 			  <b>第二单位:</b>
-			  <%= @declaration_cargo.unit2 %>
+			  <span class="autoload" data-url=<%= dict_units_path %> ><%= @declaration_cargo.unit2 %></span>
 			</p>
 			
 			<p>
 			  <b><%= @declaration_type == "export" ? "目的国" : "原产国" %>:</b>
-			  <%= @declaration_cargo.trade_country %>
+			  <span class="autoload" data-url=<%= dict_countries_path %> ><%= @declaration_cargo.trade_country %></span>
 			</p>
 			
 			<p>
@@ -71,11 +71,12 @@
 			<p>
 			  <b>币制:</b>
 			  <%= @declaration_cargo.currency %>
+			  <span class="autoload" data-url=<%= dict_currencies_path %> ><%= @declaration_cargo.currency %></span>
 			</p>
 			
 			<p>
 			  <b>征免方式:</b>
-			  <%= @declaration_cargo.tax_mode %>
+			  <span class="autoload" data-url=<%= dict_tax_modes_path %> ><%= @declaration_cargo.tax_mode %></span>
 			</p>
 			
 			<p>

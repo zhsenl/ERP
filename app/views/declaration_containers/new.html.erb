@@ -1,0 +1,75 @@
+<div class="content-box">
+	<div class="content-box-header">
+		<h3>添加新集装箱</h3>
+		<div class="operations">
+			<%= link_to '返回列表', declaration_containers_path(:declaration_id => @declaration.id) %>
+		</div>
+	</div>
+	<div class="content-box-content">
+		<%= render 'form' %>
+	</div>
+</div>
+
+
+<div class="content-box column-left" style="width: 38%;">
+	<div class="content-box-header">
+		<h3>铁皮柜列表</h3>
+	</div>
+	<!-- End .content-box-header -->
+	<div class="content-box-content">
+		<div class="tab-content default-tab">
+			<table>
+				<thead>
+					<tr>
+						<th>类型</th>
+						<th>尺寸</th>
+						<th>特征</th>
+						<th>重量</th>
+					</tr>
+				</thead>				
+				<tbody>
+					<% Dict::MetalCabinet.all.each do |metal_cabinet| %>	
+					<tr>						
+						<td><%= metal_cabinet.code %></td>
+						<td><%= metal_cabinet.size %></td>
+						<td><%= metal_cabinet.name %></td>
+						<td><%= metal_cabinet.weight %></td>
+					</tr>
+					<% end %>					
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<div class="content-box column-right" style="width: 58%;">
+	<div class="content-box-header">
+		<h3>托架列表</h3>
+	</div>
+	<div class="content-box-content">
+		<div class="tab-content default-tab">
+			<table>
+				<thead>
+					<tr>
+						<th>托架编码</th>
+						<th>生产厂家</th>
+						<th>型号</th>
+						<th>规格</th>
+						<th>重量</th>
+					</tr>
+				</thead>				
+				<tbody>
+					<% Dict::Bracket.all.each do |bracket| %>	
+					<tr>						
+						<td><%= bracket.code %></td>
+						<td><%= bracket.manufacturer %></td>
+						<td><%= bracket.name %></td>
+						<td><%= bracket.specification %></td>
+						<td><%= bracket.weight %></td>
+					</tr>
+					<% end %>					
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<div class="clear"></div>

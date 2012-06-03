@@ -98,7 +98,7 @@ class DeclarationCargosController < ApplicationController
     @declaration_cargo.destroy
 
     respond_to do |format|
-      format.html { redirect_to declaration_cargos_url }
+      format.html { redirect_to declaration_cargos_url(:declaration_id => @declaration_container.declaration_id) }
       format.json { head :no_content }
     end
   end

@@ -1,0 +1,41 @@
+<div class="content-box">
+	<div class="content-box-header">
+		<h3>报关单(<%= @declaration.pre_entry_no %>)集装箱列表</h3>
+		<div class="operations">			
+			<%= link_to '添加新集装箱', new_declaration_container_path(:declaration_id => @declaration.id) %> |
+			<%= link_to '返回表头', @declaration %>
+		</div>
+	</div>
+	<div class="content-box-content">
+		<div class="tab-content default-tab">
+			<table>
+				<thead>
+					<tr>
+						<th>集装箱号</th>
+						<th>尺寸</th>
+						<th>类型</th>
+						<th>车架编号</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tfoot>
+					<tr>
+						<td colspan="6"> <%= will_paginate @declaration_containers %> </td>
+					</tr>
+				</tfoot>
+				<tbody>
+					<% @declaration_containers.each do |declaration_container| %>
+					<tr>
+						<td><%= link_to declaration_container.code, declaration_container %></td>
+						<td><%= declaration_container.container %></td>
+						<td><%= declaration_container.bracket %></td>
+						<td><%= declaration_container.metal_cabinet %></td>
+					    <td> <%= link_to image_tag("icons/pencil.png", :alt => "编辑", :title => "编辑"), edit_declaration_container_path(declaration_container) %>
+					    	<%= link_to image_tag("icons/cross.png", :alt => "删除", :title => "删除"), declaration_container, confirm: '确定删除?', method: :delete %></td>
+					</tr>
+					<% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

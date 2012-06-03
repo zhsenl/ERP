@@ -11,6 +11,7 @@ zh-CN:
       contract_consumption: 合同单耗
       declaration: 报关单
       declaration_cargo: 报关单货物
+      declaration_container: 集装箱
       dict/attachment: 随附单证
       dict/bracket: 托架
       dict/bring_in_mode: 引进方式

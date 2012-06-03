@@ -4,6 +4,7 @@ class Declaration < ActiveRecord::Base
   belongs_to :contract
   has_one :declaration_transit_information, :dependent => :destroy
   has_many :declaration_cargos, :dependent => :destroy
+  has_many :declaration_containers, :dependent => :destroy
   accepts_nested_attributes_for :declaration_transit_information
   
   scope :export, where(:declaration_type => "export")

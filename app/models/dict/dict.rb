@@ -5,6 +5,8 @@ class Dict::Dict < ActiveRecord::Base
   validates :code, :presence => true,
                    :length => {:maximum => 20},
                    :uniqueness => true
+  
+  default_scope :order => "code"
                    
   def self.table_name_prefix
     'dict_'

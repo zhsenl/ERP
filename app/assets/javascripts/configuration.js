@@ -15,6 +15,7 @@ $(document).ready(function(){
 		
 	//Sidebar Accordion Menu:
 		$("#main-nav li ."+current_item).addClass("current");
+		//console.log(current_item);
 		$("#main-nav li ."+current_item).parent().parent().show(); // Slide down the current menu item's sub menu
 		
 		$("#main-nav li a.nav-top-item").click( // When a top menu item is clicked...
@@ -110,7 +111,7 @@ $(document).ready(function(){
 	
 	
 	function load_unread_messages(){
-		$.get("../messages/unread.json", function(result){
+		$.get("/messages/unread.json", function(result){
 			if (result.length == 0 ){return;}
 			$("#welcome_message").html("你有 <a href=\"#messages\" class=\"unread_message_size\" rel=\"facebox\"></a>")
 	    	$(".unread_message_size").html(result.length + "条未读消息")

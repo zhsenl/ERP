@@ -5,7 +5,7 @@ class DeclarationsController < ApplicationController
   def init
     if params[:id]
       @declaration = Declaration.find(params[:id])
-    @declaration_type = @declaration.declaration_type
+      @declaration_type = @declaration.declaration_type
     else
       @declaration_type = params[:declaration_type] || params[:declaration][:declaration_type]
     end

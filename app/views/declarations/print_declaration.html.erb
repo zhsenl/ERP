@@ -174,7 +174,14 @@
 			<div class="td last-td" style="width:128px;"><div class="bg-text">净重</div> <span class="content"><%= @declaration.net_weight %></span></div>
 		</div>
 		<div class="tr">
-			<div class="td" style="width:210px;"><div class="bg-text">集装箱号</div> <span class="content"></span></div>
+		<%
+			declaration_containers = @declaration.declaration_containers
+			total_valent_num = 0
+			declaration_containers.each do |declaration_container|
+				total_valent_num += Dict::Container.find_by_code(declaration_container.container).valent_num
+			end		
+		%>
+			<div class="td" style="width:210px;"><div class="bg-text">集装箱号</div> <span class="content"><%= "#{declaration_containers.first.code} * #{declaration_containers.size} (#{total_valent_num})" %></span></div>
 		<% 
 			attachments = Array.new
 			@declaration.attachments.keys.each do |key|
