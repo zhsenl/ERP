@@ -12,6 +12,7 @@ zh-CN:
       declaration: 报关单
       declaration_cargo: 报关单货物
       declaration_container: 集装箱
+      declaration_packing: 装箱明细
       dict/attachment: 随附单证
       dict/bracket: 托架
       dict/bring_in_mode: 引进方式

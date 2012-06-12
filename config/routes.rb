@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 ERP::Application.routes.draw do
 
+  resources :declaration_packings
   resources :declaration_containers
 
   resources :messages do 

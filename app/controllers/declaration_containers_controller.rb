@@ -60,7 +60,7 @@ class DeclarationContainersController < ApplicationController
 
     respond_to do |format|
       if @declaration_container.save
-        format.html { redirect_to @declaration_container, notice: 'Declaration container was successfully created.' }
+        format.html { redirect_to new_declaration_container_url(:declaration_id => @declaration_container.declaration_id), notice: 'Declaration container was successfully created.' }
         format.json { render json: @declaration_container, status: :created, location: @declaration_container }
       else
         format.html { render action: "new" }

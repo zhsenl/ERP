@@ -236,9 +236,10 @@ $(document).ready(function(){
 						self._trigger( "selected", event, {
 							item: ui.item.option
 						});
+						select.change();
 					},
 					change: function( event, ui ) {
-						if ( !ui.item ) {
+						if ( !ui.item ) {							
 							var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( $(this).val() ) + "$", "i" ),
 								valid = false;
 							select.children( "option" ).each(function() {
@@ -246,7 +247,7 @@ $(document).ready(function(){
 									this.selected = valid = true;
 									return false;
 								}
-							});
+							});							
 							if ( !valid ) {
 								// remove invalid value, as it didn't match anything
 								$( this ).val( "" );
@@ -255,6 +256,7 @@ $(document).ready(function(){
 								return false;
 							}
 						}
+						select.change();
 					}
 				})
 				.addClass( self.element.attr("class") );
