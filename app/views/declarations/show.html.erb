@@ -4,8 +4,8 @@
 		<div class="operations">
 			<%= link_to @declaration_type == "export" ? "出口成品" : "进口料件", declaration_cargos_path(:declaration_id => @declaration.id) %> |
 			<%= link_to "集装箱", declaration_containers_path(:declaration_id => @declaration.id) %> |
-			<%= link_to "装箱明细", declaration_packings_path(:declaration_id => @declaration.id) %> |
-			<%= link_to '打印', print_declaration_declaration_path(@declaration), :target => "_blank" %> |
+			<%= link_to "装箱明细", declaration_packings_path(:declaration_id => @declaration.id) %> |			
+			<%= link_to '打印', "#print_dialog", :rel => "facebox" %> |
 			<%= link_to '编辑', edit_declaration_path(@declaration) %> |
 			<%= link_to '返回列表', declarations_path(:declaration_type => @declaration_type) %>
 		</div>
@@ -193,3 +193,23 @@
 		</div>
 	</div>
 </div>
+
+
+<div id="print_dialog" style="display: none">
+	<h3>请选择打印单据种类</h3> 
+	<p>
+		<%= link_to '报关单', print_declaration_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+	</p>
+	<p>
+		<%= link_to '合同', print_declaration_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+	</p>
+	<p>
+		<%= link_to '发票', print_declaration_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+	</p>
+	<p>
+		<%= link_to '装箱单', print_declaration_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+	</p>
+	<p>
+		<%= link_to '装箱明细单', print_declaration_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+	</p>
+</div> 

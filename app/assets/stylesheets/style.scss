@@ -806,3 +806,24 @@ div.wysiwyg iframe {
 .error_label {
 	color: #FF0000;
 }
+
+#print_dialog {
+	text-align: center;
+}
+
+#print_dialog .print_button {
+	margin:0 auto;
+	display:block;
+	height: 40px;
+	width: 90%;
+	text-align:center;
+	line-height: 40px;
+	color: #ffffff;
+	font-size:18px;
+	background-clip: padding-box;
+    background-color: #76B507;
+    background-image: -moz-linear-gradient(center top , #96E60C 0%, #76B507 100%);
+    background-repeat: repeat-x;
+    border: 1px solid #6EAA09;
+    border-radius: 5px 5px 5px 5px;
+}
