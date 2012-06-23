@@ -48,6 +48,10 @@
 					<%= @declaration.contract.manual %>
 					<% end %>
 				</p>
+				<p>
+					<b>报关类型:</b>
+					<span class="autoload" data-url=<%= dict_transit_types_path %> ><%= @declaration.transit_type %></span>
+				</p>
 				<% if @declaration_type == "import" %>
 				<p>
 					<b>进口日期</b>
@@ -147,6 +151,7 @@
 				</p>
 				<% end %>
 			</fieldset>
+			<% if @declaration.transit_type == "003" %>
 			<fieldset>
 				<legend>转关信息：</legend>
 				<p>
@@ -190,26 +195,37 @@
 					<%= @declaration.declaration_transit_information.local_transport_tool_voyage_no %>
 				</p>
 			</fieldset>
+			<% end %>
 		</div>
 	</div>
 </div>
 
 
 <div id="print_dialog" style="display: none">
+	<% if @declaration.declaration_cargos.size > 0 %>
 	<h3>请选择打印单据种类</h3> 
 	<p>
 		<%= link_to '报关单', print_declaration_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
 	</p>
 	<p>
-		<%= link_to '合同', print_declaration_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+		<%= link_to '合同', print_contract_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
 	</p>
+	<% if @declaration_type == "export" %>
+	<p>
+		<%= link_to '国税发票', print_declaration_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+	</p>
+	<% end %>
 	<p>
 		<%= link_to '发票', print_declaration_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
-	</p>
+	</p>	
 	<p>
 		<%= link_to '装箱单', print_declaration_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
 	</p>
 	<p>
 		<%= link_to '装箱明细单', print_declaration_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
 	</p>
+	<% else %>
+	<h3>不能打印！</h3>
+	<p>请先去添加<%= @declaration_type == "export" ? "出口成品" : "进口料件" %></p>
+	<% end %>
 </div> 

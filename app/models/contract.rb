@@ -9,4 +9,12 @@ class Contract < ActiveRecord::Base
   validates :manual, :presence => true, :uniqueness => true
   validates :tax_kind, :presence => true
   validates :type_in_date, :presence => true
+  
+  def foreign_enterprise
+    ForeignEnterprise.find_by_code(foreign_enterprise_code);
+  end
+  
+  def operate_enterprise
+    Enterprise.find_by_code(operate_enterprise_code);
+  end
 end

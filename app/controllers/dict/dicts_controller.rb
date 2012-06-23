@@ -67,7 +67,7 @@ class Dict::DictsController < ApplicationController
 
     respond_to do |format|
       if @item.save
-        format.html { redirect_to @item, notice: '成功创建字典条目.' }
+        format.html { redirect_to eval(@item.class.table_name + "_url"), notice: '成功创建字典条目.' }
         format.json { render json: @item, status: :created, location: @item }
       else
         format.html { render action: "new" }

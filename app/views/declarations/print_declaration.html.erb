@@ -151,7 +151,7 @@
 			<div class="td" style="width:295px;"><div class="bg-text"><%= @declaration_type == "export" ? "发货" : "收货" %>单位</div> <span class="content"><%= enterprise_name_and_trade_code @declaration.enterprise %></span></div>
 			<div class="td" style="width:157px;"><div class="bg-text">贸易方式</div> <span class="content"><%= dict_name_and_code Dict::TradeMode, @declaration.trade_mode %></span></div>
 			<div class="td" style="width:152px;"><div class="bg-text">征免性质</div> <span class="content"><%= dict_name_and_code Dict::TaxKind, @declaration.tax_kind %></span></div>
-			<div class="td last-td" style="width:131px;"><div class="bg-text"><%= @declaration_type == "export" ? "结汇方式" : "征税比例" %></div> <span class="content"><%= dict_name Dict::PayWay, @declaration.pay_way if @declaration_type == "export" %></#if></span></div>
+			<div class="td last-td" style="width:131px;"><div class="bg-text"><%= @declaration_type == "export" ? "结汇方式" : "征税比例" %></div> <span class="content"><%= dict_name Dict::PayWay, @declaration.pay_way if @declaration_type == "export" %></span></div>
 		</div>
 		<div class="tr">
 			<div class="td" style="width:210px;"><div class="bg-text">许可证号</div> <span class="content"></span></div>

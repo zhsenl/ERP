@@ -45,6 +45,12 @@ class DeclarationsController < ApplicationController
     @title = '打印报关单'
     render :layout => 'print'
   end
+  
+  def print_contract 
+    @declaration_cargos = @declaration.declaration_cargos.order("no")    
+    @title = '打印合同'
+    render :layout => 'print'
+  end
 
   # GET /declarations/new
   # GET /declarations/new.json
@@ -56,7 +62,8 @@ class DeclarationsController < ApplicationController
                                       :pre_entry_no => pre_entry_no,
                                       :pay_way => "7",
                                       :deal_mode => @declaration_type == "export" ? "3" : "1",
-                                      :declare_enterprise_code => "4419980074")
+                                      :declare_enterprise_code => "744483308",
+                                      :transit_type => "001")
       @declaration.declaration_transit_information = DeclarationTransitInformation.new(:local_transport_mode => 4)
     else
       redirect_to declarations_path(:declaration_type => @declaration_type), notice: '请选择要操作的企业'

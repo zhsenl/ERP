@@ -8,7 +8,7 @@ class Enterprise < ActiveRecord::Base
   has_many :contracts, :dependent => :destroy
   has_many :declarations, :dependent => :destroy
   
-  validates :code, :presence => true, :uniqueness => true
+  validates :code, :presence => true, :uniqueness => true, :length => { :is => 9 }
   validates :name, :presence => true
   
   def build_enterprise_customs_option

@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 ERP::Application.routes.draw do
 
+  namespace :dict do resources :transit_types end
+
   resources :declaration_packings
   resources :declaration_containers
 
@@ -15,6 +17,7 @@ ERP::Application.routes.draw do
   resources :declarations do 
     get 'search', :on => :collection
     get 'print_declaration', :on => :member
+    get 'print_contract', :on => :member
   end
 
   resources :cargos do
@@ -89,6 +92,7 @@ ERP::Application.routes.draw do
               :trucks,
               :units,
               :usages,
+              :transit_types,
               :wrap_types do
       get 'search', :on => :collection
       get 'show_by_code', :on => :member

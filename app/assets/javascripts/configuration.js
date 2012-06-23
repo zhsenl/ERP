@@ -148,6 +148,7 @@ $(document).ready(function(){
 	  	});
 	});
 	
+	
 	//autocomplete field settings
 	$("input[id$='_autocomplete']").each(function(){
 		var label = $("#" + this.id + "_label");
@@ -303,7 +304,14 @@ $(document).ready(function(){
 		}
 	});
 	
+	//combo box
+	$("select[id$='_combobox']").each(function(){
+		$(this).combobox();
+	});
+	
 });
+  
+  
   
 
 //unread messages

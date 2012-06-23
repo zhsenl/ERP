@@ -1,0 +1,4 @@
+<% id =  attribute.to_s + "_combobox" %>
+<% items_array = model.all.map { |item| [item.code + item.name, item.code] } %>
+<% items_array = [["请选择" , " "]] + items_array %>
+<%= form.select attribute, items_array, {}, :id => id, :class => klass %> 

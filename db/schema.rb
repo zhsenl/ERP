@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120603054044) do
+ActiveRecord::Schema.define(:version => 20120622140136) do
 
   create_table "cargos", :force => true do |t|
     t.integer  "enterprise_id"
@@ -121,6 +121,21 @@ ActiveRecord::Schema.define(:version => 20120603054044) do
     t.datetime "updated_at",     :null => false
   end
 
+  create_table "declaration_packings", :force => true do |t|
+    t.integer  "declaration_id"
+    t.string   "name"
+    t.integer  "package_amount"
+    t.decimal  "quantity",                 :precision => 10, :scale => 0
+    t.string   "unit"
+    t.decimal  "gross_weight",             :precision => 10, :scale => 0
+    t.decimal  "net_weight",               :precision => 10, :scale => 0
+    t.decimal  "gross_weight_per_package", :precision => 10, :scale => 0
+    t.decimal  "net_weight_per_package",   :precision => 10, :scale => 0
+    t.integer  "no"
+    t.datetime "created_at",                                              :null => false
+    t.datetime "updated_at",                                              :null => false
+  end
+
   create_table "declaration_transit_informations", :force => true do |t|
     t.integer  "declaration_id"
     t.string   "corporation_name"
@@ -173,6 +188,7 @@ ActiveRecord::Schema.define(:version => 20120603054044) do
     t.datetime "created_at",                                             :null => false
     t.datetime "updated_at",                                             :null => false
     t.string   "voyage_no"
+    t.string   "transit_type"
   end
 
   create_table "delayed_jobs", :force => true do |t|
@@ -346,6 +362,13 @@ ActiveRecord::Schema.define(:version => 20120603054044) do
   end
 
   create_table "dict_trade_modes", :force => true do |t|
+    t.string   "code"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "dict_transit_types", :force => true do |t|
     t.string   "code"
     t.string   "name"
     t.datetime "created_at", :null => false

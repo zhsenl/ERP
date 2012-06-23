@@ -16,7 +16,7 @@
 			$("#declaration_cargo_code").autocomplete({
 				source : function(request, response) {
 					<% if @declaration.contract %>
-					var url = "<%= @declaration_type == "export" ? contract_products_path : contract_materails_path %>/search.json?contract_id=<%= @declaration.contract.id %>&term="+request.term
+					var url = "<%= @declaration_type == "export" ? contract_products_path : contract_materials_path %>/search.json?contract_id=<%= @declaration.contract.id %>&term="+request.term
 					<% else %>
 					var url = "<%= cargos_path %>/search.json?term="+request.term
 					<% end%>
