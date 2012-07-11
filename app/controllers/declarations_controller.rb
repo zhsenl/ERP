@@ -51,6 +51,18 @@ class DeclarationsController < ApplicationController
     @title = '打印合同'
     render :layout => 'print'
   end
+  
+  def print_tax_invoice
+    @declaration_cargos = @declaration.declaration_cargos.order("no")    
+    @title = '打印国税发票'
+    render :layout => 'print'
+  end
+  
+  def print_invoice
+    @declaration_cargos = @declaration.declaration_cargos.order("no")    
+    @title = '打印发票'
+    render :layout => 'print'
+  end
 
   # GET /declarations/new
   # GET /declarations/new.json

@@ -18,6 +18,8 @@ ERP::Application.routes.draw do
     get 'search', :on => :collection
     get 'print_declaration', :on => :member
     get 'print_contract', :on => :member
+    get 'print_tax_invoice', :on => :member
+    get 'print_invoice', :on => :member
   end
 
   resources :cargos do

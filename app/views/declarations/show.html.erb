@@ -212,11 +212,11 @@
 	</p>
 	<% if @declaration_type == "export" %>
 	<p>
-		<%= link_to '国税发票', print_declaration_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+		<%= link_to '国税发票', print_tax_invoice_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
 	</p>
 	<% end %>
 	<p>
-		<%= link_to '发票', print_declaration_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+		<%= link_to '发票', print_invoice_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
 	</p>	
 	<p>
 		<%= link_to '装箱单', print_declaration_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
