@@ -219,10 +219,10 @@
 		<%= link_to '发票', print_invoice_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
 	</p>	
 	<p>
-		<%= link_to '装箱单', print_declaration_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+		<%= link_to '装箱单', print_packing1_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
 	</p>
 	<p>
-		<%= link_to '装箱明细单', print_declaration_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+		<%= link_to '装箱明细单', print_packing2_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
 	</p>
 	<% else %>
 	<h3>不能打印！</h3>

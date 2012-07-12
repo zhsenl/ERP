@@ -20,6 +20,8 @@ ERP::Application.routes.draw do
     get 'print_contract', :on => :member
     get 'print_tax_invoice', :on => :member
     get 'print_invoice', :on => :member
+    get 'print_packing1', :on => :member
+    get 'print_packing2', :on => :member
   end
 
   resources :cargos do

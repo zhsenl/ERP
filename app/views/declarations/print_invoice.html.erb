@@ -1,0 +1,156 @@
+<style type="text/css">
+body {
+	font-size: 16px;
+}
+
+.frame {
+	margin: 0 auto;
+	width: 702px;
+	text-align: left;
+}
+
+h1 {
+	font-family: "STFangsong";
+	font-size: 26px;
+	font-weight: normal;
+}
+
+
+.table {
+	border: 1px solid;
+}
+
+.tr {
+	float: none;
+	height: 30px;
+	width: 100%;
+	height: 30px;
+}
+
+.td {
+	float: left;
+	height: 30px;
+}
+
+.table .tr {
+	height: 31px;
+}
+
+.table .td {
+	border-right: 1px solid;
+	height: 31px;
+	text-align: center;
+	line-height: 31px;
+}
+
+.table .last-tr {
+	border-bottom: none;
+}
+
+.table .last-td {
+	border-right: none;
+}
+
+.table .header {
+	height: 40px;
+	line-height: 40px;
+	overflow: hidden;
+}
+
+.table .footer {
+	height: 40px;
+	line-height: 40px;
+	overflow: hidden;
+}
+
+.bold-value {
+	padding-top: 5px;
+	height: 25px;
+	text-align: center;
+	font-size: 16px;
+	border-bottom: 2px solid;
+}
+</style>
+
+<% contract = @declaration.contract %>
+
+<div class="frame">
+<div style="width: 100%; height: 80px;"></div>
+<div class="tr" style="text-align: center; height: 70px;">
+<h1><b>发　　票</b><br />
+INVOICE</h1>
+</div>
+<div class="tr" style="height: 20px;">
+<div class="td" style="height: 20px; width: 481px;"></div>
+<div class="td" style="height: 20px; width: 80px;"><span class="bgText">发票号码：</span></div>
+<div class="td" style="height: 20px; width: 136px; border-bottom: 1px solid;"><span class="content"></span></div>
+</div>
+<div class="tr" style="height: 20px; margin-top: 10px;">
+<div class="td" style="height: 20px; width: 105px;"><span class="bgText">商　　　号：</span></div>
+<div class="td" style="height: 20px; width: 354px; border-bottom: 1px solid;"><span class="content"><%= contract.foreign_enterprise.name rescue "" %></span></div>
+<div class="td" style="height: 20px; width: 22px;"></div>
+<div class="td" style="height: 20px; width: 80px;"><span class="bgText">合同号码：</span></div>
+<div class="td" style="height: 20px; width: 136px; border-bottom: 1px solid;"><span class="content"><%= @declaration.contract_no %></span></div>
+</div>
+<div class="tr" style="height: 20px; margin-top: 10px;">
+<div class="td" style="height: 20px; width: 105px;"><span class="bgText"><%= @declaration_type == "export" ? "发 货" : "收 货"  %> 单 位：</span></div>
+<div class="td" style="height: 20px; width: 354px; border-bottom: 1px solid;"><span class="content"><%= @declaration.enterprise.name %></span></div>
+<div class="td" style="height: 20px; width: 22px;"></div>
+<div class="td" style="height: 20px; width: 80px;"><span class="bgText">日　　期：</span></div>
+<div class="td" style="height: 20px; width: 136px; border-bottom: 1px solid;"><span class="content"><%= @declaration.declare_date.strftime('%Y年%m月%d日') %></span></div>
+</div>
+<div class="clear"></div>
+
+<div class="table" style=" margin-top: 10px; border-left: none; border-right: none;border-bottom: none; ">
+<div class="tr header" style="border-bottom: 1px solid;">
+<div class="td header" style="width: 388px;"><span class="bgText">商　　　品　　　名　　　称</span></div>
+<div class="td header" style="width: 92px;"><span class="bgText">数量/单位</span></div>
+<div class="td header" style="width: 90px;"><span class="bgText">单价</span></div>
+<div class="td header last-td" style="width: 125px;"><span class="bgText">总价</span></div>
+</div>
+<div class="tr last-tr" style="height: 650px;">
+<div class="td last-td" style="height: 650px; width: 699px;">
+<% list_size = @declaration_cargos.size > 20 ? 20 : @declaration_cargos.size %>		
+<% @declaration_cargos[0..list_size-1].each do |cargo| %>
+<div class="tr">
+<div class="td" style="width: 388px; overflow:hidden;text-align:left;"><span class="content"><%= cargo.name %></span></div>
+<div class="td" style="width: 92px;"><span class="content"><%= cargo.quantity %><%= dict_name Dict::Unit, cargo.unit %></span></div>
+<div class="td" style="width: 90px;"><span class="content"><%= sprintf "%0.4f", cargo.unit_price %></span></div>
+<div class="td last-td" style="width: 125px;"><span class="content"><%= sprintf "%0.2f", cargo.total_price %></span></div>
+</div>
+<% end %>
+
+<% if list_size < 20 %>
+<% (1..20-list_size).each do |i| %>
+<div class="tr">
+<div class="td" style="width: 388px;"></div>
+<div class="td" style="width: 92px;"></div>
+<div class="td" style="width: 90px;"></div>
+<div class="td last-td" style="width: 125px;"></div>
+</div>
+<% end %>
+<% end %>
+
+
+<%
+	total_price = 0
+ 	@declaration_cargos.each do |cargo| 
+ 		total_price += cargo.total_price
+ 	end
+%>
+
+<div class="tr">
+<div class="td" style="width: 388px;">成交方式：<span class="content"><%= dict_name Dict::DealMode, @declaration.deal_mode %> <%= dict_name Dict::District, @declaration.destination %></span></div>
+<div class="td" style="width: 92px;"></div>
+<div class="td" style="width: 90px;"><span class="content">总值(<%= dict_attr Dict::Currency, @declaration_cargos[0].currency, "short_name" %>)</span></div>
+<div class="td last-td" style="width: 125px;"><span class="content"><%= sprintf "%0.2f", total_price %></span></div>
+</div>
+
+</div>
+</div>
+
+<div style="margin: 10px 0 0 10px;">唛头: <span class="content">N/M</span></div>
+</div>
+
+<div style="width: 100%; height: 20px;"></div>
+</div>

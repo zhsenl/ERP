@@ -63,6 +63,12 @@ class DeclarationsController < ApplicationController
     @title = '打印发票'
     render :layout => 'print'
   end
+  
+  def print_packing1
+    @declaration_packings = @declaration.declaration_packings.order("no")
+    @title = '打印装箱单'
+    render :layout => 'print'
+  end
 
   # GET /declarations/new
   # GET /declarations/new.json

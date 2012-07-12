@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   before_filter :authorize
   
   rescue_from CanCan::AccessDenied do |exception|
-    redirect_to signin_path, :flash => {:attention => "你没有权限进行此操作"}
+    redirect_to signin_path(:url => request.url), :flash => {:attention => "你没有权限进行此操作"}
   end
   
   def authorize
