@@ -224,6 +224,9 @@
 	<p>
 		<%= link_to '装箱明细单', print_packing2_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
 	</p>
+	<p>
+		<%= link_to '凤岗装箱单', print_packing3_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+	</p>
 	<% else %>
 	<h3>不能打印！</h3>
 	<p>请先去添加<%= @declaration_type == "export" ? "出口成品" : "进口料件" %></p>
