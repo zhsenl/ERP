@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class DeclarationContainersController < ApplicationController
   before_filter :init
   

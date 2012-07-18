@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class DeclarationPacking < ActiveRecord::Base
   belongs_to :declaration
   

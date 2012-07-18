@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateDeclarationCargos < ActiveRecord::Migration
   def change
     create_table :declaration_cargos do |t|

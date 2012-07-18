@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class DeclarationCargo < ActiveRecord::Base
   belongs_to :declaration
   

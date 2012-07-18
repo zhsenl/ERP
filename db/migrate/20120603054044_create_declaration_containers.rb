@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateDeclarationContainers < ActiveRecord::Migration
   def change
     create_table :declaration_containers do |t|

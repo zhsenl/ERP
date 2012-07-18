@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class DeclarationCargosController < ApplicationController
   before_filter :init
   

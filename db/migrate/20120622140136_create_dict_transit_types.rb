@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CreateDictTransitTypes < ActiveRecord::Migration
   def change
     create_table :dict_transit_types do |t|

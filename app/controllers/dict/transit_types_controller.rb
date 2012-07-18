@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class Dict::TransitTypesController < Dict::DictsController
   def model
     Dict::TransitType  
