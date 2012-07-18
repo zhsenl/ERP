@@ -167,7 +167,7 @@ $(document).ready(function(){
 				
 		$(this).autocomplete({
 			source : function(request, response) {
-				$.get(url + "/search.json?term="+request.term, function(result){
+				$.get(url + "/search.json?term="+ encodeURI(request.term), function(result){
 					response($.map(result, function(item) {
 						item.label = item.code + ":" + item.name;
 						item.value = item.code;
