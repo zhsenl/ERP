@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
 class DeclarationsController < ApplicationController
-  include ApplicationHelper, PrintHelper
+  include ApplicationHelper, DeclarationsHelper, PrintHelper
   before_filter :init
   def init
     if params[:id]
@@ -80,6 +80,18 @@ class DeclarationsController < ApplicationController
     @declaration_cargos = @declaration.declaration_cargos.order("no")   
     @title = '打印凤岗装箱单'
     render :layout => 'print'
+  end
+  
+  # GET /declarations/1/declare.json
+  def declare
+    if generate_declaration_xml(@declaration.id)
+      result = {:type => "success", :content => "已经成功生成报文，请稍后再查询申报结果"}
+    else
+      result = {:type => "error", :content => "生成报文失败"}
+    end    
+    respond_to do |format|
+      format.json { render json: result }
+    end
   end
 
   # GET /declarations/new

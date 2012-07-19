@@ -76,7 +76,7 @@ $(document).ready(function(){
 		);
 
     //Close button:
-		
+    			
 		$(".close").click(
 			function () {
 				$(this).parent().fadeTo(400, 0, function () { // Links with the class "close" will close parent
@@ -330,5 +330,20 @@ function read_message(link) {
 	});	
 }
 
-
+function show_tips(type, content) {
+	var tips = '\
+	<div class="notification ' + type + ' png_bg"> \
+		<a href="#" class="close"><img src="<%= asset_path("icons/cross_grey_small.png") %>" title="Close this notification" alt="close" /></a> \
+		<div>' + content + '</div> \
+	</div>';
+	$("#main-content").prepend(tips);
+	$(".close").click(
+		function () {
+			$(this).parent().fadeTo(400, 0, function () { // Links with the class "close" will close parent
+				$(this).slideUp(400);
+			});
+			return false;
+		}
+	);
+}
   

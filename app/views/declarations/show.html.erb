@@ -2,14 +2,26 @@
 	<div class="content-box-header">
 		<h3>查看报关单(<%= @declaration.pre_entry_no %>)</h3>
 		<div class="operations">
+			<%= link_to '编辑', edit_declaration_path(@declaration) %> |
+			<%= link_to '打印', "#print_dialog", :rel => "facebox" %> |
+			<%= link_to '申报', declare_declaration_path(@declaration, :format => :json), :id => "declare_button" %> |
 			<%= link_to @declaration_type == "export" ? "出口成品" : "进口料件", declaration_cargos_path(:declaration_id => @declaration.id) %> |
 			<%= link_to "集装箱", declaration_containers_path(:declaration_id => @declaration.id) %> |
 			<%= link_to "装箱明细", declaration_packings_path(:declaration_id => @declaration.id) %> |			
-			<%= link_to '打印', "#print_dialog", :rel => "facebox" %> |
-			<%= link_to '编辑', edit_declaration_path(@declaration) %> |
 			<%= link_to '返回列表', declarations_path(:declaration_type => @declaration_type) %>
 		</div>
 	</div>
+	<script>
+		$(function() {
+			$("#declare_button").click(function(){
+				var url = this.getAttribute("href");
+				$.get(url, function(result){
+					show_tips(result.type, result.content);
+				});
+				return false;
+			});
+		});
+	</script>
 	<div class="content-box-content">
 		<div class="tab-content default-tab">
 			<fieldset>
