@@ -109,7 +109,7 @@ $(document).ready(function(){
 		  $("#body-wrapper").width(width + "px");
 		});
 	
-	
+	//load unread message
 	function load_unread_messages(){
 		$.get("/messages/unread.json", function(result){
 			if (result.length == 0 ){return;}
@@ -309,6 +309,28 @@ $(document).ready(function(){
 		$(this).combobox();
 	});
 	
+	
+	//prevent submit the form when press enter
+	$("#main-content .content-box input").keypress(function(e){
+		if(e.keyCode==13||e.which==13){
+			//get the next index of text input element
+			var next_idx = $('input').index(this) + 1;
+			//get number of text input element in a html document
+			var tot_idx = $('body').find('input').length;
+			//enter button in ASCII code
+			if(e.keyCode == 13){
+				if(tot_idx == next_idx){
+					$('input:eq(0)').focus();
+				} else {
+					$('input:eq(' + next_idx + ')').focus();
+				}
+			}
+			return false;
+		}
+	});
+	
+	
+
 });
   
   
