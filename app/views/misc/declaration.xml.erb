@@ -1,6 +1,258 @@
-<note>
-	<to>George</to>
-	<from><%= @declaration.id %></from>
-	<heading>Reminder</heading>
-	<body>Don't forget the meeting!!</body>
-</note>
+<% enterprise = @declaration.enterprise %>
+<% custom_option = enterprise.enterprise_custom_option %>
+<% now = Time.now %>
+<% serial_no = system_serial_no %>
+<?xml version="1.0" encoding="UTF-8"?>
+<TCS101Message>
+  <MessageHead>
+    <MessageType>001</MessageType>
+    <MessageId><%= custom_option.platform_id rescue '' %><%= serial_no %></MessageId>
+    <MessageTime><%= now.strftime('%y%m%d%H%M%S') %></MessageTime>
+    <SenderId><%= custom_option.platform_id rescue '' %></SenderId>
+    <SenderAddress><%= custom_option.platform_id rescue '' %><%= custom_option.area_name rescue '' %></SenderAddress>
+    <ReceiverId>T99999999999</ReceiverId>
+    <ReceiverAddress>T99999999999@TCS10001</ReceiverAddress>
+  </MessageHead>
+  <MessageBody>
+    <tcs:TcsFlow201 schemaLocation="http://www.chinaport.gov.cn/tcs/v2 TcsWorkFlow.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tcs="http://www.chinaport.gov.cn/tcs/v2">
+      <tcs:TcsUser>
+      	<%= raw tcs("UserId", custom_option.platform_id) %>
+      	<%= raw tcs("UserPrivateKey", custom_option.user_private_key) %>
+      </tcs:TcsUser>
+      <tcs:TcsLink>
+        <tcs:TcsLinkMan>
+		  <%= raw tcs("Name", enterprise.linkman) %>
+		  <tcs:Department xsi:nil="true" />	  
+          <tcs:Duty xsi:nil="true" />
+          <%= raw tcs("Telephone", enterprise.telephone) %>
+          <tcs:Mobile xsi:nil="true" />
+          <%= raw tcs("Fax", enterprise.fax) %>
+          <%= raw tcs("Address", enterprise.address) %>
+          <tcs:ZipCode>1</tcs:ZipCode>
+          <tcs:Email xsi:nil="true" />
+          <tcs:ImCode>1</tcs:ImCode>
+          <tcs:ImType>1</tcs:ImType>
+        </tcs:TcsLinkMan>
+      </tcs:TcsLink>
+      <tcs:TcsFlow>
+      	<MessageId><%= custom_option.platform_id rescue '' %><%= serial_no %></MessageId>
+      	<%= raw tcs("BpNo", custom_option.process_no) %>
+        <tcs:ActionList>
+          <tcs:ActionId>a01</tcs:ActionId>
+        </tcs:ActionList>
+        <%= raw tcs("TaskId", custom_option.platform_id + now.strftime('%Y%m%d') + serial_no) %>
+        <tcs:TaskNote>黄埔-001</tcs:TaskNote>
+        <tcs:CorpTaskId>
+        </tcs:CorpTaskId>
+        <tcs:TaskControl>
+        </tcs:TaskControl>
+      </tcs:TcsFlow>
+      <tcs:TcsData>
+        <tcs:DeclarationDocument xsi:schemaLocation="http://www.chinaport.gov.cn/tcs/v2" xmlns:tcs="http://www.chinaport.gov.cn/tcs/v2">
+          <%= raw tcs("TcsDocumentNo", custom_option.platform_id + '001' + now.strftime('%Y%m%d') + serial_no) %>
+          <tcs:DataCooperationType>001</tcs:DataCooperationType>
+          <tcs:EntryInformation>
+            <tcs:EntryIdentityInformationList>
+              <tcs:EntryIdentityInformation>
+                <tcs:EntryIdentity>001</tcs:EntryIdentity>
+                <%= raw tcs("CorporationCustomsCode", @declaration.operate_enterprise.enterprise_custom_option.trade_code) rescue '' %>
+                <%= raw tcs("CorporationName", @declaration.operate_enterprise.name) rescue '' %>
+              </tcs:EntryIdentityInformation>
+              <tcs:EntryIdentityInformation>
+                <tcs:EntryIdentity>002</tcs:EntryIdentity>
+                <%= raw tcs("CorporationCustomsCode", @declaration.enterprise.enterprise_custom_option.trade_code) rescue '' %>
+                <%= raw tcs("CorporationName", @declaration.enterprise.name) rescue '' %>
+              </tcs:EntryIdentityInformation>
+              <tcs:EntryIdentityInformation>
+                <tcs:EntryIdentity>003</tcs:EntryIdentity>
+                <%= raw tcs("CorporationCustomsCode", @declaration.declare_enterprise.enterprise_custom_option.trade_code) rescue '' %>
+                <%= raw tcs("CorporationName", @declaration.declare_enterprise.name) rescue '' %>
+              </tcs:EntryIdentityInformation>
+              <tcs:EntryIdentityInformation>
+                <tcs:EntryIdentity>004</tcs:EntryIdentity>
+                <tcs:CorporationCustomsCode>744483308</tcs:CorporationCustomsCode>
+                <tcs:CorporationName>东莞市新泽报关咨询服务有限公司</tcs:CorporationName>
+              </tcs:EntryIdentityInformation>
+            </tcs:EntryIdentityInformationList>
+            <tcs:LogisticsLocationInformationList>
+              <tcs:LogisticsLocationInformation>
+                <tcs:LogisticsLocationType>004</tcs:LogisticsLocationType>
+                <%= raw tcs("LogisticsLocationCode", @declaration.port) rescue '' %>
+              </tcs:LogisticsLocationInformation>
+              <tcs:LogisticsLocationInformation>
+                <tcs:LogisticsLocationType>012</tcs:LogisticsLocationType>
+                <%= raw tcs("LogisticsLocationCode", @declaration.trade_country) rescue '' %>
+              </tcs:LogisticsLocationInformation>
+            </tcs:LogisticsLocationInformationList>
+            <tcs:EportLocationInformationList>
+              <tcs:EportLocationInformation>
+                <tcs:EportLocationTypeCode>001</tcs:EportLocationTypeCode>
+                <%= raw tcs("EportLocationCode", @declaration.load_port) rescue '' %>
+              </tcs:EportLocationInformation>
+              <tcs:EportLocationInformation>
+                <tcs:EportLocationTypeCode>003</tcs:EportLocationTypeCode>
+                <%= raw tcs("EportLocationCode", @declaration.custom) rescue '' %>
+              </tcs:EportLocationInformation>
+            </tcs:EportLocationInformationList>
+            <tcs:BaseInformation>
+              <tcs:PreentryNo xsi:nil="true" />
+              <tcs:EntryType>001</tcs:EntryType>
+              <%= raw tcs("EntryTransitType", @declaration.transit_type) rescue '' %>
+              <tcs:DeclareProperty>001</tcs:DeclareProperty>
+              <tcs:TaxCorporationType>002</tcs:TaxCorporationType>
+              <%= raw tcs("DestinationCode", @declaration.destination) rescue '' %>
+              <tcs:WarehouseNo xsi:nil="true" />
+              <%= raw tcs("CYNo", @declaration.load_port) rescue '' %>
+              <%= raw tcs("ContractNo", @declaration.contract_no) rescue '' %>
+              <% if @declaration.trade_mode == '0110' %>
+              <tcs:EnrolNo xsi:nil="true" />
+              <% else %>
+              <%= raw tcs("EnrolNo", @declaration.contract.manual) rescue '' %>
+              <% end %>       
+              <%= raw tcs("ApprovalNo", @declaration.certification) rescue '' %>
+              <tcs:LicenseNo xsi:nil="true" />
+              <tcs:RelativeEntryNo xsi:nil="true" />
+              <tcs:RelativeEnrolNo xsi:nil="true" />
+              <%= raw tcs("MeansOfTransportName", @declaration.transport_tool) rescue '' %>
+              <tcs:MeansOfTransportId xsi:nil="true" />
+              <%= raw tcs("BillOfLadingNo", @declaration.declaration_transit_information.bill_no) rescue '' %>
+              <%= raw tcs("PackingType", @declaration.wrap_type) rescue '' %>
+              <%= raw tcs("MeansOfTransportMode", @declaration.transport_mode) rescue '' %>
+              <%= raw tcs("TransactionMode", @declaration.deal_mode) rescue '' %>
+              <%= raw tcs("TradeMode", @declaration.trade_mode) rescue '' %>
+              <%= raw tcs("CutMode", @declaration.tax_kind) rescue '' %>
+              <% if @declaration.declaration_type == 'export' %>
+              <tcs:ImportExportFlag>E</tcs:ImportExportFlag>
+              <% else %>
+              <tcs:ImportExportFlag>I</tcs:ImportExportFlag>
+              <% end %>
+              <%= raw tcs("Packages", @declaration.package_amount) rescue '' %>
+              <%= raw tcs("NetWeight", @declaration.net_weight) rescue '' %>
+              <%= raw tcs("GrossWeight", @declaration.gross_weight) rescue '' %>
+              <tcs:FreightMark xsi:nil="true" />
+              <@tcs attribute="FreightRate" value=customsDeclarationHead.feeRate />
+              <tcs:FreightCurrency xsi:nil="true" />
+              <tcs:InsuranceMark xsi:nil="true" />
+              <@tcs attribute="InsuranceRate" value=customsDeclarationHead.insurRate />
+              <tcs:InsuranceCurrency xsi:nil="true" />
+              <tcs:ExtrasMark xsi:nil="true" />
+              <@tcs attribute="ExtrasRate" value=customsDeclarationHead.otherRate />
+              <tcs:ExtrasCurrency xsi:nil="true" />
+              <@tcs attribute="PayMode" value=customsDeclarationHead.payWay />
+              <tcs:SaleDomesticRatio xsi:nil="true" />
+              <@tcs attribute="ImportExportDate" value=(customsDeclarationHead.importExportDate?string("yyyy-MM-dd"))!"" />
+              <@tcs attribute="TransportDate" value=transportDate?string("yyyy-MM-dd") />
+              <@tcs attribute="Note" value=note />
+              <tcs:DeclarantID xsi:nil="true" />
+              <tcs:DeclarantTelephone xsi:nil="true" />
+              <tcs:EntrydeclarantNo xsi:nil="true" />
+              <@tcs attribute="ICCardNo" value=enterprise.icCardNo />
+              <@tcs attribute="Name" value=customsDeclarationHead.declarant />
+            </tcs:BaseInformation>
+            <tcs:GoodsInformationList>
+            <#list customsDeclarationGoods as customsDeclarationGood>	
+              <tcs:GoodsInformation>
+                <@tcs attribute="No" value=customsDeclarationGood.no />
+                <@tcs attribute="HsCode" value=customsDeclarationGood.codeTS />
+                <tcs:MaterialNo xsi:nil="true" />
+                <@tcs attribute="GoodsName" value=customsDeclarationGood.name />
+                <tcs:EnglishName xsi:nil="true" />
+                <@tcs attribute="Model" value=customsDeclarationGood.shenbaoguifan />
+                <#if !isNomalTrade>
+                <@tcs attribute="EnrolNo" value=customsDeclarationGood.noInContract />
+                <#else>
+	            <tcs:EnrolNo xsi:nil="true" />
+	            </#if>
+                <@tcs attribute="Quantity" value=customsDeclarationGood.quantity?string("0.###") />                
+                <@tcs attribute="QuantityUnit" value=customsDeclarationGood.declareUnit />
+                <tcs:UnitPrice>#{customsDeclarationGood.declarePrice!"";m4M4}</tcs:UnitPrice>
+                <tcs:TotalPrice>#{customsDeclarationGood.totalPrice!"";m2M2}</tcs:TotalPrice>
+                <@tcs attribute="Currency" value=customsDeclarationGood.currency />
+                <@tcs attribute="FirstQuantity" value=customsDeclarationGood.quantity1?string("0.###") />
+                <@tcs attribute="FirstUnit" value=customsDeclarationGood.unit1 />
+                <#if customsDeclarationGood.quantity2!=0 >
+                <@tcs attribute="SecondQuantity" value=customsDeclarationGood.quantity2?string("0.###") />
+				<@tcs attribute="SecondUnit" value=customsDeclarationGood.unit2 />
+                <#else>
+                <tcs:SecondQuantity xsi:nil="true" />
+                <tcs:SecondUnit xsi:nil="true" />
+                </#if>
+                <@tcs attribute="OriginCode" value=customsDeclarationGood.originCountry />
+                <@tcs attribute="Use" value=customsDeclarationHead.useage />
+                <@tcs attribute="DutyMode" value=customsDeclarationGood.taxMode />
+                <tcs:ProcessingCharges xsi:nil="true" />
+                <@tcs attribute="GoodsVersion" value=customsDeclarationGood.goodVersion />
+                <tcs:ClassificationMark xsi:nil="true" />
+                <tcs:Note xsi:nil="true" />
+              </tcs:GoodsInformation>
+            </#list>
+            </tcs:GoodsInformationList>            
+            <#if (containers?size>0)>
+            <tcs:EntryContainerInformationList>
+           	<#list containers as container>
+              <tcs:EntryContainerInformation>
+	              <@tcs attribute="ContainerNo" value=container.containerNo />
+	              <@tcs attribute="ContainerSize" value=container.size />
+	              <@tcs attribute="ContainerWeight" value=container.weight?string("0.####") />
+              </tcs:EntryContainerInformation>
+            </#list>
+            </tcs:EntryContainerInformationList> 
+            </#if>
+            <#if (attachments?size>0)>
+            <tcs:DocumentAttachedInformationList>
+           	<#list attachments?keys as key>
+              <tcs:DocumentAttachedInformation>
+	              <@tcs attribute="DocumentAttachedCode" value=key />
+	              <@tcs attribute="DocumentAttachedNo" value=attachments[key] />
+              </tcs:DocumentAttachedInformation>
+            </#list>
+            </tcs:DocumentAttachedInformationList> 
+            </#if>        
+          </tcs:EntryInformation>
+          
+          <#if (customsDeclarationHead.localMeansOfTransportCode?? && customsDeclarationHead.localMeansOfTransportCode != "") >
+          <tcs:TransitInformation>
+          	<tcs:TransitBaseInformation>
+          		<@tcs attribute="WaybillNo" value=customsDeclarationHead.waybillNo />
+          		<@tcs attribute="MeansOfTransportMode" value=customsDeclarationHead.localMeansOfTransportMode />
+          		<@tcs attribute="MeansOfTransportCode" value=customsDeclarationHead.localMeansOfTransportCode />
+          		<@tcs attribute="MeansOfTransportName" value=customsDeclarationHead.localMeansOfTransportName />
+          		<@tcs attribute="MeansOfTransportId" value=customsDeclarationHead.localMeansOfTransportId />
+          		<tcs:CorporationName>${(customsDeclarationHead.corporationName?trim)!enterprise.registeName}</tcs:CorporationName>
+          		<tcs:OrganizationCode>${(customsDeclarationHead.organizationCode?trim)!enterprise.ownerCode}</tcs:OrganizationCode>
+          	</tcs:TransitBaseInformation>
+          	<tcs:BillOfLadingInformation>
+          		<@tcs attribute="BillOfLadingNo" value=customsDeclarationHead.billOfLadingNo />
+          		<@tcs attribute="MeansOfTransportCode" value=customsDeclarationHead.meansOfTransportCode />
+          		<@tcs attribute="MeansOfTransportName" value=customsDeclarationHead.meansOfTransportName />
+          		<@tcs attribute="MeansOfTransportId" value=customsDeclarationHead.meansOfTransportId />
+          	</tcs:BillOfLadingInformation>
+          	<tcs:TransitContainerInformationList>
+          		<#list containers as container>	
+	            <tcs:TransitContainerInformation>
+	            	<@tcs attribute="ContainerNo" value=container.containerNo />
+	            	<@tcs attribute="No" value=container_index+1 />
+	            	<@tcs attribute="ContainerSize" value=container.size />
+	            	<@tcs attribute="MeansOfTransportName" value=customsDeclarationHead.localMeansOfTransportName />
+                  	<@tcs attribute="MeansOfTransportWeight" value=container.bracketWeight?string("0.####") />
+            	</tcs:TransitContainerInformation>
+            	</#list>
+            </tcs:TransitContainerInformationList>
+          </tcs:TransitInformation>
+          </#if> 
+          
+          <tcs:SignInformation>
+            <@tcs attribute="IccardNo" value=enterprise.icCardNo />
+            <@tcs attribute="Name" value=customsDeclarationHead.declarant />
+            <@tcs attribute="OrganizationCode" value=enterprise.ownerCode />
+            <tcs:SignInformation>A001</tcs:SignInformation>
+            <@tcs attribute="SignDate" value=SignDate />
+            <@tcs attribute="CertificateNo" value=enterprise.certificateNo />
+          </tcs:SignInformation>
+        </tcs:DeclarationDocument>
+      </tcs:TcsData>
+    </tcs:TcsFlow201>
+  </MessageBody>
+</TCS101Message>
+
+

@@ -5,7 +5,7 @@ module ApplicationHelper
   def system_serial_no(len = 4)
     system_serial_no_option = Option.find_by_name("system_serial_no")
     if !system_serial_no_option
-      system_serial_no_option = Option.new(:name => "system_serial_no", :value => 0)
+      system_serial_no_option = Option.new(:name => "system_serial_no", :value => 1)
       system_serial_no_option.save
     end
     system_serial_no = Integer(system_serial_no_option.value)
