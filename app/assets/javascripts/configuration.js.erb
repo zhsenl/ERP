@@ -139,7 +139,7 @@ $(document).ready(function(){
 	
 		
 	//first form field focus
-	$(".first-field").focus();
+	$(".first-field").select();
 	
 	//ajax span
 	$("span.autoload").each(function(){
@@ -245,6 +245,9 @@ $(document).ready(function(){
 							item: ui.item.option
 						});
 						select.change();
+						$(self.element).trigger("select", event, {
+							item: ui.item.option
+						});
 					},
 					change: function( event, ui ) {
 						if ( !ui.item ) {							
@@ -268,7 +271,27 @@ $(document).ready(function(){
 					}
 				})
 				.addClass( self.element.attr("class") );
-
+			
+			$(input).keypress(function(e){
+				//$(self.element).trigger("keypress", e);
+				// return false;
+				if(e.keyCode==13||e.which==13){
+					//get the next index of text input element
+					var next_idx = $('input').index(this) + 1;
+					//get number of text input element in a html document
+					var tot_idx = $('body').find('input').length;
+					//enter button in ASCII code
+					if(e.keyCode == 13){
+						if(tot_idx == next_idx){
+							$('input:eq(0)').focus();
+						} else {
+							$('input:eq(' + next_idx + ')').select();
+						}
+					}
+					return false;
+				}
+			});
+			
 			input.data( "autocomplete" )._renderItem = function( ul, item ) {
 				return $( "<li></li>" )
 					.data( "item.autocomplete", item )
@@ -316,25 +339,30 @@ $(document).ready(function(){
 		$(this).combobox();
 	});
 	
-	
 	//prevent submit the form when press enter
-	$("#main-content .content-box input").keypress(function(e){
+	var form_elements = $($("#main-content .content-box form")[0].elements);
+	form_elements.keypress(function(e){
 		if(e.keyCode==13||e.which==13){
-			//get the next index of text input element
-			var next_idx = $('input').index(this) + 1;
-			//get number of text input element in a html document
-			var tot_idx = $('body').find('input').length;
-			//enter button in ASCII code
-			if(e.keyCode == 13){
-				if(tot_idx == next_idx){
-					$('input:eq(0)').focus();
-				} else {
-					$('input:eq(' + next_idx + ')').focus();
+			var tot_idx = form_elements.length;	
+			var next_idx = form_elements.index(this) + 1;
+			while (!$(form_elements.get(next_idx)).is(":visible")) {
+				console.log(next_idx+" "+$(form_elements.get(next_idx)).is(":visible"));
+				next_idx++;
+				if (next_idx == tot_idx) {
+					console("here");
+					return false;
 				}
 			}
+			var next_element = form_elements.get(next_idx);	
+			if (next_element.tagName == 'INPUT') {
+				next_element.select();
+			} else {
+				next_element.focus();
+			}			
 			return false;
 		}
 	});
+	
 	
 	
 

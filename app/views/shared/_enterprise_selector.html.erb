@@ -1,10 +1,12 @@
 <script>
 $(function() {
 	$("#current_enterprise_id").combobox();
+	$("#current_enterprise_id").select(function(){
+		$("#enterprise_selector_form").submit();
+	}); 
 });
 </script>
-
-<%= form_tag(select_enterprise_path, :method => "post") do %>
+<%= form_tag(select_enterprise_path, :method => "post", :id => 'enterprise_selector_form') do %>
 <p>
 	<input name="url" type="hidden" value="<%= request.url %>"/>
 	<label style="display: inline;" >当前操作企业：</label>
@@ -13,9 +15,10 @@ $(function() {
 	  <% current_user.enterprises.each do |enterprise| %>
 	  <option value="<%= enterprise.id %>" <% if current_enterprise == enterprise %> selected="selected"<% end %>><%= enterprise.code + enterprise.name %></option>
 	  <% end %>
-	</select>		
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	<input class="button" type="submit" value="切换企业" name="commit">	
+	</select>
+	<% if content_for? :enterprise_selector_extra %>
+	  <%= yield :enterprise_selector_extra %>
+	<% end %>
 </p>
 <div class="clear"></div><!-- End .clear -->
 <% end %>

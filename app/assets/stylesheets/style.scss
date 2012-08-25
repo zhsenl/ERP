@@ -407,11 +407,10 @@ fieldset legend {
 	font-weight: bold;
 	color: #aaa;
 }
-form div {
+
+form div.filed {
 	padding: 5px 0 10px 0;
 	line-height: 1.6em;
-}
-form div.filed {
 	float:left;
 	height: 80px;
 	margin: 0 10px 0 10px;
