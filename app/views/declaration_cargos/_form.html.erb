@@ -1,7 +1,8 @@
 <%= render "shared/error_messages", :model => @declaration_cargo %>
 <%= form_for @declaration_cargo do |f| %>
+<fieldset>
 	<%= f.hidden_field :declaration_id %>
-	<p>
+	<div class="filed" >
 		<label>商品编码</label>
 		<%= f.text_field :code, :class => "text-input small-input first-field" %>
 		<br />
@@ -10,7 +11,7 @@
 		<% else %>
 		<small>输入编码或名字后有提示</small>
 		<% end%>
-	</p>
+	</div>
 	<script>
 		$(document).ready(function(){
 			$("#declaration_cargo_code").autocomplete({
@@ -49,68 +50,69 @@
 			});
 		});
 	</script>
-	<p>
+	<div class="filed" >
 		<label>商品名称</label>
 		<%= f.text_field :name, :class => "text-input small-input" %>
-	</p>
-  	<p>
+	</div>
+  	<div class="filed" >
 		<label>合同<%= @declaration_type == "export" ? "成品" : "料件"  %>序号</label>
 		<%= f.text_field :no_in_contract, :class => "text-input small-input" %>
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>规格型号</label>
-		<%= f.text_field :specification, :class => "text-input medium-input" %>
-	</p>
-	<p>
+		<%= f.text_field :specification, :class => "text-input small-input" %>
+	</div>
+	<div class="filed" >
 		<label>申报数量</label>
 		<%= f.text_field :quantity, :class => "text-input small-input" %>
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>申报单位</label>
 		<%= render "shared/autocomplete_field", :form => f, :attribute => :unit, :url => dict_units_path, :klass => "text-input small-input" %> 
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>第一数量</label>
 		<%= f.text_field :quantity1, :class => "text-input small-input" %>
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>第一单位</label>
 		<%= render "shared/autocomplete_field", :form => f, :attribute => :unit1, :url => dict_units_path, :klass => "text-input small-input" %> 
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>第二数量</label>
 		<%= f.text_field :quantity2, :class => "text-input small-input" %>
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>第二单位</label>
 		<%= render "shared/autocomplete_field", :form => f, :attribute => :unit2, :url => dict_units_path, :klass => "text-input small-input" %> 
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label><%= @declaration_type == "export" ? "目的国" : "原产国" %></label>
 		<%= render "shared/autocomplete_field", :form => f, :attribute => :trade_country, :url => dict_countries_path, :klass => "text-input small-input" %> 
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>单价</label>
 		<%= f.text_field :unit_price, :class => "text-input small-input" %>
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>币制</label>
 		<%= render "shared/autocomplete_field", :form => f, :attribute => :currency, :url => dict_currencies_path, :klass => "text-input small-input" %> 
-	</p>	
-	<p>
+	</div>	
+	<div class="filed" >
 		<label>征免方式</label>
 		<%= render "shared/autocomplete_field", :form => f, :attribute => :tax_mode, :url => dict_tax_modes_path, :klass => "text-input small-input" %> 
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>版本号</label>
 		<%= f.text_field :goods_version, :class => "text-input small-input" %>
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>序号</label>
 		<%= f.text_field :no, :class => "text-input small-input" %>
-	</p>
-	<p>
-		<%= f.submit :class => "button" %>
-	</p>
+	</div>
+</fieldset>
+<div>
+	<%= f.submit :class => "button" %>
+</div>
 <div class="clear"></div><!-- End .clear -->
 <% end %>

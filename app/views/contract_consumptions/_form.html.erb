@@ -1,6 +1,5 @@
 <%= render "shared/error_messages", :model => @contract_consumption %>
 <%= form_for(@contract_consumption) do |f| %>
-<fieldset>
 	<%= f.hidden_field :contract_product_id %>	
 	<p>
 		<label>合同料件</label>
@@ -24,6 +23,5 @@
 	<p>
 		<%= f.submit :class => "button" %>
 	</p>
-</fieldset>
 <div class="clear"></div><!-- End .clear -->
 <% end %>

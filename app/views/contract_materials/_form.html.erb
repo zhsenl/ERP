@@ -1,12 +1,13 @@
 <%= render "shared/error_messages", :model => @contract_material %>
 <%= form_for @contract_material do |f| %>
+<fieldset>
 	<%= f.hidden_field :contract_id %>
-	<p>
+	<div class="filed" >
 		<label>商品编码</label>
 		<%= f.text_field :code, :class => "text-input small-input first-field" %>
 		<br />
 		<small>输入2个字符后有提示</small>
-	</p>
+	</div>
 	<script>
 		$(document).ready(function(){
 			$("#contract_material_code").autocomplete({
@@ -31,53 +32,54 @@
 		});
 		});		
 	</script>
-	<p>
+	<div class="filed" >
 		<label>商品名称</label>
 		<%= f.text_field :name, :class => "text-input small-input" %>
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>规格型号</label>
 		<%= f.text_field :specification, :class => "text-input small-input" %>
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>申报单位</label>
 		<%= render "shared/autocomplete_field", :form => f, :attribute => :unit, :url => dict_units_path, :klass => "text-input small-input" %> 
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>第一单位</label>
 		<%= render "shared/autocomplete_field", :form => f, :attribute => :unit1, :url => dict_units_path, :klass => "text-input small-input" %> 
 		<br />
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>第二单位</label>
 		<%= render "shared/autocomplete_field", :form => f, :attribute => :unit2, :url => dict_units_path, :klass => "text-input small-input" %> 
 		<br />
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>数量</label>
 		<%= f.text_field :quantity, :class => "text-input small-input" %>
 		<br />
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>单价</label>
 		<%= f.text_field :unit_price, :class => "text-input small-input" %>
 		<br />
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>原产国</label>
 		<%= render "shared/autocomplete_field", :form => f, :attribute => :trade_country, :url => dict_countries_path, :klass => "text-input small-input" %> 
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>征免方式</label>
 		<%= render "shared/autocomplete_field", :form => f, :attribute => :tax_mode, :url => dict_tax_modes_path, :klass => "text-input small-input" %> 
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>序号</label>
 		<%= f.text_field :no, :class => "text-input small-input" %>
-	</p>
-	<p>
-		<%= f.submit :class => "button" %>
-	</p>
+	</div>
+</fieldset>
+<div>
+	<%= f.submit :class => "button" %>
+</div>
 <div class="clear"></div><!-- End .clear -->
 <% end %>
 

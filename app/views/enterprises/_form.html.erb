@@ -2,86 +2,86 @@
 <%= form_for @enterprise do |f| %>
 <fieldset>
 	<legend>基本信息：</legend>
-	<p>
+	<div class="filed" >
 		<label>组织机构代码</label>
 		<%= f.text_field :code, :class => "text-input small-input first-field" %>
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>单位名称</label>
 		<%= f.text_field :name, :class => "text-input small-input" %>
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>地址</label>
-		<%= f.text_field :address, :class => "text-input medium-input" %>
-	</p>
-	<p>
+		<%= f.text_field :address, :class => "text-input small-input" %>
+	</div>
+	<div class="filed" >
 		<label>联系人</label>
 		<%= f.text_field :linkman, :class => "text-input small-input" %>
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>电话</label>
 		<%= f.telephone_field :telephone, :class => "text-input small-input" %>
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>传真</label>
 		<%= f.telephone_field :fax, :class => "text-input small-input" %>
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>开户银行</label>
 		<%= f.text_field :bank, :class => "text-input small-input" %>
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>银行账号</label>
 		<%= f.text_field :bank_account, :class => "text-input small-input" %>
-	</p>
+	</div>
 </fieldset>
 <fieldset>
 	<legend>报关信息：</legend>
 	<%= f.fields_for :enterprise_custom_option do |option| %>
-	<p>
+	<div class="filed" >
 		<label>交易代码</label>
 		<%= option.text_field :trade_code, :class => "text-input small-input" %>
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>所属关区</label>
 		<%= render "shared/autocomplete_field", :form => option, :attribute => :custom_code, :url => dict_customs_path, :klass => "text-input small-input" %>
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>集成通平台号</label>
 		<%= option.text_field :platform_id, :class => "text-input small-input" %>
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>区域节点名称</label>
 		<%= option.text_field :area_name, :class => "text-input small-input" %>
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>平台用户私钥</label>
 		<%= option.text_field :user_private_key, :class => "text-input small-input" %>
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>业务流程编码</label>
 		<%= option.text_field :process_no, :class => "text-input small-input" %>
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>IC卡号</label>
 		<%= option.text_field :ic_card_no, :class => "text-input small-input" %>
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>IC卡用户证书号</label>
 		<%= option.text_field :certificate_no, :class => "text-input small-input" %>
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>每单代理费</label>
 		<%= option.text_field :proxy_unit_price, :class => "text-input small-input" %>
-	</p>
-	<p>
+	</div>
+	<div class="filed" >
 		<label>每单服务费</label>
 		<%= option.text_field :service_unit_price, :class => "text-input small-input" %>
-	</p>
+	</div>
 	<% end %>
 </fieldset>
-<p>
+<div>
 	<%= f.submit :class => "button" %>
-</p>
+</div>
 <div class="clear"></div><!-- End .clear -->
 <% end %> 

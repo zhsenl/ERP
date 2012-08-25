@@ -302,7 +302,7 @@ ul.content-box-tabs li a.current {
 	margin: 0;
 }
 .content-box-content {
-	padding: 20px;
+	padding: 15px;
 	font-size: 13px;
 	border-top: 1px solid #ccc;
 }
@@ -400,14 +400,24 @@ form label {
 }
 fieldset {
 	margin-bottom:15px;
-    padding:15px;
+    padding:15px 5px 5px 5px;
     border:#bbb dashed 1px;
 }
 fieldset legend {
 	font-weight: bold;
 	color: #aaa;
 }
-form p small {
+form div {
+	padding: 5px 0 10px 0;
+	line-height: 1.6em;
+}
+form div.filed {
+	float:left;
+	height: 80px;
+	margin: 0 10px 0 10px;
+	
+}
+form div small, form p small {
 	font-size: 0.9em;
 	color: #777;
 }

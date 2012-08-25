@@ -105,9 +105,16 @@ $(document).ready(function(){
 	//on window resizing
 		$(window).resize(function() {
 		  width = $(document.body).width();
-		  width = width <= 980 ? 980 : width;
+		  width = width <= 970 ? 970 : width;
 		  $("#body-wrapper").width(width + "px");
 		});
+		
+	//form div filed
+	$("form div.filed").each(function(){
+	    if ($(this).width()<290){
+	        $(this).width("290px");
+	    }
+	})
 	
 	//load unread message
 	function load_unread_messages(){
