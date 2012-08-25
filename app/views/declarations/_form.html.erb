@@ -16,12 +16,7 @@
 		<label>备案号</label>
 		<% contracts_array = current_enterprise.contracts.map { |contract| [contract.manual, contract.id] } %>
 		<% contracts_array = [["请选择" , 0]] + contracts_array %>
-		<%= f.select :contract_id, contracts_array, {}, :class => "text-input small-input" %>
-		<script>
-			$(function() {
-				$("#declaration_contract_id").combobox();
-			});
-		</script>
+		<%= f.select :contract_id, contracts_array, {}, :id => "contract_id_combobox", :class => "text-input small-input" %>
 	</div>
 	<div class="filed" >
 		<label>报关类型</label>

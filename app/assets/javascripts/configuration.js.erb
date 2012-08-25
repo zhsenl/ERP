@@ -346,10 +346,8 @@ $(document).ready(function(){
 			var tot_idx = form_elements.length;	
 			var next_idx = form_elements.index(this) + 1;
 			while (!$(form_elements.get(next_idx)).is(":visible")) {
-				console.log(next_idx+" "+$(form_elements.get(next_idx)).is(":visible"));
 				next_idx++;
 				if (next_idx == tot_idx) {
-					console("here");
 					return false;
 				}
 			}
