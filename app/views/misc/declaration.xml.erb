@@ -6,28 +6,28 @@
 <TCS101Message>
   <MessageHead>
     <MessageType>001</MessageType>
-    <MessageId><%= custom_option.platform_id rescue '' %><%= serial_no %></MessageId>
+    <MessageId><%= custom_option.platform_id %><%= serial_no %></MessageId>
     <MessageTime><%= now.strftime('%y%m%d%H%M%S') %></MessageTime>
-    <SenderId><%= custom_option.platform_id rescue '' %></SenderId>
-    <SenderAddress><%= custom_option.platform_id rescue '' %><%= custom_option.area_name rescue '' %></SenderAddress>
+    <SenderId><%= custom_option.platform_id %></SenderId>
+    <SenderAddress><%= custom_option.platform_id %><%= custom_option.area_name %></SenderAddress>
     <ReceiverId>T99999999999</ReceiverId>
     <ReceiverAddress>T99999999999@TCS10001</ReceiverAddress>
   </MessageHead>
   <MessageBody>
     <tcs:TcsFlow201 schemaLocation="http://www.chinaport.gov.cn/tcs/v2 TcsWorkFlow.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tcs="http://www.chinaport.gov.cn/tcs/v2">
       <tcs:TcsUser>
-      	<%= raw tcs("UserId", custom_option.platform_id) %>
-      	<%= raw tcs("UserPrivateKey", custom_option.user_private_key) %>
+      	<%= raw tcs("UserId", (custom_option.platform_id rescue '')) %>
+      	<%= raw tcs("UserPrivateKey", (custom_option.user_private_key rescue '')) %>
       </tcs:TcsUser>
       <tcs:TcsLink>
         <tcs:TcsLinkMan>
-		  <%= raw tcs("Name", enterprise.linkman) %>
+		  <%= raw tcs("Name", (enterprise.linkman rescue '')) %>
 		  <tcs:Department xsi:nil="true" />	  
           <tcs:Duty xsi:nil="true" />
-          <%= raw tcs("Telephone", enterprise.telephone) %>
+          <%= raw tcs("Telephone", (enterprise.telephone rescue '')) %>
           <tcs:Mobile xsi:nil="true" />
-          <%= raw tcs("Fax", enterprise.fax) %>
-          <%= raw tcs("Address", enterprise.address) %>
+          <%= raw tcs("Fax", (enterprise.fax rescue '')) %>
+          <%= raw tcs("Address", (enterprise.address rescue '')) %>
           <tcs:ZipCode>1</tcs:ZipCode>
           <tcs:Email xsi:nil="true" />
           <tcs:ImCode>1</tcs:ImCode>
@@ -35,12 +35,12 @@
         </tcs:TcsLinkMan>
       </tcs:TcsLink>
       <tcs:TcsFlow>
-      	<MessageId><%= custom_option.platform_id rescue '' %><%= serial_no %></MessageId>
-      	<%= raw tcs("BpNo", custom_option.process_no) %>
+      	<MessageId><%= custom_option.platform_id %><%= serial_no %></MessageId>
+      	<%= raw tcs("BpNo", (custom_option.process_no rescue '')) %>
         <tcs:ActionList>
           <tcs:ActionId>a01</tcs:ActionId>
         </tcs:ActionList>
-        <%= raw tcs("TaskId", custom_option.platform_id + now.strftime('%Y%m%d') + serial_no) %>
+        <%= raw tcs("TaskId", (custom_option.platform_id + now.strftime('%Y%m%d') + serial_no rescue '')) %>
         <tcs:TaskNote>黄埔-001</tcs:TaskNote>
         <tcs:CorpTaskId>
         </tcs:CorpTaskId>
@@ -49,24 +49,24 @@
       </tcs:TcsFlow>
       <tcs:TcsData>
         <tcs:DeclarationDocument xsi:schemaLocation="http://www.chinaport.gov.cn/tcs/v2" xmlns:tcs="http://www.chinaport.gov.cn/tcs/v2">
-          <%= raw tcs("TcsDocumentNo", custom_option.platform_id + '001' + now.strftime('%Y%m%d') + serial_no) %>
+          <%= raw tcs("TcsDocumentNo", (custom_option.platform_id + '001' + now.strftime('%Y%m%d') + serial_no rescue '')) %>
           <tcs:DataCooperationType>001</tcs:DataCooperationType>
           <tcs:EntryInformation>
             <tcs:EntryIdentityInformationList>
               <tcs:EntryIdentityInformation>
                 <tcs:EntryIdentity>001</tcs:EntryIdentity>
-                <%= raw tcs("CorporationCustomsCode", @declaration.operate_enterprise.enterprise_custom_option.trade_code) rescue '' %>
-                <%= raw tcs("CorporationName", @declaration.operate_enterprise.name) rescue '' %>
+                <%= raw tcs("CorporationCustomsCode", (@declaration.operate_enterprise.enterprise_custom_option.trade_code rescue '')) %>
+                <%= raw tcs("CorporationName", (@declaration.operate_enterprise.name rescue '')) %>
               </tcs:EntryIdentityInformation>
               <tcs:EntryIdentityInformation>
                 <tcs:EntryIdentity>002</tcs:EntryIdentity>
-                <%= raw tcs("CorporationCustomsCode", @declaration.enterprise.enterprise_custom_option.trade_code) rescue '' %>
-                <%= raw tcs("CorporationName", @declaration.enterprise.name) rescue '' %>
+                <%= raw tcs("CorporationCustomsCode", (@declaration.enterprise.enterprise_custom_option.trade_code rescue '')) %>
+                <%= raw tcs("CorporationName", (@declaration.enterprise.name rescue '')) %>
               </tcs:EntryIdentityInformation>
               <tcs:EntryIdentityInformation>
                 <tcs:EntryIdentity>003</tcs:EntryIdentity>
-                <%= raw tcs("CorporationCustomsCode", @declaration.declare_enterprise.enterprise_custom_option.trade_code) rescue '' %>
-                <%= raw tcs("CorporationName", @declaration.declare_enterprise.name) rescue '' %>
+                <%= raw tcs("CorporationCustomsCode", (@declaration.declare_enterprise.enterprise_custom_option.trade_code rescue '')) %>
+                <%= raw tcs("CorporationName", (@declaration.declare_enterprise.name rescue '')) %>
               </tcs:EntryIdentityInformation>
               <tcs:EntryIdentityInformation>
                 <tcs:EntryIdentity>004</tcs:EntryIdentity>
@@ -77,58 +77,58 @@
             <tcs:LogisticsLocationInformationList>
               <tcs:LogisticsLocationInformation>
                 <tcs:LogisticsLocationType>004</tcs:LogisticsLocationType>
-                <%= raw tcs("LogisticsLocationCode", @declaration.port) rescue '' %>
+                <%= raw tcs("LogisticsLocationCode", (@declaration.port rescue '')) %>
               </tcs:LogisticsLocationInformation>
               <tcs:LogisticsLocationInformation>
                 <tcs:LogisticsLocationType>012</tcs:LogisticsLocationType>
-                <%= raw tcs("LogisticsLocationCode", @declaration.trade_country) rescue '' %>
+                <%= raw tcs("LogisticsLocationCode", (@declaration.trade_country rescue '')) %>
               </tcs:LogisticsLocationInformation>
             </tcs:LogisticsLocationInformationList>
             <tcs:EportLocationInformationList>
               <tcs:EportLocationInformation>
                 <tcs:EportLocationTypeCode>001</tcs:EportLocationTypeCode>
-                <%= raw tcs("EportLocationCode", @declaration.load_port) rescue '' %>
+                <%= raw tcs("EportLocationCode", (@declaration.load_port rescue '')) %>
               </tcs:EportLocationInformation>
               <tcs:EportLocationInformation>
                 <tcs:EportLocationTypeCode>003</tcs:EportLocationTypeCode>
-                <%= raw tcs("EportLocationCode", @declaration.custom) rescue '' %>
+                <%= raw tcs("EportLocationCode", (@declaration.custom rescue '')) %>
               </tcs:EportLocationInformation>
             </tcs:EportLocationInformationList>
             <tcs:BaseInformation>
               <tcs:PreentryNo xsi:nil="true" />
               <tcs:EntryType>001</tcs:EntryType>
-              <%= raw tcs("EntryTransitType", @declaration.transit_type) rescue '' %>
+              <%= raw tcs("EntryTransitType", (@declaration.transit_type rescue '')) %>
               <tcs:DeclareProperty>001</tcs:DeclareProperty>
               <tcs:TaxCorporationType>002</tcs:TaxCorporationType>
-              <%= raw tcs("DestinationCode", @declaration.destination) rescue '' %>
+              <%= raw tcs("DestinationCode", (@declaration.destination rescue '')) %>
               <tcs:WarehouseNo xsi:nil="true" />
-              <%= raw tcs("CYNo", @declaration.load_port) rescue '' %>
-              <%= raw tcs("ContractNo", @declaration.contract_no) rescue '' %>
+              <%= raw tcs("CYNo", (@declaration.load_port rescue '')) %>
+              <%= raw tcs("ContractNo", (@declaration.contract_no rescue '')) %>
               <% if @declaration.trade_mode == '0110' %>
               <tcs:EnrolNo xsi:nil="true" />
               <% else %>
-              <%= raw tcs("EnrolNo", @declaration.contract.manual) rescue '' %>
+              <%= raw tcs("EnrolNo", (@declaration.contract.manual rescue '')) %>
               <% end %>       
-              <%= raw tcs("ApprovalNo", @declaration.certification) rescue '' %>
+              <%= raw tcs("ApprovalNo", (@declaration.certification rescue '')) %>
               <tcs:LicenseNo xsi:nil="true" />
               <tcs:RelativeEntryNo xsi:nil="true" />
               <tcs:RelativeEnrolNo xsi:nil="true" />
-              <%= raw tcs("MeansOfTransportName", @declaration.transport_tool) rescue '' %>
+              <%= raw tcs("MeansOfTransportName", (@declaration.transport_tool rescue '')) %>
               <tcs:MeansOfTransportId xsi:nil="true" />
-              <%= raw tcs("BillOfLadingNo", @declaration.declaration_transit_information.bill_no) rescue '' %>
-              <%= raw tcs("PackingType", @declaration.wrap_type) rescue '' %>
-              <%= raw tcs("MeansOfTransportMode", @declaration.transport_mode) rescue '' %>
-              <%= raw tcs("TransactionMode", @declaration.deal_mode) rescue '' %>
-              <%= raw tcs("TradeMode", @declaration.trade_mode) rescue '' %>
-              <%= raw tcs("CutMode", @declaration.tax_kind) rescue '' %>
+              <%= raw tcs("BillOfLadingNo", (@declaration.declaration_transit_information.bill_no rescue '')) %>
+              <%= raw tcs("PackingType", (@declaration.wrap_type rescue '')) %>
+              <%= raw tcs("MeansOfTransportMode", (@declaration.transport_mode rescue '')) %>
+              <%= raw tcs("TransactionMode", (@declaration.deal_mode rescue '')) %>
+              <%= raw tcs("TradeMode", (@declaration.trade_mode rescue '')) %>
+              <%= raw tcs("CutMode", (@declaration.tax_kind rescue '')) %>
               <% if @declaration.declaration_type == 'export' %>
               <tcs:ImportExportFlag>E</tcs:ImportExportFlag>
               <% else %>
               <tcs:ImportExportFlag>I</tcs:ImportExportFlag>
               <% end %>
-              <%= raw tcs("Packages", @declaration.package_amount) rescue '' %>
-              <%= raw tcs("NetWeight", @declaration.net_weight) rescue '' %>
-              <%= raw tcs("GrossWeight", @declaration.gross_weight) rescue '' %>
+              <%= raw tcs("Packages", (@declaration.package_amount rescue '')) %>
+              <%= raw tcs("NetWeight", (@declaration.net_weight rescue '')) %>
+              <%= raw tcs("GrossWeight", (@declaration.gross_weight rescue '')) %>
               <tcs:FreightMark xsi:nil="true" />
               <tcs:FreightRate xsi:nil="true" />
               <tcs:FreightCurrency xsi:nil="true" />
@@ -138,50 +138,50 @@
               <tcs:ExtrasMark xsi:nil="true" />
               <tcs:ExtrasRate xsi:nil="true" />
               <tcs:ExtrasCurrency xsi:nil="true" />
-              <%= raw tcs("PayMode", @declaration.pay_way) rescue '' %>
+              <%= raw tcs("PayMode", (@declaration.pay_way rescue '')) %>
               <tcs:SaleDomesticRatio xsi:nil="true" />
               <tcs:ImportExportDate xsi:nil="true" />
-              <%= raw tcs("TransportDate", now.strftime('%y-%m-%d')) rescue '' %>
-              <%= raw tcs("Note", '[装卸口岸]' + dict_name(Dict::LoadPort, @declaration.load_port) + ' ' + @declaration.memo) rescue '' %>
+              <%= raw tcs("TransportDate", (now.strftime('%y-%m-%d') rescue '')) %>
+              <%= raw tcs("Note", ('[装卸口岸]' + dict_name(Dict::LoadPort, @declaration.load_port) + ' ' + @declaration.memo rescue '')) %>
               <tcs:DeclarantID xsi:nil="true" />
               <tcs:DeclarantTelephone xsi:nil="true" />
               <tcs:EntrydeclarantNo xsi:nil="true" />
-              <%= raw tcs("ICCardNo", custom_option.ic_card_no) rescue '' %>
-              <%= raw tcs("Name", @declaration.declarant) rescue '' %>
+              <%= raw tcs("ICCardNo", (custom_option.ic_card_no rescue '')) %>
+              <%= raw tcs("Name", (@declaration.declarant rescue '')) %>
             </tcs:BaseInformation>
             <tcs:GoodsInformationList>
             <% @declaration.declaration_cargos.each do |cargo| %>
               <tcs:GoodsInformation>
-              	<%= raw tcs("No", cargo.no) rescue '' %>
-              	<%= raw tcs("HsCode", cargo.code) rescue '' %>
+              	<%= raw tcs("No", (cargo.no rescue '')) %>
+              	<%= raw tcs("HsCode", (cargo.code rescue '')) %>
                 <tcs:MaterialNo xsi:nil="true" />
-                <%= raw tcs("GoodsName", cargo.name) rescue '' %>
+                <%= raw tcs("GoodsName", (cargo.name rescue '')) %>
                 <tcs:EnglishName xsi:nil="true" />
-                <%= raw tcs("Model", cargo.specification) rescue '' %>
+                <%= raw tcs("Model", (cargo.specification rescue '')) %>
                 <% if @declaration.trade_mode == '0110' %>
-                <%= raw tcs("EnrolNo", cargo.no_in_contract) rescue '' %>
+                <%= raw tcs("EnrolNo", (cargo.no_in_contract rescue '')) %>
                 <% else %>
                 <tcs:EnrolNo xsi:nil="true" />
                 <% end %>
-                <%= raw tcs("Quantity", cargo.quantity) rescue '' %>
-                <%= raw tcs("QuantityUnit", cargo.unit) rescue '' %>
-                <%= raw tcs("UnitPrice", sprintf("%0.4f", cargo.unit_price)) rescue '' %>
-                <%= raw tcs("TotalPrice", sprintf("%0.2f", cargo.total_price)) rescue '' %>
-                <%= raw tcs("Currency", cargo.currency) rescue '' %>
-                <%= raw tcs("FirstQuantity", cargo.quantity1) rescue '' %>
-                <%= raw tcs("FirstUnit", cargo.unit1) rescue '' %>
+                <%= raw tcs("Quantity", (cargo.quantity rescue '')) %>
+                <%= raw tcs("QuantityUnit", (cargo.unit rescue '')) %>
+                <%= raw tcs("UnitPrice", (sprintf("%0.4f", cargo.unit_price) rescue '')) %>
+                <%= raw tcs("TotalPrice", (sprintf("%0.2f", cargo.total_price) rescue '')) %>
+                <%= raw tcs("Currency", (cargo.currency rescue '')) %>
+                <%= raw tcs("FirstQuantity", (cargo.quantity1 rescue '')) %>
+                <%= raw tcs("FirstUnit", (cargo.unit1 rescue '')) %>
                 <% if cargo.quantity2 != 0 %>
-                <%= raw tcs("SecondQuantity", cargo.quantity2) rescue '' %>
-                <%= raw tcs("SecondUnit", cargo.unit2) rescue '' %>
+                <%= raw tcs("SecondQuantity", (cargo.quantity2 rescue '')) %>
+                <%= raw tcs("SecondUnit", (cargo.unit2 rescue '')) %>
                 <% else %>
                 <tcs:SecondQuantity xsi:nil="true" />
                 <tcs:SecondUnit xsi:nil="true" />
                 <% end %>
-                <%= raw tcs("OriginCode", cargo.trade_country) rescue '' %>
+                <%= raw tcs("OriginCode", (cargo.trade_country rescue '')) %>
                 <tcs:Use xsi:nil="true" />
-                <%= raw tcs("DutyMode", cargo.tax_mode) rescue '' %>
+                <%= raw tcs("DutyMode", (cargo.tax_mode rescue '')) %>
                 <tcs:ProcessingCharges xsi:nil="true" />
-                <%= raw tcs("GoodsVersion", cargo.goods_version) rescue '' %>
+                <%= raw tcs("GoodsVersion", (cargo.goods_version rescue '')) %>
                 <tcs:ClassificationMark xsi:nil="true" />
                 <tcs:Note xsi:nil="true" />
               </tcs:GoodsInformation>
@@ -191,9 +191,9 @@
             <tcs:EntryContainerInformationList>
            	<% @declaration.declaration_containers.each do |container| %>
               <tcs:EntryContainerInformation>
-              	<%= raw tcs("ContainerNo", container.code) rescue '' %>
-              	<%= raw tcs("ContainerSize", container.container) rescue '' %>
-              	<%= raw tcs("ContainerWeight", Dict::MetalCabinet.find_by_code(container.metal_cabinet).weight) rescue '' %>
+              	<%= raw tcs("ContainerNo", (container.code rescue '')) %>
+              	<%= raw tcs("ContainerSize", (container.container rescue '')) %>
+              	<%= raw tcs("ContainerWeight", (Dict::MetalCabinet.find_by_code(container.metal_cabinet).weight rescue '')) %>
               </tcs:EntryContainerInformation>
             <% end %>
             </tcs:EntryContainerInformationList> 
@@ -202,8 +202,8 @@
             <tcs:DocumentAttachedInformationList>
            	<% @declaration.attachments.each do |key, val| %>
               <tcs:DocumentAttachedInformation>
-              	<%= raw tcs("DocumentAttachedCode", key) rescue '' %>
-              	<%= raw tcs("DocumentAttachedCode", val) rescue '' %>		
+              	<%= raw tcs("DocumentAttachedCode", (key rescue '')) %>
+              	<%= raw tcs("DocumentAttachedCode", (val rescue '')) %>		
               </tcs:DocumentAttachedInformation>
             <% end %>
             </tcs:DocumentAttachedInformationList> 
@@ -214,29 +214,29 @@
           <% transit_information = @declaration.declaration_transit_information %>
           <tcs:TransitInformation>
           	<tcs:TransitBaseInformation>
-          		<%= raw tcs("WaybillNo", '000' + @declaration.transport_tool[1..-1]) rescue '' %>
-          		<%= raw tcs("MeansOfTransportMode", transit_information.local_transport_mode) rescue '' %>
-          		<%= raw tcs("MeansOfTransportCode", transit_information.local_transport_tool_code) rescue '' %>
-          		<%= raw tcs("MeansOfTransportName", transit_information.local_transport_tool_name) rescue '' %>
-          		<%= raw tcs("MeansOfTransportId", transit_information.local_transport_tool_voyage_no) rescue '' %>
+          		<%= raw tcs("WaybillNo", ('000' + @declaration.transport_tool[1..-1] rescue '')) %>
+          		<%= raw tcs("MeansOfTransportMode", (transit_information.local_transport_mode rescue '')) %>
+          		<%= raw tcs("MeansOfTransportCode", (transit_information.local_transport_tool_code rescue '')) %>
+          		<%= raw tcs("MeansOfTransportName", (transit_information.local_transport_tool_name rescue '')) %>
+          		<%= raw tcs("MeansOfTransportId", (transit_information.local_transport_tool_voyage_no rescue '')) %>
           		<% truck = Dict::Truck.find_by_code(@declaration.truck) %>
-          		<%= raw tcs("CorporationName", truck.corporation_name) rescue '' %>
-          		<%= raw tcs("OrganizationCode", truck.corporation_code) rescue '' %>
+          		<%= raw tcs("CorporationName", (truck.corporation_name rescue '')) %>
+          		<%= raw tcs("OrganizationCode", (truck.corporation_code rescue '')) %>
           	</tcs:TransitBaseInformation>
           	<tcs:BillOfLadingInformation>
-          		<%= raw tcs("BillOfLadingNo", @declaration.bill_no) rescue '' %>
-          		<%= raw tcs("MeansOfTransportCode", transit_information.transport_tool_code) rescue '' %>
-          		<%= raw tcs("MeansOfTransportName", transit_information.transport_tool_name) rescue '' %>
-          		<%= raw tcs("MeansOfTransportId", transit_information.transport_tool_voyage_no) rescue '' %>
+          		<%= raw tcs("BillOfLadingNo", (@declaration.bill_no rescue '')) %>
+          		<%= raw tcs("MeansOfTransportCode", (transit_information.transport_tool_code rescue '')) %>
+          		<%= raw tcs("MeansOfTransportName", (transit_information.transport_tool_name rescue '')) %>
+          		<%= raw tcs("MeansOfTransportId", (transit_information.transport_tool_voyage_no rescue '')) %>
           	</tcs:BillOfLadingInformation>
           	<tcs:TransitContainerInformationList>
           		<% @declaration.declaration_containers.each_with_index do |container, index| %>
 	            <tcs:TransitContainerInformation>
-	            	<%= raw tcs("ContainerNo", container.code) rescue '' %>
-	            	<%= raw tcs("No", index + 1) rescue '' %>
-	            	<%= raw tcs("ContainerSize", container.container) rescue '' %>
-	            	<%= raw tcs("MeansOfTransportName", transit_information.local_transport_tool_name) rescue '' %>
-	            	<%= raw tcs("MeansOfTransportWeight", (Dict::Bracket.find_by_code(container.bracket).weight rescue ''))%>
+	            	<%= raw tcs("ContainerNo", (container.code rescue '')) %>
+	            	<%= raw tcs("No", index + 1) %>
+	            	<%= raw tcs("ContainerSize", (container.container rescue '')) %>
+	            	<%= raw tcs("MeansOfTransportName", (transit_information.local_transport_tool_name rescue '')) %>
+	            	<%= raw tcs("MeansOfTransportWeight", (Dict::Bracket.find_by_code(container.bracket).weight rescue '')) %>
             	</tcs:TransitContainerInformation>
             	<% end %>
             </tcs:TransitContainerInformationList>
@@ -244,12 +244,12 @@
           <% end %>
           
           <tcs:SignInformation>
-          	<%= raw tcs("IccardNo", (custom_option.ic_card_no rescue ''))%>
-          	<%= raw tcs("Name", (@declaration.declarant rescue ''))%>
-          	<%= raw tcs("OrganizationCode", (enterprise.code rescue ''))%>
+          	<%= raw tcs("IccardNo", (custom_option.ic_card_no rescue '')) %>
+          	<%= raw tcs("Name", (@declaration.declarant rescue '')) %>
+          	<%= raw tcs("OrganizationCode", (enterprise.code rescue '')) %>
             <tcs:SignInformation>A001</tcs:SignInformation>
-            <%= raw tcs("SignDate", (now.strftime('%y%m%dT%H%M%S') rescue ''))%>
-            <%= raw tcs("CertificateNo", (custom_option.certificate_no rescue ''))%>
+            <%= raw tcs("SignDate", (now.strftime('%y%m%dT%H%M%S') rescue '')) %>
+            <%= raw tcs("CertificateNo", (custom_option.certificate_no rescue '')) %>
           </tcs:SignInformation>
         </tcs:DeclarationDocument>
       </tcs:TcsData>
