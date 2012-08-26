@@ -8,13 +8,7 @@
 	<p>
 		<label>尺寸</label>
 		<% containers_array = Dict::Container.all.map { |container| [container.code + "(#{container.name})", container.code] } %>
-		<%= f.select :container, options_for_select(containers_array, @declaration_container.container), {}, { :class => "small-input" } %>
-		<br />
-		<script>
-			$(function() {
-				$("#declaration_container_container").combobox();
-			});
-		</script>
+		<%= f.select :container, options_for_select(containers_array, @declaration_container.container), {}, :id => 'declaration_container_container_combobox', :class => "small-input" %>
 	</p>
 	<p>
 		<label>类型</label>

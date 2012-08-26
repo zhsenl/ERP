@@ -7,7 +7,7 @@ module DeclarationsHelper
       declaration = Declaration.find(id)
       action_view = ActionView::Base.new(Rails.root.join('app', 'views'))
       action_view.class_eval do
-        include ApplicationHelper, DeclarationsHelper
+        include ApplicationHelper, DeclarationsHelper, PrintHelper
       end
       action_view.assign({:declaration => declaration})
       file = File.new(Settings["dispatch_paths"]["temp"] + "/" + declaration.pre_entry_no + ".xml", 'w')

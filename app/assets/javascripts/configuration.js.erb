@@ -272,26 +272,6 @@ $(document).ready(function(){
 				})
 				.addClass( self.element.attr("class") );
 			
-			$(input).keypress(function(e){
-				//$(self.element).trigger("keypress", e);
-				// return false;
-				if(e.keyCode==13||e.which==13){
-					//get the next index of text input element
-					var next_idx = $('input').index(this) + 1;
-					//get number of text input element in a html document
-					var tot_idx = $('body').find('input').length;
-					//enter button in ASCII code
-					if(e.keyCode == 13){
-						if(tot_idx == next_idx){
-							$('input:eq(0)').focus();
-						} else {
-							$('input:eq(' + next_idx + ')').select();
-						}
-					}
-					return false;
-				}
-			});
-			
 			input.data( "autocomplete" )._renderItem = function( ul, item ) {
 				return $( "<li></li>" )
 					.data( "item.autocomplete", item )
@@ -345,7 +325,7 @@ $(document).ready(function(){
 		if(e.keyCode==13||e.which==13){
 			var tot_idx = form_elements.length;	
 			var next_idx = form_elements.index(this) + 1;
-			while (!$(form_elements.get(next_idx)).is(":visible")) {
+			while (!$(form_elements.get(next_idx)).is(":visible") || form_elements.get(next_idx).tagName == 'FIELDSET') {
 				next_idx++;
 				if (next_idx == tot_idx) {
 					return false;
@@ -353,9 +333,9 @@ $(document).ready(function(){
 			}
 			var next_element = form_elements.get(next_idx);	
 			if (next_element.tagName == 'INPUT') {
-				next_element.select();
+				$(next_element).select();
 			} else {
-				next_element.focus();
+				$(next_element).focus();
 			}			
 			return false;
 		}

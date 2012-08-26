@@ -130,124 +130,126 @@
               <%= raw tcs("NetWeight", @declaration.net_weight) rescue '' %>
               <%= raw tcs("GrossWeight", @declaration.gross_weight) rescue '' %>
               <tcs:FreightMark xsi:nil="true" />
-              <@tcs attribute="FreightRate" value=customsDeclarationHead.feeRate />
+              <tcs:FreightRate xsi:nil="true" />
               <tcs:FreightCurrency xsi:nil="true" />
               <tcs:InsuranceMark xsi:nil="true" />
-              <@tcs attribute="InsuranceRate" value=customsDeclarationHead.insurRate />
+              <tcs:InsuranceRate xsi:nil="true" />
               <tcs:InsuranceCurrency xsi:nil="true" />
               <tcs:ExtrasMark xsi:nil="true" />
-              <@tcs attribute="ExtrasRate" value=customsDeclarationHead.otherRate />
+              <tcs:ExtrasRate xsi:nil="true" />
               <tcs:ExtrasCurrency xsi:nil="true" />
-              <@tcs attribute="PayMode" value=customsDeclarationHead.payWay />
+              <%= raw tcs("PayMode", @declaration.pay_way) rescue '' %>
               <tcs:SaleDomesticRatio xsi:nil="true" />
-              <@tcs attribute="ImportExportDate" value=(customsDeclarationHead.importExportDate?string("yyyy-MM-dd"))!"" />
-              <@tcs attribute="TransportDate" value=transportDate?string("yyyy-MM-dd") />
-              <@tcs attribute="Note" value=note />
+              <tcs:ImportExportDate xsi:nil="true" />
+              <%= raw tcs("TransportDate", now.strftime('%y-%m-%d')) rescue '' %>
+              <%= raw tcs("Note", '[装卸口岸]' + dict_name(Dict::LoadPort, @declaration.load_port) + ' ' + @declaration.memo) rescue '' %>
               <tcs:DeclarantID xsi:nil="true" />
               <tcs:DeclarantTelephone xsi:nil="true" />
               <tcs:EntrydeclarantNo xsi:nil="true" />
-              <@tcs attribute="ICCardNo" value=enterprise.icCardNo />
-              <@tcs attribute="Name" value=customsDeclarationHead.declarant />
+              <%= raw tcs("ICCardNo", custom_option.ic_card_no) rescue '' %>
+              <%= raw tcs("Name", @declaration.declarant) rescue '' %>
             </tcs:BaseInformation>
             <tcs:GoodsInformationList>
-            <#list customsDeclarationGoods as customsDeclarationGood>	
+            <% @declaration.declaration_cargos.each do |cargo| %>
               <tcs:GoodsInformation>
-                <@tcs attribute="No" value=customsDeclarationGood.no />
-                <@tcs attribute="HsCode" value=customsDeclarationGood.codeTS />
+              	<%= raw tcs("No", cargo.no) rescue '' %>
+              	<%= raw tcs("HsCode", cargo.code) rescue '' %>
                 <tcs:MaterialNo xsi:nil="true" />
-                <@tcs attribute="GoodsName" value=customsDeclarationGood.name />
+                <%= raw tcs("GoodsName", cargo.name) rescue '' %>
                 <tcs:EnglishName xsi:nil="true" />
-                <@tcs attribute="Model" value=customsDeclarationGood.shenbaoguifan />
-                <#if !isNomalTrade>
-                <@tcs attribute="EnrolNo" value=customsDeclarationGood.noInContract />
-                <#else>
-	            <tcs:EnrolNo xsi:nil="true" />
-	            </#if>
-                <@tcs attribute="Quantity" value=customsDeclarationGood.quantity?string("0.###") />                
-                <@tcs attribute="QuantityUnit" value=customsDeclarationGood.declareUnit />
-                <tcs:UnitPrice>#{customsDeclarationGood.declarePrice!"";m4M4}</tcs:UnitPrice>
-                <tcs:TotalPrice>#{customsDeclarationGood.totalPrice!"";m2M2}</tcs:TotalPrice>
-                <@tcs attribute="Currency" value=customsDeclarationGood.currency />
-                <@tcs attribute="FirstQuantity" value=customsDeclarationGood.quantity1?string("0.###") />
-                <@tcs attribute="FirstUnit" value=customsDeclarationGood.unit1 />
-                <#if customsDeclarationGood.quantity2!=0 >
-                <@tcs attribute="SecondQuantity" value=customsDeclarationGood.quantity2?string("0.###") />
-				<@tcs attribute="SecondUnit" value=customsDeclarationGood.unit2 />
-                <#else>
+                <%= raw tcs("Model", cargo.specification) rescue '' %>
+                <% if @declaration.trade_mode == '0110' %>
+                <%= raw tcs("EnrolNo", cargo.no_in_contract) rescue '' %>
+                <% else %>
+                <tcs:EnrolNo xsi:nil="true" />
+                <% end %>
+                <%= raw tcs("Quantity", cargo.quantity) rescue '' %>
+                <%= raw tcs("QuantityUnit", cargo.unit) rescue '' %>
+                <%= raw tcs("UnitPrice", sprintf("%0.4f", cargo.unit_price)) rescue '' %>
+                <%= raw tcs("TotalPrice", sprintf("%0.2f", cargo.total_price)) rescue '' %>
+                <%= raw tcs("Currency", cargo.currency) rescue '' %>
+                <%= raw tcs("FirstQuantity", cargo.quantity1) rescue '' %>
+                <%= raw tcs("FirstUnit", cargo.unit1) rescue '' %>
+                <% if cargo.quantity2 != 0 %>
+                <%= raw tcs("SecondQuantity", cargo.quantity2) rescue '' %>
+                <%= raw tcs("SecondUnit", cargo.unit2) rescue '' %>
+                <% else %>
                 <tcs:SecondQuantity xsi:nil="true" />
                 <tcs:SecondUnit xsi:nil="true" />
-                </#if>
-                <@tcs attribute="OriginCode" value=customsDeclarationGood.originCountry />
-                <@tcs attribute="Use" value=customsDeclarationHead.useage />
-                <@tcs attribute="DutyMode" value=customsDeclarationGood.taxMode />
+                <% end %>
+                <%= raw tcs("OriginCode", cargo.trade_country) rescue '' %>
+                <tcs:Use xsi:nil="true" />
+                <%= raw tcs("DutyMode", cargo.tax_mode) rescue '' %>
                 <tcs:ProcessingCharges xsi:nil="true" />
-                <@tcs attribute="GoodsVersion" value=customsDeclarationGood.goodVersion />
+                <%= raw tcs("GoodsVersion", cargo.goods_version) rescue '' %>
                 <tcs:ClassificationMark xsi:nil="true" />
                 <tcs:Note xsi:nil="true" />
               </tcs:GoodsInformation>
-            </#list>
-            </tcs:GoodsInformationList>            
-            <#if (containers?size>0)>
+            <% end %>
+            </tcs:GoodsInformationList>
+            <% if @declaration.declaration_containers.size > 0 %>
             <tcs:EntryContainerInformationList>
-           	<#list containers as container>
+           	<% @declaration.declaration_containers.each do |container| %>
               <tcs:EntryContainerInformation>
-	              <@tcs attribute="ContainerNo" value=container.containerNo />
-	              <@tcs attribute="ContainerSize" value=container.size />
-	              <@tcs attribute="ContainerWeight" value=container.weight?string("0.####") />
+              	<%= raw tcs("ContainerNo", container.code) rescue '' %>
+              	<%= raw tcs("ContainerSize", container.container) rescue '' %>
+              	<%= raw tcs("ContainerWeight", Dict::MetalCabinet.find_by_code(container.metal_cabinet).weight) rescue '' %>
               </tcs:EntryContainerInformation>
-            </#list>
+            <% end %>
             </tcs:EntryContainerInformationList> 
-            </#if>
-            <#if (attachments?size>0)>
+            <% end %>
+            <% if @declaration.attachments.size > 0 %>
             <tcs:DocumentAttachedInformationList>
-           	<#list attachments?keys as key>
+           	<% @declaration.attachments.each do |key, val| %>
               <tcs:DocumentAttachedInformation>
-	              <@tcs attribute="DocumentAttachedCode" value=key />
-	              <@tcs attribute="DocumentAttachedNo" value=attachments[key] />
+              	<%= raw tcs("DocumentAttachedCode", key) rescue '' %>
+              	<%= raw tcs("DocumentAttachedCode", val) rescue '' %>		
               </tcs:DocumentAttachedInformation>
-            </#list>
+            <% end %>
             </tcs:DocumentAttachedInformationList> 
-            </#if>        
+            <% end %>      
           </tcs:EntryInformation>
           
-          <#if (customsDeclarationHead.localMeansOfTransportCode?? && customsDeclarationHead.localMeansOfTransportCode != "") >
+          <% if @declaration.transit_type == '003' %>
+          <% transit_information = @declaration.declaration_transit_information %>
           <tcs:TransitInformation>
           	<tcs:TransitBaseInformation>
-          		<@tcs attribute="WaybillNo" value=customsDeclarationHead.waybillNo />
-          		<@tcs attribute="MeansOfTransportMode" value=customsDeclarationHead.localMeansOfTransportMode />
-          		<@tcs attribute="MeansOfTransportCode" value=customsDeclarationHead.localMeansOfTransportCode />
-          		<@tcs attribute="MeansOfTransportName" value=customsDeclarationHead.localMeansOfTransportName />
-          		<@tcs attribute="MeansOfTransportId" value=customsDeclarationHead.localMeansOfTransportId />
-          		<tcs:CorporationName>${(customsDeclarationHead.corporationName?trim)!enterprise.registeName}</tcs:CorporationName>
-          		<tcs:OrganizationCode>${(customsDeclarationHead.organizationCode?trim)!enterprise.ownerCode}</tcs:OrganizationCode>
+          		<%= raw tcs("WaybillNo", '000' + @declaration.transport_tool[1..-1]) rescue '' %>
+          		<%= raw tcs("MeansOfTransportMode", transit_information.local_transport_mode) rescue '' %>
+          		<%= raw tcs("MeansOfTransportCode", transit_information.local_transport_tool_code) rescue '' %>
+          		<%= raw tcs("MeansOfTransportName", transit_information.local_transport_tool_name) rescue '' %>
+          		<%= raw tcs("MeansOfTransportId", transit_information.local_transport_tool_voyage_no) rescue '' %>
+          		<% truck = Dict::Truck.find_by_code(@declaration.truck) %>
+          		<%= raw tcs("CorporationName", truck.corporation_name) rescue '' %>
+          		<%= raw tcs("OrganizationCode", truck.corporation_code) rescue '' %>
           	</tcs:TransitBaseInformation>
           	<tcs:BillOfLadingInformation>
-          		<@tcs attribute="BillOfLadingNo" value=customsDeclarationHead.billOfLadingNo />
-          		<@tcs attribute="MeansOfTransportCode" value=customsDeclarationHead.meansOfTransportCode />
-          		<@tcs attribute="MeansOfTransportName" value=customsDeclarationHead.meansOfTransportName />
-          		<@tcs attribute="MeansOfTransportId" value=customsDeclarationHead.meansOfTransportId />
+          		<%= raw tcs("BillOfLadingNo", @declaration.bill_no) rescue '' %>
+          		<%= raw tcs("MeansOfTransportCode", transit_information.transport_tool_code) rescue '' %>
+          		<%= raw tcs("MeansOfTransportName", transit_information.transport_tool_name) rescue '' %>
+          		<%= raw tcs("MeansOfTransportId", transit_information.transport_tool_voyage_no) rescue '' %>
           	</tcs:BillOfLadingInformation>
           	<tcs:TransitContainerInformationList>
-          		<#list containers as container>	
+          		<% @declaration.declaration_containers.each_with_index do |container, index| %>
 	            <tcs:TransitContainerInformation>
-	            	<@tcs attribute="ContainerNo" value=container.containerNo />
-	            	<@tcs attribute="No" value=container_index+1 />
-	            	<@tcs attribute="ContainerSize" value=container.size />
-	            	<@tcs attribute="MeansOfTransportName" value=customsDeclarationHead.localMeansOfTransportName />
-                  	<@tcs attribute="MeansOfTransportWeight" value=container.bracketWeight?string("0.####") />
+	            	<%= raw tcs("ContainerNo", container.code) rescue '' %>
+	            	<%= raw tcs("No", index + 1) rescue '' %>
+	            	<%= raw tcs("ContainerSize", container.container) rescue '' %>
+	            	<%= raw tcs("MeansOfTransportName", transit_information.local_transport_tool_name) rescue '' %>
+	            	<%= raw tcs("MeansOfTransportWeight", (Dict::Bracket.find_by_code(container.bracket).weight rescue ''))%>
             	</tcs:TransitContainerInformation>
-            	</#list>
+            	<% end %>
             </tcs:TransitContainerInformationList>
           </tcs:TransitInformation>
-          </#if> 
+          <% end %>
           
           <tcs:SignInformation>
-            <@tcs attribute="IccardNo" value=enterprise.icCardNo />
-            <@tcs attribute="Name" value=customsDeclarationHead.declarant />
-            <@tcs attribute="OrganizationCode" value=enterprise.ownerCode />
+          	<%= raw tcs("IccardNo", (custom_option.ic_card_no rescue ''))%>
+          	<%= raw tcs("Name", (@declaration.declarant rescue ''))%>
+          	<%= raw tcs("OrganizationCode", (enterprise.code rescue ''))%>
             <tcs:SignInformation>A001</tcs:SignInformation>
-            <@tcs attribute="SignDate" value=SignDate />
-            <@tcs attribute="CertificateNo" value=enterprise.certificateNo />
+            <%= raw tcs("SignDate", (now.strftime('%y%m%dT%H%M%S') rescue ''))%>
+            <%= raw tcs("CertificateNo", (custom_option.certificate_no rescue ''))%>
           </tcs:SignInformation>
         </tcs:DeclarationDocument>
       </tcs:TcsData>

@@ -181,7 +181,7 @@
 				total_valent_num += Dict::Container.find_by_code(declaration_container.container).valent_num
 			end		
 		%>
-			<div class="td" style="width:210px;"><div class="bg-text">集装箱号</div> <span class="content"><%= "#{declaration_containers.first.code} * #{declaration_containers.size} (#{total_valent_num})" %></span></div>
+			<div class="td" style="width:210px;"><div class="bg-text">集装箱号</div> <span class="content"><%= "#{declaration_containers.first.code} * #{declaration_containers.size} (#{total_valent_num})" rescue '' %></span></div>
 		<% 
 			attachments = Array.new
 			@declaration.attachments.keys.each do |key|
