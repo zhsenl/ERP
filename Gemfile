@@ -6,6 +6,7 @@ gem 'mysql2', '0.3.11'
 gem 'will_paginate', '3.0.3'
 gem 'cancan', '1.6.7'
 gem 'spreadsheet', '0.6.8'
+gem 'rufus-scheduler', '2.0.7'
 gem 'delayed_job_active_record', '0.3.2'
 
 # Gems used only for assets and not required

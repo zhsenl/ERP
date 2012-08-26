@@ -320,27 +320,28 @@ $(document).ready(function(){
 	});
 	
 	//prevent submit the form when press enter
-	var form_elements = $($("#main-content .content-box form")[0].elements);
-	form_elements.keypress(function(e){
-		if(e.keyCode==13||e.which==13){
-			var tot_idx = form_elements.length;	
-			var next_idx = form_elements.index(this) + 1;
-			while (!$(form_elements.get(next_idx)).is(":visible") || form_elements.get(next_idx).tagName == 'FIELDSET') {
-				next_idx++;
-				if (next_idx == tot_idx) {
-					return false;
+	if ($("#main-content .content-box form").length > 0) {
+		var form_elements = $($("#main-content .content-box form")[0].elements);
+		form_elements.keypress(function(e){
+			if(e.keyCode==13||e.which==13){
+				var tot_idx = form_elements.length;	
+				var next_idx = form_elements.index(this) + 1;
+				while (!$(form_elements.get(next_idx)).is(":visible") || form_elements.get(next_idx).tagName == 'FIELDSET') {
+					next_idx++;
+					if (next_idx == tot_idx) {
+						return false;
+					}
 				}
+				var next_element = form_elements.get(next_idx);	
+				if (next_element.tagName == 'INPUT') {
+					$(next_element).select();
+				} else {
+					$(next_element).focus();
+				}			
+				return false;
 			}
-			var next_element = form_elements.get(next_idx);	
-			if (next_element.tagName == 'INPUT') {
-				$(next_element).select();
-			} else {
-				$(next_element).focus();
-			}			
-			return false;
-		}
-	});
-	
+		});
+	}
 	
 	
 
