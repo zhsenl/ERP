@@ -1,6 +1,6 @@
 dispatch_paths:
-  temp: d://website/messages/temp
-  upload_temp: d://website/messages/upload_temp
-  download_temp: d://website/messages/download_temp
-  download: d://website/messages/download
+  temp: d:/websites/messages/temp
+  upload_temp: d:/websites/messages/upload_temp
+  download_temp: d:/websites/messages/download_temp
+  download: d:/websites/messages/download
   

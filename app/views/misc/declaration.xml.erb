@@ -1,12 +1,11 @@
 <% enterprise = @declaration.enterprise %>
 <% custom_option = enterprise.enterprise_custom_option %>
 <% now = Time.now %>
-<% serial_no = system_serial_no %>
 <?xml version="1.0" encoding="UTF-8"?>
 <TCS101Message>
   <MessageHead>
     <MessageType>001</MessageType>
-    <MessageId><%= custom_option.platform_id %><%= serial_no %></MessageId>
+    <MessageId><%= custom_option.platform_id %><%= @serial_no %></MessageId>
     <MessageTime><%= now.strftime('%y%m%d%H%M%S') %></MessageTime>
     <SenderId><%= custom_option.platform_id %></SenderId>
     <SenderAddress><%= custom_option.platform_id %><%= custom_option.area_name %></SenderAddress>
@@ -35,12 +34,12 @@
         </tcs:TcsLinkMan>
       </tcs:TcsLink>
       <tcs:TcsFlow>
-      	<MessageId><%= custom_option.platform_id %><%= serial_no %></MessageId>
+      	<MessageId><%= custom_option.platform_id %><%= @serial_no %></MessageId>
       	<%= raw tcs("BpNo", (custom_option.process_no rescue '')) %>
         <tcs:ActionList>
           <tcs:ActionId>a01</tcs:ActionId>
         </tcs:ActionList>
-        <%= raw tcs("TaskId", (custom_option.platform_id + now.strftime('%Y%m%d') + serial_no rescue '')) %>
+        <%= raw tcs("TaskId", (custom_option.platform_id + now.strftime('%Y%m%d') + @serial_no rescue '')) %>
         <tcs:TaskNote>黄埔-001</tcs:TaskNote>
         <tcs:CorpTaskId>
         </tcs:CorpTaskId>
@@ -49,7 +48,7 @@
       </tcs:TcsFlow>
       <tcs:TcsData>
         <tcs:DeclarationDocument xsi:schemaLocation="http://www.chinaport.gov.cn/tcs/v2" xmlns:tcs="http://www.chinaport.gov.cn/tcs/v2">
-          <%= raw tcs("TcsDocumentNo", (custom_option.platform_id + '001' + now.strftime('%Y%m%d') + serial_no rescue '')) %>
+          <%= raw tcs("TcsDocumentNo", (custom_option.platform_id + '001' + now.strftime('%Y%m%d') + @serial_no rescue '')) %>
           <tcs:DataCooperationType>001</tcs:DataCooperationType>
           <tcs:EntryInformation>
             <tcs:EntryIdentityInformationList>
