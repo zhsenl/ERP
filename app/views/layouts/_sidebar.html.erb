@@ -69,16 +69,18 @@
 					</li>
 				</ul>
 			</li>
-			<% if current_user.is? "admin" %>
+			<% if current_user.is?("admin") || current_user.is?("staff") %>
 			<li>
 				<a href="#" class="nav-top-item"> 系统管理 </a>
 				<ul>
 					<li>
 						<%= link_to '常规选项', options_path, :class => "options" %>
 					</li>
+					<% if can? :manage, User %>
 					<li>
 						<%= link_to '用户管理', users_path, :class => "users" %>
 					</li>
+					<% end %>
 					<li>
 						<%= link_to '企业管理', enterprises_path, :class => "enterprises" %>
 					</li>

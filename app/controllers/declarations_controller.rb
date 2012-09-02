@@ -1,7 +1,8 @@
 # -*- encoding : utf-8 -*-
 class DeclarationsController < ApplicationController
   include ApplicationHelper, DeclarationsHelper, PrintHelper
-  before_filter :init
+  before_filter :init  
+  
   def init
     if params[:id]
       @declaration = Declaration.find(params[:id])
@@ -30,6 +31,7 @@ class DeclarationsController < ApplicationController
   # GET /declarations/1
   # GET /declarations/1.json
   def show
+    authorize! :show, @declaration
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @declaration }
@@ -37,6 +39,7 @@ class DeclarationsController < ApplicationController
   end
   
   def print_declaration 
+    authorize! :show, @declaration
     @declaration_cargos = @declaration.declaration_cargos.order("no")
     @groups = Array.new(@declaration_cargos.size / 5 + 1){Array.new}
     @declaration_cargos.each_with_index do |declaration_cargo, index|
@@ -47,36 +50,42 @@ class DeclarationsController < ApplicationController
   end
   
   def print_contract 
+    authorize! :show, @declaration
     @declaration_cargos = @declaration.declaration_cargos.order("no")    
     @title = '打印合同'
     render :layout => 'print'
   end
   
   def print_tax_invoice
+    authorize! :show, @declaration
     @declaration_cargos = @declaration.declaration_cargos.order("no")    
     @title = '打印国税发票'
     render :layout => 'print'
   end
   
   def print_invoice
+    authorize! :show, @declaration
     @declaration_cargos = @declaration.declaration_cargos.order("no")    
     @title = '打印发票'
     render :layout => 'print'
   end
   
   def print_packing1
+    authorize! :show, @declaration
     @declaration_packings = @declaration.declaration_packings.order("no")
     @title = '打印装箱单'
     render :layout => 'print'
   end
   
   def print_packing2
+    authorize! :show, @declaration
     @declaration_packings = @declaration.declaration_packings.order("no")
     @title = '打印装箱明细单'
     render :layout => 'print'
   end
   
   def print_packing3
+    authorize! :show, @declaration
     @declaration_cargos = @declaration.declaration_cargos.order("no")   
     @title = '打印凤岗装箱单'
     render :layout => 'print'
@@ -84,6 +93,7 @@ class DeclarationsController < ApplicationController
   
   # GET /declarations/1/declare.json
   def declare
+    authorize! :declare, @declaration
     if generate_declaration_xml(@declaration.id)
       result = {:type => "success", :content => "已经成功生成报文，请稍后再查询申报结果"}
     else
@@ -114,12 +124,14 @@ class DeclarationsController < ApplicationController
 
   # GET /declarations/1/edit
   def edit
+    authorize! :edit, @declaration
   end
 
   # POST /declarations
   # POST /declarations.json
   def create
     @declaration = Declaration.new(params[:declaration])
+    authorize! :create, @declaration
 
     respond_to do |format|
       if @declaration.save
@@ -135,6 +147,7 @@ class DeclarationsController < ApplicationController
   # PUT /declarations/1
   # PUT /declarations/1.json
   def update
+    authorize! :update, @declaration
     respond_to do |format|
       if @declaration.update_attributes(params[:declaration])
         format.html { redirect_to @declaration, notice: 'Declaration was successfully updated.' }
@@ -149,6 +162,7 @@ class DeclarationsController < ApplicationController
   # DELETE /declarations/1
   # DELETE /declarations/1.json
   def destroy
+    authorize! :destory, @declaration
     @declaration.destroy
 
     respond_to do |format|

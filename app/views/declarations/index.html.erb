@@ -22,6 +22,7 @@
 					<tr>
 						<th>预录入号</th>
 						<th>申报日期</th>
+						<th>完成申报</th>
 						<th>操作</th>
 					</tr>
 				</thead>
@@ -37,6 +38,7 @@
 					<tr>
 						<td><%= link_to declaration.pre_entry_no, declaration %></td>
 						<td><%= declaration.declare_date %></td>
+						<td><%= declaration.is_finish ? '是' : '否' %></td>
 						<td> <%= link_to image_tag("icons/pencil.png", :alt => "Edit"), edit_declaration_path(declaration) %>
 						<%= link_to image_tag("icons/cross.png", :alt => "Delete"), declaration, confirm: '确定删除?', method: :delete %> </td>
 					</tr>

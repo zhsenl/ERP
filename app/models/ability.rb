@@ -11,11 +11,26 @@ class Ability
     end
     
     if user.is? "staff"
-      can :read, :all
+      can :manage, :all
+      can :manage, :dict
+      cannot :manage, User
+    end
+    
+    if user.is?("enterprise") || user.is?("operator") || user.is?("staff")
+      can :manage, Declaration do |declaration|
+        user.managing?(declaration.enterprise) && !declaration.is_finish
+      end
+      can :read, Declaration do |declaration|
+        user.managing? declaration.enterprise
+      end
+      
+      can :manage, Contract do |contract|
+        user.managing? contract.enterprise
+      end
     end
     
     if !user.nil? 
-      can [:detail, :modify, :change], User
+      can [:me, :modify, :change], User
       can :access, :system #基本权限检查，必须要登录
       can :read, :option #系统选项
       can :read, :dict #数据字典

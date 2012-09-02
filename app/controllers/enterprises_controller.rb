@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 class EnterprisesController < ApplicationController
   authorize_resource
+  skip_authorize_resource :only => [:search, :show_by_code]
   # GET /enterprises
   # GET /enterprises.json
   def index
@@ -45,7 +46,7 @@ class EnterprisesController < ApplicationController
     @enterprise = Enterprise.find_by_code(params[:id])
 
     respond_to do |format|
-      format.json { render json: @enterprise }
+      format.json { render json: @enterprise, :only => [:id, :code, :name] }
     end
   end
 

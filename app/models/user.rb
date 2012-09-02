@@ -62,7 +62,7 @@ class User < ActiveRecord::Base
   
   def managing?(enterprise)
     enterprise_id = enterprise.respond_to?("id") ? enterprise.id : enterprise
-    manage_relationships.find_by_id(enterprise.id)
+    manage_relationships.find_by_enterprise_id(enterprise_id)
   end
   
   def manage!(enterprise)

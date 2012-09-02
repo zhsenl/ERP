@@ -1,6 +1,7 @@
 # -*- encoding : utf-8 -*-
 class ContractsController < ApplicationController
   include ContractsHelper
+  authorize_resource
   # GET /contracts
   # GET /contracts.json
   def index

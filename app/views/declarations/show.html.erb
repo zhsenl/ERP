@@ -2,9 +2,9 @@
 	<div class="content-box-header">
 		<h3>查看报关单(<%= @declaration.pre_entry_no %>)</h3>
 		<div class="operations">
-			<%= link_to '编辑', edit_declaration_path(@declaration) %> |
+			<% if can? :update, @declaration %><%= link_to '编辑', edit_declaration_path(@declaration) %> |<% end %>
 			<%= link_to '打印', "#print_dialog", :rel => "facebox" %> |
-			<%= link_to '申报', declare_declaration_path(@declaration, :format => :json), :id => "declare_button" %> |
+			<% if can? :declare, @declaration %><%= link_to '申报', declare_declaration_path(@declaration, :format => :json), :id => "declare_button" %> |<% end %>
 			<%= link_to @declaration_type == "export" ? "出口成品" : "进口料件", declaration_cargos_path(:declaration_id => @declaration.id) %> |
 			<%= link_to "集装箱", declaration_containers_path(:declaration_id => @declaration.id) %> |
 			<%= link_to "装箱明细", declaration_packings_path(:declaration_id => @declaration.id) %> |			
