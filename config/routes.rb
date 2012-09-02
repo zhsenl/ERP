@@ -17,6 +17,7 @@ ERP::Application.routes.draw do
   resources :declarations do 
     get 'search', :on => :collection
     get 'declare', :on => :member
+    get 'dispatch_record', :on => :member
     get 'print_declaration', :on => :member
     get 'print_contract', :on => :member
     get 'print_tax_invoice', :on => :member

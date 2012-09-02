@@ -244,3 +244,35 @@
 	<p>请先去添加<%= @declaration_type == "export" ? "出口成品" : "进口料件" %></p>
 	<% end %>
 </div> 
+
+<% if @declaration.dispatch_records.size > 0 %>
+<div class="content-box">
+	<div class="content-box-header">
+		<h3>申报记录</h3>
+	</div>
+	<div class="content-box-content">
+		<div class="tab-content default-tab">
+			<table>
+				<thead>
+					<tr>
+						<th>时间</th>
+						<th>报文ID</th>
+						<th>状态</th>
+						<th>备注</th>
+					</tr>
+				</thead>				
+				<tbody>
+					<% @declaration.dispatch_records.each do |record| %>	
+					<tr>						
+						<td><%= record.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
+						<td><%= record.message_id %></td>
+						<td><%= record.channel %></td>
+						<td><%= record.note %></td>
+					</tr>
+					<% end %>					
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<% end %>

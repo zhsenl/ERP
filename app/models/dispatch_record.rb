@@ -1,3 +1,5 @@
 class DispatchRecord < ActiveRecord::Base
-  attr_accessible :channel, :declaration_id, :message_id, :note, :task_id
+  belongs_to :declaration
+  
+  validates :declaration_id, :presence => true, :numericality => true
 end
