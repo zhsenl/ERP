@@ -4,3 +4,4 @@ dispatch_paths:
   download_temp: d:/websites/messages/download_temp
   download: d:/websites/messages/download
   
+ERP_path: http://localhost:3000

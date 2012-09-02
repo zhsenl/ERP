@@ -375,7 +375,7 @@ function show_tips(type, content) {
 	$("#main-content").prepend(tips);
 	$(".close").click(
 		function () {
-			$(this).parent().fadeTo(400, 0, function () { // Links with the class "close" will close parent
+			$(this).parent().fadeTo(400, 0, function () { 
 				$(this).slideUp(400);
 			});
 			return false;

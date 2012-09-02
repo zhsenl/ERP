@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120826130058) do
+ActiveRecord::Schema.define(:version => 20120902124147) do
 
   create_table "cargos", :force => true do |t|
     t.integer  "enterprise_id"
@@ -190,6 +190,7 @@ ActiveRecord::Schema.define(:version => 20120826130058) do
     t.string   "voyage_no"
     t.string   "transit_type"
     t.boolean  "is_finish"
+    t.string   "created_by"
   end
 
   create_table "delayed_jobs", :force => true do |t|

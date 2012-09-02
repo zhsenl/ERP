@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require "rexml/document"
 
 include FileUtils
@@ -53,7 +54,10 @@ namespace :receipt do
               declaration.entry_no = entry_no
               declaration.is_finish = true
               declaration.save
+              Message.new({:subject => '报关单申报成功', :body => '报关单<a href="' + Settings['ERP_path'] + '/declarations/' + declaration.id.to_s + '" >' + declaration.pre_entry_no + '</a>申报成功！'}
+                          ).send_message(:system, declaration.created_by)
               end
+              
             end
           end
 
