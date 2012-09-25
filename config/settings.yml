@@ -1,7 +1,0 @@
-dispatch_paths:
-  temp: d:/websites/messages/temp
-  upload_temp: d:/websites/messages/upload_temp
-  download_temp: d:/websites/messages/download_temp
-  download: d:/websites/messages/download
-  
-ERP_path: http://localhost:3000
