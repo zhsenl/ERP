@@ -11,10 +11,11 @@ module ContractsHelper
       worksheet = workbook.worksheet(0)      
       contract.manual = worksheet.row(2).at(3).to_s
       contract.operate_enterprise_code = worksheet.row(4).at(1).to_s
-      enterprise = Enterprise.find_by_code(worksheet.row(4).at(5).to_s)
+      enterprise_custom_option = EnterpriseCustomOption.find_by_trade_code(worksheet.row(4).at(5).to_s)
+      enterprise = enterprise_custom_option.enterprise if !enterprise_custom_option.nil?
       contract.enterprise_id = enterprise.id
       foreign_enterprise = ForeignEnterprise.find_by_name(worksheet.row(5).at(1).to_s)
-      contract.foreign_enterprise = foreign_enterprise.code if !foreign_enterprise.nil?
+      contract.foreign_enterprise_code = foreign_enterprise.code if !foreign_enterprise.nil?
       trade_mode = Dict::TradeMode.find_by_name(worksheet.row(5).at(5).to_s)
       contract.trade_mode = trade_mode.code if !trade_mode.nil?
       tax_kind = Dict::TaxKind.find_by_name(worksheet.row(6).at(1).to_s)

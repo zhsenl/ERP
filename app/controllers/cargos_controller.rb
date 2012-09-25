@@ -7,19 +7,19 @@ class CargosController < ApplicationController
       @cargos = current_enterprise.cargos.page(params[:page]).order("updated_at DESC")
     else
       @cargos = Enterprise.new.cargos.paginate(:page => params[:page],:per_page => 10)
-    end 
+    end
 
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @cargos }
     end
   end
-  
+
   # GET /cargos/search.json
   def search
     term = params[:term]
     if term.blank?
-      @cargos = []
+    @cargos = []
     else
       @cargos = Cargo.where("code like ? or name like ?", term + '%', '%' + term +'%')
     end

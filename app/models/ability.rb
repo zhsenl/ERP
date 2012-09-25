@@ -3,19 +3,15 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    return if user.nil?    
-    
-    if user.is? "admin"
-      can :manage, :all
-      can :manage, :dict
+    return if user.nil?   
+
+    if !user.nil? 
+      can [:me, :modify, :change], User
+      can :access, :system #基本权限检查，必须要登录
+      can :read, :option #系统选项
+      can :read, :dict #数据字典
     end
-    
-    if user.is? "staff"
-      can :manage, :all
-      can :manage, :dict
-      cannot :manage, User
-    end
-    
+
     if user.is?("enterprise") || user.is?("operator") || user.is?("staff")
       can :manage, Declaration do |declaration|
         user.managing?(declaration.enterprise) && !declaration.is_finish
@@ -28,13 +24,23 @@ class Ability
         user.managing? contract.enterprise
       end
     end
+
+    if user.is? "staff"
+      can :manage, :all
+      can :manage, :dict
+      cannot :manage, User
+    end 
     
-    if !user.nil? 
-      can [:me, :modify, :change], User
-      can :access, :system #基本权限检查，必须要登录
-      can :read, :option #系统选项
-      can :read, :dict #数据字典
+    if user.is? "admin"
+      can :manage, :all
+      can :manage, :dict
     end
+    
+    
+    
+    
+    
+    
     
     
     # Define abilities for the passed in user here. For example:
