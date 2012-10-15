@@ -12,6 +12,7 @@
 		font-family: "SimHei", \9ed1\4f53, arial, sans-serif;
 		font-size: 20px;
 		font-weight: normal;
+		
 	}	
 	#barcode1{
 		float:left;
@@ -170,8 +171,8 @@
 			<div class="td" style="width:210px;"><div class="bg-text">合同协议号</div> <span class="content"><%= @declaration.contract_no %></span></div>
 			<div class="td" style="width:133px;"><div class="bg-text">件数</div> <span class="content"><%= @declaration.package_amount %></span></div>
 			<div class="td" style="width:121px;"><div class="bg-text">包装种类</div> <span class="content"><%= dict_name Dict::WrapType, @declaration.wrap_type %></span></div>
-			<div class="td" style="width:145px;"><div class="bg-text">毛重</div> <span class="content"><%= @declaration.gross_weight %></span></div>
-			<div class="td last-td" style="width:128px;"><div class="bg-text">净重</div> <span class="content"><%= @declaration.net_weight %></span></div>
+			<div class="td" style="width:145px;"><div class="bg-text">毛重</div> <span class="content"><%= "%g" % @declaration.gross_weight %></span></div>
+			<div class="td last-td" style="width:128px;"><div class="bg-text">净重</div> <span class="content"><%= "%g" % @declaration.net_weight %></span></div>
 		</div>
 		<div class="tr">
 		<%
@@ -222,7 +223,7 @@
 				<div class="td goodlist-items-first" style="width:46px;"><span class="content"><%= cargo.no %></span><br/><span class="content"><%= "(" + cargo.no_in_contract + ")" if cargo.no_in_contract.blank? %></span></div>
 				<div class="td" style="width:86px; margin-left: -20px;"><span class="content"><%= cargo.code %></span></div>
 				<div class="td" style="width:206px;"><span class="content"><%= cargo.name %><%= "/" + cargo.specification if !cargo.specification.blank? %></span></div>
-				<div class="td" style="width:85px; text-align: right;"><span class="content"><%= cargo.quantity.to_s + dict_name(Dict::Unit, cargo.unit) %></span><br/><span class="content"><%= cargo.quantity1.to_s + dict_name(Dict::Unit, cargo.unit1) if cargo.quantity1 != 0 %></span><br/><span class="content"><%= cargo.quantity2.to_s + dict_name(Dict::Unit, cargo.unit2) if cargo.quantity2 != 0 %></span></div>
+				<div class="td" style="width:85px; text-align: right;"><span class="content"><%= "%g" % cargo.quantity + dict_name(Dict::Unit, cargo.unit) %></span><br/><span class="content"><%= "%g" % cargo.quantity1 + dict_name(Dict::Unit, cargo.unit1) if cargo.quantity1 != 0 %></span><br/><span class="content"><%= "%g" % cargo.quantity2 + dict_name(Dict::Unit, cargo.unit2) if cargo.quantity2 != 0 %></span></div>
 				<div class="td" style="width:66px; padding-left: 3px;"><span class="content"><%= dict_name Dict::Country, cargo.trade_country %></span><br /><span class="content">(<%= cargo.trade_country %>)</span></div>
 				<div class="td" style="width:81px;"><span class="content"><%= sprintf "%0.4f", cargo.unit_price %></span></div>
 				<div class="td" style="width:93px;"><span class="content"><%= sprintf "%0.2f", cargo.total_price %></span></div>

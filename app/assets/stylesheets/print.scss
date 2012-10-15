@@ -26,7 +26,7 @@ body {
 	clear: both;
 }
 .content {
-	border: 1px dotted;
+	background-color: #cccccc;
 	cursor: pointer;
 }
 /* tooltip styling */
@@ -64,6 +64,6 @@ body {
 		display: none;
 	}
 	.content {
-		border: none;
+		background-color: #ffffff;
 	}
 }
