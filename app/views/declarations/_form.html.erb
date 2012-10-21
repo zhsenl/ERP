@@ -184,15 +184,15 @@
 		<%= f.text_field :corporation_name, :class => "text-input small-input" %>
 	</div>
 	<div class="filed" >
-		<label>进出境运输工具编号(汽车则添加司机本号)</label>
+		<label>进出境运输工具编号</label>
 		<%= render "shared/autocomplete_field", :form => f, :attribute => :transport_tool_code, :url => dict_trucks_path, :min_length => 6, :klass => "text-input small-input" %>
 	</div>
 	<div class="filed" >
-		<label>进出境运输工具名称(汽车则添加车牌号)</label>
+		<label>进出境运输工具名称</label>
 		<%= f.text_field :transport_tool_name, :class => "text-input small-input" %>
 	</div>
 	<div class="filed" >
-		<label>进出境运输工具航次(汽车则添加日期)</label>
+		<label>进出境运输工具航次</label>
 		<%= f.text_field :transport_tool_voyage_no, :class => "text-input small-input" %>
 	</div>
 	<div class="filed" >
@@ -204,15 +204,15 @@
 		<%= render "shared/autocomplete_field", :form => f, :attribute => :local_transport_mode, :url => dict_transport_modes_path, :min_length => 1, :klass => "text-input small-input" %>
 	</div>
 	<div class="filed" >
-		<label>境内运输工具编号(汽车则添加司机本号)</label>
+		<label>境内运输工具编号</label>
 		<%= render "shared/autocomplete_field", :form => f, :attribute => :local_transport_tool_code, :url => dict_trucks_path, :min_length => 6, :klass => "text-input small-input" %>
 	</div>
 	<div class="filed" >
-		<label>境内运输工具名称(汽车则添加车牌号)</label>
+		<label>境内运输工具名称</label>
 		<%= f.text_field :local_transport_tool_name, :class => "text-input small-input" %>
 	</div>
 	<div class="filed" >
-		<label>境内运输工具航次(汽车则添加日期)</label>
+		<label>境内运输工具航次</label>
 		<%= f.text_field :local_transport_tool_voyage_no, :class => "text-input small-input" %>
 	</div>	
 	<% end %>

@@ -119,7 +119,7 @@ h1 {
 <div class="td" style="height: 20px; width: 365px; border-bottom: 1px solid;"><span class="content"><%= contract.foreign_enterprise.name rescue "" %></span></div>
 <div class="td" style="height: 20px; width: 22px;"></div>
 <div class="td" style="height: 20px; width: 70px;"><span class="bgText">海关编号：</span></div>
-<div class="td" style="height: 20px; width: 146px; border-bottom: 1px solid;"><span class="content"><%= @declaration.enterprise.enterprise_custom_options.trade_code rescue "" %></span></div>
+<div class="td" style="height: 20px; width: 146px; border-bottom: 1px solid;"><span class="content"><%= @declaration.enterprise.code rescue "" %></span></div>
 </div>
 <div class="tr" style="height: 20px; margin-top: 10px;">
 <div class="td" style="height: 20px; width: 94px;"><span class="bgText"><%= @declaration_type == "export" ? "发 货" : "收 货"  %> 单 位：</span></div>

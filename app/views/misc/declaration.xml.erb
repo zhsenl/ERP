@@ -54,17 +54,17 @@
             <tcs:EntryIdentityInformationList>
               <tcs:EntryIdentityInformation>
                 <tcs:EntryIdentity>001</tcs:EntryIdentity>
-                <%= raw tcs("CorporationCustomsCode", (@declaration.operate_enterprise.enterprise_custom_option.trade_code rescue '')) %>
+                <%= raw tcs("CorporationCustomsCode", (@declaration.operate_enterprise.code rescue '')) %>
                 <%= raw tcs("CorporationName", (@declaration.operate_enterprise.name rescue '')) %>
               </tcs:EntryIdentityInformation>
               <tcs:EntryIdentityInformation>
                 <tcs:EntryIdentity>002</tcs:EntryIdentity>
-                <%= raw tcs("CorporationCustomsCode", (@declaration.enterprise.enterprise_custom_option.trade_code rescue '')) %>
+                <%= raw tcs("CorporationCustomsCode", (@declaration.enterprise.code rescue '')) %>
                 <%= raw tcs("CorporationName", (@declaration.enterprise.name rescue '')) %>
               </tcs:EntryIdentityInformation>
               <tcs:EntryIdentityInformation>
                 <tcs:EntryIdentity>003</tcs:EntryIdentity>
-                <%= raw tcs("CorporationCustomsCode", (@declaration.declare_enterprise.enterprise_custom_option.trade_code rescue '')) %>
+                <%= raw tcs("CorporationCustomsCode", (@declaration.declare_enterprise.code rescue '')) %>
                 <%= raw tcs("CorporationName", (@declaration.declare_enterprise.name rescue '')) %>
               </tcs:EntryIdentityInformation>
               <tcs:EntryIdentityInformation>
@@ -245,7 +245,7 @@
           <tcs:SignInformation>
           	<%= raw tcs("IccardNo", (custom_option.ic_card_no rescue '')) %>
           	<%= raw tcs("Name", (@declaration.declarant rescue '')) %>
-          	<%= raw tcs("OrganizationCode", (enterprise.code rescue '')) %>
+          	<%= raw tcs("OrganizationCode", (enterprise.organization_code rescue '')) %>
             <tcs:SignInformation>A001</tcs:SignInformation>
             <%= raw tcs("SignDate", (now.strftime('%y%m%dT%H%M%S') rescue '')) %>
             <%= raw tcs("CertificateNo", (custom_option.certificate_no rescue '')) %>

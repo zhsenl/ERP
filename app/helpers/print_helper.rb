@@ -15,13 +15,13 @@ module PrintHelper
     "#{eval("dict." + attr)}" if dict
   end
 
-  def enterprise_name_and_trade_code(obj)
+  def enterprise_name_and_code(obj)
     if obj.class.to_s == "String"
       enterprise = Enterprise.find_by_code(obj)
     else
       enterprise = Enterprise.find_by_id(obj)
     end
-    "#{enterprise.name}(#{enterprise.enterprise_custom_option.trade_code if enterprise.enterprise_custom_option})" if enterprise
+    "#{enterprise.name}(#{enterprise.code})" if enterprise
   end
 
   def num_to_chinese(num)

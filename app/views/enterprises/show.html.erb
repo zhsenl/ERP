@@ -11,8 +11,12 @@
 			<fieldset>
 			<legend>基本信息：</legend>
 			<p>
-				<b>组织机构代码:</b>
+				<b>海关编码:</b>
 				<%= @enterprise.code %>
+			</p>
+			<p>
+				<b>组织机构代码:</b>
+				<%= @enterprise.organization_code %>
 			</p>
 			<p>
 				<b>单位名称:</b>
@@ -45,10 +49,6 @@
 			</fieldset>
 			<fieldset>
 			<legend>报关信息：</legend>
-			<p>
-				<b>交易代码:</b>
-			  	<%= @enterprise.enterprise_custom_option.trade_code %>
-			</p>
 			<p>
 				<b>所属关区:</b>
 				<span class="autoload" data-url=<%= dict_customs_path %> ><%= @enterprise.enterprise_custom_option.custom_code %></span>
