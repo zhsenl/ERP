@@ -43,7 +43,6 @@ class DeclarationCargosController < ApplicationController
     @declaration_cargo = DeclarationCargo.new(:declaration_id => @declaration.id,
                                               :quantity1 => 0,
                                               :quantity2 => 0,
-                                              :tax_mode => 3,
                                               :no => @declaration.declaration_cargos.size + 1)
     if @declaration.contract
       if @declaration.declaration_type == "export"

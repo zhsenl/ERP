@@ -145,8 +145,8 @@
 		<div class="tr">
 			<div class="td" style="width:295px;"><div class="bg-text">经营单位</div> <span class="content"><%= enterprise_name_and_code @declaration.operate_enterprise_code %></span></div>
 			<div class="td" style="width:79px;"><div class="bg-text">运输方式</div> <span class="content"><%= dict_name Dict::TransportMode, @declaration.transport_mode %></span></div>
-			<div class="td" style="width:171px;"><div class="bg-text">运输工具名称</div> <span class="content"><%= @declaration.transport_tool %></span></div>
-			<div class="td last-td" style="width:190px;"><div class="bg-text">提运单号</div> <span class="content"><%= @declaration.bill_no %></span></div>
+			<div class="td" style="width:171px;"><div class="bg-text">运输工具名称</div> <span class="content"><%= @declaration.transport_tool %> <%= @declaration.voyage_no %></span></div>
+			<div class="td last-td" style="width:190px;"><div class="bg-text">提运单号</div> <span class="content"><%= @declaration.bill_no %> <%= dict_name Dict::Truck, @declaration.truck %></span></div>
 		</div>
 		<div class="tr">
 			<div class="td" style="width:295px;"><div class="bg-text"><%= @declaration_type == "export" ? "发货" : "收货" %>单位</div> <span class="content"><%= enterprise_name_and_code @declaration.enterprise %></span></div>
@@ -161,7 +161,7 @@
 			<div class="td last-td" style="width:152px;"><div class="bg-text"><%= @declaration_type == "export" ? "境内货源地" : "境内目的地" %></div> <span class="content"><%= dict_name_and_code Dict::District, @declaration.destination %></span></div>
 		</div>
 		<div class="tr">
-			<div class="td" style="width:210px;"><div class="bg-text">批准文号</div> <span class="content"><%= @declaration.certification %></span></div>
+			<div class="td" style="width:210px;"><div class="bg-text">批准文号</div> <span class="content"></span></div>
 			<div class="td" style="width:97px;"><div class="bg-text">成交方式</div> <span class="content"><%= dict_name Dict::DealMode, @declaration.deal_mode %></span></div>
 			<div class="td" style="width:157px;"><div class="bg-text">运费</div> <span class="content"></span></div>
 			<div class="td" style="width:131px;"><div class="bg-text">保费</div> <span class="content"></span></div>

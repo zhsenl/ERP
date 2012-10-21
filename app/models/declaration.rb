@@ -25,17 +25,24 @@ class Declaration < ActiveRecord::Base
   validates :gross_weight, :presence => true, :numericality => true
   validates :net_weight, :presence => true, :numericality => true
   validates :transit_type, :presence => true
-  
-  def attachments=(attachment_hash)
-    self.attachments_mark = attachment_hash.select{|key, val| !val.blank?}.to_json
+
+  before_validation :process_data
+
+  def process_data
+    self.attachments_mark = self.attachments_mark.gsub(/ +/, ' ')
   end
   
   def attachments
-    if self.attachments_mark.blank?
-      Hash.new
-    else
-      ActiveSupport::JSON.decode(self.attachments_mark)
-    end    
+    hash = Hash.new
+    if !self.attachments_mark.blank?
+      self.attachments_mark.split(' ').each{|item|
+        key_value = item.split(':')
+        if key_value.size == 2
+          hash[key_value[0]] = key_value[1]
+        end
+      }
+    end
+    hash    
   end
   
   def operate_enterprise=(enterprise)
