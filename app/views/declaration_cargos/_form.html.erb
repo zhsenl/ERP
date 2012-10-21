@@ -78,7 +78,7 @@
 		<%= f.text_field :name, :class => "text-input small-input" %>
 	</div>  	
 	<div class="filed" >
-		<label>规格型号</label>
+		<label>规格型号 <a href="#specification_helper" rel="facebox" >辅助器</a></label>
 		<%= f.text_field :specification, :class => "text-input small-input" %>
 	</div>
 	<div class="filed" >
@@ -135,3 +135,10 @@
 </div>
 <div class="clear"></div><!-- End .clear -->
 <% end %>
+
+
+<!-- 规格型号辅助输入 -->
+<div id="specification_helper"  style="display: none">
+	<h3>商品申报要素</h3>
+	sadf
+</div>
