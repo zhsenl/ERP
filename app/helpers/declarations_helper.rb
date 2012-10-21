@@ -24,7 +24,7 @@ module DeclarationsHelper
                           :note => '成功报文生成'}).save
       true
     rescue
-      logger.error $!.backtrace
+      logger.error $!
       false
     end    
   end
