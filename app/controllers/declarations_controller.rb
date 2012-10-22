@@ -114,7 +114,7 @@ class DeclarationsController < ApplicationController
                                       :pre_entry_no => pre_entry_no,
                                       :pay_way => "7",
                                       :deal_mode => @declaration_type == "export" ? "3" : "1",
-                                      :declare_enterprise_code => "744483308",
+                                      :declare_enterprise_code => "4419980074",
                                       :transit_type => "001",
                                       :created_by => current_user.username)
       @declaration.declaration_transit_information = DeclarationTransitInformation.new(:local_transport_mode => 4)
