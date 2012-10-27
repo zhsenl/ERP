@@ -78,7 +78,7 @@
 		<%= f.text_field :name, :class => "text-input small-input" %>
 	</div>  	
 	<div class="filed" >
-		<label>规格型号 <a href="#specification_helper" rel="facebox" >辅助器</a></label>
+		<label>规格型号 <a id="specification_helper_link" href="#" >辅助器</a></label>
 		<%= f.text_field :specification, :class => "text-input small-input" %>
 	</div>
 	<div class="filed" >
@@ -140,5 +140,59 @@
 <!-- 规格型号辅助输入 -->
 <div id="specification_helper"  style="display: none">
 	<h3>商品申报要素</h3>
-	sadf
+	<form>
+		<p>
+			<label>成分含量</label>
+			<input class="text-input medium-input" type="text" />
+		</p>
+		<p>
+			<label>包装</label>
+			<input class="text-input medium-input" type="text" />
+		</p>
+		<p>
+			<label>外观</label>
+			<input class="text-input medium-input" type="text" />
+		</p>
+		<p>
+			<label>品牌</label>
+			<input class="text-input medium-input" type="text" />
+		</p>
+		<p>
+			<label>规格</label>
+			<input class="text-input medium-input" type="text" />
+		</p>
+		<p>
+			<label>加工工艺</label>
+			<input class="text-input medium-input" type="text" />
+		</p>
+		<p>
+			<label>其他</label>
+			<input class="text-input medium-input" type="text" />
+		</p>
+		<p>
+			<input class="button" type="button" onclick="specification_confirm();" value="确定" />
+		</p>
+	</form>	
 </div>
+
+<script type="text/javascript">
+	$("#specification_helper_link").click(function(){
+		var specification = $("#declaration_cargo_specification").val();
+		var specification_arr = specification.split('|', 7);
+		var inputs = $("#specification_helper input[type='text']");
+		for (var i = 0; i < specification_arr.length; i++) {
+			$(inputs.get(i)).val(specification_arr[i]);
+		};
+		$.facebox({div:"#specification_helper"});
+		return false;
+	});
+	function specification_confirm() {
+		var inputs = $("#facebox #specification_helper input[type='text']");
+		var specification_arr = new Array();
+		inputs.each(function(){
+			specification_arr.push($(this).val());
+		});
+		$("#declaration_cargo_specification").val(specification_arr.join("|"));
+		$.facebox.close();
+	}
+</script>
