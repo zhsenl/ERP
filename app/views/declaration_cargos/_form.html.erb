@@ -141,34 +141,7 @@
 <div id="specification_helper"  style="display: none">
 	<h3>商品申报要素</h3>
 	<form>
-		<p>
-			<label>成分含量</label>
-			<input class="text-input medium-input" type="text" />
-		</p>
-		<p>
-			<label>包装</label>
-			<input class="text-input medium-input" type="text" />
-		</p>
-		<p>
-			<label>外观</label>
-			<input class="text-input medium-input" type="text" />
-		</p>
-		<p>
-			<label>品牌</label>
-			<input class="text-input medium-input" type="text" />
-		</p>
-		<p>
-			<label>规格</label>
-			<input class="text-input medium-input" type="text" />
-		</p>
-		<p>
-			<label>加工工艺</label>
-			<input class="text-input medium-input" type="text" />
-		</p>
-		<p>
-			<label>其他</label>
-			<input class="text-input medium-input" type="text" />
-		</p>
+		<div></div>
 		<p>
 			<input class="button" type="button" onclick="specification_confirm();" value="确定" />
 		</p>
@@ -176,14 +149,34 @@
 </div>
 
 <script type="text/javascript">
-	$("#specification_helper_link").click(function(){
-		var specification = $("#declaration_cargo_specification").val();
-		var specification_arr = specification.split('|', 7);
-		var inputs = $("#specification_helper input[type='text']");
-		for (var i = 0; i < specification_arr.length; i++) {
-			$(inputs.get(i)).val(specification_arr[i]);
+	$("#specification_helper_link").click(function(){		
+		if ($("#declaration_cargo_code").val() == '') {
+			alert("请填写商品编码");
+			return false;
 		};
-		$.facebox({div:"#specification_helper"});
+		$.get('/dict/goods/' + $("#declaration_cargo_code").val() + '/show_by_code.json', null, function(data, textStatus, xhr) {
+			if (!data) {
+				alert("没有这个商品编码的规格型号模板，请到数据字典补充");
+				return;
+			};
+			$("#specification_helper form div").empty();
+			var specification_template_arr = data.specification_template.split('|');
+			for (var i = 0; i < specification_template_arr.length; i++) {
+				$("#specification_helper form div").append('\
+					<p>\
+						<label>' + specification_template_arr[i] + '</label>\
+						<input class="text-input medium-input" type="text" />\
+					</p>\
+				');
+			};			
+			var specification = $("#declaration_cargo_specification").val();
+			var specification_arr = specification.split('|', specification_template_arr.length);
+			var inputs = $("#specification_helper input[type='text']");
+			for (var i = 0; i < specification_arr.length; i++) {
+				$(inputs.get(i)).val(specification_arr[i]);
+			};
+			$.facebox({div:"#specification_helper"});
+		});
 		return false;
 	});
 	function specification_confirm() {
