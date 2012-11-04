@@ -125,8 +125,8 @@
 <div class="frame">
 	<div style="width:100%;height:75px;">		
 		<div id="barcode1">
-			<% if !@declaration.pre_entry_no.blank? %>
-				<img src="<%= barcode_path(:code => @declaration.pre_entry_no) %>">
+			<% if !@declaration.eport_no.blank? %>
+				<img src="<%= barcode_path(:code => @declaration.eport_no) %>">
 			<% end %>
 		</div>
 		<div id="barcode2">
