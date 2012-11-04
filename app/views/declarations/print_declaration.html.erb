@@ -17,13 +17,16 @@
 	#barcode1{
 		float:left;
 		margin-top:40px;
-		width:45%;
+		width:50%;
+		text-align: center;
+		line-height: 12px;
 	}
 	#barcode2{
-		float:right;
+		float:left;
 		margin-top:40px;
-		width:45%;
-		text-align: right;
+		width:50%;
+		text-align: center;
+		line-height: 12px;
 	}
 	.title {
 		padding-top: 1px;
@@ -127,11 +130,15 @@
 		<div id="barcode1">
 			<% if !@declaration.eport_no.blank? %>
 				<img src="<%= barcode_path(:code => @declaration.eport_no) %>">
+				<br/>
+				<%= @declaration.eport_no %>
 			<% end %>
 		</div>
 		<div id="barcode2">
 			<% if !@declaration.entry_no.blank? %>
 				<img src="<%= barcode_path(:code => @declaration.entry_no) %>">
+				<br/>
+				<%= @declaration.entry_no %>
 			<% end %>
 		</div>
 	</div>
