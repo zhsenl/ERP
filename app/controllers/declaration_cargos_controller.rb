@@ -38,12 +38,16 @@ class DeclarationCargosController < ApplicationController
   end
 
   # GET /declaration_cargos/new
-  # GET /declaration_cargos/new.json
   def new
     @declaration_cargo = DeclarationCargo.new(:declaration_id => @declaration.id,
                                               :quantity1 => 0,
                                               :quantity2 => 0,
                                               :no => @declaration.declaration_cargos.size + 1)
+
+    if @declaration_cargo.no > 20
+      redirect_to declaration_cargos_url(:declaration_id => @declaration.id),:flash => {:attention => '不能超过20项商品'}
+    end
+
     if @declaration.contract
       if @declaration.declaration_type == "export"
         @declaration_cargo.currency = @declaration.contract.export_currency
@@ -51,11 +55,7 @@ class DeclarationCargosController < ApplicationController
         @declaration_cargo.currency = @declaration.contract.import_currency
       end
     end
-    
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @declaration_cargo }
-    end
+
   end
 
   # GET /declaration_cargos/1/edit
@@ -69,7 +69,7 @@ class DeclarationCargosController < ApplicationController
 
     respond_to do |format|
       if @declaration_cargo.save
-        format.html { redirect_to new_declaration_cargo_url(:declaration_id => @declaration_cargo.declaration_id), notice: 'Declaration cargo was successfully created.' }
+        format.html { redirect_to new_declaration_cargo_url(:declaration_id => @declaration_cargo.declaration_id), :flash => {:success => '保存成功'} }
         format.json { render json: @declaration_cargo, status: :created, location: @declaration_cargo }
       else
         format.html { render action: "new" }
@@ -83,7 +83,7 @@ class DeclarationCargosController < ApplicationController
   def update
     respond_to do |format|
       if @declaration_cargo.update_attributes(params[:declaration_cargo])
-        format.html { redirect_to @declaration_cargo, notice: 'Declaration cargo was successfully updated.' }
+        format.html { redirect_to @declaration_cargo, :flash => {:success => "修改成功"} }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -98,7 +98,7 @@ class DeclarationCargosController < ApplicationController
     @declaration_cargo.destroy
 
     respond_to do |format|
-      format.html { redirect_to declaration_cargos_url(:declaration_id => @declaration_container.declaration_id) }
+      format.html { redirect_to declaration_cargos_url(:declaration_id => @declaration_cargo.declaration_id), :flash => {:success => "删除成功"} }
       format.json { head :no_content }
     end
   end

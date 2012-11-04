@@ -1,0 +1,52 @@
+<!-- 规格型号辅助输入 -->
+<div id="specification_helper"  style="display: none">
+	<h3>商品申报要素</h3>
+	<form>
+		<div></div>
+		<p>
+			<input class="button" type="button" onclick="specification_confirm();" value="确定" />
+		</p>
+	</form>	
+</div>
+
+<script type="text/javascript">
+	$("#specification_helper_link").click(function(){		
+		if ($("#<%= model_name %>_code").val() == '') {
+			alert("请填写商品编码");
+			return false;
+		};
+		$.get('/dict/goods/' + $("#<%= model_name %>_code").val() + '/show_by_code.json', null, function(data, textStatus, xhr) {
+			if (!data) {
+				alert("没有这个商品编码的规格型号模板，请到数据字典补充");
+				return;
+			};
+			$("#specification_helper form div").empty();
+			var specification_template_arr = data.specification_template.split('|');
+			for (var i = 0; i < specification_template_arr.length; i++) {
+				$("#specification_helper form div").append('\
+					<p>\
+						<label>' + specification_template_arr[i] + '</label>\
+						<input class="text-input medium-input" type="text" />\
+					</p>\
+				');
+			};			
+			var specification = $("#<%= model_name %>_specification").val();
+			var specification_arr = specification.split('|', specification_template_arr.length);
+			var inputs = $("#specification_helper input[type='text']");
+			for (var i = 0; i < specification_arr.length; i++) {
+				$(inputs.get(i)).val(specification_arr[i]);
+			};
+			$.facebox({div:"#specification_helper"});
+		});
+		return false;
+	});
+	function specification_confirm() {
+		var inputs = $("#facebox #specification_helper input[type='text']");
+		var specification_arr = new Array();
+		inputs.each(function(){
+			specification_arr.push($(this).val());
+		});
+		$("#<%= model_name %>_specification").val(specification_arr.join("|"));
+		$.facebox.close();
+	}
+</script>

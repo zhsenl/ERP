@@ -33,6 +33,18 @@
 		<% contracts_array = [["请选择" , 0]] + contracts_array %>
 		<%= f.select :contract_id, contracts_array, {}, :id => "contract_id_combobox", :class => "text-input small-input" %>
 	</div>	
+	<script type="text/javascript">
+		$(function() {
+			$("#contract_id_combobox").change(function() {
+				$.get('<%= contracts_path %>/' + this.value + '.json', null, function(data, textStatus, xhr) {
+				  if (data) {
+				  	$("#operate_enterprise_code_autocomplete").val(data.operate_enterprise_code).blur();
+				  	$(this).focus();
+				  };
+				});		
+			});
+		});
+	</script>
 	<% if @declaration_type == "import" %>
 	<div class="filed" >
 		<label>进口日期</label>
