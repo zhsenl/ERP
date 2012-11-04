@@ -16,8 +16,10 @@ class PagesController < ApplicationController
   end
 
   def barcode
-    barcode = Barby::Code39.new(params[:code], true)
-    #barcode.include_checksum = true;
+    require 'barby'
+    require 'barby/barcode/code_39'
+    require 'barby/outputter/png_outputter'
+    barcode = Barby::Code39.new(params['code'], true)
     send_data barcode.to_png(:height => 30, :margin => 5), :type => 'image/png', :disposition => 'inline'
   end
 
