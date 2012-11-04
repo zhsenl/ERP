@@ -14,4 +14,11 @@ class PagesController < ApplicationController
     end
     redirect_to params[:url]
   end
+
+  def barcode
+    barcode = Barby::Code39.new(params[:code], true)
+    #barcode.include_checksum = true;
+    send_data barcode.to_png(:height => 30, :margin => 5), :type => 'image/png', :disposition => 'inline'
+  end
+
 end

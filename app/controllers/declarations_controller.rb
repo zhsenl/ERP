@@ -41,7 +41,7 @@ class DeclarationsController < ApplicationController
   def print_declaration 
     authorize! :show, @declaration
     @declaration_cargos = @declaration.declaration_cargos.order("no")
-    @groups = Array.new(@declaration_cargos.size / 5 + 1){Array.new}
+    @groups = Array.new((@declaration_cargos.size - 1) / 5 + 1){Array.new}
     @declaration_cargos.each_with_index do |declaration_cargo, index|
       @groups[index / 5][index % 5] = declaration_cargo
     end

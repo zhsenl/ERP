@@ -60,6 +60,7 @@ ERP::Application.routes.draw do
   match '/me/change', :to => 'users#change'
   match '/me/enterprises', :to => 'users#my_enterprises'  
   match '/select_enterprise', :to => 'pages#select_enterprise'  
+  match '/barcode/:code', :to => 'pages#barcode'
   
 
   resources :users do

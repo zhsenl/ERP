@@ -123,8 +123,17 @@
 
 <% @groups.each_with_index do |group, group_index| %>
 <div class="frame">
-	<div style="width:100%;height:75px;">
-		
+	<div style="width:100%;height:75px;">		
+		<div id="barcode1">
+			<% if @declaration.pre_entry_no %>
+				<img src="<%= barcode_path + '/' + @declaration.pre_entry_no %>">
+			<% end %>
+		</div>
+		<div id="barcode2">
+			<% if @declaration.entry_no %>
+				<img src="<%= barcode_path + '/' + @declaration.entry_no %>">
+			<% end %>
+		</div>
 	</div>
 	<div class="title" >
 		<h1>中华人民共和国海关<%= @declaration_type == "export" ? "出口" : "进口"  %>货物报关单</h1>			
