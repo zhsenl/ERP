@@ -136,7 +136,7 @@ class DeclarationsController < ApplicationController
 
     respond_to do |format|
       if @declaration.save
-        format.html { redirect_to @declaration, notice: 'Declaration was successfully created.' }
+        format.html { redirect_to @declaration, :flash => { :success => '成功保存报关单'} }
         format.json { render json: @declaration, status: :created, location: @declaration }
       else
         format.html { render action: "new", :declaration_type => 1 }
@@ -151,7 +151,7 @@ class DeclarationsController < ApplicationController
     authorize! :update, @declaration
     respond_to do |format|
       if @declaration.update_attributes(params[:declaration])
-        format.html { redirect_to @declaration, notice: 'Declaration was successfully updated.' }
+        format.html { redirect_to @declaration, :flash => { :success => '成功修改报关单'} }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
