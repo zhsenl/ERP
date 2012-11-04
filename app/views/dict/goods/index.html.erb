@@ -1,10 +1,20 @@
+<%= render "shared/search_form", :model => Dict::Good %>
+
 <div class="content-box">
 	<div class="content-box-header">
 		<h3><%= @model_name %>列表</h3>
+		<% if params[:action] == "index" %>
 		<div class="operations">
 			<%= link_to '添加新'+@model_name, new_dict_good_path %> | 
-			<%= link_to '返回字典列表', dict_path %>
+			<%= link_to '返回字典列表', dict_path %>			
 		</div>
+		<% end %>
+		<% if params[:action] == "search" %>
+		<h3>关键字"<%= @term %>"的搜索结果:<%= @items.size %>条</h3>
+		<div class="operations">
+			<%= link_to '返回列表', dict_goods_path %>
+		</div>
+		<% end %>
 	</div>
 	<div class="content-box-content">
 		<div class="tab-content default-tab">
@@ -17,9 +27,11 @@
 					</tr>
 				</thead>
 				<tfoot>
+					<% if params[:action] == "index" %>
 					<tr>
-						<td colspan="6"> <%= will_paginate @items, :previous_label => '上一页', :next_label => '下一页' %> </td>
+						<td colspan="6"> <%= will_paginate @items %> </td>
 					</tr>
+					<% end %>
 				</tfoot>
 				<tbody>
 					<% @items.each do |item| %>

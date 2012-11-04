@@ -13,14 +13,15 @@ class Dict::DictsController < ApplicationController
   end
   
   def search
-    term = params[:term]
-    if term.blank?
+    @term = params[:term]
+    if @term.blank?
       @items = []
     else
-      @items = model.where("code like ? or name like ?", term + '%', '%' + term +'%')
+      @items = model.where("code like ? or name like ?", @term + '%', '%' + @term +'%')
     end
 
     respond_to do |format|
+      format.html { render action: "index" }
       format.json { render json: @items }
     end
   end
