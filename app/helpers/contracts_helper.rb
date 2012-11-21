@@ -34,7 +34,7 @@ module ContractsHelper
       import_result &= contract.save
 
       if !import_result
-        return {:result => import_result}
+        return {:result => import_result, :message => '合同头有误'}
       end
 
       worksheet = workbook.worksheet(1)
@@ -56,7 +56,7 @@ module ContractsHelper
       end
 
       if !import_result
-        return {:result => import_result}
+        return {:result => import_result, :message => '料件表有误'}
       end
 
       worksheet = workbook.worksheet(2)
@@ -78,7 +78,7 @@ module ContractsHelper
       end
 
       if !import_result
-        return {:result => import_result}
+        return {:result => import_result, :message => '成品表有误'}
       end
 
       worksheet = workbook.worksheet(3)
@@ -95,6 +95,10 @@ module ContractsHelper
         import_result &= contract_consumption.save
       end
     end
+
+    if !import_result
+        return {:result => import_result, :message => '单耗表有误'}
+      end
 
     return {:result => import_result, :contract => contract}
   end

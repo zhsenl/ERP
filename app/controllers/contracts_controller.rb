@@ -103,7 +103,7 @@ class ContractsController < ApplicationController
         if import_status[:result]
           flash[:success] = ('成功导入合同, <a href="' + contract_url(import_status[:contract]) + '" >点击查看</a>').html_safe
         else
-          flash[:attention] = '导入合同时有错误发生'
+          flash[:attention] = import_status[:message]
         end
       end
       File.delete(file_path)
