@@ -9,7 +9,7 @@ class ContractMaterial < ActiveRecord::Base
   validates :quantity, :presence => true, :numericality => true
   validates :unit_price, :presence => true, :numericality => true
   validates :trade_country, :presence => true
-  validates :tax_mode, :presence => true
+  #validates :tax_mode, :presence => true
   validates :no, :presence => true, :numericality => true, :uniqueness => { :scope => :contract_id}
   
   def total_price

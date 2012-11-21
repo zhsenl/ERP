@@ -12,7 +12,7 @@ module ContractsHelper
       enterprise = Enterprise.find_by_code(worksheet.row(4).at(5).to_s)
       contract.enterprise_id = enterprise.id
       operate_enterprise = Enterprise.find_by_code(worksheet.row(4).at(1).to_s)
-      contract.operate_enterprise_code = operate_enterprise.code
+      contract.operate_enterprise_code = operate_enterprise.code if !operate_enterprise.nil?
       foreign_enterprise = ForeignEnterprise.find_by_name(worksheet.row(5).at(1).to_s)
       contract.foreign_enterprise_code = foreign_enterprise.code if !foreign_enterprise.nil?
       trade_mode = Dict::TradeMode.find_by_name(worksheet.row(5).at(5).to_s)
@@ -31,7 +31,7 @@ module ContractsHelper
       contract.export_deadline = worksheet.row(11).at(1).to_s
       contract.import_deadline = worksheet.row(14).at(1).to_s
       contract.type_in_date = worksheet.row(13).at(5).to_s
-      import_result &= contract.save
+      import_result = import_result && contract.save
 
       if !import_result
         return {:result => import_result, :message => '合同头有误'}
@@ -52,7 +52,7 @@ module ContractsHelper
         contract_materail.trade_country = trade_country.code if !trade_country.nil?
         tax_mode = Dict::TaxMode.find_by_name(row.at(15).to_s)
         contract_materail.tax_mode = tax_mode.code if !tax_mode.nil?
-        import_result &= contract_materail.save
+        import_result = import_result && contract_materail.save
       end
 
       if !import_result
@@ -74,7 +74,7 @@ module ContractsHelper
         contract_product.trade_country = trade_country.code if !trade_country.nil?
         tax_mode = Dict::TaxMode.find_by_name(row.at(14).to_s)
         contract_product.tax_mode = tax_mode.code if !tax_mode.nil?
-        import_result &= contract_product.save
+        import_result = import_result && contract_product.save
       end
 
       if !import_result
@@ -92,7 +92,7 @@ module ContractsHelper
         contract_consumption.contract_material_id = contract_material.id
         contract_consumption.used = row.at(8).to_s
         contract_consumption.wasted = row.at(9).to_s
-        import_result &= contract_consumption.save
+        import_result = import_result && contract_consumption.save
       end
     end
 
