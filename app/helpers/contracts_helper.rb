@@ -7,11 +7,12 @@ module ContractsHelper
     contract = Contract.new
 
     Spreadsheet.open file.path do |workbook|
-      
       worksheet = workbook.worksheet(0)      
       contract.manual = worksheet.row(2).at(3).to_s
       enterprise = Enterprise.find_by_code(worksheet.row(4).at(5).to_s)
       contract.enterprise_id = enterprise.id
+      operate_enterprise = Enterprise.find_by_code(worksheet.row(4).at(1).to_s)
+      contract.operate_enterprise_code = operate_enterprise.code
       foreign_enterprise = ForeignEnterprise.find_by_name(worksheet.row(5).at(1).to_s)
       contract.foreign_enterprise_code = foreign_enterprise.code if !foreign_enterprise.nil?
       trade_mode = Dict::TradeMode.find_by_name(worksheet.row(5).at(5).to_s)
@@ -32,6 +33,10 @@ module ContractsHelper
       contract.type_in_date = worksheet.row(13).at(5).to_s
       import_result &= contract.save
 
+      if !import_result
+        return {:result => import_result}
+      end
+
       worksheet = workbook.worksheet(1)
       worksheet.each(2) do |row|
         contract_materail = ContractMaterial.new(:contract_id => contract.id)
@@ -50,6 +55,10 @@ module ContractsHelper
         import_result &= contract_materail.save
       end
 
+      if !import_result
+        return {:result => import_result}
+      end
+
       worksheet = workbook.worksheet(2)
       worksheet.each(2) do |row|
         contract_product = ContractProduct.new(:contract_id => contract.id)
@@ -66,6 +75,10 @@ module ContractsHelper
         tax_mode = Dict::TaxMode.find_by_name(row.at(14).to_s)
         contract_product.tax_mode = tax_mode.code if !tax_mode.nil?
         import_result &= contract_product.save
+      end
+
+      if !import_result
+        return {:result => import_result}
       end
 
       worksheet = workbook.worksheet(3)

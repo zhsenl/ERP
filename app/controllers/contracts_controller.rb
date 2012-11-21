@@ -108,6 +108,7 @@ class ContractsController < ApplicationController
       end
       File.delete(file_path)
     rescue
+      #puts "error:#{$!} at:#{$@}"
       flash[:error] = '导入合同失败'
     end
     redirect_to import_contracts_url
