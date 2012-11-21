@@ -31,7 +31,7 @@ module ContractsHelper
       contract.export_deadline = worksheet.row(11).at(1).to_s
       contract.import_deadline = worksheet.row(14).at(1).to_s
       contract.type_in_date = worksheet.row(13).at(5).to_s
-      import_result &= contract.save
+      import_result &= contract.save!
 
       if !import_result
         return {:result => import_result}
