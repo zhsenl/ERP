@@ -106,8 +106,6 @@ h1 {
 }
 </style>
 
-<% contract = @declaration.contract %>
-
 <div class="frame">
 <div style="width: 100%; height: 170px;"></div>
 <div class="tr" style="text-align: center; height: 50px;">
@@ -116,7 +114,7 @@ h1 {
 
 <div class="tr" style="height: 20px; margin-top: 10px;">
 <div class="td" style="height: 20px; width: 94px;"><span class="bgText">商　　　号：</span></div>
-<div class="td" style="height: 20px; width: 365px; border-bottom: 1px solid;"><span class="content"><%= contract.foreign_enterprise.name rescue "" %></span></div>
+<div class="td" style="height: 20px; width: 365px; border-bottom: 1px solid;"><span class="content"><%= @declaration.foreign_enterprise.name rescue "" %></span></div>
 <div class="td" style="height: 20px; width: 22px;"></div>
 <div class="td" style="height: 20px; width: 70px;"><span class="bgText">海关编号：</span></div>
 <div class="td" style="height: 20px; width: 146px; border-bottom: 1px solid;"><span class="content"><%= @declaration.enterprise.code rescue "" %></span></div>

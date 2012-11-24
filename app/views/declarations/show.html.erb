@@ -51,6 +51,10 @@
 					<span class="autoload" data-url=<%= enterprises_path %> ><%= @declaration.operate_enterprise_code %></span>
 				</p>
 				<p>
+					<b>外商公司:</b>
+					<span class="autoload" data-url=<%= foreign_enterprises_path %> ><%= @declaration.foreign_enterprise_code %></span>
+				</p>
+				<p>
 					<b><%= @declaration_type == "export" ? "出口" : "进口"  %>口岸:</b>
 					<span class="autoload" data-url=<%= dict_customs_path %> ><%= @declaration.custom %></span>
 				</p>

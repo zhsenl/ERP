@@ -60,5 +60,13 @@ class Declaration < ActiveRecord::Base
   def declare_enterprise
     Enterprise.find_by_code(declare_enterprise_code)
   end
+
+  def foreign_enterprise=(enterprise)
+    foreign_enterprise_code = enterprise.code
+  end
+
+  def foreign_enterprise
+    ForeignEnterprise.find_by_code(foreign_enterprise_code);
+  end
   
 end
