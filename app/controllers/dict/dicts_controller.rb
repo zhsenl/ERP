@@ -7,7 +7,10 @@ class Dict::DictsController < ApplicationController
     @title = '字典列表'
     @items = model.paginate(:page => params[:page],:per_page => 10) 
     respond_to do |format|
-      format.html 
+      format.html {
+        @model = model
+        render 'dict/index'
+      }
       format.json { render json: @items }
     end
   end
@@ -21,7 +24,10 @@ class Dict::DictsController < ApplicationController
     end
 
     respond_to do |format|
-      format.html { render action: "index" }
+      format.html {
+        @model = model
+        render 'dict/index'
+      }
       format.json { render json: @items }
     end
   end

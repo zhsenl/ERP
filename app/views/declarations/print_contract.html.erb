@@ -39,16 +39,18 @@
 	<div class="tr" style="height: 80px;"></div>
 	<div class="tr" style="height: 80px; text-align: center; font-size: 35px;"><%= @declaration_type == "export" ? "订销" : "购货"  %>合同</div>
 	<div class="tr">
-		<div class="td" style="width:70%">买方: 
+		<div class="td" style="width:70%">买方:  
 		<span class="content"><%= @declaration_type == "export" ? @declaration.foreign_enterprise.name : @declaration.enterprise.name   rescue "" %></span>
 		</div>
-		<div class="td" style="width:30%">合同号：<span class="content"><%= @declaration.contract_no %></span></div>
+		<div class="td" style="width:30%">合同号: 
+		<span class="content"><%= @declaration.contract_no %></span>
+		</div>
 	</div>
 	<div class="tr">
-		<div class="td" style="width:70%">卖方:
+		<div class="td" style="width:70%">卖方: 
 		<span class="content"><%= @declaration_type == "import" ? @declaration.foreign_enterprise.name : @declaration.enterprise.name   rescue "" %></span>
 		</div>
-		<div class="td" style="width:30%">签订日期：
+		<div class="td" style="width:30%">签订日期: 
 		<span class="content"><%= (@declaration.declare_date - 1.month).strftime("%Y年%m月%d日")  rescue "" %></span>
 		</div>
 	</div>
@@ -133,12 +135,12 @@
 		<div class="td" style="width:50%">卖方: <span class="content"><%= @declaration_type == "import" ? @declaration.foreign_enterprise.name : @declaration.enterprise.name   rescue "" %></span></div>
 	</div>
 	<div class="tr">
-		<div class="td" style="width:50%">地址:<span class="content"><%= @declaration_type == "export" ? @declaration.foreign_enterprise.address : @declaration.enterprise.address   rescue "" %></span></div>
-		<div class="td" style="width:50%">地址:<span class="content"><%= @declaration_type == "import" ? @declaration.foreign_enterprise.address : @declaration.enterprise.address   rescue "" %></span></div>
+		<div class="td" style="width:50%">地址: <span class="content"><%= @declaration_type == "export" ? @declaration.foreign_enterprise.address : @declaration.enterprise.address   rescue "" %></span></div>
+		<div class="td" style="width:50%">地址: <span class="content"><%= @declaration_type == "import" ? @declaration.foreign_enterprise.address : @declaration.enterprise.address   rescue "" %></span></div>
 	</div>
 	<div class="tr">
-		<div class="td" style="width:50%">电话:<span class="content"><%= @declaration_type == "export" ? @declaration.foreign_enterprise.telephone : @declaration.enterprise.telephone   rescue "" %></span></div>
-		<div class="td" style="width:50%">电话:<span class="content"><%= @declaration_type == "import" ? @declaration.foreign_enterprise.telephone : @declaration.enterprise.telephone   rescue "" %></span></div>
+		<div class="td" style="width:50%">电话: <span class="content"><%= @declaration_type == "export" ? @declaration.foreign_enterprise.telephone : @declaration.enterprise.telephone   rescue "" %></span></div>
+		<div class="td" style="width:50%">电话: <span class="content"><%= @declaration_type == "import" ? @declaration.foreign_enterprise.telephone : @declaration.enterprise.telephone   rescue "" %></span></div>
 	</div>
 	<div class="tr" style="height: 20px;"></div>
 </div>
