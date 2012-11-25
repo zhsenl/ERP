@@ -55,6 +55,13 @@ class DeclarationsController < ApplicationController
     @title = '打印合同'
     render :layout => 'print'
   end
+
+  def print_contract2 
+    authorize! :show, @declaration
+    @declaration_cargos = @declaration.declaration_cargos.order("no")    
+    @title = '打印合同2'
+    render :layout => 'print'
+  end
   
   def print_tax_invoice
     authorize! :show, @declaration

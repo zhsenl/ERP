@@ -226,6 +226,9 @@
 	<p>
 		<%= link_to '合同', print_contract_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
 	</p>
+	<p>
+		<%= link_to '合同2', print_contract2_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+	</p>
 	<% if @declaration_type == "export" %>
 	<p>
 		<%= link_to '国税发票', print_tax_invoice_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>

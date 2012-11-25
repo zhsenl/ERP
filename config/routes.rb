@@ -20,6 +20,7 @@ ERP::Application.routes.draw do
     get 'dispatch_record', :on => :member
     get 'print_declaration', :on => :member
     get 'print_contract', :on => :member
+    get 'print_contract2', :on => :member
     get 'print_tax_invoice', :on => :member
     get 'print_invoice', :on => :member
     get 'print_packing1', :on => :member

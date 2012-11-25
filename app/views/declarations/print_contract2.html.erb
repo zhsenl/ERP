@@ -1,0 +1,368 @@
+<style type="text/css">
+	BODY {
+		font-size: 12px;
+	}
+	h1 {
+		font-family: "STFangsong";
+		font-size: 30px;
+		font-weight: bold;
+	}
+	.frame {
+		margin: 0 auto;
+		width: 702px;
+		text-align: left;
+	}
+	.table {
+		border: 1px solid;
+	}
+	.tr {
+		float: none;
+		height: 30px;
+		width: 100%;
+		height: 30px;
+	}
+	.td {
+		float: left;
+		height: 30px;
+	}
+	.bold-value {
+		padding-top: 5px;
+		height: 25px;
+		text-align: center;
+		font-size: 16px;
+		border-bottom: 2px solid;
+	}
+	.table .tr {
+		height: 26px;
+		border-bottom: 1px solid;
+	}
+	.table .td {
+		border-right: 1px solid;
+		height: 26px;
+		text-align: center;
+	}
+	.table .last-tr {
+		border-bottom: none;
+	}
+	.table .last-td {
+		border-right: none;
+	}
+</style>
+
+<% contract = @declaration.contract %>
+
+<div class="frame">
+	<div style="width: 100%; height: 80px;"></div>
+	<div class="tr" style="height:100px;">
+		<div class="td" style="width:447px;height:100px; text-align: center;">
+			<h1>成&nbsp;交&nbsp;合&nbsp;同
+			<br/>
+			<span style="font-size: 20px;">BUSINESS CONFIRMATION</span></h1>
+		</div>
+		<div class="td" style="width:253px;height:100px;">
+			<div class="tr" >
+				<div class="td" style="width:78px;">
+					合同号码:
+					<br/>
+					Contract No:
+				</div>
+				<div class="td bold-value" style="width:175px;">
+					<span class="content"><%= @declaration.contract_no %></span>
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="tr" >
+				<div class="td" style="width:78px;">
+					日&nbsp;&nbsp;&nbsp;&nbsp;期:
+					<br/>
+					Date:
+				</div>
+				<div class="td bold-value" style="width:175px;">
+					<span class="content"><%= @declaration.declare_date.strftime('%Y年%m月%d日') %></span>
+				</div>
+			</div>
+			<div class="clear"></div>
+			<div class="tr" >
+				<div class="td" style="width:78px;">
+					签定地:
+					<br/>
+					Signd in:
+				</div>
+				<div class="td bold-value" style="width:175px;">
+					<span class="content"><%= dict_name Dict::District, @declaration.destination %></span>
+				</div>
+			</div>
+			<div class="clear"></div>
+		</div>
+	</div>
+	<div class="tr" >
+		<div class="td" style="width:78px;">
+			<%= @declaration_type == "export" ? "买" : "卖"  %>&nbsp;&nbsp;&nbsp;&nbsp;方:
+			<br/>
+			The <%= @declaration_type == "export" ? "Buyers" : "Sellers"  %>:
+		</div>
+		<div class="td bold-value" style="width:455px;">
+			<span class="content"><%= contract.foreign_enterprise.name rescue "" %></span>
+		</div>
+		<div class="td" style="width:160px; padding-top: 10px; height: 20px;">
+			&nbsp;电话:<span class="content"><%= contract.foreign_enterprise.telephone! rescue "" %></span>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div class="tr" >
+		<div class="td" style="width:78px;">
+			地&nbsp;&nbsp;&nbsp;&nbsp;址:
+			<br/>
+			Address:
+		</div>
+		<div class="td bold-value" style="width:455px;">
+			<span class="content"><%= contract.foreign_enterprise.address rescue "" %></span>
+		</div>
+		<div class="td" style="width:160px; padding-top: 10px; height: 20px;">
+			&nbsp;传真:<span class="content"><%= contract.foreign_enterprise.fax rescue "" %></span>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div class="tr" >
+		<div class="td" style="width:78px;">
+			<%= @declaration_type == "export" ? "卖" : "买"  %>&nbsp;&nbsp;&nbsp;&nbsp;方:
+			<br/>
+			The <%= @declaration_type == "export" ? "Sellers" : "Buyers"  %>:
+		</div>
+		<div class="td bold-value" style="width:455px;">
+			<span class="content"><%= @declaration.enterprise.name %></span>
+		</div>
+		<div class="td" style="width:160px; padding-top: 10px; height: 20px;">
+			&nbsp;电话:<span class="content"><%= @declaration.enterprise.telephone %></span>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div class="tr" >
+		<div class="td" style="width:78px;">
+			地&nbsp;&nbsp;&nbsp;&nbsp;址:
+			<br/>
+			Address:
+		</div>
+		<div class="td bold-value" style="width:455px;">
+			<span class="content"><%= @declaration.enterprise.address %></span>
+		</div>
+		<div class="td" style="width:160px; padding-top: 10px; height: 20px;">
+			&nbsp;传真:<span class="content"><%= @declaration.enterprise.fax %></span>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div class="tr" style="height: 50px; margin-top: 5px; ">
+		1、兹经买卖双方同意由买方购进入下列货物，并按下列条款签定本合同：
+		<br/>
+		&nbsp;&nbsp;&nbsp;&nbsp;This Purchase Contract is made by and between the Sellers and the Buyers whereby the Sellers agree to Sell
+		<br/>
+		&nbsp;&nbsp;and the Buycrs agree to buy the under-mentioned goods according to the terms and conditions Stipulated below:
+	</div>
+	<div class="clear"></div>
+	<div class="table">
+		<div class="tr" style="height:35px;" >
+			<div class="td" style="width:259px; height:35px;">
+				商品名称，规格及包装
+				<br/>
+				Name of Commodity,Specification & packing
+			</div>
+			<div class="td" style="width:103px; height:35px;">
+				数&nbsp;&nbsp;&nbsp;&nbsp;量
+				<br/>
+				Quantity
+			</div>
+			<div class="td" style="width:159px; height:35px;">
+				单&nbsp;&nbsp;&nbsp;&nbsp;价
+				<br/>
+				Unit Price
+			</div>
+			<div class="td last-td" style="width:175px; height:35px;">
+				总&nbsp;&nbsp;&nbsp;&nbsp;值
+				<br/>
+				Total Value
+			</div>
+		</div>
+		<% list_size = @declaration_cargos.size > 5 ? 5 : @declaration_cargos.size %>		
+		<% @declaration_cargos[0..list_size-1].each do |cargo| %>
+		<div class="tr" style="border-bottom: none;">
+			<div class="td" style="width:259px;">
+				<span class="content"><%= cargo.name %></span>
+			</div>
+			<div class="td" style="width:103px;">
+				<span class="content"><%= cargo.quantity %><%= dict_name Dict::Unit, cargo.unit %></span>
+			</div>
+			<div class="td" style="width:159px;">
+				<span class="content"><%= sprintf "%0.2f", cargo.unit_price %></span>
+			</div>
+			<div class="td last-td" style="width:175px;">
+				<span class="content"><%= sprintf "%0.2f", cargo.total_price %></span>
+			</div>
+		</div>
+		<% end %>
+
+		<% if list_size < 5 %>
+		<% (1..5-list_size).each do |i| %>
+		<div class="tr" style="border-bottom: none;">
+			<div class="td" style="width:259px;"></div>
+			<div class="td" style="width:103px;"></div>
+			<div class="td" style="width:159px;"></div>
+			<div class="td last-td" style="width:175px;"></div>
+		</div>
+		<% end %>
+		<% end %>
+				
+		<div class="tr">
+			<div class="td" style="width:259px;">
+				<% if @declaration_cargos.size > 5 %>（详见发票）<% end %>
+			</div>
+			<div class="td" style="width:103px;">
+				&nbsp;
+			</div>
+			<div class="td" style="width:159px;">
+				&nbsp;
+			</div>
+			<div class="td last-td" style="width:175px; text-align: left;">
+				成交方式：<span class="content"><%= dict_name Dict::DealMode, @declaration.deal_mode %>　<%= dict_name Dict::District, @declaration.destination %></span>
+			</div>
+		</div>
+		<div class="tr">
+			<div class="td" style="width:259px;text-align: left;">
+				Total:
+			</div>
+			<div class="td" style="width:103px;">
+				&nbsp;
+			</div>
+			<div class="td" style="width:159px;">
+				&nbsp;
+			</div>
+			<div class="td last-td" style="width:175px;">
+				<%
+					total_price = 0
+				 	@declaration_cargos.each do |cargo| 
+				 		total_price += cargo.total_price
+				 	end
+				%>
+				<span class="content"><%= dict_name Dict::Currency, @declaration_cargos[0].currency %> <%= sprintf "%0.2f", total_price %></span>
+			</div>
+		</div>
+		<div class="tr last-tr" style="height:35px;" >
+			&nbsp;&nbsp;&nbsp;&nbsp;(允许卖方在装货时溢装或短装，${balance[0]!""}%价格按本合同所列单价计算）
+			<br/>
+			&nbsp;&nbsp;&nbsp;&nbsp;(Te Sellers are allowed to load ${balance[0]!""}% more or less.the price shall be calculated according to the unit price)
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div class="tr" style="margin-top:5px;">
+		<div class="td" style="width:140px;">
+			2、装运口岸:
+			<br/>
+			Port of Shipment:
+		</div>
+		<div class="td" style="width:210px;">
+			<span class="content"><%= dict_name Dict::District, @declaration.destination %></span>
+		</div>
+		<div class="td" style="width:140px;">
+			3、目的口岸:
+			<br/>
+			Port of Destination:
+		</div>
+		<div class="td" style="width:210px;">
+			<span class="content"><%= dict_name Dict::Port, @declaration.port %></span>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div class="tr" >
+		<div class="td" style="width:140px;">
+			4、装运期限:
+			<br/>
+			Time of Shipment:
+		</div>
+		<div class="td" style="width:210px;">
+			<span class="content"><%= contract.export_deadline.strftime('%Y年%m月%d日') rescue "" %>到<%= contract.import_deadline.strftime('%Y年%m月%d日') rescue "" %></span>
+		</div>
+		<div class="td" style="width:140px;">
+			5、装运标记:
+			<br/>
+			Shiping Makr:
+		</div>
+		<div class="td" style="width:210px;">
+			<span class="content">N/M</span>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div class="tr" >
+		<div class="td" style="width:140px;">
+			6、付款条件:
+			<br/>
+			Terms of payment:
+		</div>
+		<div class="td" style="width:560px;">
+			<span class="content">T/T 先出后结，可以分批出口，按实际出口成交数量月结九十天结清。</span>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div class="tr" >
+		<div class="td" style="width:200px;">
+			7、生产国别:
+			<br/>
+			Country of Origin & Manufacturer:
+		</div>
+		<div class="td" style="width:400px;">
+			<span class="content">中国</span>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div class="tr" >
+		<div class="td" style="width:140px;">
+			8、保险:
+			<br/>
+			Insurance:
+		</div>
+		<div class="td" style="width:560px;">
+			<span class="content">由买方负责</span>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div class="tr" >
+		<div class="td" style="width:80px;">
+			9、其他条款:
+		</div>
+		<div class="td" style="width:620px;">
+			(a)本合同其他事项均按交货条款之规定办理，该交货条款为合同之不可分割部分。
+			<br/>
+			(b)本合同以中，英文字书写，两种文字的条款具有同等效力。
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div class="tr" style="height:52px;">
+		<div class="td" style="width:80px;height:52px;">
+			Other terms:
+		</div>
+		<div class="td" style="width:620px;height:52px;">
+			(a) Other matters relating to this Contract shall be dealt with in accordance with the terms Of
+			<br/>
+			&nbsp;&nbsp;&nbsp;&nbsp;delivery ,which shall form and integral part of this Contract.
+			<br/>
+			(b)This Contract is made out in Chinese and Engilsh ,both  versions being  equally authentic.
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div class="tr" style="height:52px;"></div>
+	<div class="clear"></div>
+	<div class="tr" style="height:40px;">
+		<div class="td" style="width:70px;height:40px;"></div>
+		<div class="td" style="width:144px;height:40px;text-align: center;border-bottom: 2px solid; font-size: 16px;">
+			<%= @declaration_type == "export" ? "卖" : "买"  %>&nbsp;&nbsp;&nbsp;&nbsp;方
+			<br/>
+			THE <%= @declaration_type == "export" ? "SELLERS" : "BUYERS"  %>
+		</div>
+		<div class="td" style="width:234px;height:40px;"></div>
+		<div class="td" style="width:144px;height:40px;text-align: center;border-bottom: 2px solid; font-size: 16px;">
+			<%= @declaration_type == "export" ? "买" : "卖"  %>&nbsp;&nbsp;&nbsp;&nbsp;方
+			<br/>
+			THE <%= @declaration_type == "export" ? "BUYERS" : "SELLERS"  %>
+		</div>
+	</div>
+	<div class="clear"></div>
+	<div style="width: 100%; height: 70px;"></div>
+</div>
