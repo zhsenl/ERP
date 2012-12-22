@@ -3,7 +3,8 @@ require "net/ftp"
 require 'fileutils'
 require 'yaml'
 
-Settings = YAML.load_file(File.expand_path('../../../config/settings.yml', __FILE__))
+rails_root = File.expand_path('../../../', __FILE__)
+Settings = YAML.load_file(rails_root + '/config/settings.yml')
 
 #发送报文
 Dir.new(Settings['dispatch_paths']['upload_temp']).each do |file_name|
@@ -19,7 +20,7 @@ Dir.new(Settings['dispatch_paths']['upload_temp']).each do |file_name|
       FileUtils.mv message_file, Settings["dispatch_paths"]["upload"] + "/" + File.basename(message_file)
     rescue
       message_file.close
-      File.open(Rails.root.join('log', "ftp.log"), 'a') do |file|
+      File.open(rails_root + '/log/ftp.log', 'a') do |file|
         file.puts "time: #{Time.now} error:#{$!} at:#{$@}"
       end
     end        
