@@ -157,7 +157,7 @@
 			<div class="td" style="width:170px;"><div class="bg-text">备案号</div> 
 				<span class="content"><%=  @declaration.contract.manual if (@declaration.contract && @declaration.trade_mode != '0110') %></span>
 			</div>
-			<div class="td" style="width:142px;"><div class="bg-text"><%= @declaration_type == "export" ? "出口" : "进口" %>日期</div> <span class="content"><%= @declaration.import_export_date.strftime('%Y年%m月%d日') if @declaration.import_export_date %></span></div>
+			<div class="td" style="width:142px;"><div class="bg-text"><%= @declaration_type == "export" ? "出口" : "进口" %>日期</div> <span class="content"><%= @declaration.import_export_date.strftime('%Y%m%d') if @declaration.import_export_date %></span></div>
 			<div class="td last-td" style="width:128px;"><div class="bg-text">申报日期</div> <span class="content"><%= @declaration.declare_date.strftime('%Y%m%d') if @declaration.declare_date %></span></div>
 		</div>
 		<div class="tr">
@@ -208,7 +208,13 @@
 			end
 		%>
 			<div class="td" style="width:370px;"><div class="bg-text">随附单证</div> <span class="content"><%= attachments.join(" ") %></span></div>
-			<div class="td last-td" style="width:157px;"><div class="bg-text"><%= @declaration_type == "export" ? "生产厂家" : "用途" %></div> <span class="content"></span></div>
+			<div class="td last-td" style="width:157px;"><div class="bg-text"><%= @declaration_type == "export" ? "生产厂家" : "用途" %></div>
+				<% if @declaration_type == "export" %>
+				<span class="content"></span>
+				<% else %>
+				<span class="content"><%= dict_name Dict::Usage, @declaration.usage %></span>
+				<% end %>
+			</div>
 		</div>
 		
 		

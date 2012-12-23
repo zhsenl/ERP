@@ -160,6 +160,12 @@
 					<b>备注:</b>
 					<%= @declaration.memo %>
 				</p>
+				<% if @declaration_type == "import" %>
+				<p>
+					<b>用途:</b>
+					<span class="autoload" data-url=<%= dict_usages_path %> ><%= @declaration.usage %></span>
+				</p>
+				<% end %>
 				<% @declaration.attachments.each do |key, value| %>
 				<p>
 					<b><span class="autoload" data-url=<%= dict_attachments_path %> ><%= key %></span>:</b>
