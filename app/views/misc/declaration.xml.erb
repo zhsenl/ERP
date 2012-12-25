@@ -140,7 +140,7 @@
               <%= raw tcs("PayMode", (@declaration.pay_way rescue '')) %>
               <tcs:SaleDomesticRatio xsi:nil="true" />
               <tcs:ImportExportDate xsi:nil="true" />
-              <%= raw tcs("TransportDate", (now.strftime('%y-%m-%d') rescue '')) %>
+              <%= raw tcs("TransportDate", (now.strftime('%Y-%m-%d') rescue '')) %>
               <%= raw tcs("Note", ('[装卸口岸]' + dict_name(Dict::LoadPort, @declaration.load_port) + ' ' + @declaration.memo rescue '')) %>
               <tcs:DeclarantID xsi:nil="true" />
               <tcs:DeclarantTelephone xsi:nil="true" />
@@ -247,7 +247,7 @@
           	<%= raw tcs("Name", (@declaration.declarant rescue '')) %>
           	<%= raw tcs("OrganizationCode", (enterprise.organization_code rescue '')) %>
             <tcs:SignInformation>A001</tcs:SignInformation>
-            <%= raw tcs("SignDate", (now.strftime('%y%m%dT%H%M%S') rescue '')) %>
+            <%= raw tcs("SignDate", (now.strftime('%Y%m%dT%H%M%S') rescue '')) %>
             <%= raw tcs("CertificateNo", (custom_option.certificate_no rescue '')) %>
           </tcs:SignInformation>
         </tcs:DeclarationDocument>
