@@ -114,7 +114,7 @@
               <tcs:RelativeEnrolNo xsi:nil="true" />
               <%= raw tcs("MeansOfTransportName", (@declaration.transport_tool rescue '')) %>
               <tcs:MeansOfTransportId xsi:nil="true" />
-              <%= raw tcs("BillOfLadingNo", (@declaration.declaration_transit_information.bill_no rescue '')) %>
+              <%= raw tcs("BillOfLadingNo", (@declaration.bill_no rescue '')) %>
               <%= raw tcs("PackingType", (@declaration.wrap_type rescue '')) %>
               <%= raw tcs("MeansOfTransportMode", (@declaration.transport_mode rescue '')) %>
               <%= raw tcs("TransactionMode", (@declaration.deal_mode rescue '')) %>
