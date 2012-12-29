@@ -6,7 +6,7 @@
   <MessageHead>
     <MessageType>001</MessageType>
     <MessageId><%= custom_option.platform_id %><%= @serial_no %></MessageId>
-    <MessageTime><%= now.strftime('%y%m%d%H%M%S') %></MessageTime>
+    <MessageTime><%= now.strftime('%Y%m%d%H%M%S') %></MessageTime>
     <SenderId><%= custom_option.platform_id %></SenderId>
     <SenderAddress><%= custom_option.platform_id %><%= custom_option.area_name %></SenderAddress>
     <ReceiverId>T99999999999</ReceiverId>
@@ -34,7 +34,7 @@
         </tcs:TcsLinkMan>
       </tcs:TcsLink>
       <tcs:TcsFlow>
-      	<MessageId><%= custom_option.platform_id %><%= @serial_no %></MessageId>
+      	<tcs:MessageId><%= custom_option.platform_id %><%= @serial_no %></tcs:MessageId>
       	<%= raw tcs("BpNo", (custom_option.process_no rescue '')) %>
         <tcs:ActionList>
           <tcs:ActionId>a01</tcs:ActionId>
