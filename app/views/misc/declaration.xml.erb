@@ -8,7 +8,7 @@
     <MessageId><%= custom_option.platform_id %><%= @serial_no %></MessageId>
     <MessageTime><%= now.strftime('%Y%m%d%H%M%S') %></MessageTime>
     <SenderId><%= custom_option.platform_id %></SenderId>
-    <SenderAddress><%= custom_option.platform_id %><%= custom_option.area_name %></SenderAddress>
+    <SenderAddress><%= custom_option.platform_id %>@<%= custom_option.area_name %></SenderAddress>
     <ReceiverId>T99999999999</ReceiverId>
     <ReceiverAddress>T99999999999@TCS10001</ReceiverAddress>
   </MessageHead>
