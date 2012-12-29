@@ -30,9 +30,9 @@ end
 #接收报文
 Net::FTP.open(Settings['ftp_info']['host'], Settings['ftp_info']['username'], Settings['ftp_info']['password'].to_s) do |ftp|
   ftp.nlst('/TCS/Download').each do |file|
-  	temp_file = Settings['dispatch_paths']['download_temp'] + '/' + File.basename(file)
+  	temp_file = Settings['dispatch_paths']['temp'] + '/' + File.basename(file)
     ftp.gettextfile(file, temp_file)
-    FileUtils.mv temp_file, Settings["dispatch_paths"]["download"] + "/" + File.basename(file)
+    FileUtils.mv temp_file, Settings["dispatch_paths"]["download_temp"] + "/" + File.basename(file)
     ftp.delete(file)
   end             
 end
