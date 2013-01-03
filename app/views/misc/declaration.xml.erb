@@ -86,7 +86,13 @@
             <tcs:EportLocationInformationList>
               <tcs:EportLocationInformation>
                 <tcs:EportLocationTypeCode>001</tcs:EportLocationTypeCode>
-                <%= raw tcs("EportLocationCode", (@declaration.load_port rescue '')) %>
+                <% 
+                  load_port = Dict::LoadPort.find_by_code(@declaration.load_port)
+                  if !load_port.nil?
+                    load_port_custom = load_port.custom_code
+                  end
+                %>
+                <%= raw tcs("EportLocationCode", (load_port_custom rescue '')) %>
               </tcs:EportLocationInformation>
               <tcs:EportLocationInformation>
                 <tcs:EportLocationTypeCode>003</tcs:EportLocationTypeCode>
