@@ -50,6 +50,7 @@ begin
     temp_file = Settings['dispatch_paths']['temp'] + '/' + file
     ftp.get('/TCS/Download/' + file, temp_file)
     FileUtils.mv temp_file, Settings["dispatch_paths"]["download_temp"] + "/" + File.basename(file)
+    ftp.delete('/TCS/Download/' + file)
   end
   ftp.close
 rescue
