@@ -164,9 +164,9 @@
                 <tcs:EnglishName xsi:nil="true" />
                 <%= raw tcs("Model", (cargo.specification rescue '')) %>
                 <% if @declaration.trade_mode == '0110' %>
-                <%= raw tcs("EnrolNo", (cargo.no_in_contract rescue '')) %>
-                <% else %>
                 <tcs:EnrolNo xsi:nil="true" />
+                <% else %>
+                <%= raw tcs("EnrolNo", (cargo.no_in_contract rescue '')) %>                
                 <% end %>
                 <%= raw tcs("Quantity", (cargo.quantity rescue '')) %>
                 <%= raw tcs("QuantityUnit", (cargo.unit rescue '')) %>

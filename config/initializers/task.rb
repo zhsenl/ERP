@@ -6,6 +6,6 @@ scheduler.every("2m") do
    system('rake receipt:check_receipts')
 end
 
-# scheduler.every("2m") do
-#    system("ruby #{Rails.root.join('lib', 'tasks', "dispatcher.rb")}")
-# end
+scheduler.every("2m") do
+   system("ruby #{Rails.root.join('lib', 'tasks', "dispatcher.rb")}")
+end
