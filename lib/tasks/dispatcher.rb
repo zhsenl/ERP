@@ -32,9 +32,9 @@ begin
   end
 
   ftp.close
-rescue
-  puts 'send error'
+rescue  
   ftp.close
+  puts "time: #{Time.now} error:#{$!} at:#{$@}"
 end
 puts 'end send'
 
@@ -54,8 +54,8 @@ begin
     ftp.delete('/TCS/Download/' + file)
   end
   ftp.close
-rescue
-  puts 'receive error'
+rescue  
   ftp.close
+  puts "time: #{Time.now} error:#{$!} at:#{$@}"
 end
 puts 'end receive'
