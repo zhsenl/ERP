@@ -33,6 +33,7 @@ begin
 
   ftp.close
 rescue
+  puts 'send error'
   ftp.close
 end
 puts 'end send'
@@ -54,6 +55,7 @@ begin
   end
   ftp.close
 rescue
+  puts 'receive error'
   ftp.close
 end
 puts 'end receive'
