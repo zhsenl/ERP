@@ -164,7 +164,7 @@
 			<div class="td" style="width:295px;"><div class="bg-text">经营单位</div> <span class="content"><%= enterprise_name_and_code @declaration.operate_enterprise_code %></span></div>
 			<div class="td" style="width:79px;"><div class="bg-text">运输方式</div> <span class="content"><%= dict_name Dict::TransportMode, @declaration.transport_mode %></span></div>
 			<div class="td" style="width:171px;"><div class="bg-text">运输工具名称</div> <span class="content"><%= @declaration.transport_tool %> <%= @declaration.voyage_no %></span></div>
-			<div class="td last-td" style="width:190px;"><div class="bg-text">提运单号</div> <span class="content"><%= @declaration.bill_no %> <%= dict_name Dict::Truck, @declaration.truck %></span></div>
+			<div class="td last-td" style="width:190px;"><div class="bg-text">提运单号</div> <span class="content"><%= @declaration.bill_no %></span></div>
 		</div>
 		<div class="tr">
 			<div class="td" style="width:295px;"><div class="bg-text"><%= @declaration_type == "export" ? "发货" : "收货" %>单位</div> <span class="content"><%= enterprise_name_and_code @declaration.enterprise %></span></div>
