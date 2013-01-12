@@ -25,6 +25,7 @@ class Declaration < ActiveRecord::Base
   validates :gross_weight, :presence => true, :numericality => true
   validates :net_weight, :presence => true, :numericality => true
   validates :transit_type, :presence => true
+  validates :transport_tool, :presence => true, :length => { :maximum => 14 }
 
   before_validation :process_data
 
