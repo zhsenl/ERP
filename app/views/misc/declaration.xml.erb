@@ -208,7 +208,7 @@
            	<% @declaration.attachments.each do |key, val| %>
               <tcs:DocumentAttachedInformation>
               	<%= raw tcs("DocumentAttachedCode", (key rescue '')) %>
-              	<%= raw tcs("DocumentAttachedCode", (val rescue '')) %>		
+              	<%= raw tcs("DocumentAttachedNo", (val rescue '')) %>		
               </tcs:DocumentAttachedInformation>
             <% end %>
             </tcs:DocumentAttachedInformationList> 
