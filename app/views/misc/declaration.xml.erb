@@ -145,7 +145,11 @@
               <tcs:ExtrasCurrency xsi:nil="true" />
               <%= raw tcs("PayMode", (@declaration.pay_way rescue '')) %>
               <tcs:SaleDomesticRatio xsi:nil="true" />
+              <% if @declaration.declaration_type == 'export' %>
               <tcs:ImportExportDate xsi:nil="true" />
+              <% else %>
+              <%= raw tcs("ImportExportDate", (@declaration.import_export_date.strftime('%Y-%m-%dT%H:%M:%S') rescue '')) %>
+              <% end %>
               <%= raw tcs("TransportDate", (now.strftime('%Y-%m-%d') rescue '')) %>
               <%= raw tcs("Note", ('[装卸口岸]' + dict_name(Dict::LoadPort, @declaration.load_port) + ' ' + @declaration.memo rescue '')) %>
               <tcs:DeclarantID xsi:nil="true" />
