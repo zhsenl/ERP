@@ -17,11 +17,7 @@ namespace :receipt do
           message_id = REXML::XPath.first(doc, "//MessageId" ).text
           request_message_id = REXML::XPath.first(doc, "//RequestMessageId" ).text
           task_id = REXML::XPath.first(doc, "//TaskId" ).text
-          if !REXML::XPath.first(doc, "//ResponseList//ResultValue" ).nil?
-            note = REXML::XPath.first(doc, "//ResponseList//ResultValue" ).text
-          elsif !REXML::XPath.first(doc, "//ResultInformation" ).nil?
-            note = REXML::XPath.first(doc, "//ResultInformation" ).text
-          end
+          note = REXML::XPath.first(doc, "//ResponseList//ResultValue" ).text
           dispatch_record_generate = DispatchRecord.where("message_id = ? AND channel = ?", request_message_id, '000').first
           if dispatch_record_generate
             dispatch_record_generate.task_id = task_id
@@ -36,7 +32,7 @@ namespace :receipt do
           message_id = REXML::XPath.first(doc, "//MessageId" ).text
           task_id = REXML::XPath.first(doc, "//TaskId" ).text
           channel = REXML::XPath.first(doc, '//Channel | //CHANNEL' ).text
-          if channel == '001'
+          if !REXML::XPath.first(doc, "//ResultInformation" ).nil?
             note = REXML::XPath.first(doc, "//ResultInformation" ).text
           else
             note = REXML::XPath.first(doc, "//Note | //NOTE" ).text
