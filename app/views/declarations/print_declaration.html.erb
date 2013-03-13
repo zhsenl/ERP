@@ -42,7 +42,7 @@
 	#top-left {
 		margin-left: 100px;
 		float: left;
-		width: 290px;
+		width: 330px;
 	}
 	
 	#top-right {
@@ -146,7 +146,10 @@
 		<h1>中华人民共和国海关<%= @declaration_type == "export" ? "出口" : "进口"  %>货物报关单</h1>			
 	</div>
 	<div id="top">
-		<div id="top-left">预录入编号：<span class="content"><%= @declaration.pre_entry_no %></span></div>
+		<div id="top-left">
+			预录入编号：<span class="content"><%= @declaration.pre_entry_no %></span>
+			<span class="content">申报现场:<%= dict_name Dict::LoadPort, @declaration.load_port %></span>
+		</div>
 		<div id="top-right">海关编号：<span class="content"><%= @declaration.entry_no %></span></div>
 		<div class="clear"></div>
 	</div>
@@ -301,7 +304,7 @@
 					<div class="td last-td" style="width:100%;height:75px;"><div class="bg-text">兹声明以上申报无讹并承担法律责任</div> </div>				
 				</div>	
 				<div class="tr" style="height: 65px; border-bottom: none;">
-					<div class="td last-td" style="width:100%;height:65px;"><div class="bg-text" style="margin-left: 20px;">申报单位（签章）</div><span class="content"><%= @declaration.declare_enterprise.name %></span><br/><span class="content"><%= @declaration.declare_enterprise.code %></span> </div>				
+					<div class="td last-td" style="width:100%;height:65px;"><div class="bg-text" style="margin-left: 20px;">申报单位（签章）</div><span class="content"><%= @declaration.declare_enterprise.name %></span> </div>				
 				</div>	
 				<div class="tr" style="height: 14px; border-bottom: none;">
 					<div class="td last-td" style="width:100%;height:16px;"><div class="bg-text"  style="margin-left: 20px;">填制日期&nbsp;<span class="content"><%= @declaration.declare_date.strftime('%Y%m%d') if @declaration.declare_date %></span></div></div>	

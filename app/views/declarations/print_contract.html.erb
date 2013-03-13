@@ -99,7 +99,7 @@
 		<% end %>
 
 		<div class="tr">
-			<div class="td" style="width:316px;">(以上详见发票装箱单)</div>
+			<div class="td" style="width:316px;">(以上详见发票或装箱单)</div>
 			<div class="td" style="width:251px;">
 				合&nbsp;&nbsp;&nbsp;&nbsp;计:
 				(<span class="content"><%= dict_name Dict::Currency, @declaration_cargos[0].currency  rescue "" %></span>)
@@ -113,7 +113,7 @@
 			<div class="td" style="width:128px;"><span class="content"><%= sprintf "%0.2f", total_price  rescue "" %></span></div>
 		</div>
 	</div>
-	<div class="tr">2. 装运日期：<%= (@declaration.declare_date + 60.days).strftime("%Y年%m月%d日")  rescue "" %></div>
+	<div class="tr">2. 装运日期：<span class="content"><%= (@declaration.declare_date + 60.days).strftime("%Y年%m月%d日")  rescue "" %></span></div>
 	<div class="tr">3. <%= @declaration_type == "export" ? "运抵" : "启运" %>国:<span class="content"><%= dict_name Dict::Country, @declaration.trade_country  rescue "" %></span></div>
 	<div class="tr">4. <%= @declaration_type == "export" ? "指运港" : "装货港" %>:<span class="content"><%= dict_name Dict::Port, @declaration.port  rescue "" %></span></div>
 	<div class="tr">5. <%= @declaration_type == "export" ? "货源地" : "目的地" %>:<span class="content"><%= dict_name Dict::District, @declaration.destination  rescue "" %></span></div>
@@ -122,25 +122,24 @@
 	<div class="tr">8. 包装种类:<span class="content"><%= dict_name Dict::WrapType, @declaration.wrap_type %></div>
 	<div class="tr">9. <%= @declaration_type == "export" ? "目的地" : "原产国" %>:<span class="content"><%= dict_name Dict::Country, @declaration_cargos.first.trade_country  rescue "" %></span></div>
 	<div class="tr">10.结汇方式:<span class="content"><%= @declaration_type == "export" ? "先出后结" : "T/T" %></span></div>
-	<div class="tr">11.检验和索赔:货卸目的地后买方有权进行检验,检验结果与合同约定的不符,买方有权根据本国检验检疫部门出具的检验证书提出索赔,索赔有效期限为货卸目的地后三十天。</div>
-	<div class="tr">12.仲裁:一切因执行本合同或本合同有关的争议最终由中国国际经济贸易仲裁委员会按其规则进
-   行仲裁.仲裁费用由败方负担。</div>
+	<div class="tr">11.检验和索赔:货卸目的地后买方有权进行检验,检验结果与合同约定的不符,买方有权根据本国检验<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;检疫部门出具的检验证书提出索赔,索赔有效期限为货卸目的地后三十天。</div>
+	<div class="tr">12.仲裁:一切因执行本合同或本合同有关的争议最终由中国国际经济贸易仲裁委员会按其规则进行仲</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;裁.仲裁费用由败方负担。</div>
 	<div class="tr">13.其它:本合同受国际商会的约束。</div>
 	<div class="tr">14.本合同未定的事宜须经买卖双方协商。</div>
 	<div class="tr">15.本合同一式两份，买卖双方各持一份，具有同等法律效力。</div>
-	<div class="tr" style="height: 110px;"></div>
+	<div class="tr" style="height: 150px;"></div>
 
 	<div class="tr">
-		<div class="td" style="width:50%">买方: <span class="content"><%= @declaration_type == "export" ? @declaration.foreign_enterprise.name : @declaration.enterprise.name   rescue "" %></span></div>
-		<div class="td" style="width:50%">卖方: <span class="content"><%= @declaration_type == "import" ? @declaration.foreign_enterprise.name : @declaration.enterprise.name   rescue "" %></span></div>
+		<div class="td" style="width:50%"><%= @declaration_type == "export" ? '买方' : '卖方'  rescue "" %>: <span class="content"><%= @declaration.foreign_enterprise.name rescue "" %></span></div>
+		<div class="td" style="width:50%"><%= @declaration_type == "import" ? '买方' : '卖方'  rescue "" %>: <span class="content"><%= @declaration.enterprise.name   rescue "" %></span></div>
 	</div>
 	<div class="tr">
-		<div class="td" style="width:50%">地址: <span class="content"><%= @declaration_type == "export" ? @declaration.foreign_enterprise.address : @declaration.enterprise.address   rescue "" %></span></div>
-		<div class="td" style="width:50%">地址: <span class="content"><%= @declaration_type == "import" ? @declaration.foreign_enterprise.address : @declaration.enterprise.address   rescue "" %></span></div>
+		<div class="td" style="width:50%">地址: <span class="content"><%= @declaration.foreign_enterprise.address rescue "" %></span></div>
+		<div class="td" style="width:50%">地址: <span class="content"><%= @declaration.enterprise.address   rescue "" %></span></div>
 	</div>
 	<div class="tr">
-		<div class="td" style="width:50%">电话: <span class="content"><%= @declaration_type == "export" ? @declaration.foreign_enterprise.telephone : @declaration.enterprise.telephone   rescue "" %></span></div>
-		<div class="td" style="width:50%">电话: <span class="content"><%= @declaration_type == "import" ? @declaration.foreign_enterprise.telephone : @declaration.enterprise.telephone   rescue "" %></span></div>
+		<div class="td" style="width:50%">电话: <span class="content"><%= @declaration.foreign_enterprise.telephone rescue "" %></span></div>
+		<div class="td" style="width:50%">电话: <span class="content"><%= @declaration.enterprise.telephone   rescue "" %></span></div>
 	</div>
 	<div class="tr" style="height: 20px;"></div>
 </div>
