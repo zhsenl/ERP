@@ -184,7 +184,7 @@
 		</div>
 		<% list_size = @declaration_cargos.size > 5 ? 5 : @declaration_cargos.size %>		
 		<% @declaration_cargos[0..list_size-1].each do |cargo| %>
-		<div class="tr" style="border-bottom: none;">
+		<div class="tr" style="border-bottom: none;font-size:14px;">
 			<div class="td" style="width:259px;">
 				<span class="content"><%= cargo.name %></span>
 			</div>
@@ -226,14 +226,14 @@
 			</div>
 		</div>
 		<div class="tr">
-			<div class="td" style="width:259px;text-align: left;">
-				Total:
+			<div class="td" style="width:259px;">
+				以上详见发票或装箱单
 			</div>
 			<div class="td" style="width:103px;">
 				&nbsp;
 			</div>
 			<div class="td" style="width:159px;">
-				&nbsp;
+				合计：(<%= dict_name Dict::Currency, @declaration_cargos[0].currency %>)
 			</div>
 			<div class="td last-td" style="width:175px;">
 				<%
@@ -242,61 +242,61 @@
 				 		total_price += cargo.total_price
 				 	end
 				%>
-				<span class="content"><%= dict_name Dict::Currency, @declaration_cargos[0].currency %> <%= sprintf "%0.2f", total_price %></span>
+				<span class="content"><%= sprintf "%0.2f", total_price %></span>
 			</div>
 		</div>
 		<div class="tr last-tr" style="height:35px;" >
-			&nbsp;&nbsp;&nbsp;&nbsp;(允许卖方在装货时溢装或短装，${balance[0]!""}%价格按本合同所列单价计算）
+			&nbsp;&nbsp;&nbsp;&nbsp;(允许卖方在装货时溢装或短装，5%价格按本合同所列单价计算）
 			<br/>
-			&nbsp;&nbsp;&nbsp;&nbsp;(Te Sellers are allowed to load ${balance[0]!""}% more or less.the price shall be calculated according to the unit price)
+			&nbsp;&nbsp;&nbsp;&nbsp;(Te Sellers are allowed to load 5% more or less.the price shall be calculated according to the unit price)
 		</div>
 	</div>
 	<div class="clear"></div>
 	<div class="tr" style="margin-top:5px;">
-		<div class="td" style="width:140px;">
+		<div class="td" style="width:110px;">
 			2、装运口岸:
 			<br/>
 			Port of Shipment:
 		</div>
-		<div class="td" style="width:210px;">
+		<div class="td" style="width:240px;">
 			<span class="content"><%= dict_name Dict::District, @declaration.destination %></span>
 		</div>
-		<div class="td" style="width:140px;">
+		<div class="td" style="width:110px;">
 			3、目的口岸:
 			<br/>
 			Port of Destination:
 		</div>
-		<div class="td" style="width:210px;">
+		<div class="td" style="width:240px;">
 			<span class="content"><%= dict_name Dict::Port, @declaration.port %></span>
 		</div>
 	</div>
 	<div class="clear"></div>
 	<div class="tr" >
-		<div class="td" style="width:140px;">
+		<div class="td" style="width:110px;">
 			4、装运期限:
 			<br/>
 			Time of Shipment:
 		</div>
-		<div class="td" style="width:210px;">
-			<span class="content"><%= contract.export_deadline.strftime('%Y年%m月%d日') rescue "" %>到<%= contract.import_deadline.strftime('%Y年%m月%d日') rescue "" %></span>
+		<div class="td" style="width:240px;">
+			<span class="content"><%= (@declaration.declare_date - 30.days).strftime('%Y年%m月%d日') rescue "" %>到<%= (@declaration.declare_date + 60.days).strftime('%Y年%m月%d日') rescue "" %></span>
 		</div>
-		<div class="td" style="width:140px;">
+		<div class="td" style="width:110px;">
 			5、装运标记:
 			<br/>
 			Shiping Makr:
 		</div>
-		<div class="td" style="width:210px;">
+		<div class="td" style="width:240px;">
 			<span class="content">N/M</span>
 		</div>
 	</div>
 	<div class="clear"></div>
 	<div class="tr" >
-		<div class="td" style="width:140px;">
+		<div class="td" style="width:110px;">
 			6、付款条件:
 			<br/>
 			Terms of payment:
 		</div>
-		<div class="td" style="width:560px;">
+		<div class="td" style="width:590px;">
 			<span class="content">T/T 先出后结，可以分批出口，按实际出口成交数量月结九十天结清。</span>
 		</div>
 	</div>
@@ -313,12 +313,12 @@
 	</div>
 	<div class="clear"></div>
 	<div class="tr" >
-		<div class="td" style="width:140px;">
+		<div class="td" style="width:110px;">
 			8、保险:
 			<br/>
 			Insurance:
 		</div>
-		<div class="td" style="width:560px;">
+		<div class="td" style="width:590px;">
 			<span class="content">由买方负责</span>
 		</div>
 	</div>
@@ -352,15 +352,15 @@
 	<div class="tr" style="height:40px;">
 		<div class="td" style="width:70px;height:40px;"></div>
 		<div class="td" style="width:144px;height:40px;text-align: center;border-bottom: 2px solid; font-size: 16px;">
-			<%= @declaration_type == "export" ? "卖" : "买"  %>&nbsp;&nbsp;&nbsp;&nbsp;方
-			<br/>
-			THE <%= @declaration_type == "export" ? "SELLERS" : "BUYERS"  %>
-		</div>
-		<div class="td" style="width:234px;height:40px;"></div>
-		<div class="td" style="width:144px;height:40px;text-align: center;border-bottom: 2px solid; font-size: 16px;">
 			<%= @declaration_type == "export" ? "买" : "卖"  %>&nbsp;&nbsp;&nbsp;&nbsp;方
 			<br/>
 			THE <%= @declaration_type == "export" ? "BUYERS" : "SELLERS"  %>
+		</div>
+		<div class="td" style="width:234px;height:40px;"></div>		
+		<div class="td" style="width:144px;height:40px;text-align: center;border-bottom: 2px solid; font-size: 16px;">
+			<%= @declaration_type == "export" ? "卖" : "买"  %>&nbsp;&nbsp;&nbsp;&nbsp;方
+			<br/>
+			THE <%= @declaration_type == "export" ? "SELLERS" : "BUYERS"  %>
 		</div>
 	</div>
 	<div class="clear"></div>
