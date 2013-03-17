@@ -32,10 +32,8 @@ namespace :receipt do
           message_id = REXML::XPath.first(doc, "//MessageId" ).text
           task_id = REXML::XPath.first(doc, "//TaskId" ).text
           channel = REXML::XPath.first(doc, '//Channel | //CHANNEL' ).text
-          note = REXML::XPath.first(doc, "//Note | //NOTE" ).text
-          if !REXML::XPath.first(doc, "//ResultInformation" ).nil?
-            note = note + ';' + REXML::XPath.first(doc, "//ResultInformation" ).text          
-          end
+          note = REXML::XPath.first(doc, "//Note | //NOTE" ).text.to_s rescue ''
+          note += (REXML::XPath.first(doc, "//ResultInformation" ).text.to_s rescue '')
           dispatch_record_generate = DispatchRecord.where("task_id = ? AND channel = ?", task_id, '000').first
           if dispatch_record_generate
             dispatch_record_new = DispatchRecord.new({:declaration_id => dispatch_record_generate.declaration_id,
