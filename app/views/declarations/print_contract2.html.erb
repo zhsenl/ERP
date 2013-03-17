@@ -49,8 +49,6 @@
 	}
 </style>
 
-<% contract = @declaration.contract %>
-
 <div class="frame">
 	<div style="width: 100%; height: 80px;"></div>
 	<div class="tr" style="height:100px;">
@@ -78,7 +76,7 @@
 					Date:
 				</div>
 				<div class="td bold-value" style="width:175px;">
-					<span class="content"><%= @declaration.declare_date.strftime('%Y年%m月%d日') %></span>
+					<span class="content"><%= (@declaration.declare_date - 30.days).strftime('%Y年%m月%d日') %></span>
 				</div>
 			</div>
 			<div class="clear"></div>
@@ -102,10 +100,10 @@
 			The <%= @declaration_type == "export" ? "Buyers" : "Sellers"  %>:
 		</div>
 		<div class="td bold-value" style="width:455px;">
-			<span class="content"><%= contract.foreign_enterprise.name rescue "" %></span>
+			<span class="content"><%= @declaration.foreign_enterprise.name rescue "" %></span>
 		</div>
 		<div class="td" style="width:160px; padding-top: 10px; height: 20px;">
-			&nbsp;电话:<span class="content"><%= contract.foreign_enterprise.telephone! rescue "" %></span>
+			&nbsp;电话:<span class="content"><%= @declaration.foreign_enterprise.telephone! rescue "" %></span>
 		</div>
 	</div>
 	<div class="clear"></div>
@@ -116,10 +114,10 @@
 			Address:
 		</div>
 		<div class="td bold-value" style="width:455px;">
-			<span class="content"><%= contract.foreign_enterprise.address rescue "" %></span>
+			<span class="content"><%= @declaration.foreign_enterprise.address rescue "" %></span>
 		</div>
 		<div class="td" style="width:160px; padding-top: 10px; height: 20px;">
-			&nbsp;传真:<span class="content"><%= contract.foreign_enterprise.fax rescue "" %></span>
+			&nbsp;传真:<span class="content"><%= @declaration.foreign_enterprise.fax rescue "" %></span>
 		</div>
 	</div>
 	<div class="clear"></div>

@@ -113,7 +113,7 @@
 			<div class="td" style="width:128px;"><span class="content"><%= sprintf "%0.2f", total_price  rescue "" %></span></div>
 		</div>
 	</div>
-	<div class="tr">2. 装运日期：<span class="content"><%= (@declaration.declare_date + 60.days).strftime("%Y年%m月%d日")  rescue "" %></span></div>
+	<div class="tr">2. 装运日期：<span class="content"><%= (@declaration.declare_date + 60.days).strftime("%Y年%m月%d日") + '前'  rescue "" %></span></div>
 	<div class="tr">3. <%= @declaration_type == "export" ? "运抵" : "启运" %>国:<span class="content"><%= dict_name Dict::Country, @declaration.trade_country  rescue "" %></span></div>
 	<div class="tr">4. <%= @declaration_type == "export" ? "指运港" : "装货港" %>:<span class="content"><%= dict_name Dict::Port, @declaration.port  rescue "" %></span></div>
 	<div class="tr">5. <%= @declaration_type == "export" ? "货源地" : "目的地" %>:<span class="content"><%= dict_name Dict::District, @declaration.destination  rescue "" %></span></div>

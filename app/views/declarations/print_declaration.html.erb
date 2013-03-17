@@ -40,9 +40,9 @@
 	}
 	
 	#top-left {
-		margin-left: 100px;
+		margin-left: 60px;
 		float: left;
-		width: 330px;
+		width: 370px;
 	}
 	
 	#top-right {
@@ -148,7 +148,7 @@
 	<div id="top">
 		<div id="top-left">
 			预录入编号：<span class="content"><%= @declaration.pre_entry_no %></span>
-			<span class="content">申报现场:<%= dict_name Dict::LoadPort, @declaration.load_port %></span>
+			<span class="content">申报现场:<%= dict_name_and_code Dict::Custom, Dict::LoadPort.find_by_code(@declaration.load_port).custom_code rescue '' %></span>
 		</div>
 		<div id="top-right">海关编号：<span class="content"><%= @declaration.entry_no %></span></div>
 		<div class="clear"></div>
