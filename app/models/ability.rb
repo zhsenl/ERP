@@ -12,16 +12,45 @@ class Ability
       can :read, :dict #数据字典
     end
 
-    if user.is?("enterprise") || user.is?("operator") || user.is?("staff")
+    if user.is?("operator")
       can :manage, Declaration do |declaration|
         user.managing?(declaration.enterprise) && !declaration.is_finish
       end
+
       can :read, Declaration do |declaration|
         user.managing? declaration.enterprise
+      end 
+
+      cannot :destroy, Declaration
+
+      can :manage, Cargo do |cargo|
+        user.managing? cargo.enterprise
       end
+
+      cannot :destroy, Cargo
       
       can :manage, Contract do |contract|
         user.managing? contract.enterprise
+      end
+
+      cannot :destroy, Contract
+    end
+
+    if user.is?("enterprise")
+      can [:manage, :declarate], Declaration do |declaration|
+        user.managing?(declaration.enterprise) && !declaration.is_finish
+      end
+
+      can :read, Declaration do |declaration|
+        user.managing? declaration.enterprise
+      end
+
+      can :manage, Contract do |contract|
+        user.managing? contract.enterprise
+      end 
+
+      can :manage, Cargo do |cargo|
+        user.managing? cargo.enterprise
       end
     end
 

@@ -174,7 +174,7 @@ class DeclarationsController < ApplicationController
     @declaration.destroy
 
     respond_to do |format|
-      format.html { redirect_to declarations_url(:declaration_type => @declaration_type) }
+      format.html { redirect_to declarations_url(:declaration_type => @declaration_type), :flash => { :success => '删除成功'}}
       format.json { head :no_content }
     end
   end

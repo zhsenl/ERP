@@ -39,8 +39,14 @@
 						<td><%= link_to declaration.pre_entry_no, declaration %></td>
 						<td><%= declaration.declare_date %></td>
 						<td><%= declaration.is_finish ? '是' : '否' %></td>
-						<td> <%= link_to image_tag("icons/pencil.png", :alt => "Edit"), edit_declaration_path(declaration) %>
-						<%= link_to image_tag("icons/cross.png", :alt => "Delete"), declaration, confirm: '确定删除?', method: :delete %> </td>
+						<td> 
+						<% if can? :edit, declaration %>
+						<%= link_to image_tag("icons/pencil.png", :alt => "Edit"), edit_declaration_path(declaration) %>
+						<% end %>
+						<% if can? :destroy, declaration %>
+						<%= link_to image_tag("icons/cross.png", :alt => "Delete"), declaration, confirm: '确定删除?', method: :delete %> 
+						<% end %>
+						</td>
 					</tr>
 					<% end %>
 				</tbody>
