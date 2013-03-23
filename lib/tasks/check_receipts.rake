@@ -17,7 +17,8 @@ namespace :receipt do
           message_id = REXML::XPath.first(doc, "//MessageId" ).text
           request_message_id = REXML::XPath.first(doc, "//RequestMessageId" ).text
           task_id = REXML::XPath.first(doc, "//TaskId" ).text
-          note = REXML::XPath.first(doc, "//ResponseList//ResultValue" ).text
+          note = REXML::XPath.first(doc, "//ResponseList//ResultValue" ).text rescue nil
+          note = note || (REXML::XPath.first(doc, "//TcsFlow201Response//ResultValue" ).text rescue '')
           dispatch_record_generate = DispatchRecord.where("message_id = ? AND channel = ?", request_message_id, '000').first
           if dispatch_record_generate
             dispatch_record_generate.task_id = task_id
