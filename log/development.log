@@ -1,0 +1,669 @@
+
+
+Started GET "/" for 127.0.0.1 at 2013-04-03 18:00:43 +0800
+Processing by PagesController#home as HTML
+Mysql2::Error: Table 'erp_dev.users' doesn't exist: SHOW FULL FIELDS FROM `users`
+Completed 500 Internal Server Error in 185ms
+
+ActiveRecord::StatementInvalid (Mysql2::Error: Table 'erp_dev.users' doesn't exist: SHOW FULL FIELDS FROM `users`):
+  app/models/user.rb:57:in `authenticate_with_salt'
+  app/helpers/sessions_helper.rb:47:in `user_from_cookies'
+  app/helpers/sessions_helper.rb:16:in `current_user'
+  app/controllers/application_controller.rb:12:in `authorize'
+
+
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.erb (5.0ms)
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (2.0ms)
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (127.0ms)
+  [1m[36m (404.0ms)[0m  [1mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (338.0ms)[0m  CREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`)
+  [1m[36m (1.0ms)[0m  [1mSELECT `schema_migrations`.`version` FROM `schema_migrations` [0m
+Migrating to CreateUsers (20120322053347)
+  [1m[35m (196.0ms)[0m  CREATE TABLE `users` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `username` varchar(255), `email` varchar(255), `salt` varchar(255), `encrypted_password` varchar(255), `name` varchar(255), `phone` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (74.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20120322053347')[0m
+Migrating to AddUsernameUniquenessIndex (20120322053916)
+  [1m[35m (153.0ms)[0m  CREATE UNIQUE INDEX `index_users_on_username` ON `users` (`username`)
+  [1m[36m (41.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20120322053916')[0m
+Migrating to AddEmailUniquenessIndex (20120322053935)
+  [1m[35m (145.0ms)[0m  CREATE UNIQUE INDEX `index_users_on_email` ON `users` (`email`)
+  [1m[36m (38.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20120322053935')[0m
+Migrating to AddRolesMaskToUsers (20120401061216)
+  [1m[35m (348.0ms)[0m  ALTER TABLE `users` ADD `roles_mask` int(11)
+  [1m[36m (23.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20120401061216')[0m
+Migrating to CreateEnterprises (20120402012119)
+  [1m[35m (120.0ms)[0m  CREATE TABLE `enterprises` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `code` varchar(255), `name` varchar(255), `address` varchar(255), `linkman` varchar(255), `legal_person_code` varchar(255), `telephone` varchar(255), `fax` varchar(255), `bank` varchar(255), `bank_account` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (22.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20120402012119')[0m
+Migrating to CreateEnterpriseCustomOptions (20120402053311)
+  [1m[35m (150.0ms)[0m  CREATE TABLE `enterprise_custom_options` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `enterprise_id` int(11), `custom_code` varchar(255), `platform_id` varchar(255), `area_name` varchar(255), `user_private_key` varchar(255), `process_no` varchar(255), `ic_card_no` varchar(255), `certificate_no` varchar(255), `proxy_unit_price` decimal(15,4), `service_unit_price` decimal(15,4), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (22.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20120402053311')[0m
+Migrating to CreateForeignEnterprises (20120405095507)
+  [1m[35m (112.0ms)[0m  CREATE TABLE `foreign_enterprises` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `code` varchar(255), `name` varchar(255), `address` varchar(255), `linkman` varchar(255), `telephone` varchar(255), `fax` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (29.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20120405095507')[0m
+Migrating to CreateOptions (20120405122424)
+  [1m[35m (135.0ms)[0m  CREATE TABLE `options` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255), `value` text, `mark` text, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (52.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20120405122424')[0m
+Migrating to RemoveLegalPersonCodeFromEnterprises (20120406161410)
+  [1m[35m (277.0ms)[0m  ALTER TABLE `enterprises` DROP `legal_person_code`
+  [1m[36m (45.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20120406161410')[0m
+Migrating to AddCodeUniquenessIndexToEnterprise (20120407040535)
+  [1m[35m (114.0ms)[0m  CREATE UNIQUE INDEX `index_enterprises_on_code` ON `enterprises` (`code`)
+  [1m[36m (50.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20120407040535')[0m
+Migrating to AddCodeUniquenessIndexToForeignEnterprise (20120407040646)
+  [1m[35m (179.0ms)[0m  CREATE UNIQUE INDEX `index_foreign_enterprises_on_code` ON `foreign_enterprises` (`code`)
+  [1m[36m (24.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20120407040646')[0m
+Migrating to CreateManageRelationships (20120407052106)
+  [1m[35m (98.0ms)[0m  CREATE TABLE `manage_relationships` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `user_id` int(11), `enterprise_id` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (26.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20120407052106')[0m
+Migrating to AddTradeCodeToEnterpriseCustomOptions (20120407164011)
+  [1m[35m (235.0ms)[0m  ALTER TABLE `enterprise_custom_options` ADD `trade_code` varchar(255)
+  [1m[36m (45.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20120407164011')[0m
+Migrating to CreateContracts (20120417155639)
+  [1m[35m (108.0ms)[0m  CREATE TABLE `contracts` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `enterprise_id` int(11), `operate_enterprise_code` varchar(255), `foreign_enterprise_code` varchar(255), `manual` varchar(255), `trade_mode` varchar(255), `tax_kind` varchar(255), `export_contract` varchar(255), `export_currency` varchar(255), `export_deal_mode` varchar(255), `export_deadline` date, `import_contract` varchar(255), `import_currency` varchar(255), `import_deal_mode` varchar(255), `import_deadline` date, `type_in_date` date, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (37.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20120417155639')[0m
+Migrating to CreateContractProducts (20120418140157)
+  [1m[35m (153.0ms)[0m  CREATE TABLE `contract_products` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `contract_id` int(11), `code` varchar(255), `plus_code` varchar(255), `name` varchar(255), `specification` varchar(255), `unit` varchar(255), `unit1` varchar(255), `unit2` varchar(255), `quantity` decimal(15,4), `unit_price` decimal(15,4), `trade_country` varchar(255), `tax_mode` varchar(255), `no` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (22.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20120418140157')[0m
+Migrating to CreateContractMaterials (20120420041542)
+  [1m[35m (109.0ms)[0m  CREATE TABLE `contract_materials` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `contract_id` int(11), `code` varchar(255), `plus_code` varchar(255), `name` varchar(255), `specification` varchar(255), `unit` varchar(255), `unit1` varchar(255), `unit2` varchar(255), `quantity` decimal(15,4), `unit_price` decimal(15,4), `trade_country` varchar(255), `tax_mode` varchar(255), `no` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (45.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20120420041542')[0m
+Migrating to CreateContractConsumptions (20120421113044)
+  [1m[35m (97.0ms)[0m  CREATE TABLE `contract_consumptions` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `contract_product_id` int(11), `contract_material_id` int(11), `used` decimal(15,4), `wasted` decimal(15,4), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (26.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20120421113044')[0m
+Migrating to CreateCargos (20120425021501)
+  [1m[35m (85.0ms)[0m  CREATE TABLE `cargos` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `enterprise_id` int(11), `code` varchar(255), `name` varchar(255), `specification` varchar(255), `unit` varchar(255), `unit1` varchar(255), `unit2` varchar(255), `trade_country` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (71.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20120425021501')[0m
+Migrating to RemovePlusCodeFromContractProducts (20120425035011)
+  [1m[35m (221.0ms)[0m  ALTER TABLE `contract_products` DROP `plus_code`
+  [1m[36m (29.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20120425035011')[0m
+Migrating to RemovePlusCodeFromContractMaterials (20120425035057)
+  [1m[35m (198.0ms)[0m  ALTER TABLE `contract_materials` DROP `plus_code`
+  [1m[36m (22.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20120425035057')[0m
+Migrating to CreateDeclarations (20120427160622)
+  [1m[35m (121.0ms)[0m  CREATE TABLE `declarations` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `enterprise_id` int(11), `declaration_type` varchar(255), `pre_entry_no` varchar(255), `entry_no` varchar(255), `eport_no` varchar(255), `declarant` varchar(255), `declare_enterprise_code` varchar(255), `operate_enterprise_code` varchar(255), `custom` varchar(255), `contract_id` varchar(255), `declare_date` date, `transport_mode` varchar(255), `transport_tool` varchar(255), `truck` varchar(255), `bill_no` varchar(255), `trade_mode` varchar(255), `tax_kind` varchar(255), `trade_country` varchar(255), `port` varchar(255), `destination` varchar(255), `pay_way` varchar(255), `certification` varchar(255), `deal_mode` varchar(255), `contract_no` varchar(255), `package_amount` int(11), `wrap_type` varchar(255), `gross_weight` decimal(15,4), `net_weight` decimal(15,4), `load_port` varchar(255), `memo` varchar(255), `attachments_mark` varchar(255), `import_export_date` date, `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (50.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20120427160622')[0m
+Migrating to CreateDeclarationTransitInformations (20120428013903)
+  [1m[35m (86.0ms)[0m  CREATE TABLE `declaration_transit_informations` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `declaration_id` int(11), `corporation_name` varchar(255), `corporation_code` varchar(255), `transport_tool_code` varchar(255), `transport_tool_name` varchar(255), `transport_tool_voyage_no` varchar(255), `bill_no` varchar(255), `local_transport_mode` varchar(255), `local_transport_tool_code` varchar(255), `local_transport_tool_name` varchar(255), `local_transport_tool_voyage_no` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (26.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20120428013903')[0m
+Migrating to CreateDeclarationCargos (20120430125319)
+  [1m[35m (107.0ms)[0m  CREATE TABLE `declaration_cargos` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `declaration_id` int(11), `no_in_contract` int(11), `code` varchar(255), `name` varchar(255), `specification` varchar(255), `quantity` decimal(15,4), `unit` varchar(255), `quantity1` decimal(15,4), `unit1` varchar(255), `quantity2` decimal(15,4), `unit2` varchar(255), `trade_country` varchar(255), `unit_price` decimal(15,4), `currency` varchar(255), `tax_mode` varchar(255), `goods_version` varchar(255), `no` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (28.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20120430125319')[0m
+Migrating to CreateMessages (20120501021645)
+  [1m[35m (61.0ms)[0m  CREATE TABLE `messages` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `user_id` int(11), `peer` varchar(255), `subject` varchar(255), `body` varchar(255), `sent` tinyint(1), `read` tinyint(1), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (25.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20120501021645')[0m
+Migrating to CreateDelayedJobs (20120501051657)
+  [1m[35m (79.0ms)[0m  CREATE TABLE `delayed_jobs` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `priority` int(11) DEFAULT 0, `attempts` int(11) DEFAULT 0, `handler` text, `last_error` text, `run_at` datetime, `locked_at` datetime, `failed_at` datetime, `locked_by` varchar(255), `queue` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB
+  [1m[36m (160.0ms)[0m  [1mCREATE INDEX `delayed_jobs_priority` ON `delayed_jobs` (`priority`, `run_at`)[0m
+  [1m[35m (34.0ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20120501051657')
+Migrating to AddVoyageNoToDeclarations (20120602112049)
+  [1m[36m (343.0ms)[0m  [1mALTER TABLE `declarations` ADD `voyage_no` varchar(255)[0m
+  [1m[35m (34.0ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20120602112049')
+Migrating to CreateDeclarationContainers (20120603054044)
+  [1m[36m (71.0ms)[0m  [1mCREATE TABLE `declaration_containers` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `declaration_id` int(11), `code` varchar(255), `container` varchar(255), `bracket` varchar(255), `metal_cabinet` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (26.0ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20120603054044')
+Migrating to CreateDeclarationPackings (20120609040015)
+  [1m[36m (81.0ms)[0m  [1mCREATE TABLE `declaration_packings` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `declaration_id` int(11), `name` varchar(255), `package_amount` int(11), `quantity` decimal, `unit` varchar(255), `gross_weight` decimal, `net_weight` decimal, `gross_weight_per_package` decimal, `net_weight_per_package` decimal, `no` int(11), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (31.0ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20120609040015')
+Migrating to AddTransitTypeToDeclarations (20120622094625)
+  [1m[36m (293.0ms)[0m  [1mALTER TABLE `declarations` ADD `transit_type` varchar(255)[0m
+  [1m[35m (50.0ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20120622094625')
+Migrating to CreateDictTransitTypes (20120622140136)
+  [1m[36m (69.0ms)[0m  [1mCREATE TABLE `dict_transit_types` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `code` varchar(255), `name` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (24.0ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20120622140136')
+Migrating to AddIsFinishToDeclarations (20120826113521)
+  [1m[36m (199.0ms)[0m  [1mALTER TABLE `declarations` ADD `is_finish` tinyint(1)[0m
+  [1m[35m (26.0ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20120826113521')
+Migrating to CreateDispatchRecords (20120826130058)
+  [1m[36m (87.0ms)[0m  [1mCREATE TABLE `dispatch_records` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `declaration_id` varchar(255), `message_id` varchar(255), `channel` varchar(255), `task_id` varchar(255), `note` varchar(255), `created_at` datetime NOT NULL, `updated_at` datetime NOT NULL) ENGINE=InnoDB[0m
+  [1m[35m (24.0ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20120826130058')
+Migrating to AddCreatedByToDeclaration (20120902124147)
+  [1m[36m (205.0ms)[0m  [1mALTER TABLE `declarations` ADD `created_by` varchar(255)[0m
+  [1m[35m (30.0ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20120902124147')
+Migrating to AddLicenseToDeclarations (20121021031612)
+  [1m[36m (287.0ms)[0m  [1mALTER TABLE `declarations` ADD `license` varchar(255)[0m
+  [1m[35m (26.0ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20121021031612')
+Migrating to AddWarehouseNoToDeclarations (20121021033658)
+  [1m[36m (165.0ms)[0m  [1mALTER TABLE `declarations` ADD `warehouse_no` varchar(255)[0m
+  [1m[35m (27.0ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20121021033658')
+Migrating to AddOrganizationCodeToEnterprise (20121021142751)
+  [1m[36m (145.0ms)[0m  [1mALTER TABLE `enterprises` ADD `organization_code` varchar(255)[0m
+  [1m[35m (25.0ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20121021142751')
+Migrating to AddSpecificationTemplateToDictGoods (20121028073003)
+  [1m[36m (419.0ms)[0m  [1mALTER TABLE `dict_goods` ADD `specification_template` varchar(255) DEFAULT '规格型号|其他'[0m
+  [1m[35m (26.0ms)[0m  INSERT INTO `schema_migrations` (`version`) VALUES ('20121028073003')
+Migrating to RemovePlusCodeFromDicGoods (20121028074828)
+  [1m[36m (1.0ms)[0m  [1mALTER TABLE `dict_goods` DROP `plus_code`[0m
+Mysql2::Error: Can't DROP 'plus_code'; check that column/key exists: ALTER TABLE `dict_goods` DROP `plus_code`
+  [1m[36m (0.0ms)[0m  [1mSELECT `schema_migrations`.`version` FROM `schema_migrations` [0m
+Migrating to CreateUsers (20120322053347)
+Migrating to AddUsernameUniquenessIndex (20120322053916)
+Migrating to AddEmailUniquenessIndex (20120322053935)
+Migrating to AddRolesMaskToUsers (20120401061216)
+Migrating to CreateEnterprises (20120402012119)
+Migrating to CreateEnterpriseCustomOptions (20120402053311)
+Migrating to CreateForeignEnterprises (20120405095507)
+Migrating to CreateOptions (20120405122424)
+Migrating to RemoveLegalPersonCodeFromEnterprises (20120406161410)
+Migrating to AddCodeUniquenessIndexToEnterprise (20120407040535)
+Migrating to AddCodeUniquenessIndexToForeignEnterprise (20120407040646)
+Migrating to CreateManageRelationships (20120407052106)
+Migrating to AddTradeCodeToEnterpriseCustomOptions (20120407164011)
+Migrating to CreateContracts (20120417155639)
+Migrating to CreateContractProducts (20120418140157)
+Migrating to CreateContractMaterials (20120420041542)
+Migrating to CreateContractConsumptions (20120421113044)
+Migrating to CreateCargos (20120425021501)
+Migrating to RemovePlusCodeFromContractProducts (20120425035011)
+Migrating to RemovePlusCodeFromContractMaterials (20120425035057)
+Migrating to CreateDeclarations (20120427160622)
+Migrating to CreateDeclarationTransitInformations (20120428013903)
+Migrating to CreateDeclarationCargos (20120430125319)
+Migrating to CreateMessages (20120501021645)
+Migrating to CreateDelayedJobs (20120501051657)
+Migrating to AddVoyageNoToDeclarations (20120602112049)
+Migrating to CreateDeclarationContainers (20120603054044)
+Migrating to CreateDeclarationPackings (20120609040015)
+Migrating to AddTransitTypeToDeclarations (20120622094625)
+Migrating to CreateDictTransitTypes (20120622140136)
+Migrating to AddIsFinishToDeclarations (20120826113521)
+Migrating to CreateDispatchRecords (20120826130058)
+Migrating to AddCreatedByToDeclaration (20120902124147)
+Migrating to AddLicenseToDeclarations (20121021031612)
+Migrating to AddWarehouseNoToDeclarations (20121021033658)
+Migrating to AddOrganizationCodeToEnterprise (20121021142751)
+Migrating to AddSpecificationTemplateToDictGoods (20121028073003)
+Migrating to RemovePlusCodeFromDicGoods (20121028074828)
+  [1m[35m (340.0ms)[0m  ALTER TABLE `dict_goods` DROP `plus_code`
+  [1m[36m (32.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20121028074828')[0m
+Migrating to AddForeignEnterpriseCodeToDeclaration (20121124100200)
+  [1m[35m (213.0ms)[0m  ALTER TABLE `declarations` ADD `foreign_enterprise_code` varchar(255)
+  [1m[36m (31.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20121124100200')[0m
+Migrating to AddUsageToDeclarations (20121223150324)
+  [1m[35m (276.0ms)[0m  ALTER TABLE `declarations` ADD `usage` varchar(255)
+  [1m[36m (18.0ms)[0m  [1mINSERT INTO `schema_migrations` (`version`) VALUES ('20121223150324')[0m
+  [1m[35m (1.0ms)[0m  SELECT `schema_migrations`.`version` FROM `schema_migrations` 
+
+
+Started GET "/" for 127.0.0.1 at 2013-04-03 18:05:00 +0800
+Processing by PagesController#home as HTML
+  [1m[36mUser Load (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1[0m
+Redirected to http://localhost:3000/signin?url=http%3A%2F%2Flocalhost%3A3000%2F
+Completed 302 Found in 490ms (ActiveRecord: 6.0ms)
+
+
+Started GET "/signin?url=http%3A%2F%2Flocalhost%3A3000%2F" for 127.0.0.1 at 2013-04-03 18:05:00 +0800
+Processing by SessionsController#new as HTML
+  Parameters: {"url"=>"http://localhost:3000/"}
+  Rendered sessions/new.html.erb within layouts/sessions (76.0ms)
+Compiled jquery.js  (4ms)  (pid 3544)
+Compiled jquery_ujs.js  (0ms)  (pid 3544)
+Compiled facebox.js  (9ms)  (pid 3544)
+Compiled jquery-ui-1.8.19.custom.min.js  (0ms)  (pid 3544)
+Compiled configuration.js  (9ms)  (pid 3544)
+Compiled application.js  (328ms)  (pid 3544)
+Compiled invalid.css  (0ms)  (pid 3544)
+Compiled reset.css  (0ms)  (pid 3544)
+Compiled style.css  (307ms)  (pid 3544)
+Compiled jquery-ui-1.8.19.custom.css  (93ms)  (pid 3544)
+Compiled application.css  (623ms)  (pid 3544)
+  Rendered shared/_notification.html.erb (0.0ms)
+Completed 200 OK in 1544ms (Views: 1544.1ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-04-03 18:05:02 +0800
+Served asset /jquery_ujs.js - 200 OK (39ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-04-03 18:05:02 +0800
+Served asset /jquery.js - 200 OK (12ms)
+
+
+Started GET "/assets/facebox.js?body=1" for 127.0.0.1 at 2013-04-03 18:05:03 +0800
+Served asset /facebox.js - 200 OK (3ms)
+
+
+Started GET "/assets/configuration.js?body=1" for 127.0.0.1 at 2013-04-03 18:05:03 +0800
+Served asset /configuration.js - 200 OK (3ms)
+
+
+Started GET "/assets/jquery-ui-1.8.19.custom.min.js?body=1" for 127.0.0.1 at 2013-04-03 18:05:03 +0800
+Served asset /jquery-ui-1.8.19.custom.min.js - 200 OK (9ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-04-03 18:05:03 +0800
+Served asset /application.js - 200 OK (62ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-04-03 18:05:03 +0800
+Served asset /application.css - 200 OK (11ms)
+
+
+Started GET "/assets/invalid.css?body=1" for 127.0.0.1 at 2013-04-03 18:05:03 +0800
+Served asset /invalid.css - 200 OK (40ms)
+
+
+Started GET "/assets/reset.css?body=1" for 127.0.0.1 at 2013-04-03 18:05:03 +0800
+Served asset /reset.css - 200 OK (8ms)
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2013-04-03 18:05:03 +0800
+Served asset /style.css - 200 OK (6ms)
+
+
+Started GET "/assets/jquery-ui-1.8.19.custom.css?body=1" for 127.0.0.1 at 2013-04-03 18:05:03 +0800
+Served asset /jquery-ui-1.8.19.custom.css - 200 OK (74ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-03 18:05:03 +0800
+Processing by MessagesController#unread as JSON
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1
+Redirected to http://localhost:3000/signin?url=http%3A%2F%2Flocalhost%3A3000%2Fmessages%2Funread.json
+Completed 302 Found in 7ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/logo.png" for 127.0.0.1 at 2013-04-03 18:05:03 +0800
+Served asset /logo.png - 200 OK (82ms)
+
+
+Started GET "/assets/closelabel.gif" for 127.0.0.1 at 2013-04-03 18:05:03 +0800
+Served asset /closelabel.gif - 200 OK (59ms)
+
+
+Started GET "/assets/loading.gif" for 127.0.0.1 at 2013-04-03 18:05:04 +0800
+Served asset /loading.gif - 200 OK (40ms)
+
+
+Started GET "/assets/bg-login.gif" for 127.0.0.1 at 2013-04-03 18:05:04 +0800
+Served asset /bg-login.gif - 200 OK (34ms)
+
+
+Started GET "/assets/bg-login-top.png" for 127.0.0.1 at 2013-04-03 18:05:04 +0800
+Served asset /bg-login-top.png - 200 OK (78ms)
+
+
+Started GET "/assets/icons/exclamation.png" for 127.0.0.1 at 2013-04-03 18:05:04 +0800
+Served asset /icons/exclamation.png - 200 OK (113ms)
+
+
+Started GET "/signin?url=http%3A%2F%2Flocalhost%3A3000%2Fmessages%2Funread.json" for 127.0.0.1 at 2013-04-03 18:05:04 +0800
+Processing by SessionsController#new as */*
+  Parameters: {"url"=>"http://localhost:3000/messages/unread.json"}
+  Rendered sessions/new.html.erb within layouts/sessions (2.0ms)
+  Rendered shared/_notification.html.erb (0.0ms)
+Completed 200 OK in 104ms (Views: 104.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/bg-button-green.gif" for 127.0.0.1 at 2013-04-03 18:05:04 +0800
+Served asset /bg-button-green.gif - 200 OK (22ms)
+
+
+Started GET "/" for 127.0.0.1 at 2013-04-03 18:06:03 +0800
+Processing by PagesController#home as HTML
+  [1m[36mUser Load (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1[0m
+Redirected to http://localhost:3000/signin?url=http%3A%2F%2Flocalhost%3A3000%2F
+Completed 302 Found in 422ms (ActiveRecord: 7.0ms)
+
+
+Started GET "/signin?url=http%3A%2F%2Flocalhost%3A3000%2F" for 127.0.0.1 at 2013-04-03 18:06:04 +0800
+Processing by SessionsController#new as HTML
+  Parameters: {"url"=>"http://localhost:3000/"}
+  Rendered sessions/new.html.erb within layouts/sessions (65.0ms)
+  Rendered shared/_notification.html.erb (1.0ms)
+Completed 200 OK in 412ms (Views: 411.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-03 18:06:05 +0800
+Processing by MessagesController#unread as JSON
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` IS NULL LIMIT 1
+Redirected to http://localhost:3000/signin?url=http%3A%2F%2Flocalhost%3A3000%2Fmessages%2Funread.json
+Completed 302 Found in 6ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/br.png" for 127.0.0.1 at 2013-04-03 18:06:05 +0800
+Served asset /br.png - 200 OK (105ms)
+
+
+Started GET "/assets/bl.png" for 127.0.0.1 at 2013-04-03 18:06:05 +0800
+Served asset /bl.png - 200 OK (107ms)
+
+
+Started GET "/assets/b.png" for 127.0.0.1 at 2013-04-03 18:06:05 +0800
+Served asset /b.png - 200 OK (34ms)
+
+
+Started GET "/assets/tl.png" for 127.0.0.1 at 2013-04-03 18:06:05 +0800
+Served asset /tl.png - 200 OK (30ms)
+
+
+Started GET "/assets/tr.png" for 127.0.0.1 at 2013-04-03 18:06:05 +0800
+Served asset /tr.png - 200 OK (38ms)
+
+
+Started GET "/signin?url=http%3A%2F%2Flocalhost%3A3000%2Fmessages%2Funread.json" for 127.0.0.1 at 2013-04-03 18:06:05 +0800
+Processing by SessionsController#new as */*
+  Parameters: {"url"=>"http://localhost:3000/messages/unread.json"}
+  Rendered sessions/new.html.erb within layouts/sessions (3.0ms)
+  Rendered shared/_notification.html.erb (0.0ms)
+Completed 200 OK in 42ms (Views: 42.0ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/sessions" for 127.0.0.1 at 2013-04-03 18:07:39 +0800
+Processing by SessionsController#create as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"VR2Dr7+DOhUi9OjGd4y3h/JH65orm6+Nf1vyL8G7a+o=", "url"=>"http://localhost:3000/", "session"=>{"username"=>"zhsenl", "password"=>"[FILTERED]", "remember"=>"1"}, "commit"=>"登录"}
+  [1m[36mUser Load (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`username` = 'zhsenl' LIMIT 1[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 110ms (ActiveRecord: 0.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2013-04-03 18:07:39 +0800
+Processing by PagesController#home as HTML
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  Rendered pages/home.html.erb within layouts/application (2.0ms)
+  Rendered layouts/_sidebar.html.erb (6.0ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 57ms (Views: 55.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-03 18:07:39 +0800
+Processing by MessagesController#unread as JSON
+  [1m[36mUser Load (1.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mMessage Load (1.0ms)[0m  SELECT `messages`.* FROM `messages` WHERE `messages`.`user_id` = 1 AND `messages`.`read` = 0
+Completed 200 OK in 359ms (Views: 51.0ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/assets/bg-radial-gradient.gif" for 127.0.0.1 at 2013-04-03 18:07:40 +0800
+Served asset /bg-radial-gradient.gif - 200 OK (51ms)
+
+
+Started GET "/assets/bg-menu-item-green.gif" for 127.0.0.1 at 2013-04-03 18:07:40 +0800
+Served asset /bg-menu-item-green.gif - 200 OK (57ms)
+
+
+Started GET "/assets/bg-body.gif" for 127.0.0.1 at 2013-04-03 18:07:40 +0800
+Served asset /bg-body.gif - 200 OK (45ms)
+
+
+Started GET "/assets/bg-sidebar.gif" for 127.0.0.1 at 2013-04-03 18:07:40 +0800
+Served asset /bg-sidebar.gif - 200 OK (68ms)
+
+
+Started GET "/assets/icons/bullet_black.png" for 127.0.0.1 at 2013-04-03 18:07:40 +0800
+Served asset /icons/bullet_black.png - 200 OK (45ms)
+
+
+Started GET "/assets/shortcut-button-bg.gif" for 127.0.0.1 at 2013-04-03 18:07:40 +0800
+Served asset /shortcut-button-bg.gif - 200 OK (65ms)
+
+
+Started GET "/assets/icons/pencil_48.png" for 127.0.0.1 at 2013-04-03 18:07:40 +0800
+Served asset /icons/pencil_48.png - 200 OK (51ms)
+
+
+Started GET "/assets/icons/paper_content_pencil_48.png" for 127.0.0.1 at 2013-04-03 18:07:40 +0800
+Served asset /icons/paper_content_pencil_48.png - 200 OK (68ms)
+
+
+Started GET "/assets/icons/comment_48.png" for 127.0.0.1 at 2013-04-03 18:07:41 +0800
+Served asset /icons/comment_48.png - 200 OK (59ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-03 18:40:04 +0800
+Processing by MessagesController#unread as JSON
+  [1m[36mUser Load (2766.2ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mEXPLAIN (53.0ms)[0m  EXPLAIN SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+EXPLAIN for: SELECT  `users`.* FROM `users`  WHERE `users`.`id` = 1 LIMIT 1
++----+-------------+-------+-------+---------------+---------+---------+-------+------+-------+
+| id | select_type | table | type  | possible_keys | key     | key_len | ref   | rows | Extra |
++----+-------------+-------+-------+---------------+---------+---------+-------+------+-------+
+|  1 | SIMPLE      | users | const | PRIMARY       | PRIMARY | 4       | const |    1 |       |
++----+-------------+-------+-------+---------------+---------+---------+-------+------+-------+
+1 row in set (0.05 sec)
+
+  [1m[36mMessage Load (393.0ms)[0m  [1mSELECT `messages`.* FROM `messages` WHERE `messages`.`user_id` = 1 AND `messages`.`read` = 0[0m
+Completed 200 OK in 3419ms (Views: 46.0ms | ActiveRecord: 3212.2ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-03 18:42:38 +0800
+Processing by MessagesController#unread as JSON
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mMessage Load (0.0ms)[0m  [1mSELECT `messages`.* FROM `messages` WHERE `messages`.`user_id` = 1 AND `messages`.`read` = 0[0m
+Completed 200 OK in 4ms (Views: 1.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-03 18:45:38 +0800
+Processing by MessagesController#unread as JSON
+  [1m[35mUser Load (1.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mMessage Load (1.0ms)[0m  [1mSELECT `messages`.* FROM `messages` WHERE `messages`.`user_id` = 1 AND `messages`.`read` = 0[0m
+Completed 200 OK in 5ms (Views: 0.0ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-03 18:48:38 +0800
+Processing by MessagesController#unread as JSON
+  [1m[35mUser Load (1.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mMessage Load (1.0ms)[0m  [1mSELECT `messages`.* FROM `messages` WHERE `messages`.`user_id` = 1 AND `messages`.`read` = 0[0m
+Completed 200 OK in 5ms (Views: 2.0ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-03 18:51:38 +0800
+Processing by MessagesController#unread as JSON
+  [1m[35mUser Load (1.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mMessage Load (0.0ms)[0m  [1mSELECT `messages`.* FROM `messages` WHERE `messages`.`user_id` = 1 AND `messages`.`read` = 0[0m
+Completed 200 OK in 5ms (Views: 2.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-03 18:54:38 +0800
+Processing by MessagesController#unread as JSON
+  [1m[35mUser Load (1.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mMessage Load (0.0ms)[0m  [1mSELECT `messages`.* FROM `messages` WHERE `messages`.`user_id` = 1 AND `messages`.`read` = 0[0m
+Completed 200 OK in 4ms (Views: 2.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-03 18:57:38 +0800
+Processing by MessagesController#unread as JSON
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mMessage Load (0.0ms)[0m  [1mSELECT `messages`.* FROM `messages` WHERE `messages`.`user_id` = 1 AND `messages`.`read` = 0[0m
+Completed 200 OK in 4ms (Views: 1.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-03 19:00:38 +0800
+Processing by MessagesController#unread as JSON
+  [1m[35mUser Load (1.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mMessage Load (1.0ms)[0m  [1mSELECT `messages`.* FROM `messages` WHERE `messages`.`user_id` = 1 AND `messages`.`read` = 0[0m
+Completed 200 OK in 5ms (Views: 2.0ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-03 19:03:38 +0800
+Processing by MessagesController#unread as JSON
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mMessage Load (1.0ms)[0m  [1mSELECT `messages`.* FROM `messages` WHERE `messages`.`user_id` = 1 AND `messages`.`read` = 0[0m
+Completed 200 OK in 4ms (Views: 0.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-03 19:06:38 +0800
+Processing by MessagesController#unread as JSON
+  [1m[35mUser Load (1.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mMessage Load (0.0ms)[0m  [1mSELECT `messages`.* FROM `messages` WHERE `messages`.`user_id` = 1 AND `messages`.`read` = 0[0m
+Completed 200 OK in 3ms (Views: 1.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-03 19:09:38 +0800
+Processing by MessagesController#unread as JSON
+  [1m[35mUser Load (1.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mMessage Load (1.0ms)[0m  [1mSELECT `messages`.* FROM `messages` WHERE `messages`.`user_id` = 1 AND `messages`.`read` = 0[0m
+Completed 200 OK in 4ms (Views: 0.0ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-03 19:33:09 +0800
+Processing by MessagesController#unread as JSON
+  [1m[35mUser Load (2629.2ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mEXPLAIN (30.0ms)[0m  [1mEXPLAIN SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+EXPLAIN for: SELECT  `users`.* FROM `users`  WHERE `users`.`id` = 1 LIMIT 1
++----+-------------+-------+-------+---------------+---------+---------+-------+------+-------+
+| id | select_type | table | type  | possible_keys | key     | key_len | ref   | rows | Extra |
++----+-------------+-------+-------+---------------+---------+---------+-------+------+-------+
+|  1 | SIMPLE      | users | const | PRIMARY       | PRIMARY | 4       | const |    1 |       |
++----+-------------+-------+-------+---------------+---------+---------+-------+------+-------+
+1 row in set (0.03 sec)
+
+  [1m[35mMessage Load (193.0ms)[0m  SELECT `messages`.* FROM `messages` WHERE `messages`.`user_id` = 1 AND `messages`.`read` = 0
+Completed 200 OK in 2915ms (Views: 1.0ms | ActiveRecord: 2852.2ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-03 19:35:45 +0800
+Processing by MessagesController#unread as JSON
+  [1m[36mUser Load (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mMessage Load (1.0ms)[0m  SELECT `messages`.* FROM `messages` WHERE `messages`.`user_id` = 1 AND `messages`.`read` = 0
+Completed 200 OK in 4ms (Views: 0.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-03 19:38:45 +0800
+Processing by MessagesController#unread as JSON
+  [1m[36mUser Load (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mMessage Load (1.0ms)[0m  SELECT `messages`.* FROM `messages` WHERE `messages`.`user_id` = 1 AND `messages`.`read` = 0
+Completed 200 OK in 4ms (Views: 0.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-03 19:41:45 +0800
+Processing by MessagesController#unread as JSON
+  [1m[36mUser Load (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mMessage Load (0.0ms)[0m  SELECT `messages`.* FROM `messages` WHERE `messages`.`user_id` = 1 AND `messages`.`read` = 0
+Completed 200 OK in 5ms (Views: 2.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-03 19:44:45 +0800
+Processing by MessagesController#unread as JSON
+  [1m[36mUser Load (1.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mMessage Load (0.0ms)[0m  SELECT `messages`.* FROM `messages` WHERE `messages`.`user_id` = 1 AND `messages`.`read` = 0
+Completed 200 OK in 5ms (Views: 2.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-03 19:47:45 +0800
+Processing by MessagesController#unread as JSON
+  [1m[36mUser Load (1.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mMessage Load (0.0ms)[0m  SELECT `messages`.* FROM `messages` WHERE `messages`.`user_id` = 1 AND `messages`.`read` = 0
+Completed 200 OK in 3ms (Views: 1.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-03 19:50:45 +0800
+Processing by MessagesController#unread as JSON
+  [1m[36mUser Load (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mMessage Load (0.0ms)[0m  SELECT `messages`.* FROM `messages` WHERE `messages`.`user_id` = 1 AND `messages`.`read` = 0
+Completed 200 OK in 4ms (Views: 1.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-03 19:53:45 +0800
+Processing by MessagesController#unread as JSON
+  [1m[36mUser Load (1.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mMessage Load (0.0ms)[0m  SELECT `messages`.* FROM `messages` WHERE `messages`.`user_id` = 1 AND `messages`.`read` = 0
+Completed 200 OK in 3ms (Views: 1.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-03 19:56:45 +0800
+Processing by MessagesController#unread as JSON
+  [1m[36mUser Load (1.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mMessage Load (0.0ms)[0m  SELECT `messages`.* FROM `messages` WHERE `messages`.`user_id` = 1 AND `messages`.`read` = 0
+Completed 200 OK in 29ms (Views: 27.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-03 19:59:45 +0800
+Processing by MessagesController#unread as JSON
+  [1m[36mUser Load (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mMessage Load (1.0ms)[0m  SELECT `messages`.* FROM `messages` WHERE `messages`.`user_id` = 1 AND `messages`.`read` = 0
+Completed 200 OK in 4ms (Views: 0.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-03 20:02:45 +0800
+Processing by MessagesController#unread as JSON
+  [1m[36mUser Load (21.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  [1m[35mMessage Load (1.0ms)[0m  SELECT `messages`.* FROM `messages` WHERE `messages`.`user_id` = 1 AND `messages`.`read` = 0
+Completed 200 OK in 25ms (Views: 0.0ms | ActiveRecord: 22.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2013-04-03 20:04:14 +0800
+Processing by PagesController#home as HTML
+  [1m[36mUser Load (1.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1[0m
+  Rendered pages/home.html.erb within layouts/application (45.0ms)
+  Rendered layouts/_sidebar.html.erb (10.0ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 408ms (Views: 402.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/assets/jquery-ui-1.8.19.custom.min.js?body=1" for 127.0.0.1 at 2013-04-03 20:04:15 +0800
+Served asset /jquery-ui-1.8.19.custom.min.js - 304 Not Modified (345ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-04-03 20:04:15 +0800
+Served asset /jquery_ujs.js - 304 Not Modified (164ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-04-03 20:04:16 +0800
+Served asset /jquery.js - 304 Not Modified (189ms)
+
+
+Started GET "/assets/facebox.js?body=1" for 127.0.0.1 at 2013-04-03 20:04:16 +0800
+Served asset /facebox.js - 304 Not Modified (86ms)
+
+
+Started GET "/assets/configuration.js?body=1" for 127.0.0.1 at 2013-04-03 20:04:16 +0800
+Served asset /configuration.js - 304 Not Modified (44ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-04-03 20:04:16 +0800
+Served asset /application.js - 304 Not Modified (65ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-04-03 20:04:16 +0800
+Served asset /application.css - 304 Not Modified (145ms)
+
+
+Started GET "/assets/invalid.css?body=1" for 127.0.0.1 at 2013-04-03 20:04:16 +0800
+Served asset /invalid.css - 304 Not Modified (5ms)
+
+
+Started GET "/assets/reset.css?body=1" for 127.0.0.1 at 2013-04-03 20:04:16 +0800
+Served asset /reset.css - 304 Not Modified (3ms)
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2013-04-03 20:04:16 +0800
+Served asset /style.css - 304 Not Modified (3ms)
+
+
+Started GET "/assets/jquery-ui-1.8.19.custom.css?body=1" for 127.0.0.1 at 2013-04-03 20:04:16 +0800
+Served asset /jquery-ui-1.8.19.custom.css - 304 Not Modified (32ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-03 20:04:16 +0800
+Processing by MessagesController#unread as JSON
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mMessage Load (0.0ms)[0m  [1mSELECT `messages`.* FROM `messages` WHERE `messages`.`user_id` = 1 AND `messages`.`read` = 0[0m
+Completed 200 OK in 6ms (Views: 2.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/assets/logo.png" for 127.0.0.1 at 2013-04-03 20:04:17 +0800
+Served asset /logo.png - 304 Not Modified (30ms)
+
+
+Started GET "/assets/icons/pencil_48.png" for 127.0.0.1 at 2013-04-03 20:04:17 +0800
+Served asset /icons/pencil_48.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/icons/paper_content_pencil_48.png" for 127.0.0.1 at 2013-04-03 20:04:17 +0800
+Served asset /icons/paper_content_pencil_48.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/icons/comment_48.png" for 127.0.0.1 at 2013-04-03 20:04:17 +0800
+Served asset /icons/comment_48.png - 304 Not Modified (0ms)
+
+
+Started GET "/assets/closelabel.gif" for 127.0.0.1 at 2013-04-03 20:04:17 +0800
+Served asset /closelabel.gif - 304 Not Modified (3ms)
+
+
+Started GET "/assets/loading.gif" for 127.0.0.1 at 2013-04-03 20:04:17 +0800
+Served asset /loading.gif - 304 Not Modified (79ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-03 20:07:16 +0800
+Processing by MessagesController#unread as JSON
+  [1m[35mUser Load (1.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  [1m[36mMessage Load (0.0ms)[0m  [1mSELECT `messages`.* FROM `messages` WHERE `messages`.`user_id` = 1 AND `messages`.`read` = 0[0m
+Completed 200 OK in 7ms (Views: 2.0ms | ActiveRecord: 1.0ms)

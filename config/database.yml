@@ -1,0 +1,26 @@
+development:
+  adapter: mysql2
+  encoding: utf8
+  database: erp_dev
+  pool: 5
+  username: root
+  password: udbsssgqjo
+  host: localhost
+
+test:
+  adapter: mysql2
+  encoding: utf8
+  database: erp_test
+  pool: 5
+  username: root
+  password: udbsssgqjo
+  host: localhost
+
+production:
+  adapter: mysql2
+  encoding: utf8
+  database: erp
+  pool: 5
+  username: root
+  password: gavin
+  socket: /tmp/mysql.sock
