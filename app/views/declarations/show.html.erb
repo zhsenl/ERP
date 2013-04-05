@@ -13,7 +13,7 @@
 	</div>
 	<script>
 		$("#declare_button").click(function(){
-			if (confirm('确定要申报吗? 每次申报都会产生费用')) {
+			if (confirm('确定要申报吗?每次申报都会产生费用')) {
 				var url = this.getAttribute("href");
 				$.get(url, function(result){
 					show_tips(result.type, result.content);
