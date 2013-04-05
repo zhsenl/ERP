@@ -99,4 +99,16 @@ class CargosController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def print_cargos
+    #todo 1.authorize 2.@cargos from parameter
+    #authorize! :show, @cargos
+    if current_enterprise
+      @cargos = current_enterprise.cargos.order("updated_at DESC")
+    else
+      @cargos = Enterprise.new.cargos
+    end
+    @title = '打印报关编码库'
+    render :layout => 'print'
+  end
 end

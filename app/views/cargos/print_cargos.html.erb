@@ -1,0 +1,107 @@
+<style type="text/css">
+    body {
+        text-align: left;
+        font-size: 16px;
+    }
+
+    .frame {
+        margin: 0 auto;
+        width: 700px;
+        text-align: left;
+    }
+
+    .tr {
+        padding: 1px 0 1px 0;
+    }
+
+    .table {
+        border: 1px solid;
+    }
+
+    .table .tr {
+        padding: 0;
+        height: 22px;
+        line-height: 22px;
+        border-bottom: solid 1px;
+    }
+
+    .table .tr:last-child {
+        border-bottom: none;
+    }
+
+    .table .tr .td {
+        border-right: solid 1px;
+        text-align: center;
+    }
+
+    .table .tr .td:last-child {
+        border-right: none;
+    }
+
+</style>
+
+
+
+<div class="frame">
+  <div class="tr" style="height: 80px;"></div>
+  <div class="tr" style="height: 80px; text-align: center; font-size: 35px;">报关编码库</div>
+  <div style="width:70%; margin-bottom: 2em">保税企业:
+    <span class="content"><%= enterprise_name_and_code current_enterprise.code %></span>
+  </div>
+
+  <div class="table">
+    <div class="tr" style="height: 50px; line-height:50px;">
+      <div class="td" style="width:35px;">序号</div>
+      <div class="td" style="width:110px;">商品编号</div>
+      <div class="td" style="width:185px;">商品名称</div>
+      <div class="td" style="width:135px;">规格型号</div>
+      <div class="td" style="width:75px;">申报单位</div>
+      <div class="td" style="width:75px;">第一单位</div>
+      <div class="td" style="width:75px;">第二单位</div>
+    </div>
+
+    <% list_size =  @cargos.size %>
+    <% @cargos[0..list_size-1].each_with_index do |cargo,i| %>
+
+        <div class="tr">
+          <div class="td" style="width:35px;">
+            <span class="content"><%= i+1 %></span>
+          </div>
+          <div class="td" style="width:110px;">
+            <span class="content"><%= cargo.code %></span>
+          </div>
+          <div class="td" style="width:185px;">
+            <span class="content"><%= cargo.name %></span>
+          </div>
+          <div class="td" style="width:135px;">
+            <span class="content"><%= cargo.specification %></span>
+          </div>
+          <div class="td" style="width:75px;">
+            <span class="content autoload"  data-url=<%= dict_units_path%>><%= cargo.unit %></span>
+          </div>
+          <div class="td" style="width:75px;">
+            <span class="content autoload"  data-url=<%= dict_units_path%>><%= cargo.unit1 %></span>
+          </div>
+          <div class="td" style="width:75px;">
+            <span class="content autoload"  data-url=<%= dict_units_path%>><%= cargo.unit2 %></span>
+          </div>
+        </div>
+    <% end %>
+
+    <!--
+    <% if list_size < 5 %>-->
+        <!--
+        <% (1..5-list_size).each do |i| %>-->
+            <!--<div class="tr">-->
+            <!--<div class="td" style="width:35px;">&nbsp;</div>-->
+            <!--<div class="td" style="width:280px;">&nbsp;</div>-->
+            <!--<div class="td" style="width:140px;">&nbsp;</div>-->
+            <!--<div class="td" style="width:110px;">&nbsp;</div>-->
+            <!--<div class="td" style="width:128px;">&nbsp;</div>-->
+            <!--</div>-->
+            <!--
+        <% end %>-->
+        <!--
+    <% end %>-->
+  </div>
+</div>

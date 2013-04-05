@@ -74,5 +74,22 @@ $(document).ready(function() {
 			bounce : true
 		}
 	});
-	
+
+    //ajax span
+    $("span.autoload").each(function() {
+        var span = this;
+        var url = this.getAttribute("data-url");
+//        if( this.innerHTML == "&nbsp;"){
+//            return;
+//        }
+        $.get(url + "/" + this.innerHTML + "/show_by_code.json", function(result) {
+            if (result == null) {
+//                span.innerHTML += " (请正确填写)";
+//                $(span).addClass("error_label");
+            } else {
+                span.innerHTML += " (" + result.name + ")";
+            }
+        });
+    });
+
 });

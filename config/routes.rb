@@ -30,6 +30,7 @@ ERP::Application.routes.draw do
 
   resources :cargos do
     get 'search', :on => :collection
+    get 'print_cargos', :on => :collection
   end
 
   resources :contract_consumptions
