@@ -1,291 +1,343 @@
 <div class="content-box">
-	<div class="content-box-header">
-		<h3>查看报关单(<%= @declaration.pre_entry_no %>)</h3>
-		<div class="operations">
-			<% if can? :update, @declaration %><%= link_to '编辑', edit_declaration_path(@declaration) %> |<% end %>
-			<%= link_to '打印', "#print_dialog", :rel => "facebox" %> |
-			<% if can? :declare, @declaration %><%= link_to '申报', declare_declaration_path(@declaration, :format => :json), :id => "declare_button" %> |<% end %>
-			<%= link_to @declaration_type == "export" ? "出口成品" : "进口料件", declaration_cargos_path(:declaration_id => @declaration.id) %> |
-			<%= link_to "集装箱", declaration_containers_path(:declaration_id => @declaration.id) %> |
-			<%= link_to "装箱明细", declaration_packings_path(:declaration_id => @declaration.id) %> |			
-			<%= link_to '返回列表', declarations_path(:declaration_type => @declaration_type) %>
-		</div>
-	</div>
-	<script>
-		$("#declare_button").click(function(){
-			if (confirm('确定要申报吗?')) {
-				var url = this.getAttribute("href");
-				$.get(url, function(result){
-					show_tips(result.type, result.content);
-				});
-			}			
-			return false;
-		});
-	</script>
-	<div class="content-box-content">
-		<div class="tab-content default-tab">
-			<fieldset>
-				<legend>基本信息：</legend>
-				<p>
-					<b>预录入号:</b>
-					<%= @declaration.pre_entry_no %>
-				</p>
-				<p>
-					<b>报关单号:</b>
-					<%= @declaration.entry_no %>
-				</p>
-				<p>
-					<b>电子口岸号:</b>
-					<%= @declaration.eport_no %>
-				</p>
-				<p>
-					<b>报关员:</b>
-					<%= @declaration.declarant %>
-				</p>
-				<p>
-					<b>申报企业:</b>
-					<span class="autoload" data-url=<%= enterprises_path %> ><%= @declaration.declare_enterprise_code %></span>
-				</p>
-				<p>
-					<b>经营单位:</b>
-					<span class="autoload" data-url=<%= enterprises_path %> ><%= @declaration.operate_enterprise_code %></span>
-				</p>
-				<p>
-					<b>外商公司:</b>
-					<span class="autoload" data-url=<%= foreign_enterprises_path %> ><%= @declaration.foreign_enterprise_code %></span>
-				</p>
-				<p>
-					<b><%= @declaration_type == "export" ? "出口" : "进口"  %>口岸:</b>
-					<span class="autoload" data-url=<%= dict_customs_path %> ><%= @declaration.custom %></span>
-				</p>
-				<p>
-					<b>备案号:</b>
-					<% if @declaration.contract %>
-					<%= @declaration.contract.manual %>
-					<% end %>
-				</p>
-				<p>
-					<b>报关类型:</b>
-					<span class="autoload" data-url=<%= dict_transit_types_path %> ><%= @declaration.transit_type %></span>
-				</p>
-				<% if @declaration_type == "import" %>
-				<p>
-					<b>进口日期</b>
-					<%= @declaration.import_export_date %>
-				</p>
-				<% end %>
-				<p>
-					<b>申报日期:</b>
-					<%= @declaration.declare_date %>
-				</p>
-				<p>
-					<b>运输方式:</b>
-					<span class="autoload" data-url=<%= dict_transport_modes_path %> ><%= @declaration.transport_mode %></span>
-				</p>
-				<p>
-					<b>运输工具:</b>
-					<%= @declaration.transport_tool %>
-				</p>
-				<p>
-					<b>航次:</b>
-					<%= @declaration.voyage_no %>
-				</p>
-				<p>
-					<b>汽车编号:</b>
-					<span class="autoload" data-url=<%= dict_trucks_path %> ><%= @declaration.truck %></span>
-				</p>
-				<p>
-					<b>提运单号:</b>
-					<%= @declaration.bill_no %>
-				</p>
-				<p>
-					<b>贸易方式:</b>
-					<span class="autoload" data-url=<%= dict_trade_modes_path %> ><%= @declaration.trade_mode %></span>
-				</p>
-				<p>
-					<b>征免性质:</b>
-					<span class="autoload" data-url=<%= dict_tax_kinds_path %> ><%= @declaration.tax_kind %></span>
-				</p>
-				<p>
-					<b><%= @declaration_type == "export" ? "运抵国" : "启运国"  %>:</b>
-					<span class="autoload" data-url=<%= dict_countries_path %> ><%= @declaration.trade_country %></span>
-				</p>
-				<p>
-					<b><%= @declaration_type == "export" ? "指运港" : "装货港"  %>:</b>
-					<span class="autoload" data-url=<%= dict_ports_path %> ><%= @declaration.port %></span>
-				</p>
-				<p>
-					<b><%= @declaration_type == "export" ? "境内货源地" : "境内目的地"  %>:</b>
-					<span class="autoload" data-url=<%= dict_districts_path %> ><%= @declaration.destination %></span>
-				</p>
-				<% if @declaration_type == "export" %>
-				<p>
-					<b>结汇方式:</b>
-					<span class="autoload" data-url=<%= dict_pay_ways_path %> ><%= @declaration.pay_way %></span>
-				</p>
-				<p>
-					<b>批准文号:</b>
-					<%= @declaration.certification %>
-				</p>
-				<% end %>
-				<p>
-					<b>成交方式:</b>
-					<span class="autoload" data-url=<%= dict_deal_modes_path %> ><%= @declaration.deal_mode %></span>
-				</p>
-				<p>
-					<b>合同号:</b>
-					<%= @declaration.contract_no %>
-				</p>
-				<p>
-					<b>件数:</b>
-					<%= @declaration.package_amount %>
-				</p>
-				<p>
-					<b>包装种类:</b>
-					<span class="autoload" data-url=<%= dict_wrap_types_path %> ><%= @declaration.wrap_type %></span>
-				</p>
-				<p>
-					<b>毛重:</b>
-					<%= @declaration.gross_weight %>
-				</p>
-				<p>
-					<b>净重:</b>
-					<%= @declaration.net_weight %>
-				</p>
-				<p>
-					<b>装卸口岸:</b>
-					<span class="autoload" data-url=<%= dict_load_ports_path %> ><%= @declaration.load_port %></span>
-				</p>
-				<p>
-					<b>备注:</b>
-					<%= @declaration.memo %>
-				</p>
-				<% if @declaration_type == "import" %>
-				<p>
-					<b>用途:</b>
-					<span class="autoload" data-url=<%= dict_usages_path %> ><%= @declaration.usage %></span>
-				</p>
-				<% end %>
-				<% @declaration.attachments.each do |key, value| %>
-				<p>
-					<b><span class="autoload" data-url=<%= dict_attachments_path %> ><%= key %></span>:</b>
-					<%= value %>
-				</p>
-				<% end %>
-			</fieldset>
-			<% if @declaration.transit_type == "003" %>
-			<fieldset>
-				<legend>转关信息：</legend>
-				<p>
-					<b>承运单位组织机构代码:</b>
-					<%= @declaration.declaration_transit_information.corporation_code %>
-				</p>
-				<p>
-					<b>承运单位名称:</b>
-					<%= @declaration.declaration_transit_information.corporation_name %>
-				</p>
-				<p>
-					<b>进出境运输工具编号:</b>
-					<span class="autoload" data-url=<%= dict_trucks_path %> ><%= @declaration.declaration_transit_information.transport_tool_code %></span>
-				</p>
-				<p>
-					<b>进出境运输工具名称:</b>
-					<%= @declaration.declaration_transit_information.transport_tool_name %>
-				</p>
-				<p>
-					<b>进出境运输工具航次:</b>
-					<%= @declaration.declaration_transit_information.transport_tool_voyage_no %>
-				</p>
-				<p>
-					<b>进出境提运单号:</b>
-					<%= @declaration.declaration_transit_information.bill_no %>
-				</p>
-				<p>
-					<b>境内运输方式:</b>
-					<span class="autoload" data-url=<%= dict_transport_modes_path %> ><%= @declaration.declaration_transit_information.local_transport_mode %></span>
-				</p>
-				<p>
-					<b>境内运输工具编号:</b>
-					<span class="autoload" data-url=<%= dict_trucks_path %> ><%= @declaration.declaration_transit_information.local_transport_tool_code %></span>
-				</p>
-				<p>
-					<b>境内运输工具名称:</b>
-					<%= @declaration.declaration_transit_information.local_transport_tool_name %>
-				</p>
-				<p>
-					<b>境内运输工具航次:</b>
-					<%= @declaration.declaration_transit_information.local_transport_tool_voyage_no %>
-				</p>
-			</fieldset>
-			<% end %>
-		</div>
-	</div>
+<div class="content-box-header">
+  <h3>查看报关单(<%= @declaration.pre_entry_no %>)</h3>
+
+  <div class="operations">
+    <% if can? :update, @declaration %><%= link_to '编辑', edit_declaration_path(@declaration) %> |
+    <% end %>
+    <%= link_to '打印', "#print_dialog", :rel => "facebox" %> |
+    <% if can? :declare, @declaration %><%= link_to '申报', declare_declaration_path(@declaration, :format => :json), :id => "declare_button" %>
+        |
+    <% end %>
+    <%= link_to @declaration_type == "export" ? "出口成品" : "进口料件", declaration_cargos_path(:declaration_id => @declaration.id) %>
+    |
+    <%= link_to "集装箱", declaration_containers_path(:declaration_id => @declaration.id) %> |
+    <%= link_to "装箱明细", declaration_packings_path(:declaration_id => @declaration.id) %> |
+    <%= link_to '返回列表', declarations_path(:declaration_type => @declaration_type) %>
+  </div>
+</div>
+<script>
+    $("#declare_button").click(function () {
+        if (confirm('确定要申报吗?')) {
+            var url = this.getAttribute("href");
+            $.get(url, function (result) {
+                show_tips(result.type, result.content);
+            });
+        }
+        return false;
+    });
+</script>
+<div class="content-box-content">
+  <div class="tab-content default-tab">
+    <fieldset>
+      <legend>基本信息：</legend>
+      <p>
+        <b>预录入号:</b>
+        <%= @declaration.pre_entry_no %>
+      </p>
+
+      <p>
+        <b>报关单号:</b>
+        <%= @declaration.entry_no %>
+      </p>
+
+      <p>
+        <b>电子口岸号:</b>
+        <%= @declaration.eport_no %>
+      </p>
+
+      <p>
+        <b>报关员:</b>
+        <%= @declaration.declarant %>
+      </p>
+
+      <p>
+        <b>申报企业:</b>
+        <span class="autoload" data-url=<%= enterprises_path %>><%= @declaration.declare_enterprise_code %></span>
+      </p>
+
+      <p>
+        <b>经营单位:</b>
+        <span class="autoload" data-url=<%= enterprises_path %>><%= @declaration.operate_enterprise_code %></span>
+      </p>
+
+      <p>
+        <b>外商公司:</b>
+        <span class="autoload" data-url=<%= foreign_enterprises_path %>><%= @declaration.foreign_enterprise_code %></span>
+      </p>
+
+      <p>
+        <b><%= @declaration_type == "export" ? "出口" : "进口" %>口岸:</b>
+        <span class="autoload" data-url=<%= dict_customs_path %>><%= @declaration.custom %></span>
+      </p>
+
+      <p>
+        <b>备案号:</b>
+        <% if @declaration.contract %>
+            <%= @declaration.contract.manual %>
+        <% end %>
+      </p>
+
+      <p>
+        <b>报关类型:</b>
+        <span class="autoload" data-url=<%= dict_transit_types_path %>><%= @declaration.transit_type %></span>
+      </p>
+      <% if @declaration_type == "import" %>
+          <p>
+            <b>进口日期</b>
+            <%= @declaration.import_export_date %>
+          </p>
+      <% end %>
+      <p>
+        <b>申报日期:</b>
+        <%= @declaration.declare_date %>
+      </p>
+
+      <p>
+        <b>运输方式:</b>
+        <span class="autoload" data-url=<%= dict_transport_modes_path %>><%= @declaration.transport_mode %></span>
+      </p>
+
+      <p>
+        <b>运输工具:</b>
+        <%= @declaration.transport_tool %>
+      </p>
+
+      <p>
+        <b>航次:</b>
+        <%= @declaration.voyage_no %>
+      </p>
+
+      <p>
+        <b>汽车编号:</b>
+        <span class="autoload" data-url=<%= dict_trucks_path %>><%= @declaration.truck %></span>
+      </p>
+
+      <p>
+        <b>提运单号:</b>
+        <%= @declaration.bill_no %>
+      </p>
+
+      <p>
+        <b>贸易方式:</b>
+        <span class="autoload" data-url=<%= dict_trade_modes_path %>><%= @declaration.trade_mode %></span>
+      </p>
+
+      <p>
+        <b>征免性质:</b>
+        <span class="autoload" data-url=<%= dict_tax_kinds_path %>><%= @declaration.tax_kind %></span>
+      </p>
+
+      <p>
+        <b><%= @declaration_type == "export" ? "运抵国" : "启运国" %>:</b>
+        <span class="autoload" data-url=<%= dict_countries_path %>><%= @declaration.trade_country %></span>
+      </p>
+
+      <p>
+        <b><%= @declaration_type == "export" ? "指运港" : "装货港" %>:</b>
+        <span class="autoload" data-url=<%= dict_ports_path %>><%= @declaration.port %></span>
+      </p>
+
+      <p>
+        <b><%= @declaration_type == "export" ? "境内货源地" : "境内目的地" %>:</b>
+        <span class="autoload" data-url=<%= dict_districts_path %>><%= @declaration.destination %></span>
+      </p>
+      <% if @declaration_type == "export" %>
+          <p>
+            <b>结汇方式:</b>
+            <span class="autoload" data-url=<%= dict_pay_ways_path %>><%= @declaration.pay_way %></span>
+          </p>
+
+          <p>
+            <b>批准文号:</b>
+            <%= @declaration.certification %>
+          </p>
+      <% end %>
+      <p>
+        <b>成交方式:</b>
+        <span class="autoload" data-url=<%= dict_deal_modes_path %>><%= @declaration.deal_mode %></span>
+      </p>
+
+      <p>
+        <b>合同号:</b>
+        <%= @declaration.contract_no %>
+      </p>
+
+      <p>
+        <b>件数:</b>
+        <%= @declaration.package_amount %>
+      </p>
+
+      <p>
+        <b>包装种类:</b>
+        <span class="autoload" data-url=<%= dict_wrap_types_path %>><%= @declaration.wrap_type %></span>
+      </p>
+
+      <p>
+        <b>毛重:</b>
+        <%= @declaration.gross_weight %>
+      </p>
+
+      <p>
+        <b>净重:</b>
+        <%= @declaration.net_weight %>
+      </p>
+
+      <p>
+        <b>装卸口岸:</b>
+        <span class="autoload" data-url=<%= dict_load_ports_path %>><%= @declaration.load_port %></span>
+      </p>
+
+      <p>
+        <b>备注:</b>
+        <%= @declaration.memo %>
+      </p>
+      <% if @declaration_type == "import" %>
+          <p>
+            <b>用途:</b>
+            <span class="autoload" data-url=<%= dict_usages_path %>><%= @declaration.usage %></span>
+          </p>
+      <% end %>
+      <% @declaration.attachments.each do |key, value| %>
+          <p>
+            <b><span class="autoload" data-url=<%= dict_attachments_path %>><%= key %></span>:</b>
+            <%= value %>
+          </p>
+      <% end %>
+    </fieldset>
+    <% if @declaration.transit_type == "003" %>
+        <fieldset>
+          <legend>转关信息：</legend>
+          <p>
+            <b>承运单位组织机构代码:</b>
+            <%= @declaration.declaration_transit_information.corporation_code %>
+          </p>
+
+          <p>
+            <b>承运单位名称:</b>
+            <%= @declaration.declaration_transit_information.corporation_name %>
+          </p>
+
+          <p>
+            <b>进出境运输工具编号:</b>
+            <span class="autoload" data-url=<%= dict_trucks_path %>><%= @declaration.declaration_transit_information.transport_tool_code %></span>
+          </p>
+
+          <p>
+            <b>进出境运输工具名称:</b>
+            <%= @declaration.declaration_transit_information.transport_tool_name %>
+          </p>
+
+          <p>
+            <b>进出境运输工具航次:</b>
+            <%= @declaration.declaration_transit_information.transport_tool_voyage_no %>
+          </p>
+
+          <p>
+            <b>进出境提运单号:</b>
+            <%= @declaration.declaration_transit_information.bill_no %>
+          </p>
+
+          <p>
+            <b>境内运输方式:</b>
+            <span class="autoload" data-url=<%= dict_transport_modes_path %>><%= @declaration.declaration_transit_information.local_transport_mode %></span>
+          </p>
+
+          <p>
+            <b>境内运输工具编号:</b>
+            <span class="autoload" data-url=<%= dict_trucks_path %>><%= @declaration.declaration_transit_information.local_transport_tool_code %></span>
+          </p>
+
+          <p>
+            <b>境内运输工具名称:</b>
+            <%= @declaration.declaration_transit_information.local_transport_tool_name %>
+          </p>
+
+          <p>
+            <b>境内运输工具航次:</b>
+            <%= @declaration.declaration_transit_information.local_transport_tool_voyage_no %>
+          </p>
+        </fieldset>
+    <% end %>
+  </div>
+</div>
 </div>
 
 
 <div id="print_dialog" style="display: none">
-	<% if @declaration.declaration_cargos.size > 0 %>
-	<h3>请选择打印单据种类</h3> 
-	<p>
-		<%= link_to '报关单', print_declaration_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
-	</p>
-	<p>
-		<%= link_to '合同', print_contract_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
-	</p>
-	<p>
-		<%= link_to '合同2', print_contract2_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
-	</p>
-	<% if @declaration_type == "export" %>
-	<p>
-		<%= link_to '国税发票', print_tax_invoice_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
-	</p>
-	<% end %>
-	<p>
-		<%= link_to '发票', print_invoice_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
-	</p>	
-	<p>
-		<%= link_to '装箱单', print_packing1_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
-	</p>
-	<p>
-		<%= link_to '装箱明细单', print_packing2_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
-	</p>
-	<p>
-		<%= link_to '凤岗装箱单', print_packing3_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
-	</p>
-	<% else %>
-	<h3>不能打印！</h3>
-	<p>请先去添加<%= @declaration_type == "export" ? "出口成品" : "进口料件" %></p>
-	<% end %>
-</div> 
+  <% if @declaration.declaration_cargos.size > 0 %>
+      <h3>请选择打印单据种类</h3>
+
+      <p>
+        <%= link_to '报关单', print_declaration_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+      </p>
+
+      <p>
+        <%= link_to '合同', print_contract_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+      </p>
+
+      <p>
+        <%= link_to '合同2', print_contract2_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+      </p>
+      <% if @declaration_type == "export" %>
+          <p>
+            <%= link_to '国税发票', print_tax_invoice_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+          </p>
+      <% end %>
+      <p>
+        <%= link_to '发票', print_invoice_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+      </p>
+
+      <p>
+        <%= link_to '装箱单', print_packing1_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+      </p>
+
+      <p>
+        <%= link_to '装箱明细单', print_packing2_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+      </p>
+
+      <p>
+        <%= link_to '凤岗装箱单', print_packing3_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+      </p>
+
+      <p>
+        <%= link_to '报关委托书', print_attorney_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+      </p>
+  <% else %>
+      <h3>不能打印！</h3>
+
+      <p>请先去添加<%= @declaration_type == "export" ? "出口成品" : "进口料件" %></p>
+  <% end %>
+</div>
 
 <% if @declaration.dispatch_records.size > 0 %>
-<div class="content-box">
-	<div class="content-box-header">
-		<h3>申报记录</h3>
-	</div>
-	<div class="content-box-content">
-		<div class="tab-content default-tab">
-			<table>
-				<thead>
-					<tr>
-						<th>时间</th>
-						<th>报文ID</th>
-						<th>状态</th>
-						<th>备注</th>
-					</tr>
-				</thead>				
-				<tbody>
-					<% @declaration.dispatch_records.each do |record| %>	
-					<tr>						
-						<td><%= record.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
-						<td><%= record.message_id %></td>
-						<td><%= record.channel %></td>
-						<td><%= record.note %></td>
-					</tr>
-					<% end %>					
-				</tbody>
-			</table>
-		</div>
-	</div>
-</div>
+    <div class="content-box">
+      <div class="content-box-header">
+        <h3>申报记录</h3>
+      </div>
+      <div class="content-box-content">
+        <div class="tab-content default-tab">
+          <table>
+            <thead>
+            <tr>
+              <th>时间</th>
+              <th>报文ID</th>
+              <th>状态</th>
+              <th>备注</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% @declaration.dispatch_records.each do |record| %>
+                <tr>
+                  <td><%= record.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
+                  <td><%= record.message_id %></td>
+                  <td><%= record.channel %></td>
+                  <td><%= record.note %></td>
+                </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
 <% end %>
