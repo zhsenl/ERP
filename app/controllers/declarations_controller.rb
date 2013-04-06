@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 class DeclarationsController < ApplicationController
   include ApplicationHelper, DeclarationsHelper, PrintHelper
-  before_filter :init
-
+  before_filter :init  
+  
   def init
     if params[:id]
       @declaration = Declaration.find(params[:id])
@@ -10,7 +10,7 @@ class DeclarationsController < ApplicationController
     else
       @declaration_type = params[:declaration_type] || params[:declaration][:declaration_type]
     end
-    @mark = @declaration_type
+    @mark = @declaration_type    
   end
 
   # GET /declarations
@@ -37,84 +37,67 @@ class DeclarationsController < ApplicationController
       format.json { render json: @declaration }
     end
   end
-
-  def print_declaration
+  
+  def print_declaration 
     authorize! :show, @declaration
     @declaration_cargos = @declaration.declaration_cargos.order("no")
-    @groups = Array.new((@declaration_cargos.size - 1) / 5 + 1) { Array.new }
+    @groups = Array.new((@declaration_cargos.size - 1) / 5 + 1){Array.new}
     @declaration_cargos.each_with_index do |declaration_cargo, index|
       @groups[index / 5][index % 5] = declaration_cargo
     end
     @title = '打印报关单'
     render :layout => 'print'
   end
-
-  def print_contract
+  
+  def print_contract 
     authorize! :show, @declaration
-    @declaration_cargos = @declaration.declaration_cargos.order("no")
+    @declaration_cargos = @declaration.declaration_cargos.order("no")    
     @title = '打印合同'
     render :layout => 'print'
   end
 
-  def print_contract2
+  def print_contract2 
     authorize! :show, @declaration
-    @declaration_cargos = @declaration.declaration_cargos.order("no")
+    @declaration_cargos = @declaration.declaration_cargos.order("no")    
     @title = '打印合同2'
     render :layout => 'print'
   end
-
+  
   def print_tax_invoice
     authorize! :show, @declaration
-    @declaration_cargos = @declaration.declaration_cargos.order("no")
+    @declaration_cargos = @declaration.declaration_cargos.order("no")    
     @title = '打印国税发票'
     render :layout => 'print'
   end
-
+  
   def print_invoice
     authorize! :show, @declaration
-    @declaration_cargos = @declaration.declaration_cargos.order("no")
+    @declaration_cargos = @declaration.declaration_cargos.order("no")    
     @title = '打印发票'
     render :layout => 'print'
   end
-
+  
   def print_packing1
     authorize! :show, @declaration
     @declaration_packings = @declaration.declaration_packings.order("no")
     @title = '打印装箱单'
     render :layout => 'print'
   end
-
+  
   def print_packing2
     authorize! :show, @declaration
     @declaration_packings = @declaration.declaration_packings.order("no")
     @title = '打印装箱明细单'
     render :layout => 'print'
   end
-
+  
   def print_packing3
     authorize! :show, @declaration
-    @declaration_cargos = @declaration.declaration_cargos.order("no")
+    @declaration_cargos = @declaration.declaration_cargos.order("no")   
     @title = '打印凤岗装箱单'
     render :layout => 'print'
   end
-
-  def print_attorney
-    authorize! :show, @declaration
-    @declaration_cargos = @declaration.declaration_cargos.order("no")
-    @major_cargo = nil
-    @major_cargo_price = 0
-    @total_price = 0
-    @declaration_cargos.each do |cargo|
-      tem = cargo.unit_price * cargo.quantity
-      @total_price += tem
-      if tem > @major_cargo_price
-        @major_cargo = cargo
-      end
-    end
-    @title = '代理报关委托书'
-    render :layout => 'print'
-  end
-
+  
   # GET /declarations/1/declare.json
   def declare
     authorize! :declare, @declaration
@@ -122,7 +105,7 @@ class DeclarationsController < ApplicationController
       result = {:type => "success", :content => "已经成功生成报文，请稍后再查询申报结果"}
     else
       result = {:type => "error", :content => "生成报文失败"}
-    end
+    end    
     respond_to do |format|
       format.json { render json: result }
     end
@@ -134,13 +117,13 @@ class DeclarationsController < ApplicationController
     if current_enterprise
       pre_entry_no = Time.now.strftime('%Y%m%d%H%M%S') + system_serial_no
       @declaration = Declaration.new(:enterprise_id => current_enterprise.id,
-                                     :declaration_type => @declaration_type,
-                                     :pre_entry_no => pre_entry_no,
-                                     :pay_way => "7",
-                                     :deal_mode => @declaration_type == "export" ? "3" : "1",
-                                     :declare_enterprise_code => "4419980074",
-                                     :transit_type => "001",
-                                     :created_by => current_user.username)
+                                      :declaration_type => @declaration_type,
+                                      :pre_entry_no => pre_entry_no,
+                                      :pay_way => "7",
+                                      :deal_mode => @declaration_type == "export" ? "3" : "1",
+                                      :declare_enterprise_code => "4419980074",
+                                      :transit_type => "001",
+                                      :created_by => current_user.username)
       @declaration.declaration_transit_information = DeclarationTransitInformation.new(:local_transport_mode => 4)
     else
       redirect_to declarations_path(:declaration_type => @declaration_type), notice: '请选择要操作的企业'
@@ -160,7 +143,7 @@ class DeclarationsController < ApplicationController
 
     respond_to do |format|
       if @declaration.save
-        format.html { redirect_to @declaration, :flash => {:success => '成功保存报关单'} }
+        format.html { redirect_to @declaration, :flash => { :success => '成功保存报关单'} }
         format.json { render json: @declaration, status: :created, location: @declaration }
       else
         format.html { render action: "new", :declaration_type => 1 }
@@ -175,7 +158,7 @@ class DeclarationsController < ApplicationController
     authorize! :update, @declaration
     respond_to do |format|
       if @declaration.update_attributes(params[:declaration])
-        format.html { redirect_to @declaration, :flash => {:success => '成功修改报关单'} }
+        format.html { redirect_to @declaration, :flash => { :success => '成功修改报关单'} }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -191,7 +174,7 @@ class DeclarationsController < ApplicationController
     @declaration.destroy
 
     respond_to do |format|
-      format.html { redirect_to declarations_url(:declaration_type => @declaration_type), :flash => {:success => '删除成功'} }
+      format.html { redirect_to declarations_url(:declaration_type => @declaration_type), :flash => { :success => '删除成功'}}
       format.json { head :no_content }
     end
   end

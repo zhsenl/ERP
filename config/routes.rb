@@ -18,6 +18,9 @@ ERP::Application.routes.draw do
     get 'search', :on => :collection
     get 'declare', :on => :member
     get 'dispatch_record', :on => :member
+    get 'driver_paper', :on => :collection
+    get 'print_driver_paper_1', :on => :collection
+    get 'print_driver_paper_2', :on => :collection
     get 'print_declaration', :on => :member
     get 'print_contract', :on => :member
     get 'print_contract2', :on => :member
