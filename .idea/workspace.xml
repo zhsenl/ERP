@@ -1,18 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="94a0eeff-763c-4623-b0a8-c4ddcf06e67e" name="Default" comment="print attorney ()">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/.rakeTasks" afterPath="$PROJECT_DIR$/.idea/.rakeTasks" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/log/development.log" afterPath="$PROJECT_DIR$/log/development.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tmp/pids/server.pid" afterPath="$PROJECT_DIR$/tmp/pids/server.pid" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    <list default="true" id="94a0eeff-763c-4623-b0a8-c4ddcf06e67e" name="Default" comment="fix bug -- print attorney">
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\.idea\.generators" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\.idea\.name" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\.idea\.rakeTasks" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\.idea\ERP.iml" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\.idea\dataSources.ids" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\.idea\dataSources.xml" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\.idea\encodings.xml" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\.idea\misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\.idea\modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\.idea\scopes\scope_settings.xml" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\.idea\vcs.xml" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\.idea\workspace.xml" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\log\.gitkeep" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\log\development.log" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\log\test.log" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\BF6\7E0\sprockets%2F983616eb6845779221247901bc2133d6" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\C25\B30\sprockets%2F7b9331514fc528227e097e046507449b" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\C50\E70\sprockets%2F710e2661b10837d3794956262e65c3bb" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\C59\4E0\sprockets%2F472457200628019d8d79c0fd9a95c624" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\C9A\440\sprockets%2F5af6530a61e9d1d39b5888899134837f" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\C9B\500\sprockets%2F558fb80f1b8dc37559071495e84e3786" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\CA0\DB0\sprockets%2Fb8d42949e061501a753d0e3a8be12522" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\CA8\9B0\sprockets%2F207907100aabd08a6767e39a95b364e3" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\CC2\B10\sprockets%2F151a1c6b128721d8923ba0c380a2af17" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\CC9\310\sprockets%2F182b05b1cd5158650ca70038eb9b02d5" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\CD8\370\sprockets%2F357970feca3ac29060c1e3861e2c0953" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\CDB\910\sprockets%2F26098b294d10eec3e946bb124334e5e4" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\CE0\5E0\sprockets%2F140120b72978ae53ceb3e878e67ad074" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\CE0\670\sprockets%2F27514d53276940966af4aabefd32c491" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\CE0\B40\sprockets%2F2b93206339c7396dfe20e6c6de9423a0" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\CE1\E20\sprockets%2F7123bdb745c43738029c8fa6519bfb17" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\CE9\510\sprockets%2F5c7f9adc6044416402f7ce3d3f779525" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\CF1\120\sprockets%2F37ab3691f818d7d8d3a01636bd58698e" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\CF2\C00\sprockets%2Fabd7c5aaf448509d064c784799b70398" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D07\9B0\sprockets%2Fb7da1a1d56604c814b7fd369a96d2411" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D0A\F50\sprockets%2F264a0ab83d3e7524cad560ed3e863529" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D0A\FC0\sprockets%2F0c8556fcb7d0236ee0570f02c75e93b2" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D11\4C0\sprockets%2F13c0e37932dc9c27e1c4822e6777aba8" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D11\FA0\sprockets%2Fa76ba7fe0334268e111df6a61b9d9745" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D12\CD0\sprockets%2F036f1818dd2946d992f0a41f6efa3f30" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D1F\2D0\sprockets%2Fea0c38b826a4d866769f8a542b7db638" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D24\560\sprockets%2F6d8888f60afcc194c0d729df3a769820" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D26\EC0\sprockets%2F89492378b35c4fafb97d34e7273a2ee8" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D27\9E0\sprockets%2Fe43c02600aae84a5a63ab45611bdd496" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D32\A10\sprockets%2F13fe41fee1fe35b49d145bcc06610705" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D33\420\sprockets%2F43a577fe255805d1a0be16a8a270eb4f" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D34\CB0\sprockets%2F75a32e3b064f2b4e840b4b4e9e253ab7" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D3C\220\sprockets%2F1cc10cd36b4569d854db28393f26a3dd" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D3C\350\sprockets%2Fcc62856044ffa897cc341b0ae24c872b" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D41\1D0\sprockets%2F406e82f8ae231e2156763b94bcefeb45" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D4E\1B0\sprockets%2Ff7cbd26ba1d28d48de824f0e94586655" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D4F\7E0\sprockets%2F16ebdc42647683a1fd986adf6b9255d7" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D52\700\sprockets%2F059fc64c77ce5c8ab54a5d3c696d9545" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D53\2D0\sprockets%2Fed59573786f90edb3197fcaf5420d94b" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D53\AD0\sprockets%2Fe55aef81481c7647b8c73e5fed4925a6" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D54\890\sprockets%2F5f68a0d8371ba3d87e11fe7c59f9c558" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D55\0D0\sprockets%2F74138de8ce8c7f373f647bb05f69b75a" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D5A\EA0\sprockets%2Fd771ace226fc8215a3572e0aa35bb0d6" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D6C\8E0\sprockets%2Ff24e3e37f5a15dacb71e3a92e96257b1" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D71\820\sprockets%2F84e581d32fa3df2f274070e9af7a3fb5" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D75\C70\sprockets%2Fd007d2398a4f84a2d4d97ebf27ef22b7" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D78\ED0\sprockets%2F8562e11d2ff2444ebe72fe4852b9caf8" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D7D\6D0\sprockets%2F9ee604b76e7c72e6bba252a3d89859da" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D8A\7B0\sprockets%2F1bb1d11bc3b653a46d6fb273db793ae2" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D8D\BB0\sprockets%2F48006d0c0ca5e1bc2d1526887b4bdbfe" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D97\830\sprockets%2Fc14d246d2cfb404dafe1be6ae8823953" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\D99\AE0\sprockets%2Fdac20dbd305e941bd467f706f0f84e6a" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\DA6\8D0\sprockets%2Fe7abf08fe38df9d5142470527fa0dce8" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\DA7\2F0\sprockets%2F61da396fb86c5ecd844a2d83ac759b4b" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\DA8\890\sprockets%2F6da807a386baea70ef5c26f52e57cf59" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\DAB\5E0\sprockets%2F16391d92abdbf498669c9f1d1bfec7b2" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\DB1\350\sprockets%2F48ef3fa68e9084c7cfa84e525decc318" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\DB2\EF0\sprockets%2Fe4aa64197cb5cff188c9742948db6ddd" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\DB6\C30\sprockets%2F0da9bdde188748fdea63ee47ef187349" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\DBE\180\sprockets%2Fdcbd32bb75fdec2a8b04c5a0b1259089" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\DD2\380\sprockets%2Fc0aee3642aeb5895fee6e94d53d22cc4" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\DDC\400\sprockets%2Fcffd775d018f68ce5dba1ee0d951a994" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\E04\890\sprockets%2F2f5173deea6c795b8fdde723bb4b63af" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\E5C\690\sprockets%2Fe863f9ab1ad2aff1eabc865773ccf0cd" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\E61\0B0\sprockets%2Ff4ffaa0ac3a16282ef6fd43f6fd8c4fe" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\assets\E7B\C80\sprockets%2F1edbaecf2275bbabe4f0bee30ec476b4" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\sass\9f4e35c14fd5203d1239931099cd6f67703f1042\jquery-ui-1.8.19.custom.scssc" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\cache\sass\9f4e35c14fd5203d1239931099cd6f67703f1042\style.scssc" afterPath="" />
+      <change type="DELETED" beforePath="E:\work\ruby\ERP\tmp\pids\server.pid" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/controllers/declarations_controller.rb" afterPath="$PROJECT_DIR$/app/controllers/declarations_controller.rb" />
     </list>
     <ignored path="ERP.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="94a0eeff-763c-4623-b0a8-c4ddcf06e67e" time="1365249861137" ignored="false" />
+    <ignored path=".project" />
+    <ignored path=".idea/" />
+    <ignored path="tmp/" />
+    <ignored path="log/" />
+    <file path="/Dummy.txt" changelist="94a0eeff-763c-4623-b0a8-c4ddcf06e67e" time="1365267752796" ignored="false" />
     <file path="/database.yml" changelist="94a0eeff-763c-4623-b0a8-c4ddcf06e67e" time="1364983511218" ignored="false" />
     <file path="/Ruby Console" changelist="94a0eeff-763c-4623-b0a8-c4ddcf06e67e" time="1365165532906" ignored="false" />
-    <file path="/show.html.erb" changelist="94a0eeff-763c-4623-b0a8-c4ddcf06e67e" time="1365146754136" ignored="false" />
+    <file path="/show.html.erb" changelist="94a0eeff-763c-4623-b0a8-c4ddcf06e67e" time="1365266776227" ignored="false" />
     <file path="/cargos_controller.rb" changelist="94a0eeff-763c-4623-b0a8-c4ddcf06e67e" time="1365133103842" ignored="false" />
     <file path="/routes.rb" changelist="94a0eeff-763c-4623-b0a8-c4ddcf06e67e" time="1365123980957" ignored="false" />
     <file path="/print_cargo.html.erb" changelist="94a0eeff-763c-4623-b0a8-c4ddcf06e67e" time="1365008024740" ignored="false" />
@@ -24,6 +109,7 @@
     <file path="/declarations_controller.rb" changelist="94a0eeff-763c-4623-b0a8-c4ddcf06e67e" time="1365170811202" ignored="false" />
     <file path="/print_attorney.html.erb" changelist="94a0eeff-763c-4623-b0a8-c4ddcf06e67e" time="1365230820665" ignored="false" />
     <file path="/print_contract.html.erb" changelist="94a0eeff-763c-4623-b0a8-c4ddcf06e67e" time="1365249026079" ignored="false" />
+    <file path="$PROJECT_DIR$/.idea/workspace.xml" changelist="94a0eeff-763c-4623-b0a8-c4ddcf06e67e" time="1365267844432" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,10 +126,10 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="declarations_controller.rb" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="declarations_controller.rb" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/declarations_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="53" column="0" selection-start="1602" selection-end="1602" vertical-scroll-proportion="0.0">
+            <state line="184" column="54" selection-start="5899" selection-end="5899" vertical-scroll-proportion="0.8061224">
               <folding />
             </state>
           </provider>
@@ -52,17 +138,53 @@
       <file leaf-file-name="print.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/assets/javascripts/print.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="35" column="8" selection-start="779" selection-end="779" vertical-scroll-proportion="0.0">
+            <state line="76" column="86" selection-start="2060" selection-end="2060" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="print_contract.html.erb" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="show.html.erb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/views/declarations/show.html.erb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="255" column="43" selection-start="8147" selection-end="8147" vertical-scroll-proportion="-17.321428">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="routes.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/config/routes.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="14" column="75" selection-start="352" selection-end="352" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="print_contract.html.erb" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/views/declarations/print_contract.html.erb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="98" column="68" selection-start="3101" selection-end="3101" vertical-scroll-proportion="0.9114391">
-              <folding />
+            <state line="4" column="81" selection-start="73" selection-end="73" vertical-scroll-proportion="-2.7142856">
+              <folding>
+                <marker date="1365264089196" expanded="true" signature="577:590" placeholder="..." />
+                <marker date="1365264089196" expanded="true" signature="778:787" placeholder="..." />
+                <marker date="1365264089196" expanded="true" signature="788:952" placeholder="..." />
+                <marker date="1365264089196" expanded="true" signature="979:988" placeholder="..." />
+                <marker date="1365264089196" expanded="true" signature="989:1066" placeholder="..." />
+                <marker date="1365264089196" expanded="true" signature="1119:1128" placeholder="..." />
+                <marker date="1365264089196" expanded="true" signature="1319:1328" placeholder="..." />
+                <marker date="1365264089196" expanded="true" signature="1487:1500" placeholder="..." />
+                <marker date="1365264089196" expanded="true" signature="1610:1641" placeholder="..." />
+                <marker date="1365264089196" expanded="true" signature="1642:1900" placeholder="..." />
+                <marker date="1365264089196" expanded="true" signature="1670:1681" placeholder="..." />
+                <marker date="1365264089196" expanded="true" signature="1718:1730" placeholder="..." />
+                <marker date="1365264089196" expanded="true" signature="1769:1781" placeholder="..." />
+                <marker date="1365264089196" expanded="true" signature="1821:1833" placeholder="..." />
+                <marker date="1365264089196" expanded="true" signature="1870:1882" placeholder="..." />
+                <marker date="1365264089196" expanded="true" signature="5323:5471" placeholder="&lt;%...%&gt;" />
+                <marker date="1365264089196" expanded="true" signature="5388:5459" placeholder="do ... end" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -88,7 +210,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="5.2" />
+        <entry key="$PROJECT_DIR$" value="6a5378e" />
       </map>
     </option>
   </component>
@@ -110,12 +232,12 @@
         <option value="$PROJECT_DIR$/code_garbage" />
         <option value="$PROJECT_DIR$/app/views/cargos/print_cargos.html.erb" />
         <option value="$PROJECT_DIR$/app/controllers/cargos_controller.rb" />
-        <option value="$PROJECT_DIR$/app/views/declarations/show.html.erb" />
         <option value="$PROJECT_DIR$/config/routes.rb" />
-        <option value="$PROJECT_DIR$/app/controllers/declarations_controller.rb" />
-        <option value="$PROJECT_DIR$/app/assets/javascripts/print.js" />
         <option value="$PROJECT_DIR$/app/views/declarations/print_attorney.html.erb" />
         <option value="$PROJECT_DIR$/app/views/declarations/print_contract.html.erb" />
+        <option value="$PROJECT_DIR$/app/assets/javascripts/print.js" />
+        <option value="$PROJECT_DIR$/app/views/declarations/show.html.erb" />
+        <option value="$PROJECT_DIR$/app/controllers/declarations_controller.rb" />
       </list>
     </option>
   </component>
@@ -127,8 +249,8 @@
     <option name="CUSTOM_FILTER" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="391" />
-    <option name="width" value="975" />
+    <option name="x" value="190" />
+    <option name="width" value="1176" />
     <option name="height" value="768" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
@@ -158,6 +280,7 @@
     </navigator>
     <panes>
       <pane id="Scope" />
+      <pane id="RailsProjectView" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -186,25 +309,78 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="config" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ERP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ERP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ERP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ERP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="declarations" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ERP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="ERP" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="RailsProjectView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="options.lastSelected" value="vcs.Git" />
     <property name="recentsLimit" value="5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="options.lastSelected" value="vcs.Git" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/log" />
     <property name="RakeTaksPopup.undocumentedIncluded" value="false" />
-    <property name="options.searchVisible" value="true" />
-    <property name="options.splitter.details.proportions" value="0.2" />
     <property name="Ruby.ViewRefParam.DefaultExtension" value="html.erb" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -527,7 +703,11 @@
       <created>1365249136477</created>
       <updated>1365249136477</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="fix bug -- print attorney">
+      <created>1365267576509</created>
+      <updated>1365267576509</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView" selected-index="1">
@@ -551,14 +731,15 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="391" y="0" width="975" height="768" extended-state="0" />
-    <editor active="true" />
+    <frame x="190" y="0" width="1176" height="768" extended-state="0" />
+    <editor active="false" />
     <layout>
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32753164" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3085443" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.59177214" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32753164" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27601314" sideWeight="0.596519" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23159784" sideWeight="0.40822786" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.403481" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32753164" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -568,7 +749,6 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32905295" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3085443" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -612,7 +792,7 @@
     <option name="MAXIMUM_HISTORY_ROWS" value="1000" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix bug -- print contract" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix bug -- print attorney" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -628,6 +808,7 @@
     <MESSAGE value="print cargos" />
     <MESSAGE value="print attorney (差‘收到单证情况’)" />
     <MESSAGE value="fix bug -- print contract" />
+    <MESSAGE value="fix bug -- print attorney" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -663,35 +844,14 @@
         <state line="43" column="88" selection-start="1005" selection-end="1005" vertical-scroll-proportion="0.4877451" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/config/routes.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="19" selection-start="373" selection-end="373" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/declarations/show.html.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="303" column="43" selection-start="9123" selection-end="9123" vertical-scroll-proportion="-18.678572" />
-      </provider>
-    </entry>
     <entry file="jar://$APPLICATION_HOME_DIR$/lib/rubymine.jar!/resources/html5-schema/common.rnc">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="123" column="23" selection-start="3271" selection-end="3271" vertical-scroll-proportion="0.3327616">
-          <folding />
-        </state>
+        <state line="123" column="23" selection-start="3271" selection-end="3271" vertical-scroll-proportion="0.3327616" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/views/cargos/print_cargos.html.erb">
       <provider selected="true" editor-type-id="text-editor">
         <state line="78" column="125" selection-start="2079" selection-end="2079" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/print.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="8" selection-start="779" selection-end="779" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -716,16 +876,55 @@
         <state line="5" column="0" selection-start="143" selection-end="143" vertical-scroll-proportion="0.28963414" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/controllers/declarations_controller.rb">
+    <entry file="file://$PROJECT_DIR$/app/views/declarations/print_contract.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="0" selection-start="1602" selection-end="1602" vertical-scroll-proportion="0.0">
+        <state line="4" column="81" selection-start="73" selection-end="73" vertical-scroll-proportion="-2.7142856">
+          <folding>
+            <marker date="1365264089196" expanded="true" signature="577:590" placeholder="..." />
+            <marker date="1365264089196" expanded="true" signature="778:787" placeholder="..." />
+            <marker date="1365264089196" expanded="true" signature="788:952" placeholder="..." />
+            <marker date="1365264089196" expanded="true" signature="979:988" placeholder="..." />
+            <marker date="1365264089196" expanded="true" signature="989:1066" placeholder="..." />
+            <marker date="1365264089196" expanded="true" signature="1119:1128" placeholder="..." />
+            <marker date="1365264089196" expanded="true" signature="1319:1328" placeholder="..." />
+            <marker date="1365264089196" expanded="true" signature="1487:1500" placeholder="..." />
+            <marker date="1365264089196" expanded="true" signature="1610:1641" placeholder="..." />
+            <marker date="1365264089196" expanded="true" signature="1642:1900" placeholder="..." />
+            <marker date="1365264089196" expanded="true" signature="1670:1681" placeholder="..." />
+            <marker date="1365264089196" expanded="true" signature="1718:1730" placeholder="..." />
+            <marker date="1365264089196" expanded="true" signature="1769:1781" placeholder="..." />
+            <marker date="1365264089196" expanded="true" signature="1821:1833" placeholder="..." />
+            <marker date="1365264089196" expanded="true" signature="1870:1882" placeholder="..." />
+            <marker date="1365264089196" expanded="true" signature="5323:5471" placeholder="&lt;%...%&gt;" />
+            <marker date="1365264089196" expanded="true" signature="5388:5459" placeholder="do ... end" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/assets/javascripts/print.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="76" column="86" selection-start="2060" selection-end="2060" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/views/declarations/print_contract.html.erb">
+    <entry file="file://$PROJECT_DIR$/app/views/declarations/show.html.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="98" column="68" selection-start="3101" selection-end="3101" vertical-scroll-proportion="0.9114391">
+        <state line="255" column="43" selection-start="8147" selection-end="8147" vertical-scroll-proportion="-17.321428">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config/routes.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="75" selection-start="352" selection-end="352" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/controllers/declarations_controller.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="184" column="54" selection-start="5899" selection-end="5899" vertical-scroll-proportion="0.8061224">
           <folding />
         </state>
       </provider>

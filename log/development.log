@@ -51865,3 +51865,999 @@ Processing by MessagesController#unread as JSON
   [1m[36mUser Load (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1[0m
   [1m[35mMessage Load (2.0ms)[0m  SELECT `messages`.* FROM `messages` WHERE `messages`.`user_id` = 220 AND `messages`.`read` = 0
 Completed 200 OK in 8ms (Views: 1.0ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2013-04-07 00:56:30 +0800
+Processing by PagesController#home as HTML
+  [1m[36mUser Load (31.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1[0m
+  Rendered pages/home.html.erb within layouts/application (51.0ms)
+  Rendered layouts/_sidebar.html.erb (7.0ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 1335ms (Views: 627.0ms | ActiveRecord: 478.0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-04-07 00:56:32 +0800
+Served asset /jquery_ujs.js - 304 Not Modified (8ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-04-07 00:56:32 +0800
+Served asset /jquery.js - 304 Not Modified (11ms)
+
+
+Started GET "/assets/facebox.js?body=1" for 127.0.0.1 at 2013-04-07 00:56:32 +0800
+Served asset /facebox.js - 304 Not Modified (7ms)
+
+
+Started GET "/assets/configuration.js?body=1" for 127.0.0.1 at 2013-04-07 00:56:32 +0800
+Served asset /configuration.js - 304 Not Modified (5ms)
+
+
+Started GET "/assets/jquery-ui-1.8.19.custom.min.js?body=1" for 127.0.0.1 at 2013-04-07 00:56:32 +0800
+Served asset /jquery-ui-1.8.19.custom.min.js - 304 Not Modified (4ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-04-07 00:56:32 +0800
+Served asset /application.js - 304 Not Modified (22ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-04-07 00:56:32 +0800
+Served asset /application.css - 304 Not Modified (10ms)
+
+
+Started GET "/assets/invalid.css?body=1" for 127.0.0.1 at 2013-04-07 00:56:32 +0800
+Served asset /invalid.css - 304 Not Modified (39ms)
+
+
+Started GET "/assets/reset.css?body=1" for 127.0.0.1 at 2013-04-07 00:56:32 +0800
+Served asset /reset.css - 304 Not Modified (4ms)
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2013-04-07 00:56:32 +0800
+Served asset /style.css - 304 Not Modified (5ms)
+
+
+Started GET "/assets/jquery-ui-1.8.19.custom.css?body=1" for 127.0.0.1 at 2013-04-07 00:56:32 +0800
+Served asset /jquery-ui-1.8.19.custom.css - 304 Not Modified (5ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-07 00:56:32 +0800
+Processing by MessagesController#unread as JSON
+  [1m[35mUser Load (14.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mMessage Load (2.0ms)[0m  [1mSELECT `messages`.* FROM `messages` WHERE `messages`.`user_id` = 220 AND `messages`.`read` = 0[0m
+Completed 200 OK in 364ms (Views: 64.0ms | ActiveRecord: 16.0ms)
+
+
+Started GET "/assets/logo.png" for 127.0.0.1 at 2013-04-07 00:56:33 +0800
+Served asset /logo.png - 304 Not Modified (3ms)
+
+
+Started GET "/assets/icons/paper_content_pencil_48.png" for 127.0.0.1 at 2013-04-07 00:56:33 +0800
+Served asset /icons/paper_content_pencil_48.png - 304 Not Modified (5ms)
+
+
+Started GET "/assets/icons/pencil_48.png" for 127.0.0.1 at 2013-04-07 00:56:33 +0800
+Served asset /icons/pencil_48.png - 304 Not Modified (3ms)
+
+
+Started GET "/assets/icons/comment_48.png" for 127.0.0.1 at 2013-04-07 00:56:33 +0800
+Served asset /icons/comment_48.png - 304 Not Modified (3ms)
+
+
+Started GET "/assets/closelabel.gif" for 127.0.0.1 at 2013-04-07 00:56:33 +0800
+Served asset /closelabel.gif - 304 Not Modified (3ms)
+
+
+Started GET "/assets/loading.gif" for 127.0.0.1 at 2013-04-07 00:56:33 +0800
+Served asset /loading.gif - 304 Not Modified (2ms)
+
+
+Started GET "/assets/bg-radial-gradient.gif" for 127.0.0.1 at 2013-04-07 00:56:33 +0800
+Served asset /bg-radial-gradient.gif - 304 Not Modified (6ms)
+
+
+Started GET "/assets/bg-body.gif" for 127.0.0.1 at 2013-04-07 00:56:33 +0800
+Served asset /bg-body.gif - 304 Not Modified (5ms)
+
+
+Started GET "/assets/bg-sidebar.gif" for 127.0.0.1 at 2013-04-07 00:56:33 +0800
+Served asset /bg-sidebar.gif - 304 Not Modified (3ms)
+
+
+Started GET "/assets/bg-menu-item-green.gif" for 127.0.0.1 at 2013-04-07 00:56:33 +0800
+Served asset /bg-menu-item-green.gif - 304 Not Modified (3ms)
+
+
+Started GET "/assets/icons/bullet_black.png" for 127.0.0.1 at 2013-04-07 00:56:33 +0800
+Served asset /icons/bullet_black.png - 304 Not Modified (3ms)
+
+
+Started GET "/assets/shortcut-button-bg.gif" for 127.0.0.1 at 2013-04-07 00:56:33 +0800
+Served asset /shortcut-button-bg.gif - 304 Not Modified (3ms)
+
+
+Started GET "/declarations?declaration_type=import" for 127.0.0.1 at 2013-04-07 00:56:37 +0800
+Processing by DeclarationsController#index as HTML
+  Parameters: {"declaration_type"=>"import"}
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mEnterprise Load (17.0ms)[0m  [1mSELECT `enterprises`.* FROM `enterprises` WHERE `enterprises`.`id` = 499 LIMIT 1[0m
+  [1m[35mEnterprise Load (33.0ms)[0m  SELECT `enterprises`.* FROM `enterprises` INNER JOIN `manage_relationships` ON `enterprises`.`id` = `manage_relationships`.`enterprise_id` WHERE `manage_relationships`.`user_id` = 220 ORDER BY manage_relationships.id DESC
+  Rendered shared/_enterprise_selector.html.erb (342.0ms)
+  [1m[36m (65.0ms)[0m  [1mSELECT COUNT(*) FROM `declarations` WHERE (enterprise_id = 499 and declaration_type = 'import')[0m
+  [1m[35mDeclaration Load (27.0ms)[0m  SELECT `declarations`.* FROM `declarations` WHERE (enterprise_id = 499 and declaration_type = 'import') ORDER BY updated_at DESC LIMIT 10 OFFSET 0
+  Rendered declarations/index.html.erb within layouts/application (545.0ms)
+  Rendered layouts/_sidebar.html.erb (5.0ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 706ms (Views: 435.0ms | ActiveRecord: 210.0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-04-07 00:56:38 +0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-04-07 00:56:38 +0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-ui-1.8.19.custom.min.js?body=1" for 127.0.0.1 at 2013-04-07 00:56:38 +0800
+Served asset /jquery-ui-1.8.19.custom.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-04-07 00:56:38 +0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/facebox.js?body=1" for 127.0.0.1 at 2013-04-07 00:56:38 +0800
+Served asset /facebox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/configuration.js?body=1" for 127.0.0.1 at 2013-04-07 00:56:38 +0800
+Served asset /configuration.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-04-07 00:56:38 +0800
+Served asset /application.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/invalid.css?body=1" for 127.0.0.1 at 2013-04-07 00:56:38 +0800
+Served asset /invalid.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/reset.css?body=1" for 127.0.0.1 at 2013-04-07 00:56:38 +0800
+Served asset /reset.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2013-04-07 00:56:38 +0800
+Served asset /style.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-ui-1.8.19.custom.css?body=1" for 127.0.0.1 at 2013-04-07 00:56:38 +0800
+Served asset /jquery-ui-1.8.19.custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/logo.png" for 127.0.0.1 at 2013-04-07 00:56:38 +0800
+Served asset /logo.png - 304 Not Modified (0ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-07 00:56:38 +0800
+Processing by MessagesController#unread as JSON
+  [1m[36mUser Load (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1[0m
+  [1m[35mMessage Load (3.0ms)[0m  SELECT `messages`.* FROM `messages` WHERE `messages`.`user_id` = 220 AND `messages`.`read` = 0
+Completed 200 OK in 25ms (Views: 4.0ms | ActiveRecord: 3.0ms)
+
+
+Started GET "/assets/bg-content-box.gif" for 127.0.0.1 at 2013-04-07 00:56:38 +0800
+Served asset /bg-content-box.gif - 304 Not Modified (7ms)
+
+
+Started GET "/assets/icons/pencil.png" for 127.0.0.1 at 2013-04-07 00:56:38 +0800
+Served asset /icons/pencil.png - 304 Not Modified (4ms)
+
+
+Started GET "/assets/icons/cross.png" for 127.0.0.1 at 2013-04-07 00:56:39 +0800
+Served asset /icons/cross.png - 304 Not Modified (3ms)
+
+
+Started GET "/assets/closelabel.gif" for 127.0.0.1 at 2013-04-07 00:56:39 +0800
+Served asset /closelabel.gif - 304 Not Modified (0ms)
+
+
+Started GET "/assets/loading.gif" for 127.0.0.1 at 2013-04-07 00:56:39 +0800
+Served asset /loading.gif - 304 Not Modified (1ms)
+
+
+Started GET "/assets/menu-current-arrow.gif" for 127.0.0.1 at 2013-04-07 00:56:39 +0800
+Served asset /menu-current-arrow.gif - 304 Not Modified (3ms)
+
+
+Started GET "/assets/tl.png" for 127.0.0.1 at 2013-04-07 00:56:39 +0800
+Served asset /tl.png - 304 Not Modified (4ms)
+
+
+Started GET "/assets/b.png" for 127.0.0.1 at 2013-04-07 00:56:39 +0800
+Served asset /b.png - 304 Not Modified (3ms)
+
+
+Started GET "/assets/tr.png" for 127.0.0.1 at 2013-04-07 00:56:39 +0800
+Served asset /tr.png - 304 Not Modified (3ms)
+
+
+Started GET "/assets/bl.png" for 127.0.0.1 at 2013-04-07 00:56:39 +0800
+Served asset /bl.png - 304 Not Modified (3ms)
+
+
+Started GET "/assets/br.png" for 127.0.0.1 at 2013-04-07 00:56:39 +0800
+Served asset /br.png - 304 Not Modified (4ms)
+
+
+Started GET "/assets/ui-icons_888888_256x240.png" for 127.0.0.1 at 2013-04-07 00:56:39 +0800
+Served asset /ui-icons_888888_256x240.png - 304 Not Modified (3ms)
+
+
+Started GET "/declarations/24" for 127.0.0.1 at 2013-04-07 00:56:41 +0800
+Processing by DeclarationsController#show as HTML
+  Parameters: {"id"=>"24"}
+  [1m[36mUser Load (1.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1[0m
+  [1m[35mDeclaration Load (1.0ms)[0m  SELECT `declarations`.* FROM `declarations` WHERE `declarations`.`id` = 24 LIMIT 1
+  [1m[36mContract Load (1.0ms)[0m  [1mSELECT `contracts`.* FROM `contracts` WHERE `contracts`.`id` = 0 LIMIT 1[0m
+  [1m[35m (120.0ms)[0m  SELECT COUNT(*) FROM `declaration_cargos` WHERE `declaration_cargos`.`declaration_id` = 24
+  [1m[36m (216.0ms)[0m  [1mSELECT COUNT(*) FROM `dispatch_records` WHERE `dispatch_records`.`declaration_id` = 24[0m
+  Rendered declarations/show.html.erb within layouts/application (678.0ms)
+  Rendered layouts/_sidebar.html.erb (7.0ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 719ms (Views: 256.0ms | ActiveRecord: 460.0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-04-07 00:56:41 +0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-04-07 00:56:41 +0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/facebox.js?body=1" for 127.0.0.1 at 2013-04-07 00:56:41 +0800
+Served asset /facebox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/configuration.js?body=1" for 127.0.0.1 at 2013-04-07 00:56:42 +0800
+Served asset /configuration.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-ui-1.8.19.custom.min.js?body=1" for 127.0.0.1 at 2013-04-07 00:56:42 +0800
+Served asset /jquery-ui-1.8.19.custom.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-04-07 00:56:42 +0800
+Served asset /application.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-04-07 00:56:42 +0800
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/invalid.css?body=1" for 127.0.0.1 at 2013-04-07 00:56:42 +0800
+Served asset /invalid.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/reset.css?body=1" for 127.0.0.1 at 2013-04-07 00:56:42 +0800
+Served asset /reset.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2013-04-07 00:56:42 +0800
+Served asset /style.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-ui-1.8.19.custom.css?body=1" for 127.0.0.1 at 2013-04-07 00:56:42 +0800
+Served asset /jquery-ui-1.8.19.custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/logo.png" for 127.0.0.1 at 2013-04-07 00:56:42 +0800
+Served asset /logo.png - 304 Not Modified (1ms)
+
+
+Started GET "/enterprises/4419980074/show_by_code.json" for 127.0.0.1 at 2013-04-07 00:56:42 +0800
+Processing by EnterprisesController#show_by_code as JSON
+  Parameters: {"id"=>"4419980074"}
+  [1m[35mUser Load (1.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mEnterprise Load (1.0ms)[0m  [1mSELECT `enterprises`.* FROM `enterprises` WHERE `enterprises`.`code` = '4419980074' LIMIT 1[0m
+Completed 200 OK in 11ms (Views: 1.0ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-07 00:56:42 +0800
+Processing by MessagesController#unread as JSON
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mMessage Load (1.0ms)[0m  [1mSELECT `messages`.* FROM `messages` WHERE `messages`.`user_id` = 220 AND `messages`.`read` = 0[0m
+Completed 200 OK in 6ms (Views: 2.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/foreign_enterprises//show_by_code.json" for 127.0.0.1 at 2013-04-07 00:56:42 +0800
+Processing by ForeignEnterprisesController#show as JSON
+  Parameters: {"id"=>"show_by_code"}
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mForeignEnterprise Load (9.0ms)[0m  [1mSELECT `foreign_enterprises`.* FROM `foreign_enterprises` WHERE `foreign_enterprises`.`id` = 0 LIMIT 1[0m
+Completed 500 Internal Server Error in 17ms
+
+ActiveRecord::RecordNotFound (Couldn't find ForeignEnterprise with id=show_by_code):
+  app/controllers/foreign_enterprises_controller.rb:35:in `show'
+
+
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.erb (5.0ms)
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (2.0ms)
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (74.0ms)
+
+
+Started GET "/dict/transit_types/001/show_by_code.json" for 127.0.0.1 at 2013-04-07 00:56:42 +0800
+Processing by Dict::TransitTypesController#show_by_code as JSON
+  Parameters: {"id"=>"001"}
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mDict::TransitType Load (46.0ms)[0m  [1mSELECT `dict_transit_types`.* FROM `dict_transit_types` WHERE `dict_transit_types`.`code` = '001' ORDER BY code LIMIT 1[0m
+Completed 200 OK in 620ms (Views: 198.0ms | ActiveRecord: 46.0ms)
+
+
+Started GET "/dict/trucks//show_by_code.json" for 127.0.0.1 at 2013-04-07 00:56:43 +0800
+Processing by Dict::TrucksController#show as JSON
+  Parameters: {"id"=>"show_by_code"}
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mDict::Truck Load (54.0ms)[0m  [1mSELECT `dict_trucks`.* FROM `dict_trucks` WHERE `dict_trucks`.`id` = 0 ORDER BY code LIMIT 1[0m
+Completed 500 Internal Server Error in 60ms
+
+ActiveRecord::RecordNotFound (Couldn't find Dict::Truck with id=show_by_code):
+  app/controllers/dict/dicts_controller.rb:38:in `show'
+
+
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.erb (4.0ms)
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.0ms)
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (64.0ms)
+
+
+Started GET "/dict/customs/5220/show_by_code.json" for 127.0.0.1 at 2013-04-07 00:56:43 +0800
+Processing by Dict::CustomsController#show_by_code as JSON
+  Parameters: {"id"=>"5220"}
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mDict::Custom Load (15.0ms)[0m  [1mSELECT `dict_customs`.* FROM `dict_customs` WHERE `dict_customs`.`code` = '5220' ORDER BY code LIMIT 1[0m
+Completed 200 OK in 28ms (Views: 1.0ms | ActiveRecord: 15.0ms)
+
+
+Started GET "/dict/transport_modes/W/show_by_code.json" for 127.0.0.1 at 2013-04-07 00:56:44 +0800
+Processing by Dict::TransportModesController#show_by_code as JSON
+  Parameters: {"id"=>"W"}
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mDict::TransportMode Load (1.0ms)[0m  [1mSELECT `dict_transport_modes`.* FROM `dict_transport_modes` WHERE `dict_transport_modes`.`code` = 'W' ORDER BY code LIMIT 1[0m
+Completed 200 OK in 14ms (Views: 1.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/dict/trade_modes/0110/show_by_code.json" for 127.0.0.1 at 2013-04-07 00:56:44 +0800
+Processing by Dict::TradeModesController#show_by_code as JSON
+  Parameters: {"id"=>"0110"}
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mDict::TradeMode Load (8.0ms)[0m  [1mSELECT `dict_trade_modes`.* FROM `dict_trade_modes` WHERE `dict_trade_modes`.`code` = '0110' ORDER BY code LIMIT 1[0m
+Completed 200 OK in 22ms (Views: 0.0ms | ActiveRecord: 8.0ms)
+
+
+Started GET "/dict/tax_kinds/101/show_by_code.json" for 127.0.0.1 at 2013-04-07 00:56:44 +0800
+Processing by Dict::TaxKindsController#show_by_code as JSON
+  Parameters: {"id"=>"101"}
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mDict::TaxKind Load (8.0ms)[0m  [1mSELECT `dict_tax_kinds`.* FROM `dict_tax_kinds` WHERE `dict_tax_kinds`.`code` = '101' ORDER BY code LIMIT 1[0m
+Completed 200 OK in 24ms (Views: 1.0ms | ActiveRecord: 8.0ms)
+
+
+Started GET "/dict/countries/142/show_by_code.json" for 127.0.0.1 at 2013-04-07 00:56:44 +0800
+Processing by Dict::CountriesController#show_by_code as JSON
+  Parameters: {"id"=>"142"}
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mDict::Country Load (1.0ms)[0m  [1mSELECT `dict_countries`.* FROM `dict_countries` WHERE `dict_countries`.`code` = '142' ORDER BY code LIMIT 1[0m
+Completed 200 OK in 16ms (Views: 0.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/dict/ports/142/show_by_code.json" for 127.0.0.1 at 2013-04-07 00:56:44 +0800
+Processing by Dict::PortsController#show_by_code as JSON
+  Parameters: {"id"=>"142"}
+  [1m[35mUser Load (1.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mDict::Port Load (10.0ms)[0m  [1mSELECT `dict_ports`.* FROM `dict_ports` WHERE `dict_ports`.`code` = '142' ORDER BY code LIMIT 1[0m
+Completed 200 OK in 66ms (Views: 0.0ms | ActiveRecord: 11.0ms)
+
+
+Started GET "/dict/districts/44199/show_by_code.json" for 127.0.0.1 at 2013-04-07 00:56:44 +0800
+Processing by Dict::DistrictsController#show_by_code as JSON
+  Parameters: {"id"=>"44199"}
+  [1m[35mUser Load (1.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mDict::District Load (9.0ms)[0m  [1mSELECT `dict_districts`.* FROM `dict_districts` WHERE `dict_districts`.`code` = '44199' ORDER BY code LIMIT 1[0m
+Completed 200 OK in 25ms (Views: 1.0ms | ActiveRecord: 10.0ms)
+
+
+Started GET "/dict/deal_modes/1/show_by_code.json" for 127.0.0.1 at 2013-04-07 00:56:44 +0800
+Processing by Dict::DealModesController#show_by_code as JSON
+  Parameters: {"id"=>"1"}
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mDict::DealMode Load (0.0ms)[0m  [1mSELECT `dict_deal_modes`.* FROM `dict_deal_modes` WHERE `dict_deal_modes`.`code` = '1' ORDER BY code LIMIT 1[0m
+Completed 200 OK in 13ms (Views: 1.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/dict/wrap_types/4/show_by_code.json" for 127.0.0.1 at 2013-04-07 00:56:44 +0800
+Processing by Dict::WrapTypesController#show_by_code as JSON
+  Parameters: {"id"=>"4"}
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mDict::WrapType Load (1.0ms)[0m  [1mSELECT `dict_wrap_types`.* FROM `dict_wrap_types` WHERE `dict_wrap_types`.`code` = '4' ORDER BY code LIMIT 1[0m
+Completed 200 OK in 13ms (Views: 0.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/dict/load_ports/5269/show_by_code.json" for 127.0.0.1 at 2013-04-07 00:56:44 +0800
+Processing by Dict::LoadPortsController#show_by_code as JSON
+  Parameters: {"id"=>"5269"}
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mDict::LoadPort Load (41.0ms)[0m  [1mSELECT `dict_load_ports`.* FROM `dict_load_ports` WHERE `dict_load_ports`.`code` = '5269' ORDER BY code LIMIT 1[0m
+Completed 200 OK in 54ms (Views: 1.0ms | ActiveRecord: 41.0ms)
+
+
+Started GET "/dict/usages//show_by_code.json" for 127.0.0.1 at 2013-04-07 00:56:45 +0800
+Processing by Dict::UsagesController#show as JSON
+  Parameters: {"id"=>"show_by_code"}
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mDict::Usage Load (11.0ms)[0m  [1mSELECT `dict_usages`.* FROM `dict_usages` WHERE `dict_usages`.`id` = 0 ORDER BY code LIMIT 1[0m
+Completed 500 Internal Server Error in 17ms
+
+ActiveRecord::RecordNotFound (Couldn't find Dict::Usage with id=show_by_code):
+  app/controllers/dict/dicts_controller.rb:38:in `show'
+
+
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.erb (4.0ms)
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (2.0ms)
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (57.0ms)
+
+
+Started GET "/assets/closelabel.gif" for 127.0.0.1 at 2013-04-07 00:56:45 +0800
+Served asset /closelabel.gif - 304 Not Modified (0ms)
+
+
+Started GET "/assets/loading.gif" for 127.0.0.1 at 2013-04-07 00:56:45 +0800
+Served asset /loading.gif - 304 Not Modified (1ms)
+
+
+Started GET "/declarations/24/print_attorney" for 127.0.0.1 at 2013-04-07 00:56:45 +0800
+Processing by DeclarationsController#print_attorney as HTML
+  Parameters: {"id"=>"24"}
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mDeclaration Load (0.0ms)[0m  [1mSELECT `declarations`.* FROM `declarations` WHERE `declarations`.`id` = 24 LIMIT 1[0m
+  [1m[35mContract Load (0.0ms)[0m  SELECT `contracts`.* FROM `contracts` WHERE `contracts`.`id` = 0 LIMIT 1
+  [1m[36mEnterprise Load (1.0ms)[0m  [1mSELECT `enterprises`.* FROM `enterprises` WHERE `enterprises`.`id` = 499 LIMIT 1[0m
+  Rendered declarations/print_attorney.html.erb within layouts/application (171.0ms)
+Completed 500 Internal Server Error in 182ms
+
+ActionView::Template::Error (undefined method `name' for nil:NilClass):
+    93:     </div>
+    94:     <div class="tr">
+    95:       <div class="td left">主要货物名称</div>
+    96:       <div class="td right"><span class="content"><%= @major_cargo.name %></span></div>
+    97:     </div>
+    98:     <div class="tr">
+    99:       <div class="td left">HS编码</div>
+  app/views/declarations/print_attorney.html.erb:96:in `_app_views_declarations_print_attorney_html_erb___883176321_34262616'
+
+
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.erb (5.0ms)
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.0ms)
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (51.0ms)
+
+
+Started GET "/declarations/24" for 127.0.0.1 at 2013-04-07 00:58:26 +0800
+Processing by DeclarationsController#show as HTML
+  Parameters: {"id"=>"24"}
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mDeclaration Load (0.0ms)[0m  [1mSELECT `declarations`.* FROM `declarations` WHERE `declarations`.`id` = 24 LIMIT 1[0m
+  [1m[35mContract Load (0.0ms)[0m  SELECT `contracts`.* FROM `contracts` WHERE `contracts`.`id` = 0 LIMIT 1
+  [1m[36m (2.0ms)[0m  [1mSELECT COUNT(*) FROM `declaration_cargos` WHERE `declaration_cargos`.`declaration_id` = 24[0m
+  [1m[35m (2.0ms)[0m  SELECT COUNT(*) FROM `dispatch_records` WHERE `dispatch_records`.`declaration_id` = 24
+  Rendered declarations/show.html.erb within layouts/application (19.0ms)
+  Rendered layouts/_sidebar.html.erb (5.0ms)
+  Rendered layouts/_footer.html.erb (1.0ms)
+Completed 200 OK in 50ms (Views: 41.0ms | ActiveRecord: 4.0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-04-07 00:58:26 +0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-ui-1.8.19.custom.min.js?body=1" for 127.0.0.1 at 2013-04-07 00:58:26 +0800
+Served asset /jquery-ui-1.8.19.custom.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-04-07 00:58:26 +0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/facebox.js?body=1" for 127.0.0.1 at 2013-04-07 00:58:26 +0800
+Served asset /facebox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/configuration.js?body=1" for 127.0.0.1 at 2013-04-07 00:58:26 +0800
+Served asset /configuration.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-04-07 00:58:26 +0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/reset.css?body=1" for 127.0.0.1 at 2013-04-07 00:58:26 +0800
+Served asset /reset.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/invalid.css?body=1" for 127.0.0.1 at 2013-04-07 00:58:26 +0800
+Served asset /invalid.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-04-07 00:58:26 +0800
+Served asset /application.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2013-04-07 00:58:26 +0800
+Served asset /style.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-ui-1.8.19.custom.css?body=1" for 127.0.0.1 at 2013-04-07 00:58:26 +0800
+Served asset /jquery-ui-1.8.19.custom.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/logo.png" for 127.0.0.1 at 2013-04-07 00:58:26 +0800
+Served asset /logo.png - 304 Not Modified (0ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-07 00:58:27 +0800
+Processing by MessagesController#unread as JSON
+  [1m[36mUser Load (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1[0m
+  [1m[35mMessage Load (2.0ms)[0m  SELECT `messages`.* FROM `messages` WHERE `messages`.`user_id` = 220 AND `messages`.`read` = 0
+Completed 200 OK in 8ms (Views: 1.0ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/foreign_enterprises//show_by_code.json" for 127.0.0.1 at 2013-04-07 00:58:27 +0800
+Processing by ForeignEnterprisesController#show as JSON
+  Parameters: {"id"=>"show_by_code"}
+  [1m[36mUser Load (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1[0m
+  [1m[35mForeignEnterprise Load (1.0ms)[0m  SELECT `foreign_enterprises`.* FROM `foreign_enterprises` WHERE `foreign_enterprises`.`id` = 0 LIMIT 1
+Completed 500 Internal Server Error in 8ms
+
+ActiveRecord::RecordNotFound (Couldn't find ForeignEnterprise with id=show_by_code):
+  app/controllers/foreign_enterprises_controller.rb:35:in `show'
+
+
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.erb (5.0ms)
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (2.0ms)
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (51.0ms)
+
+
+Started GET "/dict/transit_types/001/show_by_code.json" for 127.0.0.1 at 2013-04-07 00:58:27 +0800
+Processing by Dict::TransitTypesController#show_by_code as JSON
+  Parameters: {"id"=>"001"}
+  [1m[36mUser Load (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1[0m
+  [1m[35mDict::TransitType Load (1.0ms)[0m  SELECT `dict_transit_types`.* FROM `dict_transit_types` WHERE `dict_transit_types`.`code` = '001' ORDER BY code LIMIT 1
+Completed 200 OK in 9ms (Views: 2.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/enterprises/4419980074/show_by_code.json" for 127.0.0.1 at 2013-04-07 00:58:27 +0800
+Processing by EnterprisesController#show_by_code as JSON
+  Parameters: {"id"=>"4419980074"}
+  [1m[36mUser Load (1.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1[0m
+  [1m[35mEnterprise Load (0.0ms)[0m  SELECT `enterprises`.* FROM `enterprises` WHERE `enterprises`.`code` = '4419980074' LIMIT 1
+Completed 200 OK in 5ms (Views: 0.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/dict/customs/5220/show_by_code.json" for 127.0.0.1 at 2013-04-07 00:58:27 +0800
+Processing by Dict::CustomsController#show_by_code as JSON
+  Parameters: {"id"=>"5220"}
+  [1m[36mUser Load (1.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1[0m
+  [1m[35mDict::Custom Load (1.0ms)[0m  SELECT `dict_customs`.* FROM `dict_customs` WHERE `dict_customs`.`code` = '5220' ORDER BY code LIMIT 1
+Completed 200 OK in 4ms (Views: 1.0ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/dict/transport_modes/W/show_by_code.json" for 127.0.0.1 at 2013-04-07 00:58:27 +0800
+Processing by Dict::TransportModesController#show_by_code as JSON
+  Parameters: {"id"=>"W"}
+  [1m[36mUser Load (1.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1[0m
+  [1m[35mDict::TransportMode Load (1.0ms)[0m  SELECT `dict_transport_modes`.* FROM `dict_transport_modes` WHERE `dict_transport_modes`.`code` = 'W' ORDER BY code LIMIT 1
+Completed 200 OK in 5ms (Views: 0.0ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/dict/trucks//show_by_code.json" for 127.0.0.1 at 2013-04-07 00:58:27 +0800
+Processing by Dict::TrucksController#show as JSON
+  Parameters: {"id"=>"show_by_code"}
+  [1m[36mUser Load (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1[0m
+  [1m[35mDict::Truck Load (1.0ms)[0m  SELECT `dict_trucks`.* FROM `dict_trucks` WHERE `dict_trucks`.`id` = 0 ORDER BY code LIMIT 1
+Completed 500 Internal Server Error in 5ms
+
+ActiveRecord::RecordNotFound (Couldn't find Dict::Truck with id=show_by_code):
+  app/controllers/dict/dicts_controller.rb:38:in `show'
+
+
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.erb (5.0ms)
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.0ms)
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (49.0ms)
+
+
+Started GET "/dict/trade_modes/0110/show_by_code.json" for 127.0.0.1 at 2013-04-07 00:58:27 +0800
+Processing by Dict::TradeModesController#show_by_code as JSON
+  Parameters: {"id"=>"0110"}
+  [1m[36mUser Load (1.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1[0m
+  [1m[35mDict::TradeMode Load (1.0ms)[0m  SELECT `dict_trade_modes`.* FROM `dict_trade_modes` WHERE `dict_trade_modes`.`code` = '0110' ORDER BY code LIMIT 1
+Completed 200 OK in 10ms (Views: 1.0ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/dict/tax_kinds/101/show_by_code.json" for 127.0.0.1 at 2013-04-07 00:58:27 +0800
+Processing by Dict::TaxKindsController#show_by_code as JSON
+  Parameters: {"id"=>"101"}
+  [1m[36mUser Load (1.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1[0m
+  [1m[35mDict::TaxKind Load (16.0ms)[0m  SELECT `dict_tax_kinds`.* FROM `dict_tax_kinds` WHERE `dict_tax_kinds`.`code` = '101' ORDER BY code LIMIT 1
+Completed 200 OK in 72ms (Views: 0.0ms | ActiveRecord: 17.0ms)
+
+
+Started GET "/dict/countries/142/show_by_code.json" for 127.0.0.1 at 2013-04-07 00:58:27 +0800
+Processing by Dict::CountriesController#show_by_code as JSON
+  Parameters: {"id"=>"142"}
+  [1m[36mUser Load (1.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1[0m
+  [1m[35mDict::Country Load (5.0ms)[0m  SELECT `dict_countries`.* FROM `dict_countries` WHERE `dict_countries`.`code` = '142' ORDER BY code LIMIT 1
+Completed 200 OK in 10ms (Views: 0.0ms | ActiveRecord: 6.0ms)
+
+
+Started GET "/dict/ports/142/show_by_code.json" for 127.0.0.1 at 2013-04-07 00:58:27 +0800
+Processing by Dict::PortsController#show_by_code as JSON
+  Parameters: {"id"=>"142"}
+  [1m[36mUser Load (2.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1[0m
+  [1m[35mDict::Port Load (3.0ms)[0m  SELECT `dict_ports`.* FROM `dict_ports` WHERE `dict_ports`.`code` = '142' ORDER BY code LIMIT 1
+Completed 200 OK in 9ms (Views: 1.0ms | ActiveRecord: 5.0ms)
+
+
+Started GET "/dict/districts/44199/show_by_code.json" for 127.0.0.1 at 2013-04-07 00:58:27 +0800
+Processing by Dict::DistrictsController#show_by_code as JSON
+  Parameters: {"id"=>"44199"}
+  [1m[36mUser Load (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1[0m
+  [1m[35mDict::District Load (1.0ms)[0m  SELECT `dict_districts`.* FROM `dict_districts` WHERE `dict_districts`.`code` = '44199' ORDER BY code LIMIT 1
+Completed 200 OK in 4ms (Views: 0.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/dict/deal_modes/1/show_by_code.json" for 127.0.0.1 at 2013-04-07 00:58:27 +0800
+Processing by Dict::DealModesController#show_by_code as JSON
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (3.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1[0m
+  [1m[35mDict::DealMode Load (1.0ms)[0m  SELECT `dict_deal_modes`.* FROM `dict_deal_modes` WHERE `dict_deal_modes`.`code` = '1' ORDER BY code LIMIT 1
+Completed 200 OK in 6ms (Views: 0.0ms | ActiveRecord: 4.0ms)
+
+
+Started GET "/dict/wrap_types/4/show_by_code.json" for 127.0.0.1 at 2013-04-07 00:58:28 +0800
+Processing by Dict::WrapTypesController#show_by_code as JSON
+  Parameters: {"id"=>"4"}
+  [1m[36mUser Load (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1[0m
+  [1m[35mDict::WrapType Load (1.0ms)[0m  SELECT `dict_wrap_types`.* FROM `dict_wrap_types` WHERE `dict_wrap_types`.`code` = '4' ORDER BY code LIMIT 1
+Completed 200 OK in 7ms (Views: 1.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/dict/load_ports/5269/show_by_code.json" for 127.0.0.1 at 2013-04-07 00:58:28 +0800
+Processing by Dict::LoadPortsController#show_by_code as JSON
+  Parameters: {"id"=>"5269"}
+  [1m[36mUser Load (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1[0m
+  [1m[35mDict::LoadPort Load (2.0ms)[0m  SELECT `dict_load_ports`.* FROM `dict_load_ports` WHERE `dict_load_ports`.`code` = '5269' ORDER BY code LIMIT 1
+Completed 200 OK in 6ms (Views: 1.0ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/dict/usages//show_by_code.json" for 127.0.0.1 at 2013-04-07 00:58:28 +0800
+Processing by Dict::UsagesController#show as JSON
+  Parameters: {"id"=>"show_by_code"}
+  [1m[36mUser Load (1.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1[0m
+  [1m[35mDict::Usage Load (1.0ms)[0m  SELECT `dict_usages`.* FROM `dict_usages` WHERE `dict_usages`.`id` = 0 ORDER BY code LIMIT 1
+Completed 500 Internal Server Error in 4ms
+
+ActiveRecord::RecordNotFound (Couldn't find Dict::Usage with id=show_by_code):
+  app/controllers/dict/dicts_controller.rb:38:in `show'
+
+
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.erb (5.0ms)
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.0ms)
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (55.0ms)
+
+
+Started GET "/assets/closelabel.gif" for 127.0.0.1 at 2013-04-07 00:58:28 +0800
+Served asset /closelabel.gif - 304 Not Modified (0ms)
+
+
+Started GET "/assets/loading.gif" for 127.0.0.1 at 2013-04-07 00:58:28 +0800
+Served asset /loading.gif - 304 Not Modified (1ms)
+
+
+Started GET "/assets/loading.gif" for 127.0.0.1 at 2013-04-07 00:58:30 +0800
+Served asset /loading.gif - 304 Not Modified (0ms)
+
+
+Started GET "/declarations/24/print_attorney" for 127.0.0.1 at 2013-04-07 00:58:32 +0800
+Processing by DeclarationsController#print_attorney as HTML
+  Parameters: {"id"=>"24"}
+  [1m[36mUser Load (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1[0m
+  [1m[35mDeclaration Load (2.0ms)[0m  SELECT `declarations`.* FROM `declarations` WHERE `declarations`.`id` = 24 LIMIT 1
+  [1m[36mContract Load (1.0ms)[0m  [1mSELECT `contracts`.* FROM `contracts` WHERE `contracts`.`id` = 0 LIMIT 1[0m
+  [1m[35mEnterprise Load (0.0ms)[0m  SELECT `enterprises`.* FROM `enterprises` WHERE `enterprises`.`id` = 499 LIMIT 1
+  Rendered declarations/print_attorney.html.erb within layouts/application (8.0ms)
+Completed 500 Internal Server Error in 27ms
+
+ActionView::Template::Error (undefined method `name' for nil:NilClass):
+    93:     </div>
+    94:     <div class="tr">
+    95:       <div class="td left">主要货物名称</div>
+    96:       <div class="td right"><span class="content"><%= @major_cargo.name %></span></div>
+    97:     </div>
+    98:     <div class="tr">
+    99:       <div class="td left">HS编码</div>
+  app/views/declarations/print_attorney.html.erb:96:in `_app_views_declarations_print_attorney_html_erb___883176321_34262616'
+
+
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.erb (6.0ms)
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.0ms)
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (52.0ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-07 01:01:27 +0800
+Processing by MessagesController#unread as JSON
+  [1m[36mUser Load (1.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1[0m
+  [1m[35mMessage Load (2.0ms)[0m  SELECT `messages`.* FROM `messages` WHERE `messages`.`user_id` = 220 AND `messages`.`read` = 0
+Completed 200 OK in 7ms (Views: 1.0ms | ActiveRecord: 3.0ms)
+
+
+Started GET "/declarations/24" for 127.0.0.1 at 2013-04-07 01:01:47 +0800
+Processing by DeclarationsController#show as HTML
+  Parameters: {"id"=>"24"}
+  [1m[36mUser Load (1.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1[0m
+  [1m[35mDeclaration Load (1.0ms)[0m  SELECT `declarations`.* FROM `declarations` WHERE `declarations`.`id` = 24 LIMIT 1
+  [1m[36mContract Load (0.0ms)[0m  [1mSELECT `contracts`.* FROM `contracts` WHERE `contracts`.`id` = 0 LIMIT 1[0m
+  [1m[35m (2.0ms)[0m  SELECT COUNT(*) FROM `declaration_cargos` WHERE `declaration_cargos`.`declaration_id` = 24
+  [1m[36m (3.0ms)[0m  [1mSELECT COUNT(*) FROM `dispatch_records` WHERE `dispatch_records`.`declaration_id` = 24[0m
+  Rendered declarations/show.html.erb within layouts/application (88.0ms)
+  Rendered layouts/_sidebar.html.erb (6.0ms)
+  Rendered layouts/_footer.html.erb (0.0ms)
+Completed 200 OK in 428ms (Views: 134.0ms | ActiveRecord: 35.0ms)
+
+
+Started GET "/assets/facebox.js?body=1" for 127.0.0.1 at 2013-04-07 01:01:48 +0800
+Served asset /facebox.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-04-07 01:01:48 +0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/configuration.js?body=1" for 127.0.0.1 at 2013-04-07 01:01:48 +0800
+Served asset /configuration.js - 304 Not Modified (1ms)
+
+
+Started GET "/assets/jquery_ujs.js?body=1" for 127.0.0.1 at 2013-04-07 01:01:48 +0800
+Served asset /jquery_ujs.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/jquery-ui-1.8.19.custom.min.js?body=1" for 127.0.0.1 at 2013-04-07 01:01:48 +0800
+Served asset /jquery-ui-1.8.19.custom.min.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.js?body=1" for 127.0.0.1 at 2013-04-07 01:01:48 +0800
+Served asset /application.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/application.css?body=1" for 127.0.0.1 at 2013-04-07 01:01:49 +0800
+Served asset /application.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/reset.css?body=1" for 127.0.0.1 at 2013-04-07 01:01:49 +0800
+Served asset /reset.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/invalid.css?body=1" for 127.0.0.1 at 2013-04-07 01:01:49 +0800
+Served asset /invalid.css - 304 Not Modified (0ms)
+
+
+Started GET "/assets/style.css?body=1" for 127.0.0.1 at 2013-04-07 01:01:49 +0800
+Served asset /style.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/jquery-ui-1.8.19.custom.css?body=1" for 127.0.0.1 at 2013-04-07 01:01:49 +0800
+Served asset /jquery-ui-1.8.19.custom.css - 304 Not Modified (1ms)
+
+
+Started GET "/assets/logo.png" for 127.0.0.1 at 2013-04-07 01:01:49 +0800
+Served asset /logo.png - 304 Not Modified (0ms)
+
+
+Started GET "/enterprises/4419980074/show_by_code.json" for 127.0.0.1 at 2013-04-07 01:01:50 +0800
+Processing by EnterprisesController#show_by_code as JSON
+  Parameters: {"id"=>"4419980074"}
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mEnterprise Load (0.0ms)[0m  [1mSELECT `enterprises`.* FROM `enterprises` WHERE `enterprises`.`code` = '4419980074' LIMIT 1[0m
+Completed 200 OK in 24ms (Views: 0.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/messages/unread.json" for 127.0.0.1 at 2013-04-07 01:01:50 +0800
+Processing by MessagesController#unread as JSON
+  [1m[35mUser Load (5.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mMessage Load (4.0ms)[0m  [1mSELECT `messages`.* FROM `messages` WHERE `messages`.`user_id` = 220 AND `messages`.`read` = 0[0m
+Completed 200 OK in 16ms (Views: 1.0ms | ActiveRecord: 9.0ms)
+
+
+Started GET "/dict/customs/5220/show_by_code.json" for 127.0.0.1 at 2013-04-07 01:01:50 +0800
+Processing by Dict::CustomsController#show_by_code as JSON
+  Parameters: {"id"=>"5220"}
+  [1m[35mUser Load (1.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mDict::Custom Load (0.0ms)[0m  [1mSELECT `dict_customs`.* FROM `dict_customs` WHERE `dict_customs`.`code` = '5220' ORDER BY code LIMIT 1[0m
+Completed 200 OK in 15ms (Views: 0.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/foreign_enterprises//show_by_code.json" for 127.0.0.1 at 2013-04-07 01:01:50 +0800
+Processing by ForeignEnterprisesController#show as JSON
+  Parameters: {"id"=>"show_by_code"}
+  [1m[35mUser Load (1.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mForeignEnterprise Load (0.0ms)[0m  [1mSELECT `foreign_enterprises`.* FROM `foreign_enterprises` WHERE `foreign_enterprises`.`id` = 0 LIMIT 1[0m
+Completed 500 Internal Server Error in 7ms
+
+ActiveRecord::RecordNotFound (Couldn't find ForeignEnterprise with id=show_by_code):
+  app/controllers/foreign_enterprises_controller.rb:35:in `show'
+
+
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.erb (5.0ms)
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.0ms)
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (61.0ms)
+
+
+Started GET "/dict/transit_types/001/show_by_code.json" for 127.0.0.1 at 2013-04-07 01:01:50 +0800
+Processing by Dict::TransitTypesController#show_by_code as JSON
+  Parameters: {"id"=>"001"}
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mDict::TransitType Load (1.0ms)[0m  [1mSELECT `dict_transit_types`.* FROM `dict_transit_types` WHERE `dict_transit_types`.`code` = '001' ORDER BY code LIMIT 1[0m
+Completed 200 OK in 16ms (Views: 1.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/dict/trucks//show_by_code.json" for 127.0.0.1 at 2013-04-07 01:01:51 +0800
+Processing by Dict::TrucksController#show as JSON
+  Parameters: {"id"=>"show_by_code"}
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mDict::Truck Load (0.0ms)[0m  [1mSELECT `dict_trucks`.* FROM `dict_trucks` WHERE `dict_trucks`.`id` = 0 ORDER BY code LIMIT 1[0m
+Completed 500 Internal Server Error in 6ms
+
+ActiveRecord::RecordNotFound (Couldn't find Dict::Truck with id=show_by_code):
+  app/controllers/dict/dicts_controller.rb:38:in `show'
+
+
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.erb (5.0ms)
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.0ms)
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (53.0ms)
+
+
+Started GET "/dict/transport_modes/W/show_by_code.json" for 127.0.0.1 at 2013-04-07 01:01:51 +0800
+Processing by Dict::TransportModesController#show_by_code as JSON
+  Parameters: {"id"=>"W"}
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mDict::TransportMode Load (1.0ms)[0m  [1mSELECT `dict_transport_modes`.* FROM `dict_transport_modes` WHERE `dict_transport_modes`.`code` = 'W' ORDER BY code LIMIT 1[0m
+Completed 200 OK in 14ms (Views: 1.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/dict/trade_modes/0110/show_by_code.json" for 127.0.0.1 at 2013-04-07 01:01:51 +0800
+Processing by Dict::TradeModesController#show_by_code as JSON
+  Parameters: {"id"=>"0110"}
+  [1m[35mUser Load (1.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mDict::TradeMode Load (0.0ms)[0m  [1mSELECT `dict_trade_modes`.* FROM `dict_trade_modes` WHERE `dict_trade_modes`.`code` = '0110' ORDER BY code LIMIT 1[0m
+Completed 200 OK in 16ms (Views: 1.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/dict/tax_kinds/101/show_by_code.json" for 127.0.0.1 at 2013-04-07 01:01:51 +0800
+Processing by Dict::TaxKindsController#show_by_code as JSON
+  Parameters: {"id"=>"101"}
+  [1m[35mUser Load (1.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mDict::TaxKind Load (1.0ms)[0m  [1mSELECT `dict_tax_kinds`.* FROM `dict_tax_kinds` WHERE `dict_tax_kinds`.`code` = '101' ORDER BY code LIMIT 1[0m
+Completed 200 OK in 14ms (Views: 1.0ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/dict/countries/142/show_by_code.json" for 127.0.0.1 at 2013-04-07 01:01:51 +0800
+Processing by Dict::CountriesController#show_by_code as JSON
+  Parameters: {"id"=>"142"}
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mDict::Country Load (1.0ms)[0m  [1mSELECT `dict_countries`.* FROM `dict_countries` WHERE `dict_countries`.`code` = '142' ORDER BY code LIMIT 1[0m
+Completed 200 OK in 16ms (Views: 0.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/dict/ports/142/show_by_code.json" for 127.0.0.1 at 2013-04-07 01:01:51 +0800
+Processing by Dict::PortsController#show_by_code as JSON
+  Parameters: {"id"=>"142"}
+  [1m[35mUser Load (1.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mDict::Port Load (0.0ms)[0m  [1mSELECT `dict_ports`.* FROM `dict_ports` WHERE `dict_ports`.`code` = '142' ORDER BY code LIMIT 1[0m
+Completed 200 OK in 18ms (Views: 1.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/dict/districts/44199/show_by_code.json" for 127.0.0.1 at 2013-04-07 01:01:51 +0800
+Processing by Dict::DistrictsController#show_by_code as JSON
+  Parameters: {"id"=>"44199"}
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mDict::District Load (1.0ms)[0m  [1mSELECT `dict_districts`.* FROM `dict_districts` WHERE `dict_districts`.`code` = '44199' ORDER BY code LIMIT 1[0m
+Completed 200 OK in 17ms (Views: 1.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/dict/deal_modes/1/show_by_code.json" for 127.0.0.1 at 2013-04-07 01:01:51 +0800
+Processing by Dict::DealModesController#show_by_code as JSON
+  Parameters: {"id"=>"1"}
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mDict::DealMode Load (1.0ms)[0m  [1mSELECT `dict_deal_modes`.* FROM `dict_deal_modes` WHERE `dict_deal_modes`.`code` = '1' ORDER BY code LIMIT 1[0m
+Completed 200 OK in 18ms (Views: 1.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/dict/wrap_types/4/show_by_code.json" for 127.0.0.1 at 2013-04-07 01:01:52 +0800
+Processing by Dict::WrapTypesController#show_by_code as JSON
+  Parameters: {"id"=>"4"}
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mDict::WrapType Load (1.0ms)[0m  [1mSELECT `dict_wrap_types`.* FROM `dict_wrap_types` WHERE `dict_wrap_types`.`code` = '4' ORDER BY code LIMIT 1[0m
+Completed 200 OK in 12ms (Views: 0.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/dict/load_ports/5269/show_by_code.json" for 127.0.0.1 at 2013-04-07 01:01:52 +0800
+Processing by Dict::LoadPortsController#show_by_code as JSON
+  Parameters: {"id"=>"5269"}
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mDict::LoadPort Load (1.0ms)[0m  [1mSELECT `dict_load_ports`.* FROM `dict_load_ports` WHERE `dict_load_ports`.`code` = '5269' ORDER BY code LIMIT 1[0m
+Completed 200 OK in 17ms (Views: 0.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/dict/usages//show_by_code.json" for 127.0.0.1 at 2013-04-07 01:01:52 +0800
+Processing by Dict::UsagesController#show as JSON
+  Parameters: {"id"=>"show_by_code"}
+  [1m[35mUser Load (0.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mDict::Usage Load (0.0ms)[0m  [1mSELECT `dict_usages`.* FROM `dict_usages` WHERE `dict_usages`.`id` = 0 ORDER BY code LIMIT 1[0m
+Completed 500 Internal Server Error in 9ms
+
+ActiveRecord::RecordNotFound (Couldn't find Dict::Usage with id=show_by_code):
+  app/controllers/dict/dicts_controller.rb:38:in `show'
+
+
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/_trace.erb (5.0ms)
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (1.0ms)
+  Rendered D:/Ruby193/lib/ruby/gems/1.9.1/gems/actionpack-3.2.3/lib/action_dispatch/middleware/templates/rescues/diagnostics.erb within rescues/layout (54.0ms)
+
+
+Started GET "/assets/closelabel.gif" for 127.0.0.1 at 2013-04-07 01:01:52 +0800
+Served asset /closelabel.gif - 304 Not Modified (1ms)
+
+
+Started GET "/assets/loading.gif" for 127.0.0.1 at 2013-04-07 01:01:52 +0800
+Served asset /loading.gif - 304 Not Modified (0ms)
+
+
+Started GET "/declarations/24/print_attorney" for 127.0.0.1 at 2013-04-07 01:01:53 +0800
+Processing by DeclarationsController#print_attorney as HTML
+  Parameters: {"id"=>"24"}
+  [1m[35mUser Load (1.0ms)[0m  SELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1
+  [1m[36mDeclaration Load (1.0ms)[0m  [1mSELECT `declarations`.* FROM `declarations` WHERE `declarations`.`id` = 24 LIMIT 1[0m
+  [1m[35mDeclarationCargo Load (33.0ms)[0m  SELECT `declaration_cargos`.* FROM `declaration_cargos` WHERE `declaration_cargos`.`declaration_id` = 24 ORDER BY no
+  [1m[36mContract Load (0.0ms)[0m  [1mSELECT `contracts`.* FROM `contracts` WHERE `contracts`.`id` = 0 LIMIT 1[0m
+  [1m[35mEnterprise Load (1.0ms)[0m  SELECT `enterprises`.* FROM `enterprises` WHERE `enterprises`.`id` = 499 LIMIT 1
+  Rendered declarations/print_attorney.html.erb within layouts/print (4.0ms)
+Completed 200 OK in 188ms (Views: 107.0ms | ActiveRecord: 36.0ms)
+
+
+Started GET "/assets/jquery.js?body=1" for 127.0.0.1 at 2013-04-07 01:01:53 +0800
+Served asset /jquery.js - 304 Not Modified (0ms)
+
+
+Started GET "/assets/print.js?body=1" for 127.0.0.1 at 2013-04-07 01:01:53 +0800
+Served asset /print.js - 304 Not Modified (8ms)
+
+
+Started GET "/assets/jquery.tools.min.js?body=1" for 127.0.0.1 at 2013-04-07 01:01:53 +0800
+Served asset /jquery.tools.min.js - 304 Not Modified (3ms)
+
+
+Started GET "/assets/print.css?body=1" for 127.0.0.1 at 2013-04-07 01:01:53 +0800
+Served asset /print.css - 304 Not Modified (6ms)
+
+
+Started GET "/dict/trade_modes/0110/show_by_code.json" for 127.0.0.1 at 2013-04-07 01:01:53 +0800
+Processing by Dict::TradeModesController#show_by_code as JSON
+  Parameters: {"id"=>"0110"}
+  [1m[36mUser Load (0.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1[0m
+  [1m[35mDict::TradeMode Load (0.0ms)[0m  SELECT `dict_trade_modes`.* FROM `dict_trade_modes` WHERE `dict_trade_modes`.`code` = '0110' ORDER BY code LIMIT 1
+Completed 200 OK in 5ms (Views: 1.0ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/dict/countries/110/show_by_code.json" for 127.0.0.1 at 2013-04-07 01:01:53 +0800
+Processing by Dict::CountriesController#show_by_code as JSON
+  Parameters: {"id"=>"110"}
+  [1m[36mUser Load (1.0ms)[0m  [1mSELECT `users`.* FROM `users` WHERE `users`.`id` = 220 LIMIT 1[0m
+  [1m[35mDict::Country Load (0.0ms)[0m  SELECT `dict_countries`.* FROM `dict_countries` WHERE `dict_countries`.`code` = '110' ORDER BY code LIMIT 1
+Completed 200 OK in 4ms (Views: 0.0ms | ActiveRecord: 1.0ms)

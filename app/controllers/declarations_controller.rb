@@ -178,4 +178,22 @@ class DeclarationsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def print_attorney
+    authorize! :show, @declaration
+    @declaration_cargos = @declaration.declaration_cargos.order("no")
+    @major_cargo = nil
+    @major_cargo_price = 0
+    @total_price = 0
+    @declaration_cargos.each do |cargo|
+      tem = cargo.unit_price * cargo.quantity
+      @total_price += tem
+      if tem > @major_cargo_price
+        @major_cargo = cargo
+      end
+    end
+    @title = '代理报关委托书'
+    render :layout => 'print'
+  end
+
 end
