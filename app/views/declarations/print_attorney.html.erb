@@ -158,23 +158,22 @@
         <span class="content"><%=d.year()%></span>年<span class="content"><%=d.mon()%></span>月<span class="content"><%=d.mday()%></span>日
       </div>
     </div>
-    <!-- todo -->
     <div class="tr" style="height: 88px; ">
       <div class="td left" style="height: 88px;line-height: 86px; ">
         收到单证情况
       </div>
       <div class="td right"  >
         <div class="tr">
-          <div class="td" style="width: 49%;">合同<span class="content"><%= @declaration.contract_no == nil ? '':'√ ' %></span></div>
-          <div class="td" style="width: 49%;">发票</div>
+          <div class="td" style="width: 49%;">合同<span class="content toggle"></span></div>
+          <div class="td" style="width: 49%;">发票<span class="content toggle">√</span></div>
         </div>
         <div class="tr">
-          <div class="td" style="width: 49%;">装箱清单<span class="content"><%= @declaration.declaration_packings.size == 0 ? '':'√ ' %></span></div>
-          <div class="td" style="width: 49%;">提(运)单</div>
+          <div class="td" style="width: 49%;">装箱清单<span class="content toggle">√</span></div>
+          <div class="td" style="width: 49%;">提(运)单<span class="content toggle"></span></div>
         </div>
         <div class="tr">
-          <div class="td" style="width: 49%;">加工贸易手册<span class="content"><%= @declaration.declaration_packings.size == 0 ? '':'√ ' %></span></div>
-          <div class="td" style="width: 49%;">许可证件</div>
+          <div class="td" style="width: 49%;">加工贸易手册<span class="content toggle"></span></div>
+          <div class="td" style="width: 49%;">许可证件<span class="content toggle"></span></div>
         </div>
         <div class="tr">
           <div class="td" style="width: 98%;text-align: left">&nbsp;&nbsp;其他</div>

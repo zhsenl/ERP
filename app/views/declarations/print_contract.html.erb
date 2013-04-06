@@ -64,8 +64,7 @@
 			<div class="td" style="width:110px;">单价</div>
 			<div class="td" style="width:128px;">总价</div>
 		</div>
-
-		<% list_size = @declaration_cargos.size > 5 ? 5 : @declaration_cargos.size %>		
+      <% list_size = @declaration_cargos.size > 30 ? 30 : @declaration_cargos.size %>
 		<% @declaration_cargos[0..list_size-1].each do |cargo| %>
 		<div class="tr">
 			<div class="td" style="width:35px;">
@@ -98,7 +97,9 @@
 		<% end %>
 		<% end %>
 
-		<div class="tr">
+
+      <% if @declaration_cargos.size < 30 %>
+      <div class="tr">
 			<div class="td" style="width:316px;">(以上详见发票或装箱单)</div>
 			<div class="td" style="width:251px;">
 				合&nbsp;&nbsp;&nbsp;&nbsp;计:
@@ -112,7 +113,53 @@
 			%>
 			<div class="td" style="width:128px;"><span class="content"><%= sprintf "%0.2f", total_price  rescue "" %></span></div>
 		</div>
+        <% end %>
 	</div>
+  <% list_size = @declaration_cargos.size > 30 ? @declaration_cargos.size - 30 : 0 %>
+  <div class="tr">&nbsp;</div>
+  <div class="tr">&nbsp;</div>
+  <div class="table">
+  <div class="tr" style="height: 50px; line-height:50px;">
+    <div class="td" style="width:35px;">序号</div>
+    <div class="td" style="width:280px;">商品名称</div>
+    <div class="td" style="width:140px;">数量及单位</div>
+    <div class="td" style="width:110px;">单价</div>
+    <div class="td" style="width:128px;">总价</div>
+  </div>
+  <% @declaration_cargos[0..list_size-1].each do |cargo| %>
+      <div class="tr">
+        <div class="td" style="width:35px;">
+          <span class="content"><%= cargo.no %></span>
+        </div>
+        <div class="td" style="width:280px;">
+          <span class="content"><%= cargo.name %></span>
+        </div>
+        <div class="td" style="width:140px;">
+          <span class="content"><%= "%g" % cargo.quantity + dict_name(Dict::Unit, cargo.unit)  rescue "" %></span>
+        </div>
+        <div class="td" style="width:110px;">
+          <span class="content"><%= sprintf "%0.4f", cargo.unit_price  rescue "" %></span>
+        </div>
+        <div class="td" style="width:128px;">
+          <span class="content"><%= sprintf "%0.2f", cargo.total_price rescue ""  %></span>
+        </div>
+      </div>
+  <% end %>
+      <div class="tr">
+        <div class="td" style="width:316px;">(以上详见发票或装箱单)</div>
+        <div class="td" style="width:251px;">
+          合&nbsp;&nbsp;&nbsp;&nbsp;计:
+          (<span class="content"><%= dict_name Dict::Currency, @declaration_cargos[0].currency  rescue "" %></span>)
+        </div>
+        <%
+           total_price = 0
+           @declaration_cargos.each do |cargo|
+             total_price += cargo.total_price
+           end
+        %>
+        <div class="td" style="width:128px;"><span class="content"><%= sprintf "%0.2f", total_price  rescue "" %></span></div>
+      </div>
+  </div>
 	<div class="tr">2. 装运日期：<span class="content"><%= (@declaration.declare_date + 60.days).strftime("%Y年%m月%d日") + '前'  rescue "" %></span></div>
 	<div class="tr">3. <%= @declaration_type == "export" ? "运抵" : "启运" %>国:<span class="content"><%= dict_name Dict::Country, @declaration.trade_country  rescue "" %></span></div>
 	<div class="tr">4. <%= @declaration_type == "export" ? "指运港" : "装货港" %>:<span class="content"><%= dict_name Dict::Port, @declaration.port  rescue "" %></span></div>
