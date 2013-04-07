@@ -81,7 +81,7 @@ INVOICE</h1>
 <div class="tr" style="height: 20px;">
 <div class="td" style="height: 20px; width: 481px;"></div>
 <div class="td" style="height: 20px; width: 80px;"><span class="bgText">发票号码：</span></div>
-<div class="td" style="height: 20px; width: 136px; border-bottom: 1px solid;"><span class="content"><%= @declaration.contract_no %></span></div>
+<div class="td" style="height: 20px; width: 136px; border-bottom: 1px solid;"><span class="content"><%= @declaration.pre_entry_no.to_s[8,18] %></span></div>
 </div>
 <div class="tr" style="height: 20px; margin-top: 10px;">
 <div class="td" style="height: 20px; width: 105px;"><span class="bgText">商　　　号：</span></div>
