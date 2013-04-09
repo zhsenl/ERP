@@ -62,7 +62,6 @@
 
     <% list_size =  @cargos.size %>
     <% @cargos[0..list_size-1].each_with_index do |cargo,i| %>
-
         <div class="tr">
           <div class="td" style="width:35px;">
             <span class="content"><%= i+1 %></span>
@@ -87,21 +86,5 @@
           </div>
         </div>
     <% end %>
-
-    <!--
-    <% if list_size < 5 %>-->
-        <!--
-        <% (1..5-list_size).each do |i| %>-->
-            <!--<div class="tr">-->
-            <!--<div class="td" style="width:35px;">&nbsp;</div>-->
-            <!--<div class="td" style="width:280px;">&nbsp;</div>-->
-            <!--<div class="td" style="width:140px;">&nbsp;</div>-->
-            <!--<div class="td" style="width:110px;">&nbsp;</div>-->
-            <!--<div class="td" style="width:128px;">&nbsp;</div>-->
-            <!--</div>-->
-            <!--
-        <% end %>-->
-        <!--
-    <% end %>-->
   </div>
 </div>

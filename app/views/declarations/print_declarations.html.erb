@@ -1,0 +1,113 @@
+<style type="text/css">
+    body {
+        text-align: left;
+        font-size: 16px;
+    }
+    .frame {
+        margin: 0 auto;
+        width: 866px;
+        text-align: left;
+    }
+    .tr {
+        padding: 1px 0 1px 0;
+    }
+    .table {
+        border: 1px solid;
+    }
+    .table .tr {
+        padding: 0;
+        height: 22px;
+        line-height:22px;
+        border-bottom: solid 1px;
+    }
+    .table .tr:last-child {
+        border-bottom: none;
+    }
+    .table .tr .td {
+        border-right: solid 1px;
+        text-align: center;
+    }
+    .table .tr .td:last-child {
+        border-right: none;
+    }
+
+</style>
+
+
+<div class="frame">
+  <% declarations_size =  @declarations.size %>
+  <% page_size = 42 %>
+  <% pages = declarations_size/page_size + 1 %>
+  <% (0..pages - 1).each do |page_count| %>
+      <!--每一页的内容-->
+      <div class="tr" style="height: 80px;"></div>
+      <div class="tr" style="height: 80px; text-align: center; font-size: 35px;">报关单预入库管理查询结果</div>
+      <div class="tr">
+        <div class="td" style="width:70%">企业名称:
+          <span class="content"><%= @enterprise_name %></span>
+        </div>
+        <div class="td" style="width:30%">手册编号:
+          <span class="content"><%= @manual %></span>
+        </div>
+      </div>
+      <div class="tr">
+        <div class="td" style="width:70%">起止日期:
+          从<span class="content"><%=	 @from %></span>到<span class="content"><%=	 @to %></span>
+        </div>
+      </div>
+      <div class="tr" style="height: 20px;"></div>
+      <div class="table">
+        <div class="tr" style="height: 50px; line-height:50px;">
+          <div class="td" style="width:35px;">序号</div>
+          <div class="td" style="width:150px;">海关编号</div>
+          <div class="td" style="width:150px;">预录入号</div>
+          <div class="td" style="width:100px;">申报日期</div>
+          <div class="td" style="width:100px;">放行日期</div>
+          <div class="td" style="width:80px;">报关单类型</div>
+          <div class="td" style="width:70px;">已审类型</div>
+          <div class="td" style="width:50px;">删除</div>
+          <div class="td" style="width:50px;">无纸</div>
+          <div class="td" style="width:70px;">无纸删单</div>
+        </div>
+        <%	start = page_count*page_size  %>
+        <%  tail  =  (page_count + 1) * page_size - 1 > declarations_size ? declarations_size : (page_count + 1) * page_size - 1%>
+        <!--每一项-->
+        <% @declarations[start..tail].each_with_index do |declaration,i| %>
+            <div class="tr">
+              <div class="td" style="width:35px;">
+                <span class="content"><%= i+1 %></span>
+              </div>
+              <div class="td" style="width:150px;">
+                <span class="content"><%= declaration.entry_no %></span>
+              </div>
+              <div class="td" style="width:150px;">
+                <span class="content"><%= declaration.pre_entry_no %></span>
+              </div>
+              <div class="td" style="width:100px;">
+                <span class="content"><%= declaration.declare_date %></span>
+              </div>
+              <div class="td" style="width:100px;">
+                <span class="content"></span>
+              </div>
+              <div class="td" style="width:80px;">
+                <span class="content"><%= declaration.declaration_type == 'export' ? '出口' : '入口' %></span>
+              </div>
+              <div class="td" style="width:70px;">
+                <span class="content"><%= declaration.review_type %></span>
+              </div>
+              <div class="td" style="width:50px;">
+                <span class="content"><%= declaration.is_deleted  ? '是' : '否' %></span>
+              </div>
+              <div class="td" style="width:50px;">
+                <span class="content"><%= declaration.is_paperless ? '是' : '否' %></span>
+              </div>
+              <div class="td" style="width:70px;">
+                <span class="content"><%= declaration.is_paperless_deleted  ? '是' : '否' %></span>
+              </div>
+            </div>
+        <% end %>
+      </div>
+      <div class="tr" style="height: 20px;"></div>
+
+  <% end %>
+</div>

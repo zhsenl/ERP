@@ -32,3 +32,19 @@
       %>
       <div class="td" style="width:128px;"><span class="content"><%= sprintf "%0.2f", total_price  rescue "" %></span></div>
     </div>
+
+
+3.manage.html.erb
+
+//            //审核类型
+//            $('.review_type_operate').click(function(i)){
+//               return function(){
+//                   var that = $(this);
+//                   var prev = that.prev();
+//                   var is_yes = prev.html() =='是';
+//                   var review = var url = '/declarations/review.json';
+//                   $.post(url, { is_yes:is_yes, declaration_type:'',id:that.attr('id')}, function(){
+//                       alert('success');
+//                   })
+//               }
+//            }(i)

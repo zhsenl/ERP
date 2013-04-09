@@ -60,7 +60,7 @@
 						<%= link_to '进口报关单管理', declarations_path(:declaration_type => 'import'), :class => "import_declarations import_declaration" %>
 					</li>
 					<li>
-						<%= link_to '打印司机纸', driver_paper_declarations_path, :class => "declarations_driver" %>
+						<%= link_to '打印司机纸', driver_paper_declarations_path(:declaration_type => ''), :class => "declarations_driver" %>
 					</li>
 				</ul>
 			</li>
@@ -95,6 +95,14 @@
 					</li>
 				</ul>
 			</li>
+              <li>
+                <a href="#" class="nav-top-item"> 报关单入库 </a>
+                <ul>
+                  <li>
+                    <%= link_to '手工审核入库', manage_declarations_path(:declaration_type => ''), :class => "manage_declarations" %>
+                  </li>
+                </ul>
+              </li>
 			<% end %>
 		</ul>		
 	</div>

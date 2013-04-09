@@ -10,7 +10,7 @@ class DeclarationsController < ApplicationController
     else
       @declaration_type = params[:declaration_type] || params[:declaration][:declaration_type]
     end
-    @mark = @declaration_type    
+    @mark = @declaration_type
   end
 
   # GET /declarations
@@ -193,6 +193,59 @@ class DeclarationsController < ApplicationController
       end
     end
     @title = '代理报关委托书'
+    render :layout => 'print'
+  end
+
+  def manage
+    respond_to do |format|
+      format.html {
+        @declarations = [];
+      }
+      format.json {
+        opt = {};
+        if  params[:current_enterprise_id] != ''
+          opt[:enterprise_id] =  params[:current_enterprise_id]
+        end
+        if  params[:contract_id] != ''
+          opt[:contract_id] =  params[:contract_id]
+        end
+        opt[:declaration_type] = params[:declaration_type]== '' ?  ['import','export'] : params[:declaration_type]
+        if params[:from] !=''  and   params[:to] != ''
+          opt[:declare_date]  = params[:from]..params[:to]
+        end
+        @declarations =  Declaration.where(opt)
+        $DECLARATIONS = @declarations
+        render json: @declarations
+      }
+    end
+  end
+
+  def toggle
+    respond_to do |format|
+      format.json{
+        if params[:type] == 'review_type'
+          render json: {result:Declaration.find(params[:id]).update_attribute(params[:type] ,params[:is_yes] == 'true' ? 0 : 3)}
+        else
+          render json: {result:Declaration.find(params[:id]).update_attribute(params[:type] ,params[:is_yes] == 'true' ? false : true)}
+        end
+
+      }
+    end
+  end
+
+  def print_declarations
+    #authorize! :show, @declaration
+    #@declaration_cargos = @declaration.declaration_cargos.order("no")
+    #@groups = Array.new((@declaration_cargos.size - 1) / 5 + 1){Array.new}
+    #@declaration_cargos.each_with_index do |declaration_cargo, index|
+    #  @groups[index / 5][index % 5] = declaration_cargo
+    #end
+    @declarations = $DECLARATIONS
+    @title = '报关单预入库管理查询结果'
+    @enterprise_name = params[:enterprise_name]
+    @manual = params[:manual]
+    @from = params[:from]
+    @to = params[:to]
     render :layout => 'print'
   end
 

@@ -21,6 +21,7 @@ ERP::Application.routes.draw do
     get 'driver_paper', :on => :collection
     get 'print_driver_paper_1', :on => :collection
     get 'print_driver_paper_2', :on => :collection
+    get 'print_declarations', :on => :collection
     get 'print_declaration', :on => :member
     get 'print_contract', :on => :member
     get 'print_contract2', :on => :member
@@ -30,6 +31,8 @@ ERP::Application.routes.draw do
     get 'print_packing2', :on => :member
     get 'print_packing3', :on => :member
     get 'print_attorney', :on => :member
+    get 'manage', :on => :collection
+    post 'toggle', :on => :collection
   end
 
   resources :cargos do
@@ -105,13 +108,13 @@ ERP::Application.routes.draw do
               :transport_modes,
               :trucks,
               :units,
-              :usages,
+               :usages,
               :transit_types,
               :wrap_types do
       get 'search', :on => :collection
       get 'show_by_code', :on => :member
     end
   end
-  
+
   root :to => 'pages#home'
 end
