@@ -181,15 +181,56 @@ class DeclarationsController < ApplicationController
   end
 
   def driver_paper
-
   end
 
   def print_driver_paper_1
-
+    @title = '打印大陆司机纸'
+    init_driver_paper
+    render :layout => 'print'
   end
 
   def print_driver_paper_2
+    @title = '打印香港司机纸'
+    init_driver_paper
+    render :layout => 'print'
+  end
 
+  private
+
+  def init_driver_paper
+    transport_tool = params[:transport_tool]
+    #找出具有相同运输工具名称的报关单
+    declarations = Declaration.where("transport_tool = ?", transport_tool)
+
+    if declarations.blank?
+      return
+    end
+
+    #取出第一个方便打印用
+    @declaration = declarations.first
+
+    @truck = Dict::Truck.find_by_code(@declaration.truck)
+
+    #所有报关货物
+    @declaration_cargos = []
+
+    @package_amount = 0
+    @gross_weight = 0
+    @net_weight = 0
+    declarations.each do |declaration|
+      @declaration_cargos.concat declaration.declaration_cargos
+      @package_amount += declaration.package_amount
+      @gross_weight += declaration.gross_weight
+      @net_weight += declaration.net_weight
+    end
+
+    @total_price = 0
+    @declaration_cargos.each do |declaration_cargo| 
+      @total_price += declaration_cargo.total_price
+    end
+
+    @declaration_container = @declaration.declaration_containers.first
+    
   end
 
 end
