@@ -40,7 +40,7 @@
 						<%= link_to '新增合同', new_contract_path, :class => "contracts_new contracts_create" %>
 					</li>
 					<li>
-						<%= link_to '合同管理', contracts_path, :class => "contracts contract" %>
+						<%= link_to '合同管理', contracts_path, :class => 'contracts contract' %>
 					</li>					
 				</ul>
 			</li>			
@@ -99,7 +99,42 @@
                 <a href="#" class="nav-top-item"> 报关单入库 </a>
                 <ul>
                   <li>
-                    <%= link_to '手工审核入库', manage_declarations_path(:declaration_type => ''), :class => "manage_declarations" %>
+                    <%= link_to '手工审核入库', manage_declarations_path, :class => "declarations_manage" %>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="#" class="nav-top-item"> 报关统计表 </a>
+                <ul>
+                  <li>
+                    <%= link_to '合同核销表', statistic_declarations_path, :class => "declarations_statistic" %>
+                  </li>
+                  <li>
+                    <%= link_to '合同料件平衡表', manage_declarations_path, :class => "manage_declarations" %>
+                  </li>
+                  <li>
+                    <%= link_to '合同料件来源及使用情况', manage_declarations_path, :class => "manage_declarations" %>
+                  </li>
+                  <li>
+                    <%= link_to '成品出口情况表', manage_declarations_path, :class => "manage_declarations" %>
+                  </li>
+                  <li>
+                    <%= link_to '成品出口明细表', manage_declarations_path, :class => "manage_declarations" %>
+                  </li>
+                  <li>
+                    <%= link_to '料件进口情况表', manage_declarations_path, :class => "manage_declarations" %>
+                  </li>
+                  <li>
+                    <%= link_to '料件进口明细表', manage_declarations_path, :class => "manage_declarations" %>
+                  </li>
+                  <li>
+                    <%= link_to '进出口重量总价统计', manage_declarations_path, :class => "manage_declarations" %>
+                  </li>
+                  <li>
+                    <%= link_to '进出口报关单统计', manage_declarations_path, :class => "manage_declarations" %>
+                  </li>
+                  <li>
+                    <%= link_to '进出口报关单汇总表', manage_declarations_path, :class => "manage_declarations" %>
                   </li>
                 </ul>
               </li>

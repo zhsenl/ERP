@@ -7,7 +7,8 @@ class DeclarationsController < ApplicationController
     if params[:id]
       @declaration = Declaration.find(params[:id])
       @declaration_type = @declaration.declaration_type
-    else
+    elsif !params[:declaration_type].nil? || !params[:declaration].nil?
+    #else
       @declaration_type = params[:declaration_type] || params[:declaration][:declaration_type]
     end
     @mark = @declaration_type
@@ -202,7 +203,7 @@ class DeclarationsController < ApplicationController
         @declarations = [];
       }
       format.json {
-        opt = {};
+        opt = {}
         if  params[:current_enterprise_id] != ''
           opt[:enterprise_id] =  params[:current_enterprise_id]
         end
@@ -234,18 +235,59 @@ class DeclarationsController < ApplicationController
   end
 
   def print_declarations
-    #authorize! :show, @declaration
-    #@declaration_cargos = @declaration.declaration_cargos.order("no")
-    #@groups = Array.new((@declaration_cargos.size - 1) / 5 + 1){Array.new}
-    #@declaration_cargos.each_with_index do |declaration_cargo, index|
-    #  @groups[index / 5][index % 5] = declaration_cargo
-    #end
     @declarations = $DECLARATIONS
     @title = '报关单预入库管理查询结果'
     @enterprise_name = params[:enterprise_name]
     @manual = params[:manual]
     @from = params[:from]
     @to = params[:to]
+    render :layout => 'print'
+  end
+
+  def statistic
+
+    respond_to do |format|
+      format.html
+      format.json {
+        opt = {}
+        statistic = {}
+        result = {}
+        if  params[:current_enterprise_id] != ''
+          opt[:enterprise_id] =  params[:current_enterprise_id]
+        end
+        if  params[:contract_id] != ''
+          opt[:contract_id] =  params[:contract_id]
+        end
+        #报关单数   报关单金额
+        opt[:declaration_type] = 'import'
+        @declarations = Declaration.where(opt)
+        statistic[:import_sum] =  @declarations.count
+        statistic[:import_price] = @declarations.joins(:declaration_cargos).sum('unit_price * quantity')
+        opt[:declaration_type] = 'export'
+        @declarations = Declaration.where(opt)
+        statistic[:export_sum] =  @declarations.count
+        statistic[:export_price] = @declarations.joins(:declaration_cargos).sum('unit_price * quantity')
+        result[:statistic] = statistic
+        if  params[:contract_id] != ''
+          @contract = Contract.find(params[:contract_id])
+          #成品
+          result[:products] = @contract.contract_products
+          #料件
+          result[:materials] = @contract.contract_materials
+          #单损耗
+          result[:consumptions] = {}
+          result[:products].each_with_index {|product,i|
+            result[:consumptions][i] =  product.contract_consumptions.joins(:contract_product,:contract_material).select(
+                'contract_products.name as contract_product_name , contract_materials.name as contract_material_name, contract_consumptions.used, contract_consumptions.wasted ')
+          }
+        end
+
+        render json: result
+      }
+    end
+  end
+
+  def print_statistic
     render :layout => 'print'
   end
 
