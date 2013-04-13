@@ -125,7 +125,7 @@
             $('#form_body').html('');
             $('#products_body').html('');
             $('#materials_body').html('');
-//            $('#form_body').html('');
+            $('#consumptions_body').html('');
         }
 
         //clear form data end
@@ -172,11 +172,9 @@
                                 for (var name in statistic) {
                                     contracts[i][name] = statistic[name];
                                 }
-                                //加入成品、料件、单损耗
-                                contracts[i]['products'] = result.products
-                                contracts[i]['materials'] = result.materials
-                                contracts[i]['consumptions'] = result.consumptions
+
                                 if (i == 0) {
+                                    //改变表头
                                     change_form_head({data: {index: 0}});
                                 }
 
@@ -213,15 +211,27 @@
 
         //生成表头  生成表头对就的成品、料件、单损耗
         function change_form_head(e) {
+            //indicator
             var i = e.data.index;
             var now = i + 1;
             $('#form_body tr:nth-child(' + pre_form_body + ')').removeClass('selected');
             $('#form_body tr:nth-child(' + now + ')').addClass('selected');
             pre_form_body = now;
-            fillForm('#form_head', contracts[i]);
-            generate_products_table(contracts[i]['products']);
-            generate_materials_table(contracts[i]['materials']);
-            generate_consumptions_table(contracts[i]['consumptions']);
+            popUp('popup','overlay');
+            //取得数据
+            $.get('/declarations/statistic_pro_mat_con.json',{contract_id:contracts[i].id},function(result){
+                //加入数据
+                contracts[i]['products'] = result.products
+                contracts[i]['materials'] = result.materials
+                contracts[i]['consumptions'] = result.consumptions
+
+                // 生成表格
+                fillForm('#form_head', contracts[i]);
+                generate_products_table(contracts[i]['products']);
+                generate_materials_table(contracts[i]['materials']);
+                generate_consumptions_table(contracts[i]['consumptions']);
+                popOff('popup','overlay');
+            })
         }
 
         function generate_products_table(products) {
@@ -269,20 +279,23 @@
         function generate_consumptions_table(consumptions){
             var tbody = $('#consumptions_body');
             tbody.html('');
-            $(consumptions).each(function (i) {
-
-                var tr = $('<tr/>');
-                if (i % 2 == 1) {
-                    tr.css('background-color', '#e5ebe4');
-                }
-                var ith_result = consumptions[i][0];
-                tr.append(td().html(i + 1));
-                tr.append(td().html(ith_result.contract_material_name));
-                tr.append(td().html(ith_result.contract_product_name));
-                tr.append(td().html(ith_result.used));
-                tr.append(td().html(ith_result.wasted));
+            var count = 0;
+            $(consumptions).each(function (j) {
+                $(consumptions[j]).each(function(i){
+                    var tr = $('<tr/>');
+                    if (count % 2 == 1) {
+                        tr.css('background-color', '#e5ebe4');
+                    }
+                    count ++;
+                    var ith_result = consumptions[j][i];
+                    tr.append(td().html(i + 1));
+                    tr.append(td().html(ith_result.contract_material_name));
+                    tr.append(td().html(ith_result.contract_product_name));
+                    tr.append(td().html(ith_result.used));
+                    tr.append(td().html(ith_result.wasted));
 //                tr.append(td().html(ith_result.unit1));
-                tbody.append(tr);
+                    tbody.append(tr);
+                })
             })
         }
 
