@@ -1,0 +1,219 @@
+<style type="text/css">
+    body {
+        text-align: left;
+        font-size: 16px;
+    }
+
+    .frame {
+        margin: 0 auto;
+        width: 948px;
+        text-align: left;
+    }
+
+    .tr {
+        padding: 1px 0 1px 0;
+    }
+
+    .table {
+        border: 1px solid;
+    }
+
+    .table .tr {
+        padding: 0;
+        height: 32px;
+        line-height: 32px;
+        border-bottom: solid 1px;
+    }
+
+    .table .tr:last-child {
+        border-bottom: none;
+    }
+
+    .table .tr .td {
+        border-right: solid 1px;
+        text-align: center;
+    }
+
+    .table .tr .td:last-child {
+        border-right: none;
+    }
+
+        /* columns */
+    .first {
+        width: 100px;
+    }
+
+    .second {
+        width: 119px;
+    }
+
+    .third {
+        width: 100px;
+    }
+
+    .fourth {
+        width: 150px;
+    }
+
+    .fifth {
+        width: 155px;
+    }
+
+    .sixth {
+        width: 90px;
+    }
+
+    .seventh {
+        width: 120px;
+    }
+
+    .eighth {
+        width: 105px;
+    }
+
+
+</style>
+
+
+<div class="frame">
+  <div class="tr" style="height: 22px;"></div>
+  <div class="tr" style="height: 80px; text-align: center; font-size: 35px;">加工贸易合同核销申请表
+  </div>
+  <div class="table">
+    <div class="tr">
+      <div class="td first">企业名称</div>
+      <div class="td" style="width: 220px">
+        <span class="content"><%= current_enterprise.name %></span>
+      </div>
+      <div class="td" style="width: 110px">企业管理类别</div>
+      <div class="td" style="width: 39px">
+        <span class="content">B类</span>
+      </div>
+      <div class="td fifth">企业编码</div>
+      <div class="td sixth">
+        <span class="content"><%= current_enterprise.code %></span>
+      </div>
+      <div class="td seventh">电话</div>
+      <div class="td eighth">
+        <span class="content"><%= current_enterprise.telephone %></span>
+      </div>
+    </div>
+
+    <div class="tr">
+      <div class="td first">手册编号</div>
+      <div class="td second">
+        <span class="content"><%= @contract.manual %></span>
+      </div>
+      <div class="td third">合同号</div>
+      <div class="td fourth">
+        <span class="content"><%= @contract.export_contract %></span>
+      </div>
+      <div class="td fifth">合同有效期</div>
+      <div class="td sixth">
+        <span class="content"><%= @contract.export_deadline %></span>
+      </div>
+      <div class="td seventh">合同批准证号</div>
+      <div class="td eighth">
+        <span class="content"><%= %></span>
+      </div>
+    </div>
+
+    <div class="tr">
+      <div class="td first">进口总金额</div>
+      <div class="td second">
+        <span class="content"><%= @statistic[:import_price] %></span>
+      </div>
+      <div class="td third">出口总金额</div>
+      <div class="td fourth">
+        <span class="content"><%= @statistic[:export_price] %></span>
+      </div>
+      <div class="td fifth">进口报关单份数</div>
+      <div class="td sixth">
+        <span class="content"><%= @statistic[:import_sum] %></span>
+      </div>
+      <div class="td seventh">出口报关单份数</div>
+      <div class="td eighth">
+        <span class="content"><%= @statistic[:export_sum] %></span>
+      </div>
+    </div>
+
+    <div class="tr">
+      <div class="td first">内销金额</div>
+      <div class="td second">
+        <span class="content"><%= %></span>
+      </div>
+      <div class="td third">内销补税税额</div>
+      <div class="td fourth">
+        <span class="content"><%= %></span>
+      </div>
+      <div class="td fifth">内销补税税单号</div>
+      <div class="td" style="width: 302px">
+        <span class="content"><%= %></span>
+      </div>
+    </div>
+
+    <div class="tr">
+      <div class="td first">内销批准证号</div>
+      <div class="td second">
+        <span class="content"><%= %></span>
+      </div>
+      <div class="td third">余料金额</div>
+      <div class="td fourth">
+        <span class="content"><%= %></span>
+      </div>
+      <div class="td fifth">转入余料的手册编号</div>
+      <div class="td sixth">
+        <span class="content"><%= %></span>
+      </div>
+      <div class="td seventh">保证金金额</div>
+      <div class="td eighth">
+        <span class="content">无</span>
+      </div>
+    </div>
+
+    <div class="tr">
+      <div class="td" style="width: 200px">是否重点敏感商品合同</div>
+      <div class="td" style="width: 158px"><span class="content">否</span></div>
+      <div class="td" style="width: 200px">是否限制类商品合同</div>
+      <div class="td" style="width: 158px"><span class="content">否</span></div>
+      <div class="td seventh">申请表总页数</div>
+      <div class="td eighth"><span class="content"></span></div>
+    </div>
+
+    <div class="tr">
+      <div class="tr">
+        <div class="td">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本合同执行完毕，实际应收加工费
+          <span class="content" style="border-bottom: solid 1px"> 3476.5   </span>美元。
+        </div>
+      </div>
+    </div>
+
+    <div class="tr">
+      <div class="tr">
+        <div class="td" style="width: 933px">以上由企业填写</div>
+      </div>
+    </div>
+
+    <div>
+      <div id="left" style="height: 192px;width:50%;float:left;">
+        <div style="height: 160px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;外经贸主管部门意见：</div>
+        <div style="height: 30px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 签名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月 &nbsp;&nbsp;&nbsp;&nbsp; 日
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;盖章
+        </div>
+      </div>
+      <div id="right" style="height: 192px;margin-left:50%;border-left:solid 1px ">
+        <div style="height: 160px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;海关核销意见：</div>
+        <div style="height: 30px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 签名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月 &nbsp;&nbsp;&nbsp;&nbsp; 日
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;盖章
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+  <div class="tr" style="height: 20px;"></div>
+</div>

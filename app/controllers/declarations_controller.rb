@@ -245,12 +245,11 @@ class DeclarationsController < ApplicationController
   end
 
   def statistic
-
     respond_to do |format|
       format.html
       format.json {
         opt = {}
-        statistic = {}
+        $statistic = {}
         result = {}
         if  params[:current_enterprise_id] != ''
           opt[:enterprise_id] = params[:current_enterprise_id]
@@ -261,13 +260,13 @@ class DeclarationsController < ApplicationController
         #报关单数   报关单金额
         opt[:declaration_type] = 'import'
         @declarations = Declaration.where(opt)
-        statistic[:import_sum] = @declarations.count
-        statistic[:import_price] = @declarations.joins(:declaration_cargos).sum('unit_price * quantity')
+        $statistic[:import_sum] = @declarations.count
+        $statistic[:import_price] = @declarations.joins(:declaration_cargos).sum('unit_price * quantity')
         opt[:declaration_type] = 'export'
         @declarations = Declaration.where(opt)
-        statistic[:export_sum] = @declarations.count
-        statistic[:export_price] = @declarations.joins(:declaration_cargos).sum('unit_price * quantity')
-        result[:statistic] = statistic
+        $statistic[:export_sum] = @declarations.count
+        $statistic[:export_price] = @declarations.joins(:declaration_cargos).sum('unit_price * quantity')
+        result[:statistic] = $statistic
 
 
         render json: result
@@ -276,27 +275,31 @@ class DeclarationsController < ApplicationController
   end
 
   def print_statistic
+    @title = '加工贸易合同核销申请表'
+    @contract = $contract
+    @statistic = $statistic
+    @statistic_pro_mat_con = $statistic_pro_mat_con
     render :layout => 'print'
   end
 
   def statistic_pro_mat_con
     respond_to do |format|
       format.json {
-        result = {}
+        $statistic_pro_mat_con = {}
         if  params[:contract_id] != ''
-          @contract = Contract.find(params[:contract_id])
+          $contract = Contract.find(params[:contract_id])
           #成品
-          result[:products] = @contract.contract_products
+          $statistic_pro_mat_con[:products] = $contract.contract_products
           #料件
-          result[:materials] = @contract.contract_materials
+          $statistic_pro_mat_con[:materials] = $contract.contract_materials
           #单损耗 只取第一个成品的单损耗
-          result[:consumptions] = {}
-          result[:products].each_with_index { |product, i|
-            result[:consumptions][i] = product.contract_consumptions.joins(:contract_product, :contract_material).select(
+          $statistic_pro_mat_con[:consumptions] = {}
+          $statistic_pro_mat_con[:products].each_with_index { |product, i|
+            $statistic_pro_mat_con[:consumptions][i] = product.contract_consumptions.joins(:contract_product, :contract_material).select(
                 'contract_products.name as contract_product_name , contract_materials.name as contract_material_name, contract_consumptions.used, contract_consumptions.wasted ')
           }
         end
-        render json: result
+        render json: $statistic_pro_mat_con
       }
     end
 
