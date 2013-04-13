@@ -77,10 +77,10 @@
             $('#nav_div').html('');
 
             //global variables
-            enterprise_name = $('#current_enterprise_id').find(":selected").text();
-            manual = $('#contract_id').find(":selected").text();
-            from = $('#from').val();
-            to = $('#to').val();
+            enterprise_name = $('#current_enterprise_id').find(":selected").text().trim();
+            manual = $('#contract_id').find(":selected").text().trim();
+            from = $('#from').val().trim();
+            to = $('#to').val().trim();
             //global variables
 
             var json = getFormData('#search_form select[name], #search_form input[name]');
@@ -211,11 +211,11 @@
         }
         $('#print').click(function(){
             if(result){
-                window.open('/declarations/print_declarations?declaration_type=&enterprise_name='+
+                window.open(encodeURI('/declarations/print_declarations?declaration_type=&enterprise_name='+
                         enterprise_name +'&manual='+
                         manual +'&from='+
                         from +'&to=' +
-                        to);
+                        to));
             }else{
                 alert('没有结果，打印不了');
             }
