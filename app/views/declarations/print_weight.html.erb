@@ -1,0 +1,103 @@
+<style type="text/css">
+    body {
+        text-align: left;
+        font-size: 16px;
+    }
+
+    .frame {
+        margin: 0 auto;
+        width: 846px;
+        text-align: left;
+    }
+
+    .tr {
+        padding: 1px 0 1px 0;
+    }
+
+    .table {
+        border: 1px solid;
+    }
+
+    .table .tr {
+        padding: 0;
+        height: 32px;
+        line-height: 32px;
+        border-bottom: solid 1px;
+    }
+
+    .table .tr:last-child {
+        border-bottom: none;
+    }
+
+    .table .tr .td {
+        border-right: solid 1px;
+        text-align: center;
+    }
+
+    .table .tr .td:last-child {
+        border-right: none;
+    }
+
+
+
+
+</style>
+
+<div class="frame">
+
+  <!--设置-->
+  <% weight_prices_size = @weight_prices.size %>
+  <% page_size = 42 %>
+  <% pages = weight_prices_size/page_size + 1 %>
+  <% (0..pages - 1).each do |page_count| %>
+      <!--每一页的内容-->
+      <div class="tr" style="height: 80px;"></div>
+      <div class="tr" style="height: 80px; text-align: center; font-size: 35px;">进出口重量总价统计</div>
+      <div class="tr" style="height: 20px;"></div>
+      <div class="table">
+        <div class="tr" style="height: 50px; line-height:50px;">
+          <div class="td" style="width:35px;">序号</div>
+          <div class="td" style="width:150px;">申报日期</div>
+          <div class="td" style="width:152px;">报关口岸</div>
+          <div class="td" style="width:150px;">海关编号</div>
+          <div class="td" style="width:100px;">件数</div>
+          <div class="td" style="width:80px;">毛重</div>
+          <div class="td" style="width:70px;">净重</div>
+          <div class="td" style="width:100px;">总价</div>
+        </div>
+        <% start = page_count*page_size %>
+        <% tail = (page_count + 1) * page_size - 1 > weight_prices_size ? weight_prices_size : (page_count + 1) * page_size - 1 %>
+        <!--每一项-->
+        <% @weight_prices[start..tail].each_with_index do |weight_price, i| %>
+            <div class="tr">
+              <div class="td" style="width:35px;">
+                <span ><%= i+1 %></span>
+              </div>
+              <div class="td" style="width:150px;">
+                <span >&nbsp;<%= weight_price.declare_date %>&nbsp;</span>
+              </div>
+              <div class="td" style="width:152px;">
+                <span >&nbsp;<%= weight_price.custom %>&nbsp;</span>
+              </div>
+              <div class="td" style="width:150px;">
+                <span >&nbsp;<%= weight_price.entry_no %>&nbsp;</span>
+              </div>
+              <div class="td" style="width:100px;">
+                <span >&nbsp;<%= weight_price.package_amount %>&nbsp;</span>
+              </div>
+              <div class="td" style="width:80px;">
+                <span >&nbsp;<%= weight_price.gross_weight %>&nbsp;</span>
+              </div>
+              <div class="td" style="width:70px;">
+                <span >&nbsp;<%= weight_price.net_weight %>&nbsp;</span>
+              </div>
+              <div class="td" style="width:100px;">
+                <span >&nbsp;<%= weight_price.total_price %>&nbsp;</span>
+              </div>
+            </div>
+        <% end %>
+      </div>
+      <div class="tr" style="height: 20px;"></div>
+  <% end %>
+
+</div>

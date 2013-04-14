@@ -38,6 +38,8 @@ ERP::Application.routes.draw do
     get 'material_balance', :on => :collection
     get 'print_material_balance', :on => :collection
     get 'statistic_pro_mat_con', :on => :collection
+    get 'weight', :on => :collection
+    get 'print_weight', :on => :collection
   end
 
   resources :cargos do

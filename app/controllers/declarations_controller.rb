@@ -249,7 +249,7 @@ class DeclarationsController < ApplicationController
       format.html
       format.json {
         opt = {}
-        $statistic = {}
+        @statistic = {}
         result = {}
         if  params[:current_enterprise_id] != ''
           opt[:enterprise_id] = params[:current_enterprise_id]
@@ -257,17 +257,18 @@ class DeclarationsController < ApplicationController
         if  params[:contract_id] != ''
           opt[:contract_id] = params[:contract_id]
         end
-        opt[:review_type] =  %w[1 3]
+        opt[:review_type] = %w[1 3]
         #报关单数   报关单金额
         opt[:declaration_type] = 'import'
         @declarations = Declaration.where(opt)
-        $statistic[:import_sum] = @declarations.count
-        $statistic[:import_price] = @declarations.joins(:declaration_cargos).sum('unit_price * quantity')
+        @statistic[:import_sum] = @declarations.count
+        @statistic[:import_price] = @declarations.joins(:declaration_cargos).sum('unit_price * quantity')
         opt[:declaration_type] = 'export'
         @declarations = Declaration.where(opt)
-        $statistic[:export_sum] = @declarations.count
-        $statistic[:export_price] = @declarations.joins(:declaration_cargos).sum('unit_price * quantity')
-        result[:statistic] = $statistic
+        @statistic[:export_sum] = @declarations.count
+        @statistic[:export_price] = @declarations.joins(:declaration_cargos).sum('unit_price * quantity')
+        $statistic = @statistic
+        result[:statistic] = @statistic
 
         render json: result
       }
@@ -285,21 +286,22 @@ class DeclarationsController < ApplicationController
   def statistic_pro_mat_con
     respond_to do |format|
       format.json {
-        $statistic_pro_mat_con = {}
+        @statistic_pro_mat_con = {}
         if  params[:contract_id] != ''
           $contract = Contract.find(params[:contract_id])
           #成品
-          $statistic_pro_mat_con[:products] = $contract.contract_products
+          @statistic_pro_mat_con[:products] = $contract.contract_products
           #料件
-          $statistic_pro_mat_con[:materials] = $contract.contract_materials
+          @statistic_pro_mat_con[:materials] = $contract.contract_materials
           #单损耗 只取第一个成品的单损耗
-          $statistic_pro_mat_con[:consumptions] = {}
-          $statistic_pro_mat_con[:products].each_with_index { |product, i|
-            $statistic_pro_mat_con[:consumptions][i] = product.contract_consumptions.joins(:contract_product, :contract_material).select(
+          @statistic_pro_mat_con[:consumptions] = {}
+          @statistic_pro_mat_con[:products].each_with_index { |product, i|
+            @statistic_pro_mat_con[:consumptions][i] = product.contract_consumptions.joins(:contract_product, :contract_material).select(
                 'contract_products.name as contract_product_name , contract_materials.name as contract_material_name, contract_consumptions.used, contract_consumptions.wasted ')
           }
         end
-        render json: $statistic_pro_mat_con
+        $statistic_pro_mat_con = @statistic_pro_mat_con
+        render json: @statistic_pro_mat_con
       }
     end
   end
@@ -314,7 +316,7 @@ class DeclarationsController < ApplicationController
           result[0] = []
           result[0] = ith_result_material_balance(@contract, 0)
         else
-          current_enterprise.contracts.each_with_index {  |contract,i|
+          current_enterprise.contracts.each_with_index { |contract, i|
             result[i] = []
             result[i] = ith_result_material_balance(contract, i)
           }
@@ -328,12 +330,43 @@ class DeclarationsController < ApplicationController
   def print_material_balance
     @materials = []
     count = 0
-    $material_balance.each{ |outer|
-      outer.each{|inner|
+    $material_balance.each { |outer|
+      outer.each { |inner|
         @materials[count] = inner
         count = count + 1
       }
     }
+    render :layout => 'print'
+  end
+
+  def weight
+    respond_to do |format|
+      format.html
+      format.json {
+        opt = {}
+        if  params[:current_enterprise_id] != ''
+          opt[:enterprise_id] = params[:current_enterprise_id]
+        end
+        if  params[:contract_id] != ''
+          opt[:contract_id] = params[:contract_id]
+        end
+        opt[:review_type] = %w[1 3]
+        @declarations = Declaration.where(opt)
+        total_price = 0
+        @declarations.each{|declaration|
+          declaration.declaration_cargos.each{|cargo|
+            total_price += cargo.total_price
+          }
+          declaration[:total_price] = total_price
+        }
+        $weight_prices = @declarations
+        render json: @declarations
+      }
+    end
+  end
+
+  def print_weight
+    @weight_prices = $weight_prices
     render :layout => 'print'
   end
 

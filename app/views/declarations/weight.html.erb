@@ -1,7 +1,3 @@
-<%= javascript_include_tag "jquery.ui.datepicker.min" %>
-<%= javascript_include_tag "jquery.ui.datepicker-zh-CN" %>
-
-<%= stylesheet_link_tag "jquery.ui.datepicker.min", :media => "all" %>
 <%= stylesheet_link_tag "jquery.ui.theme.min", :media => "all" %>
 
 <script>
@@ -62,7 +58,7 @@
                 alert('请先选择企业');
                 return;
             }
-            $.get('/declarations/material_balance.json', json, paginate)
+            $.get('/declarations/weight.json', json, paginate)
         })
 
         function paginate(search_result){
@@ -81,29 +77,23 @@
         function display_page(page_num,page_size) {
             var tbody = $('tbody');
             tbody.html('');
-            var count = 0;
-            $(result).each(function (i) {
-
-                for(var j = 0; j < result[i].length; j++){
-                    var tr = $('<tr/>');
-                    if (count % 2 == 1) {
-                        tr.css('background-color', '#e5ebe4');
-                    }
-                    count ++;
-                    var item = result[i][j];
-                    var material = item['material']
-                    tr.append(td().html(i + 1));
-                    tr.append(td().html(material.code));
-                    tr.append(td().html(material.name));
-                    tr.append(td().html(material.specification));
-                    tr.append(td().html(material.quantity));
-                    tr.append(td().html(material.unit));
-                    tr.append(td().html(item.contract_num));
-                    tr.append(td().html(item.import_price));
-                    tr.append(td().html(item.export_price));
-                    tbody.append(tr);
+            for (var i = page_num*page_size; i < result.length && i < (page_num+1) * page_size; i++) {
+                var tr = $('<tr/>');
+                if (i % 2 == 1) {
+                    tr.css('background-color', '#e5ebe4');
                 }
-            })
+                var ith_result = result[i];
+
+                tr.append(td().html(i + 1));
+                tr.append(td().html(ith_result.declare_date));
+                tr.append(td().html(ith_result.custom));
+                tr.append(td().html(ith_result.entry_no));
+                tr.append(td().html(ith_result.package_amount));
+                tr.append(td().html(ith_result.gross_weight));
+                tr.append(td().html(ith_result.net_weight));
+                tr.append(td().html(ith_result.total_price));
+                tbody.append(tr);
+            }
 
         }
 
@@ -172,7 +162,7 @@
         }
         $('#print').click(function(){
             if(result){
-                window.open('/declarations/print_material_balance');
+                window.open('/declarations/print_weight');
             }else{
                 alert('没有结果，打印不了');
             }
@@ -182,11 +172,6 @@
 </script>
 
 <style>
-
-
-    thead tr td {
-        font-weight: bold;
-    }
 
     .medium-input {
         width: 320px;
@@ -200,23 +185,19 @@
         display: inline-block;
     }
 </style>
-<div style="font-size: 16px;margin-bottom: 1em">合同料件平衡表</div>
-
+<div style="font-size: 16px;margin-bottom: 1em">进出口重量总价统计</div>
 <%= render "shared/statistic_search_form" %>
-
-
 <table>
   <thead class="ui-state-default">
   <tr>
     <td>序号</td>
-    <td>商品编码</td>
-    <td>料件名称</td>
-    <td>规格</td>
-    <td>实际进口数</td>
-    <td>单位</td>
-    <td>合同数量</td>
-    <td>进口金额</td>
-    <td>出口金额</td>
+    <td>申报日期</td>
+    <td>报关口岸</td>
+    <td>海关编号</td>
+    <td>件数</td>
+    <td>毛重</td>
+    <td>净重</td>
+    <td>总价</td>
   </tr>
   </thead>
   <tbody>

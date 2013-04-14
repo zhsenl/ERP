@@ -1,0 +1,46 @@
+<style>
+    .left, .right {
+        width: 48%;
+        display: inline-block;
+        line-height: 2.0em;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    thead tr td {
+        font-weight: bold;
+    }
+
+</style>
+<div id="search_form" style="width:70%;display: inline-block">
+
+  <div id="enterprise_selector_form" class="left">
+    <label style="display: inline;">收发货单位</label>
+    <select name="current_enterprise_id" id="current_enterprise_id" class="medium-input ">
+      <option value=""></option>
+      <% current_user.enterprises.each do |enterprise| %>
+          <option value="<%= enterprise.id %>">
+            <%= enterprise.code + enterprise.name %>
+          </option>
+      <% end %>
+    </select>
+    <% if content_for? :enterprise_selector_extra %>
+        <%= yield :enterprise_selector_extra %>
+    <% end %>
+  </div>
+
+  <div class="right "><label>手册编号</label>
+    <select name="contract_id" id="contract_id" class="medium-input ">
+      <option value="">所有手册</option>
+    </select>
+  </div>
+
+  <div class="right">
+    <input type="button" value="查询" id="search">
+    <input type="button" value="预览&打印" id="print">
+  </div>
+</div>
+
+<hr/>
