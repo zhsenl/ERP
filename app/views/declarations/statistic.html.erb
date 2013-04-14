@@ -280,22 +280,23 @@
             var tbody = $('#consumptions_body');
             tbody.html('');
             var count = 0;
-            $(consumptions).each(function (j) {
-                $(consumptions[j]).each(function(i){
+            $(consumptions).each(function (i) {
+
+                for(var j = 0; j < consumptions[i].length; j++){
                     var tr = $('<tr/>');
                     if (count % 2 == 1) {
                         tr.css('background-color', '#e5ebe4');
                     }
                     count ++;
-                    var ith_result = consumptions[j][i];
-                    tr.append(td().html(i + 1));
-                    tr.append(td().html(ith_result.contract_material_name));
-                    tr.append(td().html(ith_result.contract_product_name));
-                    tr.append(td().html(ith_result.used));
-                    tr.append(td().html(ith_result.wasted));
-//                tr.append(td().html(ith_result.unit1));
+                    var item = consumptions[i][j];
+                    tr.append(td().html(i+1));
+                    tr.append(td().html(item.contract_product_name));
+                    tr.append(td().html(j+1));
+                    tr.append(td().html(item.contract_material_name));
+                    tr.append(td().html(item.used));
+                    tr.append(td().html(item.wasted));
                     tbody.append(tr);
-                })
+                }
             })
         }
 
@@ -493,8 +494,9 @@
       <table>
         <thead>
         <tr>
-          <th>序号</th>
+          <th>成品序号</th>
           <th>成品名称</th>
+          <th>料件序号</th>
           <th>料件名称</th>
           <th>单耗</th>
           <th>耗损率</th>
