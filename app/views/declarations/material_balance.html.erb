@@ -1,0 +1,261 @@
+<%= javascript_include_tag "jquery.ui.datepicker.min" %>
+<%= javascript_include_tag "jquery.ui.datepicker-zh-CN" %>
+
+<%= stylesheet_link_tag "jquery.ui.datepicker.min", :media => "all" %>
+<%= stylesheet_link_tag "jquery.ui.theme.min", :media => "all" %>
+
+<script>
+
+    $(function () {
+        //global variable
+        var result;
+
+        function getFormData(form) {
+            var json = {};
+            var formData = $(form);
+            for (var i = 0; i < formData.length; i++) {
+                if (formData[i].type == 'radio') {
+                    json[formData[i].name] = formData[i].checked ? formData[i].value : json[formData[i].name];
+                } else {
+                    json[formData[i].name] = formData[i].value;
+                }
+            }
+            return json;
+        }
+
+        function td() {
+            return $('<td/>');
+        }
+
+        $("#current_enterprise_id").change(function () {
+            $('#contract_id').css({disabled: true}).addClass('grey')
+            $.post(
+                    '/select_enterprise',
+                    {
+                        url: 'http://localhost:3000/declarations/manage',
+                        current_enterprise_id: $("#current_enterprise_id").val()
+                    },
+                    function () {
+                        $('#contract_id').css('disabled', false).removeClass('grey')
+                        $.get(
+                                '/contracts.json',
+                                {},
+                                function (result) {
+                                    var select = $('#contract_id');
+                                    select.html('<option  value="">所有手册</option>');
+                                    for (var i = 0; i < result.length; i++) {
+                                        var option = $('<option/>').val(result[i].id).html(result[i].manual);
+                                        select.append(option);
+                                    }
+                                }
+                        )
+                    }
+            )
+        });
+
+
+        $('#search').click(function () {
+            $('tbody').html('');
+            $('#nav_div').html('');
+            var json = getFormData('#search_form select[name], #search_form input[name]');
+            if(!json['current_enterprise_id']){
+                alert('请先选择企业');
+                return;
+            }
+            $.get('/declarations/material_balance.json', json, paginate)
+        })
+
+        function paginate(search_result){
+            result = search_result;
+            var page_size = 25;
+            var total_pages = result.length/page_size;
+            if(result.length == 0){
+                alert('没有结果');
+                return;
+            }
+            display_page(0, page_size);
+            display_nav(0,total_pages, page_size);
+            operate_listener();
+        }
+
+        function display_page(page_num,page_size) {
+            var tbody = $('tbody');
+            tbody.html('');
+            var count = 0;
+            $(result).each(function (i) {
+
+                for(var j = 0; j < result[i].length; j++){
+                    var tr = $('<tr/>');
+                    if (count % 2 == 1) {
+                        tr.css('background-color', '#e5ebe4');
+                    }
+                    count ++;
+                    var item = result[i][j];
+                    var material = item['material']
+                    tr.append(td().html(i + 1));
+                    tr.append(td().html(material.code));
+                    tr.append(td().html(material.name));
+                    tr.append(td().html(material.specification));
+                    tr.append(td().html(material.quantity));
+                    tr.append(td().html(material.unit));
+                    tr.append(td().html(item.contract_num));
+                    tr.append(td().html(item.import_price));
+                    tr.append(td().html(item.export_price));
+                    tbody.append(tr);
+                }
+            })
+
+        }
+
+        function display_nav(current_page, total_pages, page_size){
+            var nav_div = $('#nav_div');
+            nav_div.html('');
+            for(var i = 0; i < total_pages; i++){
+                var a = $('<a/>').html(i+1).css('cursor','pointer').addClass('navs');
+                if(i==current_page){
+                    a.addClass('current');
+                }
+                nav_div.append(a);
+            }
+//            $('table').after(nav_div);
+            var pre = current_page;
+            var navs = $('.navs');
+            navs.each(function(i){
+                $(this).click(function(){
+                    if(i!=pre){
+                        $(navs[pre]).removeClass('current');
+                        $(navs[i]).addClass('current');
+                        pre = i;
+                        display_page(i,page_size);
+                    }
+                })
+            })
+        }
+
+        function operate(yes_no,text, className,id){
+            var span = $('<span/>');
+            span.append($('<span/>').html(yes_no));
+            span.append($('<input/>').attr({'type':'button','id':id}).val(text).addClass(className))
+            return span;
+        }
+
+        function operate_listener(){
+            var classNames = ['is_deleted',"is_paperless",'is_paperless_deleted','review_type'];
+            var text = ['删除',"强制为无纸","强制为无纸删单",'强制为已审'];
+            var url = '/declarations/toggle.json'
+            for(var i = 0; i < classNames.length; i++){
+                $('.' + classNames[i]).click(function(i){
+                    return function(){
+                        var that = $(this);
+                        var prev = that.prev();
+                        var is_yes;
+                        if(i == 3){
+                            is_yes = !(prev.html() == 0);
+                        }else{
+                            is_yes = prev.html() =='是';
+                        }
+                        $.post(url,{is_yes:is_yes, declaration_type:'',id:that.attr('id'), type:classNames[i]},function(){
+                            if(i == 3){
+                                prev.html(is_yes ? 0:3);
+                                that.val(is_yes ? text[i] :'取消已审');
+                            }else{
+                                prev.html(is_yes ? '否':'是');
+                                that.val(is_yes ? text[i] :'取消');
+                            }
+                        })
+                    }
+                }(i));
+            }
+
+
+
+        }
+        $('#print').click(function(){
+            if(result){
+                window.open('/declarations/print_material_balance');
+            }else{
+                alert('没有结果，打印不了');
+            }
+        })
+
+    });
+</script>
+
+<style>
+    .left, .right {
+        width: 48%;
+        display: inline-block;
+        line-height: 2.0em;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    thead tr td {
+        font-weight: bold;
+    }
+
+    .medium-input {
+        width: 320px;
+    }
+
+    .grey {
+        background-color: #e2e2e2;
+    }
+
+    .navs{
+        display: inline-block;
+    }
+</style>
+
+<div id="search_form" style="width:70%;display: inline-block">
+
+  <div id="enterprise_selector_form" class="left">
+    <label style="display: inline;">收发货单位</label>
+    <select name="current_enterprise_id" id="current_enterprise_id" class="medium-input ">
+      <option value=""></option>
+      <% current_user.enterprises.each do |enterprise| %>
+          <option value="<%= enterprise.id %>">
+            <%= enterprise.code + enterprise.name %>
+          </option>
+      <% end %>
+    </select>
+    <% if content_for? :enterprise_selector_extra %>
+        <%= yield :enterprise_selector_extra %>
+    <% end %>
+  </div>
+
+  <div class="right "><label>手册编号</label>
+    <select name="contract_id" id="contract_id" class="medium-input ">
+      <option value="">所有手册</option>
+    </select>
+  </div>
+
+  <div class="right">
+    <input type="button" value="查询" id="search">
+    <input type="button" value="预览&打印" id="print">
+  </div>
+</div>
+
+<hr/>
+
+<table>
+  <thead class="ui-state-default">
+  <tr>
+    <td>序号</td>
+    <td>商品编码</td>
+    <td>料件名称</td>
+    <td>规格</td>
+    <td>实际进口数</td>
+    <td>单位</td>
+    <td>合同数量</td>
+    <td>进口金额</td>
+    <td>出口金额</td>
+  </tr>
+  </thead>
+  <tbody>
+
+  </tbody>
+</table>
+<div style="display: none" class="pagination" id="nav_div" ></div>

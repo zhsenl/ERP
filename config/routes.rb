@@ -35,6 +35,8 @@ ERP::Application.routes.draw do
     get 'manage', :on => :collection
     post 'toggle', :on => :collection
     get 'statistic', :on => :collection
+    get 'material_balance', :on => :collection
+    get 'print_material_balance', :on => :collection
     get 'statistic_pro_mat_con', :on => :collection
   end
 

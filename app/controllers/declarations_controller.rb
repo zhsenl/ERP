@@ -210,7 +210,7 @@ class DeclarationsController < ApplicationController
         if  params[:contract_id] != ''
           opt[:contract_id] = params[:contract_id]
         end
-        opt[:declaration_type] = params[:declaration_type]== '' ? ['import', 'export'] : params[:declaration_type]
+        opt[:declaration_type] = params[:declaration_type]== '' ? %w[import  export] : params[:declaration_type]
         if params[:from] !='' and params[:to] != ''
           opt[:declare_date] = params[:from]..params[:to]
         end
@@ -257,6 +257,7 @@ class DeclarationsController < ApplicationController
         if  params[:contract_id] != ''
           opt[:contract_id] = params[:contract_id]
         end
+        opt[:review_type] =  %w[1 3]
         #报关单数   报关单金额
         opt[:declaration_type] = 'import'
         @declarations = Declaration.where(opt)
@@ -267,7 +268,6 @@ class DeclarationsController < ApplicationController
         $statistic[:export_sum] = @declarations.count
         $statistic[:export_price] = @declarations.joins(:declaration_cargos).sum('unit_price * quantity')
         result[:statistic] = $statistic
-
 
         render json: result
       }
@@ -302,8 +302,39 @@ class DeclarationsController < ApplicationController
         render json: $statistic_pro_mat_con
       }
     end
+  end
 
+  def material_balance
+    respond_to do |format|
+      format.html
+      format.json {
+        result = []
+        if  !params[:contract_id].nil? and params[:contract_id] != ''
+          @contract = current_enterprise.contracts.find(params[:contract_id])
+          result[0] = []
+          result[0] = ith_result_material_balance(@contract, 0)
+        else
+          current_enterprise.contracts.each_with_index {  |contract,i|
+            result[i] = []
+            result[i] = ith_result_material_balance(contract, i)
+          }
+        end
+        $material_balance = result
+        render json: result
+      }
+    end
+  end
 
+  def print_material_balance
+    @materials = []
+    count = 0
+    $material_balance.each{ |outer|
+      outer.each{|inner|
+        @materials[count] = inner
+        count = count + 1
+      }
+    }
+    render :layout => 'print'
   end
 
 end

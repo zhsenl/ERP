@@ -36,5 +36,34 @@ module DeclarationsHelper
       "<tcs:#{attribute}>#{value}</tcs:#{attribute}>"
     end
   end
+
+  def ith_result_material_balance(contract,i)
+    ith_result = []
+    @materials = contract.contract_materials
+    @materials.each_with_index { |material,j|
+      ith_result[j] = {}
+      @same_contract_materials = ContractMaterial.where(:code => material.code )
+      ith_result[j][:contract_num] = @same_contract_materials.count('contract_id',:distinct => true)
+      material[:quantity] = @same_contract_materials.sum('quantity')
+      ith_result[j][:material] = material
+      tem_import_price = 0
+      tem_export_price = 0
+      @same_contract_materials.each { |material|
+        opt = {}
+        opt[:enterprise_id] = current_enterprise.id
+        opt[:contract_id] = material.contract.id
+        opt[:review_type] =  %w[1 3]
+        opt[:declaration_type] = 'import'
+        tem1 = Declaration.where(opt).joins(:declaration_cargos).sum('unit_price * quantity')
+        tem_import_price = tem_import_price +  Integer(tem1)
+        opt[:declaration_type] = 'export'
+        tem2 = Declaration.where(opt).joins(:declaration_cargos).sum('unit_price * quantity')
+        tem_export_price = tem_export_price + Integer(tem2)
+      }
+      ith_result[j][:import_price] = tem_import_price
+      ith_result[j][:export_price] = tem_export_price
+    }
+    return ith_result
+  end
   
 end

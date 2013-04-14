@@ -76,7 +76,9 @@
 
 
 <div class="frame">
-  <div class="tr" style="height: 22px;"></div>
+
+  <!--表头-->
+  <div class="tr" style="height: 80px;"></div>
   <div class="tr" style="height: 80px; text-align: center; font-size: 35px;">加工贸易合同核销申请表
   </div>
   <div class="table">
@@ -196,7 +198,7 @@
 
     <div>
       <div id="left" style="height: 192px;width:50%;float:left;">
-        <div style="height: 160px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;外经贸主管部门意见：</div>
+        <div style="height: 160px;padding-top: 6px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;外经贸主管部门意见：</div>
         <div style="height: 30px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 签名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月 &nbsp;&nbsp;&nbsp;&nbsp; 日
@@ -204,16 +206,82 @@
         </div>
       </div>
       <div id="right" style="height: 192px;margin-left:50%;border-left:solid 1px ">
-        <div style="height: 160px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;海关核销意见：</div>
+        <div style="height: 160px;padding-top: 6px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;海关核销意见：</div>
         <div style="height: 30px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 签名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月 &nbsp;&nbsp;&nbsp;&nbsp; 日
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;盖章
         </div>
       </div>
-
     </div>
 
   </div>
-  <div class="tr" style="height: 20px;"></div>
+  <div class="tr" style="height: 22px;"></div>
+  <div style="float: right">第&nbsp;&nbsp;1&nbsp;&nbsp;页</div>
+
+  <!--料件栏-->
+  <!--设置-->
+  <% materials_size =  @statistic_pro_mat_con[:materials].size %>
+  <% page_size = 42 %>
+  <% pages = materials_size/page_size + 1 %>
+  <% (0..pages - 1).each do |page_count| %>
+    <!--每一页的内容-->
+    <div class="tr" style="height: 80px;"></div>
+    <div class="tr" style="height: 80px; text-align: center; font-size: 35px;">加工贸易合同核销申请表分表</div>
+    <div class="tr" style="height: 20px;"></div>
+    <div class="table">
+      <div class="tr" style="height: 50px; line-height:50px;">
+        <div class="td" style="width:35px;">序号</div>
+        <div class="td" style="width:150px;">料件名称、规格</div>
+        <div class="td" style="width:150px;">单位</div>
+        <div class="td" style="width:100px;">进口总数量</div>
+        <div class="td" style="width:100px;">其中深加工结转进口数量</div>
+        <div class="td" style="width:80px;">其中余料结转进口数量</div>
+        <div class="td" style="width:70px;">产品总耗用量</div>
+        <div class="td" style="width:50px;">内销数量</div>
+        <div class="td" style="width:50px;">退、运出口数量</div>
+        <div class="td" style="width:70px;">无纸删单</div>
+      </div>
+      <%	start = page_count*page_size  %>
+      <%  tail  =  (page_count + 1) * page_size - 1 > declarations_size ? declarations_size : (page_count + 1) * page_size - 1%>
+      <!--每一项-->
+      <% @declarations[start..tail].each_with_index do |declaration,i| %>
+          <div class="tr">
+            <div class="td" style="width:35px;">
+              <span class="content"><%= i+1 %></span>
+            </div>
+            <div class="td" style="width:150px;">
+              <span class="content"><%= declaration.entry_no %></span>
+            </div>
+            <div class="td" style="width:150px;">
+              <span class="content"><%= declaration.pre_entry_no %></span>
+            </div>
+            <div class="td" style="width:100px;">
+              <span class="content"><%= declaration.declare_date %></span>
+            </div>
+            <div class="td" style="width:100px;">
+              <span class="content"></span>
+            </div>
+            <div class="td" style="width:80px;">
+              <span class="content"><%= declaration.declaration_type == 'export' ? '出口' : '入口' %></span>
+            </div>
+            <div class="td" style="width:70px;">
+              <span class="content"><%= declaration.review_type %></span>
+            </div>
+            <div class="td" style="width:50px;">
+              <span class="content"><%= declaration.is_deleted  ? '是' : '否' %></span>
+            </div>
+            <div class="td" style="width:50px;">
+              <span class="content"><%= declaration.is_paperless ? '是' : '否' %></span>
+            </div>
+            <div class="td" style="width:70px;">
+              <span class="content"><%= declaration.is_paperless_deleted  ? '是' : '否' %></span>
+            </div>
+          </div>
+      <% end %>
+    </div>
+    <div class="tr" style="height: 20px;"></div>
+<% end %>
+    <!--成品栏-->
+    <!--单损耗栏-->
 </div>
