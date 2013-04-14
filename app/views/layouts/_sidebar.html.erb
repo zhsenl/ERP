@@ -1,146 +1,147 @@
-<div id="messages" style="display: none"> 
-	<h3 class="unread_message_size"></h3>
-</div> 
+<div id="messages" style="display: none">
+  <h3 class="unread_message_size"></h3>
+</div>
 <!-- End #messages -->
 
 
 <div id="sidebar">
-	<div id="sidebar-wrapper">
-		<!-- Sidebar with logo and menu -->
-		<h1 id="sidebar-title"><a href="#">Xinze ERP</a></h1>
-		<!-- Logo (221px wide) -->
-		<%= link_to image_tag("logo.png", :id => "logo", :alt => "Xinze ERP logo"), root_path %>
-		<!-- Sidebar Profile links -->
-		<div id="profile-links">
-			你好, <%= link_to current_user.name, me_path %>, <span id="welcome_message">欢迎你</span>
-			<br />
-			<br />
-			<%= link_to '首页', root_path %> | <%= link_to '我的资料', me_path %> | <%= link_to '安全退出', signout_path %>
-		</div>
-		<ul id="main-nav">
-			<!-- Accordion Menu -->
-			<li>
-				<a href="#" class="nav-top-item"> 报关数据 </a>
-				<ul>
-					<li>
-						<%= link_to '新增货物', new_cargo_path, :class => "cargos_new cargos_create" %>
-					</li>
-					<li>
-						<%= link_to '货物列表', cargos_path, :class => "cargos" %>
-					</li>
-				</ul>
-			</li>
-			<li>
-				<a href="#" class="nav-top-item"> 合同管理 </a>
-				<ul>
-					<li>
-						<%= link_to '导入合同', import_contracts_path, :class => "contracts_import" %>
-					</li>
-					<li>
-						<%= link_to '新增合同', new_contract_path, :class => "contracts_new contracts_create" %>
-					</li>
-					<li>
-						<%= link_to '合同管理', contracts_path, :class => 'contracts contract' %>
-					</li>					
-				</ul>
-			</li>			
-			<li>
-				<a href="#" class="nav-top-item"> 报关单管理 </a>
-				<ul>
-					<li>
-						<%= link_to '新增出口报关单', new_declaration_path(:declaration_type => 'export'), :class => "export_declarations_new export_declarations_create" %>
-					</li>
-					<li>
-						<%= link_to '出口报关单管理', declarations_path(:declaration_type => 'export'), :class => "export_declarations export_declaration" %>
-					</li>
-					<li>
-						<%= link_to '新增进口报关单', new_declaration_path(:declaration_type => 'import'), :class => "import_declarations_new import_declarations_create" %>
-					</li>
-					<li>
-						<%= link_to '进口报关单管理', declarations_path(:declaration_type => 'import'), :class => "import_declarations import_declaration" %>
-					</li>
-					<li>
-						<%= link_to '打印司机纸', driver_paper_declarations_path(:declaration_type => ''), :class => "declarations_driver" %>
-					</li>
-				</ul>
-			</li>
-			<li>
-				<a href="#" class="nav-top-item"> 设置 </a>
-				<ul>
-					<li>
-						<%= link_to '我的资料', me_path, :class => "users_me users_modify" %>
-					</li>
-				</ul>
-			</li>
-			<% if current_user.is?("admin") || current_user.is?("staff") %>
-			<li>
-				<a href="#" class="nav-top-item"> 系统管理 </a>
-				<ul>
-					<li>
-						<%= link_to '常规选项', options_path, :class => "options" %>
-					</li>
-					<% if can? :manage, User %>
-					<li>
-						<%= link_to '用户管理', users_path, :class => "users" %>
-					</li>
-					<% end %>
-					<li>
-						<%= link_to '企业管理', enterprises_path, :class => "enterprises" %>
-					</li>
-					<li>
-						<%= link_to '外商管理', foreign_enterprises_path, :class => "foreign_enterprises" %>
-					</li>
-					<li>
-						<%= link_to '数据字典', dict_path, :class => "pages_dict dict" %>
-					</li>
-				</ul>
-			</li>
+  <div id="sidebar-wrapper">
+    <!-- Sidebar with logo and menu -->
+    <h1 id="sidebar-title"><a href="#">Xinze ERP</a></h1>
+    <!-- Logo (221px wide) -->
+    <%= link_to image_tag("logo.png", :id => "logo", :alt => "Xinze ERP logo"), root_path %>
+    <!-- Sidebar Profile links -->
+    <div id="profile-links">
+      你好, <%= link_to current_user.name, me_path %>, <span id="welcome_message">欢迎你</span>
+      <br/>
+      <br/>
+      <%= link_to '首页', root_path %> | <%= link_to '我的资料', me_path %> | <%= link_to '安全退出', signout_path %>
+    </div>
+    <ul id="main-nav">
+      <!-- Accordion Menu -->
+      <li>
+        <a href="#" class="nav-top-item"> 我的资料 </a>
+        <ul>
+          <li>
+            <%= link_to '我的资料', me_path, :class => "users_me users_modify" %>
+          </li>
+        </ul>
+      </li>
+      <% if current_user.is?("admin") || current_user.is?("staff") %>
+          <li>
+            <a href="#" class="nav-top-item"> 系统管理 </a>
+            <ul>
               <li>
-                <a href="#" class="nav-top-item"> 报关单入库 </a>
-                <ul>
+                <%= link_to '常规选项', options_path, :class => "options" %>
+              </li>
+              <% if can? :manage, User %>
                   <li>
-                    <%= link_to '手工审核入库', manage_declarations_path, :class => "declarations_manage" %>
+                    <%= link_to '用户管理', users_path, :class => "users" %>
                   </li>
-                </ul>
+              <% end %>
+              <li>
+                <%= link_to '企业管理', enterprises_path, :class => "enterprises" %>
               </li>
               <li>
-                <a href="#" class="nav-top-item"> 报关统计表 </a>
-                <ul>
-                  <li>
-                    <%= link_to '合同核销表', statistic_declarations_path, :class => "declarations_statistic" %>
-                  </li>
-                  <li>
-                    <%= link_to '合同料件平衡表', manage_declarations_path, :class => "manage_declarations" %>
-                  </li>
-                  <li>
-                    <%= link_to '合同料件来源及使用情况', manage_declarations_path, :class => "manage_declarations" %>
-                  </li>
-                  <li>
-                    <%= link_to '成品出口情况表', manage_declarations_path, :class => "manage_declarations" %>
-                  </li>
-                  <li>
-                    <%= link_to '成品出口明细表', manage_declarations_path, :class => "manage_declarations" %>
-                  </li>
-                  <li>
-                    <%= link_to '料件进口情况表', manage_declarations_path, :class => "manage_declarations" %>
-                  </li>
-                  <li>
-                    <%= link_to '料件进口明细表', manage_declarations_path, :class => "manage_declarations" %>
-                  </li>
-                  <li>
-                    <%= link_to '进出口重量总价统计', manage_declarations_path, :class => "manage_declarations" %>
-                  </li>
-                  <li>
-                    <%= link_to '进出口报关单统计', manage_declarations_path, :class => "manage_declarations" %>
-                  </li>
-                  <li>
-                    <%= link_to '进出口报关单汇总表', manage_declarations_path, :class => "manage_declarations" %>
-                  </li>
-                </ul>
+                <%= link_to '外商管理', foreign_enterprises_path, :class => "foreign_enterprises" %>
               </li>
-			<% end %>
-		</ul>		
-	</div>
+              <li>
+                <%= link_to '数据字典', dict_path, :class => "pages_dict dict" %>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#" class="nav-top-item"> 报关编码库</a>
+            <ul>
+              <li>
+                <%= link_to '新增货物', new_cargo_path, :class => "cargos_new cargos_create" %>
+              </li>
+              <li>
+                <%= link_to '货物列表', cargos_path, :class => "cargos" %>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#" class="nav-top-item"> 合同录入 </a>
+            <ul>
+              <li>
+                <%= link_to '导入合同', import_contracts_path, :class => "contracts_import" %>
+              </li>
+              <li>
+                <%= link_to '新增合同', new_contract_path, :class => "contracts_new contracts_create" %>
+              </li>
+              <li>
+                <%= link_to '合同管理', contracts_path, :class => 'contracts contract' %>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#" class="nav-top-item"> 进出口录入 </a>
+            <ul>
+              <li>
+                <%= link_to '新增出口报关单', new_declaration_path(:declaration_type => 'export'), :class => "export_declarations_new export_declarations_create" %>
+              </li>
+              <li>
+                <%= link_to '出口报关单管理', declarations_path(:declaration_type => 'export'), :class => "export_declarations export_declaration" %>
+              </li>
+              <li>
+                <%= link_to '新增进口报关单', new_declaration_path(:declaration_type => 'import'), :class => "import_declarations_new import_declarations_create" %>
+              </li>
+              <li>
+                <%= link_to '进口报关单管理', declarations_path(:declaration_type => 'import'), :class => "import_declarations import_declaration" %>
+              </li>
+              <li>
+                <%= link_to '打印司机纸', driver_paper_declarations_path(:declaration_type => ''), :class => "declarations_driver" %>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <a href="#" class="nav-top-item"> 报关单入库 </a>
+            <ul>
+              <li>
+                <%= link_to '手工审核入库', manage_declarations_path, :class => "declarations_manage" %>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#" class="nav-top-item"> 报关统计表 </a>
+            <ul>
+              <li>
+                <%= link_to '合同核销表', statistic_declarations_path, :class => "declarations_statistic" %>
+              </li>
+              <li>
+                <%= link_to '合同料件平衡表', material_balance_declarations_path, :class => "declarations_material_balance" %>
+              </li>
+              <li>
+                <%= link_to '合同料件来源及使用情况', manage_declarations_path, :class => "manage_declarations" %>
+              </li>
+              <li>
+                <%= link_to '成品出口情况表', manage_declarations_path, :class => "manage_declarations" %>
+              </li>
+              <li>
+                <%= link_to '成品出口明细表', manage_declarations_path, :class => "manage_declarations" %>
+              </li>
+              <li>
+                <%= link_to '料件进口情况表', manage_declarations_path, :class => "manage_declarations" %>
+              </li>
+              <li>
+                <%= link_to '料件进口明细表', manage_declarations_path, :class => "manage_declarations" %>
+              </li>
+              <li>
+                <%= link_to '进出口重量总价统计', manage_declarations_path, :class => "manage_declarations" %>
+              </li>
+              <li>
+                <%= link_to '进出口报关单统计', manage_declarations_path, :class => "manage_declarations" %>
+              </li>
+              <li>
+                <%= link_to '进出口报关单汇总表', manage_declarations_path, :class => "manage_declarations" %>
+              </li>
+            </ul>
+          </li>
+      <% end %>
+    </ul>
+  </div>
 </div>
 <!-- End #sidebar -->
 
