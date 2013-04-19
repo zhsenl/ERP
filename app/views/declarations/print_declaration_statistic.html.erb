@@ -6,7 +6,7 @@
 
     .frame {
         margin: 0 auto;
-        width: 846px;
+        width: 675px;
         text-align: left;
     }
 
@@ -46,9 +46,9 @@
 <div class="frame">
 
   <!--设置-->
-  <% weight_prices_size = @weight_prices.size %>
+  <% statistic_declarations_size = @statistic_declarations.size %>
   <% page_size = 42 %>
-  <% pages = weight_prices_size/page_size + 1 %>
+  <% pages = statistic_declarations_size/page_size + 1 %>
   <% (0..pages - 1).each do |page_count| %>
       <!--每一页的内容-->
       <div class="tr" style="height: 80px;"></div>
@@ -58,41 +58,33 @@
         <div class="tr" style="height: 50px; line-height:50px;">
           <div class="td" style="width:35px;">序号</div>
           <div class="td" style="width:150px;">申报日期</div>
-          <div class="td" style="width:152px;">报关口岸</div>
-          <div class="td" style="width:150px;">海关编号</div>
-          <div class="td" style="width:100px;">件数</div>
-          <div class="td" style="width:80px;">毛重</div>
-          <div class="td" style="width:70px;">净重</div>
-          <div class="td" style="width:100px;">总价</div>
+          <div class="td" style="width:152px;">海关编号</div>
+          <div class="td" style="width:150px;">预录入号</div>
+          <div class="td" style="width:100px;">批准文号</div>
+          <div class="td" style="width:80px;">车牌号</div>
         </div>
         <% start = page_count*page_size %>
-        <% tail = (page_count + 1) * page_size - 1 > weight_prices_size ? weight_prices_size : (page_count + 1) * page_size - 1 %>
+        <% tail = (page_count + 1) * page_size - 1 > statistic_declarations_size ? statistic_declarations_size : (page_count + 1) * page_size - 1 %>
         <!--每一项-->
-        <% @weight_prices[start..tail].each_with_index do |weight_price, i| %>
+        <% @statistic_declarations[start..tail].each_with_index do |statistic_declaration, i| %>
             <div class="tr">
               <div class="td" style="width:35px;">
                 <span ><%= i+1 %></span>
               </div>
               <div class="td" style="width:150px;">
-                <span >&nbsp;<%= weight_price.declare_date %>&nbsp;</span>
+                <span >&nbsp;<%= statistic_declaration.declare_date %>&nbsp;</span>
               </div>
               <div class="td" style="width:152px;">
-                <span >&nbsp;<%= weight_price.custom %>&nbsp;</span>
+                <span >&nbsp;<%= statistic_declaration.entry_no %>&nbsp;</span>
               </div>
               <div class="td" style="width:150px;">
-                <span >&nbsp;<%= weight_price.entry_no %>&nbsp;</span>
+                <span >&nbsp;<%= statistic_declaration.pre_entry_no %>&nbsp;</span>
               </div>
               <div class="td" style="width:100px;">
-                <span >&nbsp;<%= weight_price.package_amount %>&nbsp;</span>
+                <span >&nbsp;<%= statistic_declaration.certification %>&nbsp;</span>
               </div>
               <div class="td" style="width:80px;">
-                <span >&nbsp;<%= weight_price.gross_weight %>&nbsp;</span>
-              </div>
-              <div class="td" style="width:70px;">
-                <span >&nbsp;<%= weight_price.net_weight %>&nbsp;</span>
-              </div>
-              <div class="td" style="width:100px;">
-                <span >&nbsp;<%= sprintf "%0.2f",weight_price.total_price %>&nbsp;</span>
+                <span >&nbsp;<%= statistic_declaration.truck %>&nbsp;</span>
               </div>
             </div>
         <% end %>

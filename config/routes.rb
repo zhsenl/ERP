@@ -40,6 +40,8 @@ ERP::Application.routes.draw do
     get 'statistic_pro_mat_con', :on => :collection
     get 'weight', :on => :collection
     get 'print_weight', :on => :collection
+    get 'declaration_statistic', :on => :collection
+    get 'print_declaration_statistic', :on => :collection
   end
 
   resources :cargos do

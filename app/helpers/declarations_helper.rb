@@ -1,14 +1,14 @@
 # -*- encoding : utf-8 -*-
 module DeclarationsHelper
   include  FileUtils, ApplicationHelper
-  
+
   def generate_declaration_xml(id)
     begin
       declaration = Declaration.find(id)
-      
+
       serial_no = system_serial_no
       message_id = declaration.enterprise.enterprise_custom_option.platform_id.to_s + serial_no
-      
+
       action_view = ActionView::Base.new(Rails.root.join('app', 'views'))
       action_view.class_eval do
         include ApplicationHelper, DeclarationsHelper, PrintHelper
@@ -18,19 +18,19 @@ module DeclarationsHelper
       file.puts(action_view.render(:template => "misc/declaration.xml.erb"))
       file.close
       FileUtils.mv file, Settings["dispatch_paths"]["upload_temp"] + "/" + declaration.pre_entry_no + ".xml"
-      DispatchRecord.new({:declaration_id => id, 
-                          :message_id => message_id, 
-                          :channel => '000', 
+      DispatchRecord.new({:declaration_id => id,
+                          :message_id => message_id,
+                          :channel => '000',
                           :note => '成功报文生成'}).save
       true
     rescue
       logger.error $!
       false
-    end    
+    end
   end
-  
+
   def tcs(attribute, value)
-    if value.blank? 
+    if value.blank?
       "<tcs:#{attribute} xsi:nil=\"true\" />"
     else
       "<tcs:#{attribute}>#{value}</tcs:#{attribute}>"
@@ -65,5 +65,20 @@ module DeclarationsHelper
     }
     return ith_result
   end
-  
+
+  def find_declarations_by_ent_cont_type_time
+    opt = {}
+    if  params[:current_enterprise_id] != ''
+      opt[:enterprise_id] = params[:current_enterprise_id]
+    end
+    if  params[:contract_id] != ''
+      opt[:contract_id] = params[:contract_id]
+    end
+    opt[:declaration_type] = params[:declaration_type]== '' ? %w[import  export] : params[:declaration_type]
+    if params[:from] !='' and params[:to] != ''
+      opt[:declare_date] = params[:from]..params[:to]
+    end
+    return Declaration.where(opt)
+  end
+
 end

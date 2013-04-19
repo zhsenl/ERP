@@ -76,7 +76,7 @@
                 default :
                     json['declaration_type'] = 'export';
             }
-            $.get('/declarations/weight.json', json, paginate)
+            $.get('/declarations/declaration_statistic.json', json, paginate)
         })
 
         function paginate(search_result){
@@ -104,12 +104,10 @@
 
                 tr.append(td().html(i + 1));
                 tr.append(td().html(ith_result.declare_date));
-                tr.append(td().html(ith_result.custom));
                 tr.append(td().html(ith_result.entry_no));
-                tr.append(td().html(ith_result.package_amount));
-                tr.append(td().html(ith_result.gross_weight));
-                tr.append(td().html(ith_result.net_weight));
-                tr.append(td().html(ith_result.total_price));
+                tr.append(td().html(ith_result.pre_entry_no));
+                tr.append(td().html(ith_result.certification));
+                tr.append(td().html(ith_result.truck));
                 tbody.append(tr);
             }
 
@@ -180,7 +178,7 @@
         }
         $('#print').click(function(){
             if(result){
-                window.open('/declarations/print_weight');
+                window.open('/declarations/print_declaration_statistic');
             }else{
                 alert('没有结果，打印不了');
             }
@@ -203,19 +201,17 @@
         display: inline-block;
     }
 </style>
-<div style="font-size: 16px;margin-bottom: 1em">进出口重量总价统计</div>
+<div style="font-size: 16px;margin-bottom: 1em">进出口报关单统计</div>
 <%= render "shared/manage_search_form" %>
 <table>
   <thead class="ui-state-default">
   <tr>
     <td>序号</td>
     <td>申报日期</td>
-    <td>报关口岸</td>
     <td>海关编号</td>
-    <td>件数</td>
-    <td>毛重</td>
-    <td>净重</td>
-    <td>总价</td>
+    <td>预录入号</td>
+    <td>批准文号</td>
+    <td>车牌号</td>
   </tr>
   </thead>
   <tbody>

@@ -203,20 +203,8 @@ class DeclarationsController < ApplicationController
         @declarations = [];
       }
       format.json {
-        opt = {}
-        if  params[:current_enterprise_id] != ''
-          opt[:enterprise_id] = params[:current_enterprise_id]
-        end
-        if  params[:contract_id] != ''
-          opt[:contract_id] = params[:contract_id]
-        end
-        opt[:declaration_type] = params[:declaration_type]== '' ? %w[import  export] : params[:declaration_type]
-        if params[:from] !='' and params[:to] != ''
-          opt[:declare_date] = params[:from]..params[:to]
-        end
-        @declarations = Declaration.where(opt)
-        $DECLARATIONS = @declarations
-        render json: @declarations
+        $DECLARATIONS =  find_declarations_by_ent_cont_type_time
+        render json: $DECLARATIONS
       }
     end
   end
@@ -343,15 +331,7 @@ class DeclarationsController < ApplicationController
     respond_to do |format|
       format.html
       format.json {
-        opt = {}
-        if  params[:current_enterprise_id] != ''
-          opt[:enterprise_id] = params[:current_enterprise_id]
-        end
-        if  params[:contract_id] != ''
-          opt[:contract_id] = params[:contract_id]
-        end
-        opt[:review_type] = %w[1 3]
-        @declarations = Declaration.where(opt)
+        @declarations = find_declarations_by_ent_cont_type_time
         total_price = 0
         @declarations.each{|declaration|
           declaration.declaration_cargos.each{|cargo|
@@ -367,6 +347,21 @@ class DeclarationsController < ApplicationController
 
   def print_weight
     @weight_prices = $weight_prices
+    render :layout => 'print'
+  end
+
+  def declaration_statistic
+    respond_to do |format|
+      format.html
+      format.json {
+        $statistic_declarations=find_declarations_by_ent_cont_type_time
+        render json:$statistic_declarations
+      }
+    end
+  end
+
+  def print_declaration_statistic
+    @statistic_declarations = $statistic_declarations
     render :layout => 'print'
   end
 
