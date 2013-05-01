@@ -248,14 +248,15 @@ class DeclarationsController < ApplicationController
         opt[:review_type] = %w[1 3]
         #报关单数   报关单金额
         opt[:declaration_type] = 'import'
-        @declarations = Declaration.where(opt)
-        @statistic[:import_sum] = @declarations.count
-        @statistic[:import_price] = @declarations.joins(:declaration_cargos).sum('unit_price * quantity')
+        @import_declarations = Declaration.where(opt)
+        @statistic[:import_sum] = @import_declarations.count
+        @statistic[:import_price] = @import_declarations.joins(:declaration_cargos).sum('unit_price * quantity')
         opt[:declaration_type] = 'export'
-        @declarations = Declaration.where(opt)
-        @statistic[:export_sum] = @declarations.count
-        @statistic[:export_price] = @declarations.joins(:declaration_cargos).sum('unit_price * quantity')
+        @export_declarations = Declaration.where(opt)
+        @statistic[:export_sum] = @export_declarations.count
+        @statistic[:export_price] = @export_declarations.joins(:declaration_cargos).sum('unit_price * quantity')
         $statistic = @statistic
+
         result[:statistic] = @statistic
 
         render json: result
@@ -277,16 +278,99 @@ class DeclarationsController < ApplicationController
         @statistic_pro_mat_con = {}
         if  params[:contract_id] != ''
           $contract = Contract.find(params[:contract_id])
-          #成品
+          #单损耗  按合同算
           @statistic_pro_mat_con[:products] = $contract.contract_products
-          #料件
           @statistic_pro_mat_con[:materials] = $contract.contract_materials
-          #单损耗 只取第一个成品的单损耗
           @statistic_pro_mat_con[:consumptions] = {}
           @statistic_pro_mat_con[:products].each_with_index { |product, i|
             @statistic_pro_mat_con[:consumptions][i] = product.contract_consumptions.joins(:contract_product, :contract_material).select(
                 'contract_products.name as contract_product_name , contract_materials.name as contract_material_name, contract_consumptions.used, contract_consumptions.wasted ')
           }
+
+          opt = {}
+          opt[:enterprise_id] = current_enterprise.id
+          opt[:contract_id] = params[:contract_id]
+          opt[:review_type] = %w[1 3]
+          opt[:declaration_type] = 'export'
+          @export_declarations = Declaration.where(opt)
+          opt[:declaration_type] = 'import'
+          @import_declarations = Declaration.where(opt)
+
+          #成品 按报关单算   begin
+          @statistic_pro_mat_con[:products].each_with_index { |product, i|
+
+            #出口总数量
+            trade_mode = %w[9900 1300 0214 0255 0466 4400 0615 0715 1215 4600 0744 0110 0633 1200 1234 1215 6033 1233 9700 0400 0654]
+            @statistic_pro_mat_con[:products][i][:export_sum] = @export_declarations.joins(:declaration_cargos)
+              .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', product.no ,trade_mode).sum('quantity')
+            #深加工结转出口数量
+            trade_mode = %w[0255 0654]
+            @statistic_pro_mat_con[:products][i][:transfer_sum] = @export_declarations.joins(:declaration_cargos)
+            .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', product.no ,trade_mode).sum('quantity')
+            #成品放弃数量
+            trade_mode = %w[0400]
+            @statistic_pro_mat_con[:products][i][:quit_sum] = @export_declarations.joins(:declaration_cargos)
+            .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', product.no ,trade_mode).sum('quantity')
+            #成品退换进口数量  -- 用进口报关单统计
+            trade_mode = %w[4400 4600]
+            @statistic_pro_mat_con[:products][i][:import_change_sum] = @import_declarations.joins(:declaration_cargos)
+            .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', product.no ,trade_mode).sum('quantity')
+            #成品退换出口数量
+            trade_mode = %w[4400 4600]
+            @statistic_pro_mat_con[:products][i][:export_change_sum] = @export_declarations.joins(:declaration_cargos)
+            .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', product.no ,trade_mode).sum('quantity')
+          }
+          #成品 按报关单算   end
+
+          #料件 按报关单算   begin
+          @statistic_pro_mat_con[:materials].each_with_index { |material, i|
+          
+            #进口总数量
+            trade_mode = %w[9900 1300 0214 0255 0300 0245 0258 0615 0715 1215 0700 0657 0644 0654 0110 0633 1200 1234 1215 6033 1233 9700 0420 0245 2025 2225]
+            @statistic_pro_mat_con[:materials][i][:import_sum] = @import_declarations.joins(:declaration_cargos)
+            .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
+            #深加工结转进口数量
+            #trade_mode = %w[0255 0654]
+            @statistic_pro_mat_con[:materials][i][:transfer_sum] = @import_declarations.joins(:declaration_cargos)
+            .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
+            #产品总耗用量
+            @statistic_pro_mat_con[:materials][i][:consum_sum] = ContractConsumption.joins(:contract_product).where('contract_material_id = ?',material.id).sum('contract_products.quantity * used + wasted')
+            #内销数量
+            trade_mode = %w[0245 0644]
+            @statistic_pro_mat_con[:materials][i][:domestic_sum] = @import_declarations.joins(:declaration_cargos)
+            .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
+            #退运出口数量
+            trade_mode = %w[0265 0664]
+            @statistic_pro_mat_con[:materials][i][:quit_transfer_sum] = @import_declarations.joins(:declaration_cargos)
+            .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
+            #复出数量    -- 用出口报关单统计
+            trade_mode = %w[0300 0265 0700 0664]
+            @statistic_pro_mat_con[:materials][i][:again_sum] = @export_declarations.joins(:declaration_cargos)
+            .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
+            #料件放弃数量
+            trade_mode = %w[0200]
+            @statistic_pro_mat_con[:materials][i][:quit_sum] = @import_declarations.joins(:declaration_cargos)
+            .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
+            #边角料数量
+            trade_mode = %w[0845 0844]
+            tem1 = @import_declarations.where(:trade_mode=>trade_mode).joins(:declaration_cargos)
+            .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
+            #边角料数量      -- 用出口报关单统计
+            trade_mode = %w[0865 0864]
+            tem2 = @export_declarations.where(:trade_mode=>trade_mode).joins(:declaration_cargos)
+            .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
+            @statistic_pro_mat_con[:materials][i][:side_sum] = tem1.to_f + tem2.to_f
+            #余料结转数量   -- 用出口报关单统计
+            trade_mode = %w[0657 0258]
+            @statistic_pro_mat_con[:materials][i][:remain_sum] = @export_declarations.joins(:declaration_cargos)
+            .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
+            #余料剩余数量
+            @statistic_pro_mat_con[:materials][i][:remain2_sum] =  @statistic_pro_mat_con[:materials][i][:import_sum].to_f
+              - @statistic_pro_mat_con[:materials][i][:domestic_sum].to_f - @statistic_pro_mat_con[:materials][i][:quit_transfer_sum].to_f
+              - @statistic_pro_mat_con[:materials][i][:consum_sum].to_f
+          }
+          #料件 按报关单算   end
+
         end
         $statistic_pro_mat_con = @statistic_pro_mat_con
         render json: @statistic_pro_mat_con
