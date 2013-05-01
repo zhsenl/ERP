@@ -281,10 +281,12 @@ class DeclarationsController < ApplicationController
           #单损耗  按合同算
           @statistic_pro_mat_con[:products] = $contract.contract_products
           @statistic_pro_mat_con[:materials] = $contract.contract_materials
-          @statistic_pro_mat_con[:consumptions] = {}
+          @statistic_pro_mat_con[:consumptions] = []
           @statistic_pro_mat_con[:products].each_with_index { |product, i|
             @statistic_pro_mat_con[:consumptions][i] = product.contract_consumptions.joins(:contract_product, :contract_material).select(
-                'contract_products.name as contract_product_name , contract_materials.name as contract_material_name, contract_consumptions.used, contract_consumptions.wasted ')
+                'contract_products.no as contract_product_no , contract_materials.no as contract_material_no,
+            contract_products.name as contract_product_name , contract_materials.name as contract_material_name,
+             contract_consumptions.used, contract_consumptions.wasted ').all
           }
 
           opt = {}
@@ -324,7 +326,6 @@ class DeclarationsController < ApplicationController
 
           #料件 按报关单算   begin
           @statistic_pro_mat_con[:materials].each_with_index { |material, i|
-          
             #进口总数量
             trade_mode = %w[9900 1300 0214 0255 0300 0245 0258 0615 0715 1215 0700 0657 0644 0654 0110 0633 1200 1234 1215 6033 1233 9700 0420 0245 2025 2225]
             @statistic_pro_mat_con[:materials][i][:import_sum] = @import_declarations.joins(:declaration_cargos)

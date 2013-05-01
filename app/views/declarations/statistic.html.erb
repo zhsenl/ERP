@@ -1,7 +1,4 @@
 <style>
-    #tabs ul {
-        text-decoration: none;
-    }
 
     #tabs ul li {
         display: inline-block;
@@ -252,7 +249,7 @@
                     tr.css('background-color', '#e5ebe4');
                 }
                 var ith_result = products[i];
-                tr.append(td().html(i + 1));
+                tr.append(td().html(ith_result.no));
                 tr.append(td().html(ith_result.code));
                 tr.append(td().html(ith_result.name));
                 tr.append(td().html(ith_result.specification));
@@ -276,7 +273,7 @@
                     tr.css('background-color', '#e5ebe4');
                 }
                 var ith_result = materials[i];
-                tr.append(td().html(i + 1));
+                tr.append(td().html(ith_result.no));
                 tr.append(td().html(ith_result.code));
                 tr.append(td().html(ith_result.name));
                 tr.append(td().html(ith_result.specification));
@@ -307,9 +304,9 @@
                     }
                     count ++;
                     var item = consumptions[i][j];
-                    tr.append(td().html(i+1));
+                    tr.append(td().html(item.contract_product_no));
                     tr.append(td().html(item.contract_product_name));
-                    tr.append(td().html(j+1));
+                    tr.append(td().html(item.contract_material_no));
                     tr.append(td().html(item.contract_material_name));
                     tr.append(td().html(item.used));
                     tr.append(td().html(item.wasted));
@@ -382,7 +379,6 @@
     <li><a>料件</a></li>
     <li><a>单损耗</a></li>
   </ul>
-
 
 
   <div id="enterprise_selector_form">
