@@ -174,7 +174,9 @@
         function operate(yes_no,text, className,id){
             var span = $('<span/>');
             span.append($('<span/>').html(yes_no));
-            span.append($('<input/>').attr({'type':'button','id':id}).val(text).addClass(className))
+            if(text){
+                span.append($('<input/>').attr({'type':'button','id':id}).val(text).addClass(className))
+            }
             return span;
         }
 
