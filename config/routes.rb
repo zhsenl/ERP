@@ -42,6 +42,8 @@ ERP::Application.routes.draw do
     get 'print_weight', :on => :collection
     get 'declaration_statistic', :on => :collection
     get 'print_declaration_statistic', :on => :collection
+    get 'details1', :on => :collection
+    get 'details2', :on => :collection
   end
 
   resources :cargos do

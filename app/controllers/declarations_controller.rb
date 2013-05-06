@@ -450,4 +450,12 @@ class DeclarationsController < ApplicationController
     render :layout => 'print'
   end
 
+  def details1
+
+  end
+
+  def details2
+
+  end
+
 end
