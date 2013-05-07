@@ -383,16 +383,34 @@ class DeclarationsController < ApplicationController
     respond_to do |format|
       format.html
       format.json {
-        result = []
-        if  !params[:contract_id].nil? and params[:contract_id] != ''
-          @contract = current_enterprise.contracts.find(params[:contract_id])
-          result[0] = []
-          result[0] = ith_result_material_balance(@contract, 0)
-        else
-          current_enterprise.contracts.each_with_index { |contract, i|
-            result[i] = []
-            result[i] = ith_result_material_balance(contract, i)
+        result = {}
+        if  params[:contract_id] != ''
+
+          @contract = Contract.find(params[:contract_id])
+          result = @contract.contract_materials
+          contract_products =  @contract.contract_products
+
+          opt = {}
+          opt[:enterprise_id] = current_enterprise.id
+          opt[:contract_id] = params[:contract_id]
+          opt[:review_type] = %w[1 3]
+          opt[:declaration_type] = 'import'
+          @import_declarations = Declaration.where(opt)
+
+
+          result.each_with_index { |material, i|
+            #实际进口数量
+            trade_mode = %w[9900 1300 0214 0255 0300 0245 0258 0615 0715 1215 0700 0657 0644 0654 0110 0633 1200 1234 1215 6033 1233 9700 0420 0245 2025 2225]
+            result[i][:import_sum] = @import_declarations.joins(:declaration_cargos)
+            .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
+            #进口金额
+            result[i][:import_price] = result[i][:import_sum].to_f * material.unit_price
+            #成品所需量
+            result[i][:need_sum] = ContractConsumption.joins(:contract_product).where('contract_material_id = ?',material.id).sum('contract_products.quantity * used + wasted')
+            #出口成品金额
+            result[i][:need_sum_price] =  result[i][:need_sum] * material.unit_price
           }
+
         end
         $material_balance = result
         render json: result
@@ -401,14 +419,7 @@ class DeclarationsController < ApplicationController
   end
 
   def print_material_balance
-    @materials = []
-    count = 0
-    $material_balance.each { |outer|
-      outer.each { |inner|
-        @materials[count] = inner
-        count = count + 1
-      }
-    }
+    @materials = $material_balance
     render :layout => 'print'
   end
 
