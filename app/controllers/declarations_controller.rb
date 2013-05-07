@@ -395,6 +395,9 @@ class DeclarationsController < ApplicationController
           opt[:contract_id] = params[:contract_id]
           opt[:review_type] = %w[1 3]
           opt[:declaration_type] = 'import'
+          if params[:from] !='' and params[:to] != ''
+            opt[:declare_date] = params[:from]..params[:to]
+          end
           @import_declarations = Declaration.where(opt)
 
 
@@ -409,6 +412,12 @@ class DeclarationsController < ApplicationController
             result[i][:need_sum] = ContractConsumption.joins(:contract_product).where('contract_material_id = ?',material.id).sum('contract_products.quantity * used + wasted')
             #出口成品金额
             result[i][:need_sum_price] =  result[i][:need_sum] * material.unit_price
+            #合同余数
+            result[i][:remains_sum] = material.quantity - result[i][:import_sum].to_f
+            #剩余数量
+            result[i][:remains2_sum] = result[i][:import_sum].to_f - result[i][:need_sum].to_f
+            #剩余金额
+            result[i][:remains2_sum_price] = result[i][:remains2_sum].to_f * material.unit_price
           }
 
         end
@@ -466,6 +475,66 @@ class DeclarationsController < ApplicationController
   end
 
   def details2
+
+  end
+
+  def materials
+    respond_to do |format|
+      format.html
+      format.json {
+        result = {}
+        if  params[:contract_id] != ''
+
+          @contract = Contract.find(params[:contract_id])
+          result = @contract.contract_materials
+          contract_products =  @contract.contract_products
+
+          opt = {}
+          opt[:enterprise_id] = current_enterprise.id
+          opt[:contract_id] = params[:contract_id]
+          opt[:review_type] = %w[1 3]
+          opt[:declaration_type] = 'import'
+          if params[:from] !='' and params[:to] != ''
+            opt[:declare_date] = params[:from]..params[:to]
+          end
+          @import_declarations = Declaration.where(opt)
+
+
+          result.each_with_index { |material, i|
+            #进口总数量
+            trade_mode = %w[9900 1300 0214 0255 0300 0245 0258 0615 0715 1215 0700 0657 0644 0654 0110 0633 1200 1234 1215 6033 1233 9700 0420 0245 2025 2225]
+            result[i][:import_sum] = @import_declarations.joins(:declaration_cargos)
+            .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
+            #合同单价金额
+            result[i][:import_price] = result[i][:import_sum].to_f * material.unit_price
+            #退运数量
+            trade_mode = %w[0265 0664]
+            result[i][:quit_transfer_sum] = @import_declarations.joins(:declaration_cargos)
+            .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
+            #转入数量
+            #报关单统计总金额
+            trade_mode = %w[9900 1300 0214 0255 0300 0245 0258 0615 0715 1215 0700 0657 0644 0654 0110 0633 1200 1234 1215 6033 1233 9700 0420 0245 2025 2225]
+            result[i][:import_price] = @import_declarations.joins(:declaration_cargos)
+            .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity*unit_price')
+          }
+
+        end
+        $materials = result
+        render json: result
+      }
+    end
+  end
+
+  def products
+
+  end
+
+  def print_materials
+    @materials = $materials
+    render :layout => 'print'
+  end
+
+  def print_products
 
   end
 

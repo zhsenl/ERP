@@ -1,8 +1,4 @@
-<%= javascript_include_tag "jquery.ui.datepicker.min" %>
-<%= javascript_include_tag "jquery.ui.datepicker-zh-CN" %>
 
-<%= stylesheet_link_tag "jquery.ui.datepicker.min", :media => "all" %>
-<%= stylesheet_link_tag "jquery.ui.theme.min", :media => "all" %>
 
 <script>
 
@@ -73,6 +69,10 @@
                 alert('没有合同搜索不了');
                 return;
             }
+            if ((json['from'] || json['to']) && !(json['from'] && json['to'])) {
+                json['from'] = json['from'] ? json['from'] : '1990-01-01';
+                json['to'] = json['to'] ? json['to'] : '2100-12-01';
+            }
             $.get('/declarations/material_balance.json', json, paginate)
         })
 
@@ -107,10 +107,10 @@
                 tr.append(td().html(parseFloat_toFix(material.import_price)));
                 tr.append(td().html(parseFloat_toFix(material.need_sum)));
                 tr.append(td().html(parseFloat_toFix(material.need_sum_price)));
-                tr.append(td().html(parseFloat_toFix(material.quantity - material.import_sum)));
-                tr.append(td().html(parseFloat_toFix(material.import_sum - material.need_sum)));
+                tr.append(td().html(parseFloat_toFix(material.remains_sum)));
+                tr.append(td().html(parseFloat_toFix(material.remains2_sum)));
                 tr.append(td().html(material.unit_price));
-                tr.append(td().html(parseFloat_toFix((material.import_sum - material.need_sum)*material.unit_price)));
+                tr.append(td().html(parseFloat_toFix(material.remains2_sum_price)));
                 tbody.append(tr);
             }
 
