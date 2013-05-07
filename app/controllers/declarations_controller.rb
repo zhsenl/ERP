@@ -505,17 +505,23 @@ class DeclarationsController < ApplicationController
             trade_mode = %w[9900 1300 0214 0255 0300 0245 0258 0615 0715 1215 0700 0657 0644 0654 0110 0633 1200 1234 1215 6033 1233 9700 0420 0245 2025 2225]
             result[i][:import_sum] = @import_declarations.joins(:declaration_cargos)
             .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
-            #合同单价金额
-            result[i][:import_price] = result[i][:import_sum].to_f * material.unit_price
+            #可进口数量
+            result[i][:can_import_sum] = material.quantity - result[i][:import_sum].to_f
             #退运数量
             trade_mode = %w[0265 0664]
             result[i][:quit_transfer_sum] = @import_declarations.joins(:declaration_cargos)
             .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
             #转入数量
+            #进口率
+            result[i][:import_rate] = result[i][:import_sum].to_f / material.quantity
+            #合同单价金额
+            result[i][:contract_price] = result[i][:import_sum].to_f * material.unit_price
             #报关单统计总金额
             trade_mode = %w[9900 1300 0214 0255 0300 0245 0258 0615 0715 1215 0700 0657 0644 0654 0110 0633 1200 1234 1215 6033 1233 9700 0420 0245 2025 2225]
             result[i][:import_price] = @import_declarations.joins(:declaration_cargos)
             .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity*unit_price')
+            #金额差
+            result[i][:diff_price] = result[i][:contract_price].to_f -  result[i][:import_price].to_f
           }
 
         end

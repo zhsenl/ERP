@@ -44,6 +44,10 @@ ERP::Application.routes.draw do
     get 'print_declaration_statistic', :on => :collection
     get 'details1', :on => :collection
     get 'details2', :on => :collection
+    get 'materials', :on => :collection
+    get 'products', :on => :collection
+    get 'print_materials', :on => :collection
+    get 'print_products', :on => :collection
   end
 
   resources :cargos do
