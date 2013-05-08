@@ -48,6 +48,8 @@ ERP::Application.routes.draw do
     get 'products', :on => :collection
     get 'print_materials', :on => :collection
     get 'print_products', :on => :collection
+    get 'print_details1', :on => :collection
+    get 'print_details2', :on => :collection
   end
 
   resources :cargos do
