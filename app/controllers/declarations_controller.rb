@@ -532,7 +532,56 @@ class DeclarationsController < ApplicationController
   end
 
   def products
+    respond_to do |format|
+      format.html
+      format.json {
+        result = {}
+        if  params[:contract_id] != ''
 
+          @contract = Contract.find(params[:contract_id])
+          result = @contract.contract_products
+          contract_materials =  @contract.contract_materials
+
+          opt = {}
+          opt[:enterprise_id] = current_enterprise.id
+          opt[:contract_id] = params[:contract_id]
+          opt[:review_type] = %w[1 3]
+          opt[:declaration_type] = 'export'
+          if params[:from] !='' and params[:to] != ''
+            opt[:declare_date] = params[:from]..params[:to]
+          end
+          @export_declarations = Declaration.where(opt)
+
+
+          result.each_with_index { |product, i|
+
+            #实际出口数量
+            trade_mode = %w[9900 1300 0214 0255 0466 4400 0615 0715 1215 4600 0744 0110 0633 1200 1234 1215 6033 1233 9700 0400 0654]
+            result[i][:export_sum] = @export_declarations.joins(:declaration_cargos)
+            .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', product.no ,trade_mode).sum('quantity')
+            #可出口数量
+            result[i][:can_export_sum] = product.quantity - result[i][:export_sum].to_f
+            #返工进口数量
+            #返工复出数量
+            #转厂数量
+            #出口率
+            result[i][:export_rate] = result[i][:export_sum].to_f / product.quantity
+            #合同单价金额
+            result[i][:contract_price] = result[i][:export_sum].to_f * product.unit_price
+            #报关单统计总金额
+            trade_mode = %w[9900 1300 0214 0255 0466 4400 0615 0715 1215 4600 0744 0110 0633 1200 1234 1215 6033 1233 9700 0400 0654]
+            result[i][:export_price] = @export_declarations.joins(:declaration_cargos)
+            .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', product.no ,trade_mode).sum('quantity*unit_price')
+            #金额差
+            result[i][:diff_price] = result[i][:contract_price].to_f -  result[i][:export_price].to_f
+
+          }
+
+        end
+        $products = result
+        render json: result
+      }
+    end
   end
 
   def print_materials
@@ -541,7 +590,8 @@ class DeclarationsController < ApplicationController
   end
 
   def print_products
-
+    @products = $products
+    render :layout => 'print'
   end
 
 end
