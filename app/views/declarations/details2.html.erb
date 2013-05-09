@@ -98,16 +98,17 @@
                     tr.css('background-color', '#e5ebe4');
                 }
                 var product = result[i];
+                var quantities = {'进口数量':product.quantity,'返工进出数量':0,'转厂数量':0,'出口金额':0}
+                var accumulations = {'进口数量':product.accumulation,'返工进出数量':0,'转厂数量':0,'出口金额':0}
                 tr.append(td().html(product.no));
                 tr.append(td().html(product.declare_date));
                 tr.append(td().html(product.entry_no));
                 tr.append(td().html(product.trade_mode));
                 tr.append(td().html(product.name));
                 tr.append(td().html(product.specification));
-                tr.append(td().html(product.quantity));
+                tr.append(td().html(quantities[$('#detail_type').val()]));
                 tr.append(td().html(product.unit));
-                tr.append(td().html(product.accumulation));
-
+                tr.append(td().html(accumulations[$('#detail_type').val()]));
                 tbody.append(tr);
             }
 
@@ -184,6 +185,10 @@
             }
         })
 
+        $('#detail_type').change(function(){
+            $('#detail_type_table').html(this.value)
+        })
+
     });
 </script>
 
@@ -210,6 +215,16 @@
 
 <%= render "shared/statistic_search_form" %>
 
+<div style="display: none">
+  切换：
+  <select id="detail_type">
+    <option value="出口数量">出口数量</option>
+    <option value="返工进出数量">返工进出数量</option>
+    <option value="转厂数量">转厂数量</option>
+    <option value="出口金额">出口金额</option>
+  </select>
+</div>
+<hr/>
 
 <table>
   <thead class="ui-state-default">
@@ -220,7 +235,7 @@
     <td>贸易方式</td>
     <td>成品名称</td>
     <td>规格/型号</td>
-    <td>出口数量</td>
+    <td id="detail_type_table">出口数量</td>
     <td>单位</td>
     <td>累计</td>
   </tr>

@@ -98,16 +98,17 @@
                     tr.css('background-color', '#e5ebe4');
                 }
                 var material = result[i];
+                var quantities = {'进口数量':material.quantity,'退运数量':0,'转厂数量':0,'进口金额':0}
+                var accumulations = {'进口数量':material.accumulation,'退运数量':0,'转厂数量':0,'进口金额':0}
                 tr.append(td().html(material.no));
                 tr.append(td().html(material.declare_date));
                 tr.append(td().html(material.entry_no));
                 tr.append(td().html(material.trade_mode));
                 tr.append(td().html(material.name));
                 tr.append(td().html(material.specification));
-                tr.append(td().html(material.quantity));
+                tr.append(td().html(quantities[$('#detail_type').val()]));
                 tr.append(td().html(material.unit));
-                tr.append(td().html(material.accumulation));
-
+                tr.append(td().html(accumulations[$('#detail_type').val()]));
                 tbody.append(tr);
             }
 
@@ -184,6 +185,12 @@
             }
         })
 
+        $('#detail_type').change(function(){
+            $('#detail_type_table').html(this.value);
+            if (result) {
+                display_page();
+            }
+        })
     });
 </script>
 
@@ -211,6 +218,17 @@
 <%= render "shared/statistic_search_form" %>
 
 
+<div style="display: none">
+  切换：
+  <select id="detail_type">
+    <option value="进口数量">进口数量</option>
+    <option value="退运数量">退运数量</option>
+    <option value="转厂数量">转厂数量</option>
+    <option value="进口金额">进口金额</option>
+  </select>
+</div>
+<hr/>
+
 <table>
   <thead class="ui-state-default">
   <tr>
@@ -220,7 +238,7 @@
     <td>贸易方式</td>
     <td>料件名称</td>
     <td>规格/型号</td>
-    <td>进口数量</td>
+    <td id="detail_type_table">进口数量</td>
     <td>单位</td>
     <td>累计</td>
   </tr>

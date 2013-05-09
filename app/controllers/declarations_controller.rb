@@ -500,8 +500,8 @@ class DeclarationsController < ApplicationController
               count += 1
             }
           }
-
         end
+
         $materials = result
         render json: result
       }
@@ -669,6 +669,49 @@ class DeclarationsController < ApplicationController
 
   def print_products
     @products = $products
+    render :layout => 'print'
+  end
+
+  def source
+    respond_to do |format|
+      format.html
+      format.json {
+        result = []
+        if  params[:contract_id] != ''
+
+          opt = {}
+          opt[:enterprise_id] = current_enterprise.id
+          opt[:contract_id] = params[:contract_id]
+          opt[:review_type] = %w[1 3]
+          opt[:declaration_type] = 'import'
+          if params[:from] !='' and params[:to] != ''
+            opt[:declare_date] = params[:from]..params[:to]
+          end
+          @import_declarations = Declaration.where(opt).all
+
+          count = 0
+          accumulation = {}
+          @import_declarations.each {|declaration|
+            declaration.declaration_cargos.each{|material|
+              result[count] = material
+              result[count][:declare_date] = declaration.declare_date
+              result[count][:entry_no] =  declaration.entry_no
+              result[count][:trade_mode] =  declaration.trade_mode
+              accumulation[material.no] = accumulation[material.no] ? accumulation[material.no] + material.quantity : material.quantity
+              result[count][:accumulation] = accumulation[material.no]
+              count += 1
+            }
+          }
+        end
+
+        $materials = result
+        render json: result
+      }
+    end
+  end
+
+  def print_source
+    @sources = $sources
     render :layout => 'print'
   end
 
