@@ -35,12 +35,12 @@ ERP::Application.routes.draw do
     get 'manage', :on => :collection
     post 'toggle', :on => :collection
     get 'statistic', :on => :collection
-    get 'material_balance', :on => :collection
+    get 'balance', :on => :collection
     get 'print_material_balance', :on => :collection
     get 'statistic_pro_mat_con', :on => :collection
     get 'weight', :on => :collection
     get 'print_weight', :on => :collection
-    get 'declaration_statistic', :on => :collection
+    get 'statistics', :on => :collection
     get 'print_declaration_statistic', :on => :collection
     get 'details1', :on => :collection
     get 'details2', :on => :collection

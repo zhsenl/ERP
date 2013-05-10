@@ -379,7 +379,7 @@ class DeclarationsController < ApplicationController
     end
   end
 
-  def material_balance
+  def balance
     respond_to do |format|
       format.html
       format.json {
@@ -455,7 +455,7 @@ class DeclarationsController < ApplicationController
     render :layout => 'print'
   end
 
-  def declaration_statistic
+  def statistics
     respond_to do |format|
       format.html
       format.json {
