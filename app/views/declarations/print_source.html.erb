@@ -1,0 +1,203 @@
+<style type="text/css">
+    body {
+        text-align: left;
+        font-size: 16px;
+    }
+
+    .frame {
+        margin: 0 auto;
+        width: 2157px;
+        text-align: left;
+    }
+
+    .tr {
+        padding: 1px 0 1px 0;
+    }
+
+    .table {
+        border: 1px solid;
+    }
+
+    .table .tr {
+        padding: 0;
+        height: 32px;
+        line-height: 32px;
+        border-bottom: solid 1px;
+    }
+
+    .table .tr:last-child {
+        border-bottom: none;
+    }
+
+    .table .tr .td {
+        border-right: solid 1px;
+        text-align: center;
+    }
+
+    .table .tr .td:last-child {
+        border-right: none;
+    }
+
+
+
+
+</style>
+
+<div class="frame">
+
+  <!--设置-->
+  <% sources_size = @sources.size %>
+  <% page_size = 42 %>
+  <% pages = sources_size/page_size + 1 %>
+  <% (0..pages - 1).each do |page_count| %>
+      <!--每一页的内容-->
+      <div class="tr" style="height: 80px;"></div>
+      <div class="tr" style="height: 80px; text-align: center; font-size: 35px;">合同料件进口详细表</div>
+      <div class="tr" style="height: 20px;"></div>
+      <div class="table">
+        <div class="tr" style="height: 50px; line-height:50px;">
+          <div class="td" style="width:35px;">序号</div>
+          <div class="td" style="width:100px;">商品编码</div>
+          <div class="td" style="width:200px;">商品名称</div>
+          <!--<div class="td" style="width:100px;">单位</div>-->
+          <!--<div class="td" style="width:100px;">单价</div>-->
+          <div class="td" style="width:100px;">合同数量</div>
+          <div class="td" style="width:100px;">进口总数量</div>
+          <div class="td" style="width:100px;">直接进口数量</div>
+          <div class="td" style="width:100px;">结转进口数量</div>
+          <div class="td" style="width:100px;">
+            <div style="height: 25px;line-height: 25px">余料结转结</div>
+            <div style="height: 25px;line-height: 25px">进口数量</div>
+          </div>
+          <div class="td" style="width:100px;">内销数量</div>
+          <div class="td" style="width:100px;">退运出口数量</div>
+          <div class="td" style="width:100px;">
+            <div style="height: 25px;line-height: 25px">边角料</div>
+            <div style="height: 25px;line-height: 25px">内销数量</div>
+          </div>
+          <div class="td" style="width:100px;">
+            <div style="height: 25px;line-height: 25px">边角料</div>
+            <div style="height: 25px;line-height: 25px">复出数量</div>
+          </div>
+          <div class="td" style="width:100px;">
+            <div style="height: 25px;line-height: 25px">出口成品</div>
+            <div style="height: 25px;line-height: 25px">总耗用</div>
+          </div>
+          <div class="td" style="width:100px;">
+            <div style="height: 25px;line-height: 25px">出口成品</div>
+            <div style="height: 25px;line-height: 25px">总净耗</div>
+          </div>
+          <div class="td" style="width:100px;">
+            <div style="height: 25px;line-height: 25px">出口成品</div>
+            <div style="height: 25px;line-height: 25px">总损耗</div>
+          </div>
+          <div class="td" style="width:100px;">
+            <div style="height: 25px;line-height: 25px">直接出口成</div>
+            <div style="height: 25px;line-height: 25px">品总耗用</div>
+          </div>
+          <div class="td" style="width:100px;">
+            <div style="height: 25px;line-height: 25px">直接出口成</div>
+            <div style="height: 25px;line-height: 25px">品总净耗</div>
+          </div>
+          <div class="td" style="width:100px;">
+            <div style="height: 25px;line-height: 25px">直接出口成</div>
+            <div style="height: 25px;line-height: 25px">品总损耗</div>
+          </div>
+          <div class="td" style="width:100px;">
+            <div class="td" style="width:100px;">
+              <div style="height: 25px;line-height: 25px">结转出口成</div>
+              <div style="height: 25px;line-height: 25px">品总耗用</div>
+            </div>
+          </div>
+          <div class="td" style="width:100px;">
+            <div class="td" style="width:100px;">
+              <div style="height: 25px;line-height: 25px">结转出口成</div>
+              <div style="height: 25px;line-height: 25px">品总净耗</div>
+            </div>
+          </div>
+          <div class="td" style="width:100px;">
+            <div class="td" style="width:100px;">
+              <div style="height: 25px;line-height: 25px">结转出口成</div>
+              <div style="height: 25px;line-height: 25px">品总损耗</div>
+            </div>
+          </div>
+        </div>
+        <% start = page_count*page_size %>
+        <% tail = (page_count + 1) * page_size - 1 > sources_size ? sources_size : (page_count + 1) * page_size - 1 %>
+        <!--每一项-->
+        <% @sources[start..tail].each_with_index do |source, i| %>
+            <div class="tr">
+              <div class="td" style="width:35px;">
+                <span class="content"><%= source.no %></span>
+              </div>
+              <div class="td" style="width:100px;">
+                <span class="content"><%= source.code %></span>
+              </div>
+              <div class="td" style="width:200px;">
+                <span class="content"><%= source.name %></span>
+              </div>
+              <!--<div class="td" style="width:100px;">-->
+                <!--<span class="content"><%= dict_name(Dict::Unit, source.unit) %></span>-->
+              <!--</div>-->
+              <div class="td" style="width:100px;">
+                <span class="content"><%= source.unit_price %></span>
+              </div>
+              <div class="td" style="width:100px;">
+                <span class="content"><%= source.quantity %></span>
+              </div>
+              <div class="td" style="width:100px;">
+                <span class="content"><%= source.import_sum %></span>
+              </div>
+              <div class="td" style="width:100px;">
+                <span class="content"><%= source.direct_import_sum %></span>
+              </div>
+              <div class="td" style="width:100px;">
+                <span class="content"><%= source.transfer_import_sum %></span>
+              </div>
+              <div class="td" style="width:100px;">
+                <span class="content"><%= source.remain_transfer_import_sum %></span>
+              </div>
+              <div class="td" style="width:100px;">
+                <span class="content"><%= source.domestic_sum %></span>
+              </div>
+              <div class="td" style="width:100px;">
+                <span class="content"><%= source.quit_sum %></span>
+              </div>
+              <div class="td" style="width:100px;">
+                <span class="content"><%= source.remain_again_sum %></span>
+              </div>
+              <div class="td" style="width:100px;">
+                <span class="content"><%= source.remain_again_sum %></span>
+              </div>
+              <div class="td" style="width:100px;">
+                <span class="content"><%= source.remain_again_sum %></span>
+              </div>
+              <div class="td" style="width:100px;">
+                <span class="content"><%= source.remain_again_sum %></span>
+              </div>
+              <div class="td" style="width:100px;">
+                <span class="content"><%= source.remain_again_sum %></span>
+              </div>
+              <div class="td" style="width:100px;">
+                <span class="content"><%= source.remain_again_sum %></span>
+              </div>
+              <div class="td" style="width:100px;">
+                <span class="content"><%= source.remain_again_sum %></span>
+              </div>
+              <div class="td" style="width:100px;">
+                <span class="content"><%= source.remain_again_sum %></span>
+              </div>
+              <div class="td" style="width:100px;">
+                <span class="content"><%= source.remain_again_sum %></span>
+              </div>
+              <div class="td" style="width:100px;">
+                <span class="content"><%= source.remain_again_sum %></span>
+              </div>
+
+            </div>
+        <% end %>
+      </div>
+      <div class="tr" style="height: 20px;"></div>
+  <% end %>
+
+</div>

@@ -679,6 +679,10 @@ class DeclarationsController < ApplicationController
         result = []
         if  params[:contract_id] != ''
 
+          @contract = Contract.find(params[:contract_id])
+          result = @contract.contract_materials
+          contract_products =  @contract.contract_products
+
           opt = {}
           opt[:enterprise_id] = current_enterprise.id
           opt[:contract_id] = params[:contract_id]
@@ -687,24 +691,72 @@ class DeclarationsController < ApplicationController
           if params[:from] !='' and params[:to] != ''
             opt[:declare_date] = params[:from]..params[:to]
           end
-          @import_declarations = Declaration.where(opt).all
+          @import_declarations = Declaration.where(opt)
 
-          count = 0
-          accumulation = {}
-          @import_declarations.each {|declaration|
-            declaration.declaration_cargos.each{|material|
-              result[count] = material
-              result[count][:declare_date] = declaration.declare_date
-              result[count][:entry_no] =  declaration.entry_no
-              result[count][:trade_mode] =  declaration.trade_mode
-              accumulation[material.no] = accumulation[material.no] ? accumulation[material.no] + material.quantity : material.quantity
-              result[count][:accumulation] = accumulation[material.no]
-              count += 1
-            }
+
+          result.each_with_index { |material, i|
+            #进口总数量
+            trade_mode = %w[9900 1300 0214 0255 0300 0245 0258 0615 0715 1215 0700 0657 0644 0654 0110 0633 1200 1234 1215 6033 1233 9700 0420 0245 2025 2225]
+            result[i][:import_sum] = @import_declarations.joins(:declaration_cargos)
+            .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
+            #直接进口数量
+            trade_mode = %w[0124 0615 0715]
+            result[i][:direct_import_sum] = @import_declarations.joins(:declaration_cargos)
+            .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
+            #结转进口数量
+            trade_mode = %w[0255 0654]
+            result[i][:transfer_import_sum] = @import_declarations.joins(:declaration_cargos)
+            .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
+            #余料结转进口数量
+            trade_mode = %w[0258 0657]
+            result[i][:remain_transfer_import_sum] = @import_declarations.joins(:declaration_cargos)
+            .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
+            #内销数量
+            trade_mode = %w[0245 0644]
+            result[i][:domestic_sum] = @import_declarations.joins(:declaration_cargos)
+            .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
+            #退运出口数量
+            trade_mode = %w[0265 0664]
+            result[i][:quit_sum] = @import_declarations.joins(:declaration_cargos)
+            .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
+            #边角料内销数量
+            trade_mode = %w[0844 0845]
+            result[i][:remain_domestic_sum] = @import_declarations.joins(:declaration_cargos)
+            .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
+            #边角料复出数量
+            trade_mode = %w[0864 0865]
+            result[i][:remain_again_sum] = @import_declarations.joins(:declaration_cargos)
+            .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
+
+            trade_mode = %w[9900 1300 0214 0255 0300 0245 0258 0615 0715 1215 0700 0657 0644 0654 0110 0633 1200 1234 1215 6033 1233 9700 0420 0245 2025 2225]
+            #出口成品总耗用
+            #result[i][:used_wasted_sum] = ContractConsumption.joins(:contract_product).where('contract_material_id = ?',material.id).sum('contract_products.quantity * used + wasted')
+            #出口成品总净耗
+            #result[i][:used_sum] = ContractConsumption.joins(:contract_product).where('contract_material_id = ?',material.id).sum('contract_products.quantity * used ')
+            #出口成品总损耗
+            #result[i][:wasted_sum] = ContractConsumption.joins(:contract_product).where('contract_material_id = ?',material.id).sum('wasted')
+
+            trade_mode = %w[0124 0615 0715]
+            #直接出口成品总损耗
+            result[i][:direct_used_wasted_sum]
+            #直接出口成品总净耗
+            result[i][:direct_used_sum]
+            #直接出口成品总损耗
+            result[i][:direct_wasted_sum]
+
+            trade_mode = %w[0255 0654]
+            #结转出口成品总耗用
+            result[i][:transfer_used_wasted_sum]
+            #结转出口成品总净耗
+            result[i][:transfer_used_sum]
+            #结转出口成品总损耗
+            result[i][:transfer_wasted_sum]
+
+
           }
-        end
 
-        $materials = result
+        end
+        $sources = result
         render json: result
       }
     end
