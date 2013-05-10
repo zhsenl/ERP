@@ -106,7 +106,7 @@
                 tr.append(td().html(parseFloat_toFix(material.import_sum)));
                 tr.append(td().html(parseFloat_toFix(material.can_import_sum)));
                 tr.append(td().html(parseFloat_toFix(material.quit_transfer_sum)));
-                tr.append(td().html(''));
+                tr.append(td().html(parseFloat_toFix(material.transfer_sum)));
                 tr.append(td().html(parseFloat_toFix(material.import_rate)));
                 tr.append(td().html(parseFloat_toFix(material.unit_price)));
                 tr.append(td().html(parseFloat_toFix(material.contract_price)));
@@ -222,7 +222,7 @@
     <td>料件名称</td>
     <td>单位</td>
     <td>合同数量</td>
-    <td>实际进口数量</td>
+    <td>进口总数量</td>
     <td>可进口数量</td>
     <td>退运数量</td>
     <td>转入数量</td>

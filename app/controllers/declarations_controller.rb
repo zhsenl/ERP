@@ -590,6 +590,9 @@ class DeclarationsController < ApplicationController
             result[i][:quit_transfer_sum] = @import_declarations.joins(:declaration_cargos)
             .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
             #转入数量
+            trade_mode = %w[0285 0657]
+            result[i][:transfer_sum] = @import_declarations.joins(:declaration_cargos)
+            .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
             #进口率
             result[i][:import_rate] = result[i][:import_sum].to_f / material.quantity
             #合同单价金额
@@ -629,19 +632,29 @@ class DeclarationsController < ApplicationController
             opt[:declare_date] = params[:from]..params[:to]
           end
           @export_declarations = Declaration.where(opt)
-
+          opt[:declaration_type] = 'import'
+          @import_declarations = Declaration.where(opt)
 
           result.each_with_index { |product, i|
 
-            #实际出口数量
+            #出口总数量
             trade_mode = %w[9900 1300 0214 0255 0466 4400 0615 0715 1215 4600 0744 0110 0633 1200 1234 1215 6033 1233 9700 0400 0654]
             result[i][:export_sum] = @export_declarations.joins(:declaration_cargos)
             .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', product.no ,trade_mode).sum('quantity')
             #可出口数量
             result[i][:can_export_sum] = product.quantity - result[i][:export_sum].to_f
-            #返工进口数量
+            #返工进口数量  -- 按进口报关单统计
+            trade_mode = %w[4400 4600]
+            result[i][:rework_import_sum] = @import_declarations.joins(:declaration_cargos)
+            .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', product.no ,trade_mode).sum('quantity')
             #返工复出数量
+            trade_mode = %w[4400 4600]
+            result[i][:rework_again_sum] = @export_declarations.joins(:declaration_cargos)
+            .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', product.no ,trade_mode).sum('quantity')
             #转厂数量
+            trade_mode = %w[0255 0654]
+            result[i][:transfer_sum] = @export_declarations.joins(:declaration_cargos)
+            .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', product.no ,trade_mode).sum('quantity')
             #出口率
             result[i][:export_rate] = result[i][:export_sum].to_f / product.quantity
             #合同单价金额

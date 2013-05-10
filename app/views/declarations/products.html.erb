@@ -105,9 +105,9 @@
                 tr.append(td().html(parseFloat_toFix(product.quantity)));
                 tr.append(td().html(parseFloat_toFix(product.export_sum)));
                 tr.append(td().html(parseFloat_toFix(product.can_export_sum)));
-                tr.append(td().html(''));
-                tr.append(td().html(''));
-                tr.append(td().html(''));
+                tr.append(td().html(parseFloat_toFix(product.rework_import_sum)));
+                tr.append(td().html(parseFloat_toFix(product.rework_again_sum)));
+                tr.append(td().html(parseFloat_toFix(product.transfer_sum)));
                 tr.append(td().html(parseFloat_toFix(product.export_rate)));
                 tr.append(td().html(parseFloat_toFix(product.unit_price)));
                 tr.append(td().html(parseFloat_toFix(product.contract_price)));
@@ -223,7 +223,7 @@
     <td>成品名称</td>
     <td>单位</td>
     <td>合同数量</td>
-    <td>实际出口数量</td>
+    <td>出口总数量</td>
     <td>可出口数量</td>
     <td>返工进口数量</td>
     <td>返工复出数量</td>
