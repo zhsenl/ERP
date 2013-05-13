@@ -75,6 +75,9 @@ module DeclarationsHelper
       opt[:contract_id] = params[:contract_id]
     end
     opt[:declaration_type] = params[:declaration_type]== '' ? %w[import  export] : params[:declaration_type]
+    if params[:review_type] != "1"
+      opt[:review_type] = params[:review_type] == "2" ?  %w[1 2 3 4]: 0
+    end
     if params[:from] !='' and params[:to] != ''
       opt[:declare_date] = params[:from]..params[:to]
     end

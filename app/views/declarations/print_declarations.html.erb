@@ -5,7 +5,7 @@
     }
     .frame {
         margin: 0 auto;
-        width: 866px;
+        width: 831px;
         text-align: left;
     }
     .tr {
@@ -59,7 +59,7 @@
       <div class="tr" style="height: 20px;"></div>
       <div class="table">
         <div class="tr" style="height: 50px; line-height:50px;">
-          <div class="td" style="width:35px;">序号</div>
+          <!--<div class="td" style="width:35px;">序号</div>-->
           <div class="td" style="width:150px;">海关编号</div>
           <div class="td" style="width:150px;">预录入号</div>
           <div class="td" style="width:100px;">申报日期</div>
@@ -75,9 +75,9 @@
         <!--每一项-->
         <% @declarations[start..tail].each_with_index do |declaration,i| %>
             <div class="tr">
-              <div class="td" style="width:35px;">
-                <span class="content"><%= i+1 %></span>
-              </div>
+              <!--<div class="td" style="width:35px;">-->
+                <!--<span class="content"><%= i+1 %></span>-->
+              <!--</div>-->
               <div class="td" style="width:150px;">
                 <span class="content"><%= declaration.entry_no %></span>
               </div>
