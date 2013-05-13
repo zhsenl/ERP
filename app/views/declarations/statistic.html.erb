@@ -136,6 +136,12 @@
             return size;
         };
 
+        function parseFloat_toFix(num ,precision){
+            if(!precision){
+                precision = 1
+            }
+            return parseFloat(num).toFixed(precision);
+        }
 
         function td() {
             return $('<td/>');
@@ -280,7 +286,7 @@
                 tr.append(td().html(ith_result.unit));
                 tr.append(td().html(ith_result.import_sum));
                 tr.append(td().html(ith_result.transfer_sum));
-                tr.append(td().html(ith_result.consum_sum));
+                tr.append(td().html(parseFloat_toFix(ith_result.consum_sum)));
                 tr.append(td().html(ith_result.domestic_sum));
                 tr.append(td().html(ith_result.again_sum));
                 tr.append(td().html(ith_result.quit_sum));

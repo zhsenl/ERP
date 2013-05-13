@@ -300,9 +300,9 @@
         <%= link_to '报关委托书', print_attorney_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
       </p>
 
-      <p>
-        <%= link_to '出入仓单', print_attorney_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
-      </p>
+      <!--<p>-->
+        <!--<%= link_to '出入仓单', print_attorney_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>-->
+      <!--</p>-->
       <% if @declaration_type == "export" %>
           <p>
             <%= link_to '国税发票', print_tax_invoice_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>

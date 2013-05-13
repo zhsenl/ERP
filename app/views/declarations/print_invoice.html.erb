@@ -33,14 +33,15 @@
     }
 
     .table .tr {
-        height: 31px;
+        height: 30px;
+        border-bottom: solid 1px;
     }
 
     .table .td {
         border-right: 1px solid;
-        height: 31px;
+        height: 30px;
         text-align: center;
-        line-height: 31px;
+        line-height: 30px;
     }
 
     .table .last-tr {
@@ -99,7 +100,7 @@
   </div>
   <div class="clear"></div>
 
-  <div class="table" style=" margin-top: 10px; border-left: none; border-right: none;border-bottom: none; ">
+  <div class="table" style=" margin-top: 10px; ">
     <div class="tr header" style="border-bottom: 1px solid;">
       <div class="td header" style="width: 388px;"><span class="bgText">商　　　品　　　名　　　称</span></div>
       <div class="td header" style="width: 60px;"><span class="bgText">数量</span></div>
@@ -112,7 +113,7 @@
         <% list_size = @declaration_cargos.size > 20 ? 20 : @declaration_cargos.size %>
         <% @declaration_cargos[0..list_size-1].each do |cargo| %>
             <div class="tr">
-              <div class="td" style="width: 388px; overflow:hidden;text-align:left;"><span class="content"><%= cargo.name %></span></div>
+              <div class="td" style="width: 388px; overflow:hidden;"><span class="content"><%= cargo.name %></span></div>
               <div class="td" style="width: 60px;"><span class="content"><%= cargo.quantity %></span></div>
               <div class="td" style="width: 60px;"><span class="content"><%= dict_name Dict::Unit, cargo.unit %></span></div>
               <div class="td" style="width: 90px;"><span class="content"><%= sprintf "%0.4f", cargo.unit_price %></span></div>
