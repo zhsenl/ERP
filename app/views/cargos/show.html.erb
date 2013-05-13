@@ -36,10 +36,14 @@
 			  <b>第二单位:</b>
 			  <span class="autoload" data-url=<%= dict_units_path %> ><%= @cargo.unit2 %></span>
 			</p>			
-			<p>
-			  <b>产销国:</b>
-			  <span class="autoload" data-url=<%= dict_countries_path %> ><%= @cargo.trade_country %></span>
-			</p>
-		</div>
+			<!--<p>-->
+			  <!--<b>产销国:</b>-->
+			  <!--<span class="autoload" data-url=<%= dict_countries_path %> ><%= @cargo.trade_country %></span>-->
+			<!--</p>-->
+          <p>
+            <b>货号:</b>
+            <%= @cargo.no %>
+          </p>
+        </div>
 	</div>
 </div>

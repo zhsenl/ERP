@@ -6,7 +6,7 @@
 
     .frame {
         margin: 0 auto;
-        width: 835px;
+        width:1145px;
         text-align: left;
     }
 
@@ -58,12 +58,14 @@
       <div class="table">
         <div class="tr" style="height: 50px; line-height:50px;">
           <div class="td" style="width:35px;">序号</div>
+          <div class="td" style="width:110px;">货号</div>
           <div class="td" style="width:110px;">商品编号</div>
-          <div class="td" style="width:220px;">商品名称</div>
-          <div class="td" style="width:220px;">规格型号</div>
+          <div class="td" style="width:200px;">商品名称</div>
+          <div class="td" style="width:220px;">规格型号/申报要求</div>
           <div class="td" style="width:80px;">申报单位</div>
           <div class="td" style="width:80px;">第一单位</div>
           <div class="td" style="width:80px;">第二单位</div>
+          <div class="td" style="width:220px;">辅助器(报关规范要素) </div>
         </div>
         <% start = page_count*page_size %>
         <% tail = (page_count + 1) * page_size - 1 > cargos_size ? cargos_size : (page_count + 1) * page_size - 1 %>
@@ -74,21 +76,16 @@
                 <span class="content"><%= i+1 %></span>
               </div>
               <div class="td" style="width:110px;">
+                <span class="content"><%= cargo.no %></span>
+              </div>
+              <div class="td" style="width:110px;">
                 <span class="content"><%= cargo.code %></span>
               </div>
-              <div class="td" style="width:220px;">
+              <div class="td" style="width:200px;">
                 <span class="content"><%= cargo.name %></span>
               </div>
               <div class="td" style="width:220px;">
-            <span class="content">
-              <% if !cargo.specification.nil? and cargo.specification != '' %>
-                  <% tail_index = cargo.specification.index('/') != nil ? cargo.specification.index('/'):cargo.specification.index('|') %>
-                  <% tail_index = tail_index.nil? ? cargo.specification.size-1 : tail_index - 1  %>
-                  <%= cargo.specification[0..tail_index] %>
-              <% else %>
-                    &nbsp;
-              <% end %>
-            </span>
+                <span class="content"><%= cargo.specification %> &nbsp;</span>
               </div>
               <div class="td" style="width:80px;">
                 <span class="content autoload" data-url=<%= dict_units_path %>><%= cargo.unit %></span>
@@ -98,6 +95,9 @@
               </div>
               <div class="td" style="width:80px;">
                 <span class="content autoload" data-url=<%= dict_units_path %>><%= cargo.unit2 %></span>
+              </div>
+              <div class="td" style="width:220px;">
+                <span class="content"><%= cargo.specification %> &nbsp;</span>
               </div>
             </div>
         <% end %>
