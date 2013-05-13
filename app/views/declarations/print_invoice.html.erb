@@ -5,7 +5,7 @@
 
     .frame {
         margin: 0 auto;
-        width: 730px;
+        width: 765px;
         text-align: left;
     }
 
@@ -102,6 +102,7 @@
 
   <div class="table" style=" margin-top: 10px; ">
     <div class="tr header" style="border-bottom: 1px solid;">
+      <div class="td header" style="width: 35px;"><span class="bgText">序号</span></div>
       <div class="td header" style="width: 388px;"><span class="bgText">商　　　品　　　名　　　称</span></div>
       <div class="td header" style="width: 60px;"><span class="bgText">数量</span></div>
       <div class="td header" style="width: 60px;"><span class="bgText">单位</span></div>
@@ -113,6 +114,7 @@
         <% list_size = @declaration_cargos.size > 20 ? 20 : @declaration_cargos.size %>
         <% @declaration_cargos[0..list_size-1].each do |cargo| %>
             <div class="tr">
+              <div class="td" style="width: 35px;"><span class="content"><%= cargo.no %></span></div>
               <div class="td" style="width: 388px; overflow:hidden;"><span class="content"><%= cargo.name %></span></div>
               <div class="td" style="width: 60px;"><span class="content"><%= cargo.quantity %></span></div>
               <div class="td" style="width: 60px;"><span class="content"><%= dict_name Dict::Unit, cargo.unit %></span></div>
@@ -124,6 +126,7 @@
         <% if list_size < 20 %>
             <% (1..20-list_size).each do |i| %>
                 <div class="tr">
+                  <div class="td" style="width: 35px;"></div>
                   <div class="td" style="width: 388px;"></div>
                   <div class="td" style="width: 60px;"></div>
                   <div class="td" style="width: 60px;"></div>
@@ -142,6 +145,7 @@
         %>
 
         <div class="tr">
+          <div class="td" style="width: 35px;"></div>
           <div class="td" style="width: 388px;">成交方式：<span class="content"><%= dict_name Dict::DealMode, @declaration.deal_mode %> <%= dict_name Dict::District, @declaration.destination %></span></div>
           <div class="td" style="width: 60px;"></div>
           <div class="td" style="width: 60px;"></div>
