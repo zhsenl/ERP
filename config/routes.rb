@@ -70,6 +70,7 @@ ERP::Application.routes.draw do
   end
 
   resources :contracts do
+    get 'print_contract', :on => :member
     get 'import', :on => :collection
     post 'upload', :on => :collection
   end
