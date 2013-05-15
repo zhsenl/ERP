@@ -1,0 +1,50 @@
+<style type="text/css">
+#content{
+	position:relative;
+	top:175px;
+	left:33px;
+	width: 1050px;
+	height: 600px;
+	font-size: 14px;
+}
+
+#content div{
+	position: absolute;
+}
+</style>
+
+<div class="frame">
+	<div id="content">
+		<div class="content" style="top:3px; left:185px;"><%= @truck.name %></div>
+		<div class="content" style="top:3px; left:400px;"><%= @truck.hk_truck_no %></div>
+		<div class="content" style="top:25px; left:130px;"><%= @declaration.declare_date %></div>
+		<div class="content" style="top:25px; left:350px;"><%= dict_name Dict::District, @declaration.destination %></div>
+		<div class="content" style="top:25px; left:600px;"></div>
+
+		<div class="content" style="top:95px; left:30px;">1</div>
+		<div class="content" style="top:95px; left:60px;"><%= @declaration_cargos.first.name rescue '' %></div>
+		<div class="content" style="top:120px; left:60px;">等一批(详见清单)</div>
+		<div class="content" style="top:95px; left:213px;"><%= @declaration_cargos.first.code rescue '' %></div>
+		<div class="content" style="top:95px; left:300px;"><%= @package_amount.to_s + (dict_name Dict::WrapType, @declaration.wrap_type) %></div>
+		<div class="content" style="top:95px; left:370px;"><%= @net_weight %></div>
+		<div class="content" style="top:95px; left:430px;"><%= @total_price %></div>
+		<div class="content" style="top:95px; left:550px;"><%= @declaration.enterprise.name rescue '' %></div>
+		<div class="content" style="top:95px; left:770px;"><%= @declaration.foreign_enterprise.name rescue '' %></div>
+
+		<div class="content" style="top:247px; left:78px;"><%= @package_amount.to_s + (dict_name Dict::WrapType, @declaration.wrap_type) %></div>
+		<div class="content" style="top:247px; left:320px;"><%= @gross_weight %></div>
+		<div class="content" style="top:247px; left:630px;"><%= @declaration_container %></div>
+
+		<div class="content" style="top:282px; left:260px;"><%= @declaration.enterprise.name rescue '' %></div>
+		<div class="content" style="top:314px; left:200px;"><%= @truck.corporation_name %></div>
+		<div class="content" class="content" style="top:314px; left:455px;"><%= @truck.corporation_address %> <%= @truck.corporation_telephone %></div>
+		<div class="content" style="top:344px; left:150px;"><%= @truck.driver_name %></div>
+
+		<div class="content" style="top:388px; left:160px;"><%= @declaration.contract_no %></div>
+		<div class="content" style="top:425px; left:160px;"><%= dict_name Dict::TradeMode, @declaration.trade_mode %></div>
+		<div class="content" style="top:465px; left:160px;"><%= dict_name Dict::Country, @declaration_cargos.first.trade_country rescue '' %></div>
+		<div class="content" style="top:502px; left:160px;"><%= @truck.code %></div>
+		<div class="content" style="top:535px; left:160px;"><%= dict_name Dict::Port, @declaration.port rescue '' %></div>
+		<div class="content" style="top:555px; left:160px;"><%= dict_name Dict::Custom, @declaration.custom rescue '' %></div>
+	</div>
+</div>

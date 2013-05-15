@@ -1,17 +1,16 @@
 # -*- encoding : utf-8 -*-
 class DeclarationsController < ApplicationController
   include ApplicationHelper, DeclarationsHelper, PrintHelper
-  before_filter :init
-
+  before_filter :init  
+  
   def init
     if params[:id]
       @declaration = Declaration.find(params[:id])
       @declaration_type = @declaration.declaration_type
-    elsif !params[:declaration_type].nil? || !params[:declaration].nil?
-      #else
-      @declaration_type = params[:declaration_type] || params[:declaration][:declaration_type]
+    else
+      @declaration_type = params[:declaration_type] || params[:declaration][:declaration_type] rescue nil
     end
-    @mark = @declaration_type
+    @mark = @declaration_type    
   end
 
   # GET /declarations
@@ -37,7 +36,7 @@ class DeclarationsController < ApplicationController
       format.html # show.html.erb
       format.json { render json: @declaration }
     end
-  end
+  end  
 
   def print_declaration
     authorize! :show, @declaration
@@ -118,13 +117,13 @@ class DeclarationsController < ApplicationController
     if current_enterprise
       pre_entry_no = Time.now.strftime('%Y%m%d%H%M%S') + system_serial_no
       @declaration = Declaration.new(:enterprise_id => current_enterprise.id,
-                                     :declaration_type => @declaration_type,
-                                     :pre_entry_no => pre_entry_no,
-                                     :pay_way => "7",
-                                     :deal_mode => @declaration_type == "export" ? "3" : "1",
-                                     :declare_enterprise_code => "4419980074",
-                                     :transit_type => "001",
-                                     :created_by => current_user.username)
+                                      :declaration_type => @declaration_type,
+                                      :pre_entry_no => pre_entry_no,
+                                      :pay_way => "7",
+                                      :deal_mode => @declaration_type == "export" ? "3" : "1",
+                                      :declare_enterprise_code => "4419980074",
+                                      :transit_type => "001",
+                                      :created_by => current_user.username)
       @declaration.declaration_transit_information = DeclarationTransitInformation.new(:local_transport_mode => 4)
     else
       redirect_to declarations_path(:declaration_type => @declaration_type), notice: '请选择要操作的企业'
@@ -144,7 +143,7 @@ class DeclarationsController < ApplicationController
 
     respond_to do |format|
       if @declaration.save
-        format.html { redirect_to @declaration, :flash => {:success => '成功保存报关单'} }
+        format.html { redirect_to @declaration, :flash => { :success => '成功保存报关单'} }
         format.json { render json: @declaration, status: :created, location: @declaration }
       else
         format.html { render action: "new", :declaration_type => 1 }
@@ -159,7 +158,7 @@ class DeclarationsController < ApplicationController
     authorize! :update, @declaration
     respond_to do |format|
       if @declaration.update_attributes(params[:declaration])
-        format.html { redirect_to @declaration, :flash => {:success => '成功修改报关单'} }
+        format.html { redirect_to @declaration, :flash => { :success => '成功修改报关单'} }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -175,7 +174,7 @@ class DeclarationsController < ApplicationController
     @declaration.destroy
 
     respond_to do |format|
-      format.html { redirect_to declarations_url(:declaration_type => @declaration_type), :flash => {:success => '删除成功'} }
+      format.html { redirect_to declarations_url(:declaration_type => @declaration_type), :flash => { :success => '删除成功'}}
       format.json { head :no_content }
     end
   end
@@ -304,7 +303,7 @@ class DeclarationsController < ApplicationController
             #出口总数量
             trade_mode = %w[9900 1300 0214 0255 0466 4400 0615 0715 1215 4600 0744 0110 0633 1200 1234 1215 6033 1233 9700 0400 0654]
             @statistic_pro_mat_con[:products][i][:export_sum] = @export_declarations.joins(:declaration_cargos)
-              .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', product.no ,trade_mode).sum('quantity')
+            .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', product.no ,trade_mode).sum('quantity')
             #深加工结转出口数量
             trade_mode = %w[0255 0654]
             @statistic_pro_mat_con[:products][i][:transfer_sum] = @export_declarations.joins(:declaration_cargos)
@@ -367,8 +366,8 @@ class DeclarationsController < ApplicationController
             .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
             #余料剩余数量
             @statistic_pro_mat_con[:materials][i][:remain2_sum] =  @statistic_pro_mat_con[:materials][i][:import_sum].to_f
-              - @statistic_pro_mat_con[:materials][i][:domestic_sum].to_f - @statistic_pro_mat_con[:materials][i][:quit_transfer_sum].to_f
-              - @statistic_pro_mat_con[:materials][i][:consum_sum].to_f
+            - @statistic_pro_mat_con[:materials][i][:domestic_sum].to_f - @statistic_pro_mat_con[:materials][i][:quit_transfer_sum].to_f
+            - @statistic_pro_mat_con[:materials][i][:consum_sum].to_f
           }
           #料件 按报关单算   end
 
@@ -778,6 +777,63 @@ class DeclarationsController < ApplicationController
   def print_source
     @sources = $sources
     render :layout => 'print'
+  end
+  
+
+  
+
+  def driver_paper
+
+  end
+
+  def print_driver_paper_1
+    @title = '打印大陆司机纸'
+    init_driver_paper
+    render :layout => 'print'
+  end
+
+  def print_driver_paper_2
+    @title = '打印香港司机纸'
+    init_driver_paper
+    render :layout => 'print'
+  end
+
+  private
+
+  def init_driver_paper
+    transport_tool = params[:transport_tool]
+    #找出具有相同运输工具名称的报关单
+    declarations = Declaration.where("transport_tool = ?", transport_tool)
+
+    if declarations.blank?
+      return
+    end
+
+    #取出第一个方便打印用
+    @declaration = declarations.first
+
+    @truck = Dict::Truck.find_by_code(@declaration.truck)
+
+    #所有报关货物
+    @declaration_cargos = []
+
+    @package_amount = 0
+    @gross_weight = 0
+    @net_weight = 0
+    declarations.each do |declaration|
+      @declaration_cargos.concat declaration.declaration_cargos
+      @package_amount += declaration.package_amount
+      @gross_weight += declaration.gross_weight
+      @net_weight += declaration.net_weight
+    end
+
+    @total_price = 0
+    @declaration_cargos.each do |declaration_cargo| 
+      @total_price += declaration_cargo.total_price
+    end
+
+    @declaration_container = @declaration.declaration_containers.first
+    
   end
 
 end
