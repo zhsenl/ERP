@@ -48,7 +48,12 @@
   <!--设置-->
   <% materials_size = @materials.size %>
   <% page_size = 42 %>
-  <% pages = materials_size/page_size + 1 %>
+  <%
+     pages = materials_size/page_size
+     if materials_size % page_size !=0
+       pages += 1
+     end
+  %>
   <% (0..pages - 1).each do |page_count| %>
       <!--每一页的内容-->
       <div class="tr" style="height: 80px;"></div>

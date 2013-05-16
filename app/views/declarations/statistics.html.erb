@@ -76,7 +76,7 @@
                 default :
                     json['declaration_type'] = 'export';
             }
-            $.get('/declarations/declaration_statistic.json', json, paginate)
+            $.get('/declarations/statistics.json', json, paginate)
         })
 
         function paginate(search_result){

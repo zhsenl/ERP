@@ -73,7 +73,7 @@
                 json['from'] = json['from'] ? json['from'] : '1990-01-01';
                 json['to'] = json['to'] ? json['to'] : '2100-12-01';
             }
-            $.get('/declarations/material_balance.json', json, paginate)
+            $.get('/declarations/balance.json', json, paginate)
         })
 
         function paginate(search_result) {

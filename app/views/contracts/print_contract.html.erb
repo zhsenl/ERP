@@ -29,6 +29,7 @@
         height: 32px;
         line-height: 32px;
         border-bottom: solid 1px;
+        overflow: hidden;
     }
 
     .table .tr:last-child {
@@ -291,7 +292,12 @@
 <!--设置-->
 <% materials_size = @contract.contract_materials.size %>
 <% page_size = 12 %>
-<% pages = materials_size/page_size + 1 %>
+<%
+   pages = materials_size/page_size
+   if materials_size % page_size !=0
+     pages += 1
+   end
+%>
 <% (0..pages - 1).each do |page_count| %>
     <!--每一页的内容-->
     <div class="tr" style="height: 80px;"></div>
@@ -399,7 +405,12 @@
   <!--设置-->
   <% products_size = @contract.contract_products.size %>
   <% page_size = 12 %>
-  <% pages = products_size/page_size + 1 %>
+<%
+   pages = products_size/page_size
+   if products_size % page_size !=0
+     pages += 1
+   end
+%>
   <% (0..pages - 1).each do |page_count| %>
       <!--每一页的内容-->
     <div class="tr" style="height: 80px;"></div>
@@ -515,8 +526,12 @@
 <% end %>
 
 <% page_size = 12 %>
-<% pages = consumptions_size/page_size + 1 %>
-<% (0..pages - 1).each do |page_count| %>
+<%
+   pages = consumptions_size/page_size
+   if consumptions_size % page_size !=0
+     pages += 1
+   end
+%><% (0..pages - 1).each do |page_count| %>
     <!--每一页的内容-->
     <div class="tr" style="height: 80px;"></div>
     <div class="tr" style="height: 20px; text-align: center; ">单损耗栏</div>

@@ -48,7 +48,12 @@
   <!--设置-->
   <% products_size = @products.size %>
   <% page_size = 42 %>
-  <% pages = products_size/page_size + 1 %>
+  <%
+     pages = products_size/page_size
+     if products_size % page_size !=0
+       pages += 1
+     end
+  %>
   <% (0..pages - 1).each do |page_count| %>
       <!--每一页的内容-->
       <div class="tr" style="height: 80px;"></div>
