@@ -6,7 +6,7 @@
 
     .frame {
         margin: 0 auto;
-        width:1145px;
+        width:1175px;
         text-align: left;
     }
 
@@ -65,7 +65,7 @@
           <div class="td" style="width:80px;">申报单位</div>
           <div class="td" style="width:80px;">第一单位</div>
           <div class="td" style="width:80px;">第二单位</div>
-          <div class="td" style="width:220px;">辅助器(报关规范要素) </div>
+          <div class="td" style="width:250px;">辅助器(报关规范要素) </div>
         </div>
         <% start = page_count*page_size %>
         <% tail = (page_count + 1) * page_size - 1 > cargos_size ? cargos_size : (page_count + 1) * page_size - 1 %>
@@ -85,7 +85,7 @@
                 <span class="content"><%= cargo.name %></span>
               </div>
               <div class="td" style="width:220px;">
-                <span class="content"><%= cargo.specification %> &nbsp;</span>
+                <span class="content"><%=  %> &nbsp;</span>
               </div>
               <div class="td" style="width:80px;">
                 <span class="content autoload" data-url=<%= dict_units_path %>><%= cargo.unit %></span>
@@ -96,7 +96,7 @@
               <div class="td" style="width:80px;">
                 <span class="content autoload" data-url=<%= dict_units_path %>><%= cargo.unit2 %></span>
               </div>
-              <div class="td" style="width:220px;">
+              <div class="td" style="width:250px;font-size: 9px">
                 <span class="content"><%= cargo.specification %> &nbsp;</span>
               </div>
             </div>
