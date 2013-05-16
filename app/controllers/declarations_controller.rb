@@ -802,8 +802,13 @@ class DeclarationsController < ApplicationController
 
   def init_driver_paper
     transport_tool = params[:transport_tool]
+    pre_entry_no = params[:pre_entry_no]
     #找出具有相同运输工具名称的报关单
-    declarations = Declaration.where("transport_tool = ?", transport_tool)
+    if !transport_tool.blank?
+      declarations = Declaration.where("transport_tool = ? ", transport_tool)
+    else
+      declarations = Declaration.where("pre_entry_no = ? ", pre_entry_no)
+    end
 
     if declarations.blank?
       return

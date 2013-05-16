@@ -3,16 +3,22 @@
 		<h3>打印大陆司机纸</h3>
 	</div>
 	<div class="content-box-content">
+      <div>（选择以下的一种方式调数据）</div>
 	<form action="/declarations/print_driver_paper_1">
 		<p>
 			<label>运输工具名称:</label>
 			<input type="text" name="transport_tool" class="text-input small-input" />
 		  	<br />
 		</p>
+       <p>
+         <label>预录入号码:</label>
+         <input type="text" name="pre_entry_no" class="text-input small-input" />
+         <br />
+       </p>
 		<p>
 			<%= submit_tag "打印大陆司机纸", :class => "button" %>
-		</p>		  
-	</form>		
+		</p>
+	</form>
 	</div>
 </div>
 
@@ -21,12 +27,18 @@
 		<h3>打印香港司机纸</h3>
 	</div>
 	<div class="content-box-content">
-	<form action="/declarations/print_driver_paper_2">
+      <div>（选择以下的一种方式调数据）</div>
+      <form action="/declarations/print_driver_paper_2">
 		<p>
 			<label>运输工具名称:</label>
 			<input type="text" name="transport_tool" class="text-input small-input" />
 		  	<br />
 		</p>
+       <p>
+         <label>预录入号码:</label>
+         <input type="text" name="pre_entry_no" class="text-input small-input" />
+         <br />
+       </p>
 		<p>
 			<%= submit_tag "打印香港司机纸", :class => "button" %>
 		</p>		  
