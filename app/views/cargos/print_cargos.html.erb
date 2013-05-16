@@ -23,6 +23,8 @@
         height: 22px;
         line-height: 22px;
         border-bottom: solid 1px;
+        overflow: hidden;
+
     }
 
     .table .tr:last-child {
@@ -45,7 +47,12 @@
 <div class="frame">
   <% cargos_size = @cargos.size %>
   <% page_size = 41 %>
-  <% pages = cargos_size/page_size + 1 %>
+  <%
+     pages = cargos_size/page_size
+      if cargos_size % page_size !=0
+        pages += 1
+      end
+  %>
   <% (0..pages - 1).each do |page_count| %>
       <!--每一页的内容-->
 
@@ -96,7 +103,7 @@
               <div class="td" style="width:80px;">
                 <span class="content autoload" data-url=<%= dict_units_path %>><%= cargo.unit2 %></span>
               </div>
-              <div class="td" style="width:250px;font-size: 9px">
+              <div class="td" style="width:250px;">
                 <span class="content"><%= cargo.specification %> &nbsp;</span>
               </div>
             </div>
