@@ -187,7 +187,11 @@
                 <tcs:SecondUnit xsi:nil="true" />
                 <% end %>
                 <%= raw tcs("OriginCode", (cargo.trade_country rescue '')) %>
+                <% if @declaration.declaration_type == 'export' %>
                 <tcs:Use xsi:nil="true" />
+                <% else %>
+                <%= raw tcs("Use", (@declaration.usage rescue '')) %>
+                <% end %>
                 <%= raw tcs("DutyMode", (cargo.tax_mode rescue '')) %>
                 <tcs:ProcessingCharges xsi:nil="true" />
                 <%= raw tcs("GoodsVersion", (cargo.goods_version rescue '')) %>
