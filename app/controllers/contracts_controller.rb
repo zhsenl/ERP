@@ -113,4 +113,20 @@ class ContractsController < ApplicationController
     end
     redirect_to import_contracts_url
   end
+
+  def print_contract
+    @contract = Contract.find(params[:id])
+    @enterprise = Enterprise.find_by_code(@contract.operate_enterprise_code)
+    @foreign_enterprise = ForeignEnterprise.find_by_code(@contract.foreign_enterprise_code)
+    @consumptions = []
+    @contract.contract_products.each_with_index { |product, i|
+      @consumptions[i] = product.contract_consumptions.joins(:contract_product, :contract_material).select(
+          'contract_products.no as contract_product_no , contract_materials.no as contract_material_no,
+          contract_products.name as contract_product_name , contract_materials.name as contract_material_name,
+          contract_products.specification as contract_product_specification , contract_materials.specification as contract_material_specification,
+          contract_products.unit as contract_product_unit , contract_materials.unit as contract_material_unit,
+          contract_consumptions.used, contract_consumptions.wasted ').all
+    }
+    render :layout => 'print'
+  end
 end

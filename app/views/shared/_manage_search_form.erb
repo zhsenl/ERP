@@ -1,0 +1,59 @@
+<style>
+    .left, .right {
+        width: 48%;
+        display: inline-block;
+        line-height: 2.0em;
+    }
+
+    label {
+        font-weight: bold;
+    }
+</style>
+
+<div id="search_form" style="width:70%;display: inline-block">
+
+  <div id="enterprise_selector_form" class="left">
+    <label style="display: inline;">收发货单位</label>
+    <select name="current_enterprise_id" id="current_enterprise_id" class="medium-input ">
+      <option value="">所有企业</option>
+      <% current_user.enterprises.each do |enterprise| %>
+          <option value="<%= enterprise.id %>">
+            <%= enterprise.code + enterprise.name %>
+          </option>
+      <% end %>
+    </select>
+    <% if content_for? :enterprise_selector_extra %>
+        <%= yield :enterprise_selector_extra %>
+    <% end %>
+  </div>
+
+  <div class="right "><label>手册编号</label>
+    <select name="contract_id" id="contract_id" class="medium-input ">
+      <option value="">所有手册</option>
+    </select>
+  </div>
+
+  <div class="left"><label>报关类型&nbsp;&nbsp;&nbsp;&nbsp;</label>
+    <input type="radio" name='declaration_type' value="1" checked='true'/>进口和出口
+    <input type="radio" name='declaration_type' value="2"/>进口
+    <input type="radio" name='declaration_type' value="3"/>出口
+  </div>
+
+  <div class="right"><label>时间&nbsp;&nbsp;&nbsp;</label>
+    <label for="from">从</label>
+    <input type="text" id="from" name="from" style="width: 80px"/>
+    <label for="to">到</label>
+    <input type="text" id="to" name="to" style="width: 80px"/>
+  </div>
+
+  <div class="left"><label>审核类型&nbsp;&nbsp;&nbsp;&nbsp;</label>
+    <input type="radio" name='review_type' value="1" checked='true'/>全部
+    <input type="radio" name='review_type' value="2"/>已审
+    <input type="radio" name='review_type' value="3"/>未审
+  </div>
+
+  <div class="right">
+    <input type="button" value="查询" id="search">
+    <input type="button" value="预览&打印" id="print">
+  </div>
+</div>

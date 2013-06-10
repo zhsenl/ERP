@@ -5,7 +5,7 @@ body {
 
 .frame {
 	margin: 0 auto;
-	width: 702px;
+	width: 737px;
 	text-align: left;
 }
 
@@ -80,21 +80,21 @@ h1 {
 PACKING LIST</h1>
 </div>
 <div class="tr" style="height: 20px;">
-<div class="td" style="height: 20px; width: 481px;"></div>
+<div class="td" style="height: 20px; width: 516px;"></div>
 <div class="td" style="height: 20px; width: 80px;"><span class="bgText">发票号码：</span></div>
-<div class="td" style="height: 20px; width: 136px; border-bottom: 1px solid;"><span class="content"></span></div>
+<div class="td" style="height: 20px; width: 136px; border-bottom: 1px solid;"><span class="content"><%= @declaration.pre_entry_no.to_s[8,18] %></span></div>
 </div>
 <div class="tr" style="height: 20px; margin-top: 10px;">
 <div class="td" style="height: 20px; width: 105px;"><span class="bgText">商　　　号：</span></div>
 <div class="td" style="height: 20px; width: 354px; border-bottom: 1px solid;"><span class="content"><%= @declaration.foreign_enterprise.name rescue "" %></span></div>
-<div class="td" style="height: 20px; width: 22px;"></div>
+<div class="td" style="height: 20px; width: 57px;"></div>
 <div class="td" style="height: 20px; width: 80px;"><span class="bgText">合同号码：</span></div>
 <div class="td" style="height: 20px; width: 136px; border-bottom: 1px solid;"><span class="content"><%= @declaration.contract_no %></span></div>
 </div>
 <div class="tr" style="height: 20px; margin-top: 10px;">
 <div class="td" style="height: 20px; width: 105px;"><span class="bgText"><%= @declaration_type == "export" ? "发 货" : "收 货"  %> 单 位：</span></div>
 <div class="td" style="height: 20px; width: 354px; border-bottom: 1px solid;"><span class="content"><%= @declaration.enterprise.name %></span></div>
-<div class="td" style="height: 20px; width: 22px;"></div>
+<div class="td" style="height: 20px; width: 57px;"></div>
 <div class="td" style="height: 20px; width: 80px;"><span class="bgText">日　　期：</span></div>
 <div class="td" style="height: 20px; width: 136px; border-bottom: 1px solid;"><span class="content"><%= @declaration.declare_date.strftime('%Y年%m月%d日') %></span></div>
 </div>
@@ -102,6 +102,7 @@ PACKING LIST</h1>
 
 <div class="table" style=" margin-top: 10px; border-left: none; border-right: none;border-bottom: none; ">
 <div class="tr header" style="border-bottom: 1px solid;">
+<div class="td header" style="width: 35px;"><span class="bgText">序号</span></div>
 <div class="td header" style="width: 381px;"><span class="bgText">商　　　品　　　名　　　称</span></div>
 <div class="td header" style="width: 79px;"><span class="bgText">数量/单位</span></div>
 <div class="td header" style="width: 79px;"><span class="bgText">箱(件)数</span></div>
@@ -112,7 +113,8 @@ PACKING LIST</h1>
 <% list_size = @declaration_packings.size > 20 ? 20 : @declaration_packings.size %>		
 <% @declaration_packings[0..list_size-1].each do |packing| %>
 <div class="tr">
-<div class="td" style="width: 381px; text-align:left;"><span class="content"><%= packing.name %></span></div>
+<div class="td" style="width: 35px; "><span class="content"><%= packing.no %></span></div>
+<div class="td" style="width: 381px; "><span class="content"><%= packing.name %></span></div>
 <div class="td" style="width: 79px;"><span class="content"><%= packing.quantity %><%= dict_name Dict::Unit, packing.unit %></span></div>
 <div class="td" style="width: 79px;"><span class="content"><%= packing.package_amount %></span></div>
 <div class="td" style="width: 79px;"><span class="content"><%= packing.net_weight %></span></div>
@@ -122,6 +124,7 @@ PACKING LIST</h1>
 <% if list_size < 20 %>
 <% (1..20-list_size).each do |i| %>
 <div class="tr">
+<div class="td" style="width: 35px;"></div>
 <div class="td" style="width: 381px;"></div>
 <div class="td" style="width: 79px;"></div>
 <div class="td" style="width: 79px;"></div>
@@ -143,6 +146,7 @@ PACKING LIST</h1>
 %>
 
 <div class="tr">
+<div class="td" style="width: 35px;"></div>
 <div class="td" style="width: 381px;"></div>
 <div class="td" style="width: 79px;"></div>
 <div class="td editable" style="width: 79px;"><span class="content"><%= total_package_amount %></span></div>
@@ -152,7 +156,7 @@ PACKING LIST</h1>
 
 </div>
 
-<div style="margin: 10px 0 0 10px;">唛头:　<span class="content">N/M</span></div>
+<!--<div style="margin: 10px 0 0 10px;">唛头:　<span class="content">N/M</span></div>-->
 
 </div>
 

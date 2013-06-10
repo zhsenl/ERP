@@ -1,0 +1,250 @@
+
+
+<script>
+
+    $(function () {
+        //global variable
+        var result;
+
+        function parseFloat_toFix(num ,precision){
+            if(!precision){
+                precision = 1
+            }
+            return parseFloat(num).toFixed(precision);
+        }
+
+        function getFormData(form) {
+            var json = {};
+            var formData = $(form);
+            for (var i = 0; i < formData.length; i++) {
+                if (formData[i].type == 'radio') {
+                    json[formData[i].name] = formData[i].checked ? formData[i].value : json[formData[i].name];
+                } else {
+                    json[formData[i].name] = formData[i].value;
+                }
+            }
+            return json;
+        }
+
+        function td() {
+            return $('<td/>');
+        }
+
+        $("#current_enterprise_id").change(function () {
+            $('#contract_id').css({disabled: true}).addClass('grey')
+            $.post(
+                    '/select_enterprise',
+                    {
+                        url: '/declarations/manage',
+                        current_enterprise_id: $("#current_enterprise_id").val()
+                    },
+                    function () {
+                        $('#contract_id').css('disabled', false).removeClass('grey')
+                        $.get(
+                                '/contracts.json',
+                                {},
+                                function (result) {
+                                    var select = $('#contract_id');
+                                    select.html('');
+                                    for (var i = 0; i < result.length; i++) {
+                                        var option = $('<option/>').val(result[i].id).html(result[i].manual);
+                                        select.append(option);
+                                    }
+                                }
+                        )
+                    }
+            )
+        });
+
+
+        $('#search').click(function () {
+            $('tbody').html('');
+            $('#nav_div').html('');
+            var json = getFormData('#search_form select[name], #search_form input[name]');
+            if (!json['current_enterprise_id']) {
+                alert('请先选择企业');
+                return;
+            }
+            if (!json['contract_id']) {
+                alert('没有合同搜索不了');
+                return;
+            }
+            if ((json['from'] || json['to']) && !(json['from'] && json['to'])) {
+                json['from'] = json['from'] ? json['from'] : '1990-01-01';
+                json['to'] = json['to'] ? json['to'] : '2100-12-01';
+            }
+            $.get('/declarations/details1.json', json, paginate)
+        })
+
+        function paginate(search_result) {
+            result = search_result;
+            var page_size = 25;
+            var total_pages = result.length / page_size;
+            if (result.length == 0) {
+                alert('没有结果');
+                return;
+            }
+            display_page(0, page_size);
+            display_nav(0, total_pages, page_size);
+            operate_listener();
+        }
+
+        function display_page(page_num, page_size) {
+            var tbody = $('tbody');
+            tbody.html('');
+            for (var i = 0; i < result.length; i++) {
+                var tr = $('<tr/>');
+                if (i % 2 == 1) {
+                    tr.css('background-color', '#e5ebe4');
+                }
+                var material = result[i];
+                var quantities = {'进口数量':material.quantity,'退运数量':0,'转厂数量':0,'进口金额':0}
+                var accumulations = {'进口数量':material.accumulation,'退运数量':0,'转厂数量':0,'进口金额':0}
+                tr.append(td().html(material.no));
+                tr.append(td().html(material.declare_date));
+                tr.append(td().html(material.entry_no));
+                tr.append(td().html(material.trade_mode));
+                tr.append(td().html(material.name));
+                tr.append(td().html(material.specification));
+                tr.append(td().html(quantities[$('#detail_type').val()]));
+                tr.append(td().html(material.unit));
+                tr.append(td().html(accumulations[$('#detail_type').val()]));
+                tbody.append(tr);
+            }
+
+        }
+
+        function display_nav(current_page, total_pages, page_size) {
+            var nav_div = $('#nav_div');
+            nav_div.html('');
+            for (var i = 0; i < total_pages; i++) {
+                var a = $('<a/>').html(i + 1).css('cursor', 'pointer').addClass('navs');
+                if (i == current_page) {
+                    a.addClass('current');
+                }
+                nav_div.append(a);
+            }
+//            $('table').after(nav_div);
+            var pre = current_page;
+            var navs = $('.navs');
+            navs.each(function (i) {
+                $(this).click(function () {
+                    if (i != pre) {
+                        $(navs[pre]).removeClass('current');
+                        $(navs[i]).addClass('current');
+                        pre = i;
+                        display_page(i, page_size);
+                    }
+                })
+            })
+        }
+
+        function operate(yes_no, text, className, id) {
+            var span = $('<span/>');
+            span.append($('<span/>').html(yes_no));
+            span.append($('<input/>').attr({'type': 'button', 'id': id}).val(text).addClass(className))
+            return span;
+        }
+
+        function operate_listener() {
+            var classNames = ['is_deleted', "is_paperless", 'is_paperless_deleted', 'review_type'];
+            var text = ['删除', "强制为无纸", "强制为无纸删单", '强制为已审'];
+            var url = '/declarations/toggle.json'
+            for (var i = 0; i < classNames.length; i++) {
+                $('.' + classNames[i]).click(function (i) {
+                    return function () {
+                        var that = $(this);
+                        var prev = that.prev();
+                        var is_yes;
+                        if (i == 3) {
+                            is_yes = !(prev.html() == 0);
+                        } else {
+                            is_yes = prev.html() == '是';
+                        }
+                        $.post(url, {is_yes: is_yes, declaration_type: '', id: that.attr('id'), type: classNames[i]}, function () {
+                            if (i == 3) {
+                                prev.html(is_yes ? 0 : 3);
+                                that.val(is_yes ? text[i] : '取消已审');
+                            } else {
+                                prev.html(is_yes ? '否' : '是');
+                                that.val(is_yes ? text[i] : '取消');
+                            }
+                        })
+                    }
+                }(i));
+            }
+
+
+        }
+
+        $('#print').click(function () {
+            if (result) {
+                window.open('/declarations/print_details1');
+            } else {
+                alert('没有结果，打印不了');
+            }
+        })
+
+        $('#detail_type').change(function(){
+            $('#detail_type_table').html(this.value);
+            if (result) {
+                display_page();
+            }
+        })
+    });
+</script>
+
+<style>
+
+
+    thead tr td {
+        font-weight: bold;
+    }
+
+    .medium-input {
+        width: 320px;
+    }
+
+    .grey {
+        background-color: #e2e2e2;
+    }
+
+    .navs {
+        display: inline-block;
+    }
+</style>
+<div style="font-size: 16px;margin-bottom: 1em">料件进口明细表</div>
+
+<%= render "shared/statistic_search_form" %>
+
+
+<div style="display: none">
+  切换：
+  <select id="detail_type">
+    <option value="进口数量">进口数量</option>
+    <option value="退运数量">退运数量</option>
+    <option value="转厂数量">转厂数量</option>
+    <option value="进口金额">进口金额</option>
+  </select>
+</div>
+<hr/>
+
+<table>
+  <thead class="ui-state-default">
+  <tr>
+    <td>序号</td>
+    <td>申报日期</td>
+    <td>海关编号</td>
+    <td>贸易方式</td>
+    <td>料件名称</td>
+    <td>规格/型号</td>
+    <td id="detail_type_table">进口数量</td>
+    <td>单位</td>
+    <td>累计</td>
+  </tr>
+  </thead>
+  <tbody>
+
+  </tbody>
+</table>
+<div style="display: none" class="pagination" id="nav_div"></div>

@@ -28,11 +28,15 @@ $(document).ready(function() {
 		}
 	});
 	
-	$(".content").click(function(){
+	$(".content").not(".toggle").click(function(){
 		$(this).after('<div class="tooltip">' + $('#mytip').html() + '</div>');
 	});
 
-	$(".content").tooltip({
+    $(".toggle").click(function(){
+        this.innerHTML = this.innerHTML == '&nbsp;' ? '√' : '&nbsp;'
+    })
+
+	$(".content").not(".toggle").tooltip({
 		events : {
 			def : "click,mouseleave", // default show/hide events for an element
 			input : "focus,blur", // for all input elements
@@ -74,5 +78,22 @@ $(document).ready(function() {
 			bounce : true
 		}
 	});
-	
+
+    //ajax span
+    $("span.autoload").each(function() {
+        var span = this;
+        var url = this.getAttribute("data-url");
+//        if( this.innerHTML == "&nbsp;"){
+//            return;
+//        }
+        $.get(url + "/" + this.innerHTML + "/show_by_code.json", function(result) {
+            if (result == null) {
+//                span.innerHTML += " (请正确填写)";
+//                $(span).addClass("error_label");
+            } else {
+                span.innerHTML += " (" + result.name + ")";
+            }
+        });
+    });
+
 });

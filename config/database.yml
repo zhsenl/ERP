@@ -4,8 +4,8 @@ development:
   database: erp_dev
   pool: 5
   username: root
-  password: gavin
-  socket: /tmp/mysql_dev.sock
+  password: udbsssgqjo
+  host: localhost
 
 test:
   adapter: mysql2
@@ -13,8 +13,8 @@ test:
   database: erp_test
   pool: 5
   username: root
-  password: gavin
-  socket: /tmp/mysql_test.sock
+  password: udbsssgqjo
+  host: localhost
 
 production:
   adapter: mysql2

@@ -1,0 +1,455 @@
+<style type="text/css">
+    body {
+        text-align: left;
+        font-size: 16px;
+    }
+
+    .frame {
+           margin: 0 auto;
+           width: 960px;
+           text-align: left;
+       }
+
+    .frame2 {
+        margin: 0 auto;
+        width: 960px;
+        text-align: left;
+    }
+
+    .tr {
+        padding: 1px 0 1px 0;
+    }
+
+    .table {
+        border: 1px solid;
+    }
+
+    .table .tr {
+        padding: 0;
+        height: 32px;
+        line-height: 32px;
+        border-bottom: solid 1px;
+        overflow: hidden;
+    }
+
+    .table .tr:last-child {
+        border-bottom: none;
+    }
+
+    .table .tr .td {
+        border-right: solid 1px;
+        text-align: center;
+    }
+
+    .table .tr .td:last-child {
+        border-right: none;
+    }
+
+        /* columns */
+    .first {
+        width: 100px;
+    }
+
+    .second {
+        width: 119px;
+    }
+
+    .third {
+        width: 100px;
+    }
+
+    .fourth {
+        width: 150px;
+    }
+
+    .fifth {
+        width: 155px;
+    }
+
+    .sixth {
+        width: 90px;
+    }
+
+    .seventh {
+        width: 120px;
+    }
+
+    .eighth {
+        width: 117px;
+    }
+
+
+</style>
+
+<% ith_page = 1 %>
+<div class="frame">
+
+<!--表头-->
+<div class="tr" style="height: 80px;"></div>
+<div class="tr" style="height: 80px; text-align: center; font-size: 35px;">加工贸易合同核销申请表
+</div>
+<div class="table">
+  <div class="tr">
+    <div class="td first">企业名称</div>
+    <div class="td" style="width: 220px">
+      <span class="content"><%= current_enterprise.name %></span>
+    </div>
+    <div class="td" style="width: 110px">企业管理类别</div>
+    <div class="td" style="width: 39px">
+      <span class="content">B类</span>
+    </div>
+    <div class="td fifth">企业编码</div>
+    <div class="td sixth">
+      <span class="content"><%= current_enterprise.code %></span>
+    </div>
+    <div class="td seventh">电话</div>
+    <div class="td eighth">
+      <span class="content"><%= current_enterprise.telephone %></span>
+    </div>
+  </div>
+
+  <div class="tr">
+    <div class="td first">手册编号</div>
+    <div class="td second">
+      <span class="content"><%= @contract.manual %></span>
+    </div>
+    <div class="td third">合同号</div>
+    <div class="td fourth">
+      <span class="content"><%= @contract.export_contract %></span>
+    </div>
+    <div class="td fifth">合同有效期</div>
+    <div class="td sixth">
+      <span class="content"><%= @contract.export_deadline %></span>
+    </div>
+    <div class="td seventh">合同批准证号</div>
+    <div class="td eighth">
+      <span class="content"><%= %></span>
+    </div>
+  </div>
+
+  <div class="tr">
+    <div class="td first">进口总金额</div>
+    <div class="td second">
+      <span class="content"><%= @statistic[:import_price] %></span>
+    </div>
+    <div class="td third">出口总金额</div>
+    <div class="td fourth">
+      <span class="content"><%= @statistic[:export_price] %></span>
+    </div>
+    <div class="td fifth">进口报关单份数</div>
+    <div class="td sixth">
+      <span class="content"><%= @statistic[:import_sum] %></span>
+    </div>
+    <div class="td seventh">出口报关单份数</div>
+    <div class="td eighth">
+      <span class="content"><%= @statistic[:export_sum] %></span>
+    </div>
+  </div>
+
+  <div class="tr">
+    <div class="td first">内销金额</div>
+    <div class="td second">
+      <span class="content"><%= %></span>
+    </div>
+    <div class="td third">内销补税税额</div>
+    <div class="td fourth">
+      <span class="content"><%= %></span>
+    </div>
+    <div class="td fifth">内销补税税单号</div>
+    <div class="td" style="width: 302px">
+      <span class="content"><%= %></span>
+    </div>
+  </div>
+
+  <div class="tr">
+    <div class="td first">内销批准证号</div>
+    <div class="td second">
+      <span class="content"><%= %></span>
+    </div>
+    <div class="td third">余料金额</div>
+    <div class="td fourth">
+      <span class="content"><%= %></span>
+    </div>
+    <div class="td fifth">转入余料的手册编号</div>
+    <div class="td sixth">
+      <span class="content"><%= %></span>
+    </div>
+    <div class="td seventh">保证金金额</div>
+    <div class="td eighth">
+      <span class="content">无</span>
+    </div>
+  </div>
+
+  <div class="tr">
+    <div class="td" style="width: 200px">是否重点敏感商品合同</div>
+    <div class="td" style="width: 158px"><span class="content">否</span></div>
+    <div class="td" style="width: 200px">是否限制类商品合同</div>
+    <div class="td" style="width: 158px"><span class="content">否</span></div>
+    <div class="td seventh">申请表总页数</div>
+    <div class="td eighth"><span class="content"></span></div>
+  </div>
+
+  <div class="tr">
+    <div class="tr">
+      <div class="td">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本合同执行完毕，实际应收加工费
+        <span class="content" style="border-bottom: solid 1px"> 3476.5   </span>美元。
+      </div>
+    </div>
+  </div>
+
+  <div class="tr">
+    <div class="tr">
+      <div class="td" style="width: 933px">以上由企业填写</div>
+    </div>
+  </div>
+
+  <div>
+    <div id="left" style="height: 192px;width:50%;float:left;">
+      <div style="height: 160px;padding-top: 6px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;外经贸主管部门意见：</div>
+      <div style="height: 30px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 签名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月 &nbsp;&nbsp;&nbsp;&nbsp; 日
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;盖章
+      </div>
+    </div>
+    <div id="right" style="height: 192px;margin-left:50%;border-left:solid 1px ">
+      <div style="height: 160px;padding-top: 6px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;海关核销意见：</div>
+      <div style="height: 30px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 签名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月 &nbsp;&nbsp;&nbsp;&nbsp; 日
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;盖章
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="tr" style="height: 22px;"></div>
+<div style="float: right">第&nbsp;&nbsp;<%= ith_page %><% ith_page = ith_page + 1 %>&nbsp;&nbsp;页</div>
+</div>
+<div class="frame2">
+<!--料件栏-->
+<!--设置-->
+<% materials_size = @statistic_pro_mat_con[:materials].size %>
+<% page_size = 12 %>
+<%
+   pages = materials_size/page_size
+   if materials_size % page_size !=0
+     pages += 1
+   end
+%>
+<% (0..pages - 1).each do |page_count| %>
+    <!--每一页的内容-->
+    <div class="tr" style="height: 80px;"></div>
+    <div class="tr" style="height: 80px; text-align: center; font-size: 35px;">加工贸易合同核销申请表分表</div>
+    <div class="tr" style="height: 20px; text-align: center; ">料件栏</div>
+    <div class="table">
+      <div class="tr" style="height: 50px; line-height:50px;">
+        <div class="td" style="width:35px;">序号</div>
+        <div class="td" style="width:200px;">料件名称</div>
+        <div class="td" style="width:45px;">单位</div>
+        <div class="td" style="width:85px;">进口总数量</div>
+        <div class="td" style="width:100px;">
+            <div style="height: 25px;line-height: 25px">其中深加工结</div>
+            <div style="height: 25px;line-height: 25px">转进口数量</div>
+        </div>
+        <div class="td" style="width:100px;">
+          <div style="height: 25px;line-height: 25px">其中余料结</div>
+          <div style="height: 25px;line-height: 25px">转进口数量</div>
+        </div>
+        <div class="td" style="width:100px;">
+          <div style="height: 25px;line-height: 25px">产品总</div>
+          <div style="height: 25px;line-height: 25px">耗用量</div>
+        </div>
+        <div class="td" style="width:70px;">
+          <div style="height: 25px;line-height: 25px">内销</div>
+          <div style="height: 25px;line-height: 25px">数量</div>
+        </div>
+        <div class="td" style="width:70px;">
+          <div style="height: 25px;line-height: 25px">退、运出</div>
+          <div style="height: 25px;line-height: 25px">口数量</div>
+        </div>
+        <div class="td" style="width:70px;">
+          <div style="height: 25px;line-height: 25px">边、角料</div>
+          <div style="height: 25px;line-height: 25px">数量</div>
+        </div>
+        <div class="td" style="width:70px;">余料数量</div>
+      </div>
+      <% start = page_count*page_size %>
+      <% tail = (page_count + 1) * page_size - 1 > materials_size ? materials_size : (page_count + 1) * page_size - 1 %>
+      <!--每一项-->
+      <% @statistic_pro_mat_con[:materials][start..tail].each_with_index do |material, i| %>
+          <div class="tr">
+            <div class="td" style="width:35px;">
+              <span class="content"><%= material.no %></span>
+            </div>
+            <div class="td" style="width:200px;">
+              <span class="content"><%= material.name %></span>
+            </div>
+            <div class="td" style="width:45px;">
+              <span class="content"><%= dict_name(Dict::Unit, material.unit) %></span>
+            </div>
+            <div class="td" style="width:85px;">
+              <span class="content"><%=sprintf "%0.2f", material.import_sum %></span>
+            </div>
+            <div class="td" style="width:100px;">
+              <span class="content"><%=sprintf "%0.2f", material.transfer_sum %></span>
+            </div>
+            <div class="td" style="width:100px;">
+              <span class="content"><%=sprintf "%0.2f", material.remain_sum %></span>
+            </div>
+            <div class="td" style="width:100px;">
+              <span class="content"><%= sprintf "%0.2f",material.consum_sum %></span>
+            </div>
+            <div class="td" style="width:70px;">
+              <span class="content"><%= sprintf "%0.2f",material.domestic_sum %></span>
+            </div>
+            <div class="td" style="width:70px;">
+              <span class="content"><%= sprintf "%0.2f",material.quit_transfer_sum %></span>
+            </div>
+            <div class="td" style="width:70px;">
+              <span class="content"><%=sprintf "%0.2f", material.side_sum %></span>
+            </div>
+            <div class="td" style="width:70px;">
+              <span class="content"><%=sprintf "%0.2f", material.remain2_sum %></span>
+            </div>
+          </div>
+      <% end %>
+    </div>
+      <% ((page_count + 1) * page_size - 1 - materials_size).times do %>
+          <div style="height:32px"></div>
+      <% end %>
+    <div class="tr" style="height: 18px;"></div>
+    <div style="float: right">第&nbsp;&nbsp;<%= ith_page %><% ith_page = ith_page + 1 %>&nbsp;&nbsp;页</div>
+<% end %>
+<!--成品栏-->
+
+<!--设置-->
+<% products_size = @statistic_pro_mat_con[:products].size %>
+<% page_size = 12 %>
+<%
+   pages = products_size/page_size
+   if products_size % page_size !=0
+     pages += 1
+   end
+%>
+<% (0..pages - 1).each do |page_count| %>
+    <!--每一页的内容-->
+    <div class="tr" style="height: 80px;"></div>
+    <div class="tr" style="height: 80px; text-align: center; font-size: 35px;">加工贸易合同核销申请表分表</div>
+    <div class="tr" style="height: 20px; text-align: center; ">成品栏</div>
+    <div class="table">
+      <div class="tr" style="height: 50px; line-height:50px;">
+        <div class="td" style="width:35px;">序号</div>
+        <div class="td" style="width:200px;">成品名称</div>
+        <div class="td" style="width:45px;">单位</div>
+        <div class="td" style="width:100px;">出口总数量</div>
+        <div class="td" style="width:150px;">深加工结转出口数量</div>
+        <div class="td" style="width:120px;">成品放弃数量</div>
+        <div class="td" style="width:150px;">成品退换进口数量</div>
+        <div class="td" style="width:150px;">成品退换出口数量</div>
+      </div>
+      <% start = page_count*page_size %>
+      <% tail = (page_count + 1) * page_size - 1 > products_size ? products_size : (page_count + 1) * page_size - 1 %>
+      <!--每一项-->
+      <% @statistic_pro_mat_con[:products][start..tail].each_with_index do |product, i| %>
+          <div class="tr">
+            <div class="td" style="width:35px;">
+              <span class="content"><%= product.no %></span>
+            </div>
+            <div class="td" style="width:200px;">
+              <span class="content"><%= product.name %></span>
+            </div>
+            <div class="td" style="width:45px;">
+              <span class="content"><%= dict_name(Dict::Unit, product.unit) %></span>
+            </div>
+            <div class="td" style="width:100px;">
+              <span class="content"><%= sprintf "%0.2f", product.export_sum %></span>
+            </div>
+            <div class="td" style="width:150px;">
+              <span class="content"><%= sprintf "%0.2f", product.transfer_sum %></span>
+            </div>
+            <div class="td" style="width:120px;">
+              <span class="content"><%= sprintf "%0.2f", product.quit_sum %></span>
+            </div>
+            <div class="td" style="width:150px;">
+              <span class="content"><%= sprintf "%0.2f", product.import_change_sum %></span>
+            </div>
+            <div class="td" style="width:150px;">
+              <span class="content"><%= sprintf "%0.2f", product.export_change_sum %></span>
+            </div>
+          </div>
+      <% end %>
+    </div>
+    <% ((page_count + 1) * page_size - 1 - products_size).times do %>
+        <div style="height:32px"></div>
+    <% end %>
+    <div class="tr" style="height: 18px;"></div>
+    <div style="float: right">第&nbsp;&nbsp;<%= ith_page %><% ith_page = ith_page + 1 %>&nbsp;&nbsp;页</div>
+<% end %>
+
+<!--单损耗栏-->
+<!--设置-->
+<% consumptions = [] %>
+<% consumptions_size = 0 %>
+<% @statistic_pro_mat_con[:consumptions].each_with_index do |consumption_product, i|%>
+    <% @statistic_pro_mat_con[:consumptions][i].each_with_index do |consumption_product_material, j|%>
+        <% consumptions[consumptions_size] = consumption_product_material %>
+        <% consumptions_size += 1 %>
+    <% end %>
+<% end %>
+
+<% page_size = 12 %>
+<%
+   pages = consumptions_size/page_size
+   if consumptions_size % page_size !=0
+     pages += 1
+   end
+%>
+<% (0..pages - 1).each do |page_count| %>
+    <!--每一页的内容-->
+    <div class="tr" style="height: 80px;"></div>
+    <div class="tr" style="height: 80px; text-align: center; font-size: 35px;">加工贸易合同核销申请表分表</div>
+    <div class="tr" style="height: 20px; text-align: center; ">单损耗栏</div>
+    <div class="table">
+      <div class="tr" style="height: 50px; line-height:50px;">
+        <div class="td" style="width:90px;">成品序号</div>
+        <div class="td" style="width:200px;">成品名称</div>
+        <div class="td" style="width:90px;">料件序号</div>
+        <div class="td" style="width:200px;">料件名称</div>
+        <div class="td" style="width:160px;">料件</div>
+        <div class="td" style="width:160px;">耗损率</div>
+      </div>
+      <% start = page_count*page_size %>
+      <% tail = (page_count + 1) * page_size - 1 > consumptions_size ? consumptions_size : (page_count + 1) * page_size - 1 %>
+      <!--每一项-->
+      <% consumptions[start..tail].each_with_index do |consumption, i| %>
+          <div class="tr">
+            <div class="td" style="width:90px;">
+              <span class="content"><%= consumption.contract_product_no %></span>
+            </div>
+            <div class="td" style="width:200px;">
+              <span class="content"><%=consumption.contract_product_name %></span>
+            </div>
+            <div class="td" style="width:90px;">
+              <span class="content"><%= consumption.contract_material_no %></span>
+            </div>
+            <div class="td" style="width:200px;">
+              <span class="content"><%= consumption.contract_material_name %></span>
+            </div>
+            <div class="td" style="width:160px;">
+              <span class="content"><%= consumption.used %></span>
+            </div>
+            <div class="td" style="width:160px;">
+              <span class="content"><%= consumption.wasted %></span>
+            </div>
+
+          </div>
+      <% end %>
+    </div>
+    <% ((page_count + 1) * page_size - 1 - consumptions_size).times do %>
+        <div style="height:32px"></div>
+    <% end %>
+    <div class="tr" style="height: 18px;"></div>
+    <div style="float: right">第&nbsp;&nbsp;<%= ith_page %><% ith_page = ith_page + 1 %>&nbsp;&nbsp;页</div>
+<% end %>
+</div>

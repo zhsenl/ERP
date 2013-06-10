@@ -1,0 +1,225 @@
+<%= stylesheet_link_tag "jquery.ui.theme.min", :media => "all" %>
+
+<script>
+
+    $(function () {
+        //global variable
+        var result;
+
+        function getFormData(form) {
+            var json = {};
+            var formData = $(form);
+            for (var i = 0; i < formData.length; i++) {
+                if (formData[i].type == 'radio') {
+                    json[formData[i].name] = formData[i].checked ? formData[i].value : json[formData[i].name];
+                } else {
+                    json[formData[i].name] = formData[i].value;
+                }
+            }
+            return json;
+        }
+
+        function td() {
+            return $('<td/>');
+        }
+
+        $("#current_enterprise_id").change(function () {
+            $('#contract_id').css({disabled: true}).addClass('grey')
+            $.post(
+                    '/select_enterprise',
+                    {
+                        url: '/declarations/manage',
+                        current_enterprise_id: $("#current_enterprise_id").val()
+                    },
+                    function () {
+                        $('#contract_id').css('disabled', false).removeClass('grey')
+                        $.get(
+                                '/contracts.json',
+                                {},
+                                function (result) {
+                                    var select = $('#contract_id');
+                                    select.html('<option  value="">所有手册</option>');
+                                    for (var i = 0; i < result.length; i++) {
+                                        var option = $('<option/>').val(result[i].id).html(result[i].manual);
+                                        select.append(option);
+                                    }
+                                }
+                        )
+                    }
+            )
+        });
+
+
+        $('#search').click(function () {
+            $('tbody').html('');
+            $('#nav_div').html('');
+
+            //global variables
+            enterprise_name = $('#current_enterprise_id').find(":selected").text().trim();
+            manual = $('#contract_id').find(":selected").text().trim();
+            from = $('#from').val().trim();
+            to = $('#to').val().trim();
+            //global variables
+
+            var json = getFormData('#search_form select[name], #search_form input[name]');
+            if ((json['from'] || json['to']) && !(json['from'] && json['to'])) {
+                json['from'] = json['from'] ? json['from'] : '1990-01-01';
+                json['to'] = json['to'] ? json['to'] : '2100-12-01';
+            }
+            switch (json['declaration_type']) {
+                case '1':
+                    json['declaration_type'] = '';
+                    break;
+                case '2':
+                    json['declaration_type'] = 'import';
+                    break;
+                default :
+                    json['declaration_type'] = 'export';
+            }
+            $.get('/declarations/weight.json', json, paginate)
+        })
+
+        function paginate(search_result){
+            result = search_result;
+            var page_size = 25;
+            var total_pages = result.length/page_size;
+            if(result.length == 0){
+                alert('没有结果');
+                return;
+            }
+            display_page(0, page_size);
+            display_nav(0,total_pages, page_size);
+            operate_listener();
+        }
+
+        function display_page(page_num,page_size) {
+            var tbody = $('tbody');
+            tbody.html('');
+            for (var i = page_num*page_size; i < result.length && i < (page_num+1) * page_size; i++) {
+                var tr = $('<tr/>');
+                if (i % 2 == 1) {
+                    tr.css('background-color', '#e5ebe4');
+                }
+                var ith_result = result[i];
+
+                tr.append(td().html(i + 1));
+                tr.append(td().html(ith_result.declare_date));
+                tr.append(td().html(ith_result.custom));
+                tr.append(td().html(ith_result.entry_no));
+                tr.append(td().html(ith_result.package_amount));
+                tr.append(td().html(ith_result.gross_weight));
+                tr.append(td().html(ith_result.net_weight));
+                tr.append(td().html(ith_result.total_price));
+                tbody.append(tr);
+            }
+
+        }
+
+        function display_nav(current_page, total_pages, page_size){
+            var nav_div = $('#nav_div');
+            nav_div.html('');
+            for(var i = 0; i < total_pages; i++){
+                var a = $('<a/>').html(i+1).css('cursor','pointer').addClass('navs');
+                if(i==current_page){
+                    a.addClass('current');
+                }
+                nav_div.append(a);
+            }
+//            $('table').after(nav_div);
+            var pre = current_page;
+            var navs = $('.navs');
+            navs.each(function(i){
+                $(this).click(function(){
+                    if(i!=pre){
+                        $(navs[pre]).removeClass('current');
+                        $(navs[i]).addClass('current');
+                        pre = i;
+                        display_page(i,page_size);
+                    }
+                })
+            })
+        }
+
+        function operate(yes_no,text, className,id){
+            var span = $('<span/>');
+            span.append($('<span/>').html(yes_no));
+            span.append($('<input/>').attr({'type':'button','id':id}).val(text).addClass(className))
+            return span;
+        }
+
+        function operate_listener(){
+            var classNames = ['is_deleted',"is_paperless",'is_paperless_deleted','review_type'];
+            var text = ['删除',"强制为无纸","强制为无纸删单",'强制为已审'];
+            var url = '/declarations/toggle.json'
+            for(var i = 0; i < classNames.length; i++){
+                $('.' + classNames[i]).click(function(i){
+                    return function(){
+                        var that = $(this);
+                        var prev = that.prev();
+                        var is_yes;
+                        if(i == 3){
+                            is_yes = !(prev.html() == 0);
+                        }else{
+                            is_yes = prev.html() =='是';
+                        }
+                        $.post(url,{is_yes:is_yes, declaration_type:'',id:that.attr('id'), type:classNames[i]},function(){
+                            if(i == 3){
+                                prev.html(is_yes ? 0:3);
+                                that.val(is_yes ? text[i] :'取消已审');
+                            }else{
+                                prev.html(is_yes ? '否':'是');
+                                that.val(is_yes ? text[i] :'取消');
+                            }
+                        })
+                    }
+                }(i));
+            }
+
+
+
+        }
+        $('#print').click(function(){
+            if(result){
+                window.open('/declarations/print_weight');
+            }else{
+                alert('没有结果，打印不了');
+            }
+        })
+
+    });
+</script>
+
+<style>
+
+    .medium-input {
+        width: 320px;
+    }
+
+    .grey {
+        background-color: #e2e2e2;
+    }
+
+    .navs{
+        display: inline-block;
+    }
+</style>
+<div style="font-size: 16px;margin-bottom: 1em">进出口重量总价统计</div>
+<%= render "shared/manage_search_form" %>
+<table>
+  <thead class="ui-state-default">
+  <tr>
+    <td>序号</td>
+    <td>申报日期</td>
+    <td>报关口岸</td>
+    <td>海关编号</td>
+    <td>件数</td>
+    <td>毛重</td>
+    <td>净重</td>
+    <td>总价</td>
+  </tr>
+  </thead>
+  <tbody>
+
+  </tbody>
+</table>
+<div  class="pagination" id="nav_div" ></div>

@@ -1,0 +1,551 @@
+<style>
+
+    #tabs ul li {
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    #tabs ul, #enterprise_selector_form {
+        width: 40%;
+        display: inline-block;
+    }
+
+    .left, .right {
+        width: 33%;
+        display: inline-block;
+        line-height: 2.0em;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    .selected {
+        border: 1px solid orange;
+    }
+
+    .wrappers {
+        /*width: 1002px;*/
+        /*margin: 10px auto;*/
+        /*text-align: center;*/
+    }
+
+    .overlays {
+        background: #000000;
+        opacity: 0.5;
+        bottom: 0;
+        left: 0;
+        position: fixed;
+        right: 0;
+        top: 0;
+        z-index: 10000;
+    }
+
+    .popups{
+        background: none repeat scroll 0 0 #FFFFFF;
+        border: 10px solid #DDDDDD;
+        padding: 50px;
+        position: fixed;
+        text-align: center;
+        top: 15%;
+        left: 15%;
+        width: 750px;
+        /*min-height: 500px;*/
+        /*margin: 10px auto;*/
+
+        z-index: 20000;
+        -moz-border-radius: 30px 0;
+    }
+
+</style>
+
+<script>
+    $(function () {
+
+        //global variables
+        var pre = 1;  //pre form head
+        var pre_form_body = 1;
+        var contracts;
+//        var products;
+//        var materials;
+        //global variables
+
+        var time = 500;
+        /**
+         * 弹出层
+         * @param popUp
+         * @param overlay
+         */
+        function popUp(popUp, overlay){
+            jQuery("#" + overlay).css('display', 'block'); // displaying the overlay
+            jQuery("#" + popUp).css('display', 'block'); // displaying the popup
+            jQuery("#" + popUp).fadeIn(time); // Displaying popup with fade in animation
+        }
+        /**
+         * 收回层
+         * @param popUp
+         * @param overlay
+         */
+        function popOff(popUp, overlay){
+            jQuery("#" + overlay).fadeOut(time); // displaying the overlay
+            jQuery("#" + popUp).fadeOut(time); //function to redirect the page after few seconds
+        }
+
+
+        //fill form begin
+        /**
+         * 填充表单
+         * @param form 要填充的表单  e.g. #form
+         * @param data 用于填充表单的数据
+         */
+        function fillForm(form, data) {
+            for (var name in data) {
+                if (data[name]  == undefined) {
+                    continue;
+                }
+                var input = $(form + ' input[name=' + name + ']');
+                var textarea = $(form + ' textarea[name=' + name + ']');
+                if (input.length) {
+                    input.val(data[name]);
+                } else if (textarea.length) {
+                    textarea.val(data[name]);
+                }
+            }
+        }
+
+        //clear form data begin
+        /**
+         * 清除所有表单的数据
+         */
+        function clearFormData() {
+            $('input[name], textarea').val('');
+            $('#form_body').html('');
+            $('#products_body').html('');
+            $('#materials_body').html('');
+            $('#consumptions_body').html('');
+        }
+
+        //clear form data end
+
+        //object size
+        Object.size = function(obj) {
+            var size = 0, key;
+            for (key in obj) {
+                if (obj.hasOwnProperty(key)) size++;
+            }
+            return size;
+        };
+
+        function parseFloat_toFix(num ,precision){
+            if(!precision){
+                precision = 1
+            }
+            return parseFloat(num).toFixed(precision);
+        }
+
+        function td() {
+            return $('<td/>');
+        }
+
+
+        function find_contract_by_enterprise() {
+            //根据企业找合同
+            $.get(
+                    '/contracts.json',
+                    {},
+                    function (result) {
+                        if (result.length == 0) {
+                            alert('没有结果');
+                            clearFormData();
+                            popOff('popup','overlay');
+                            return;
+                        }
+                        contracts = result;
+                        count_contracts();
+                        generate_form();
+                    })
+        }
+
+        function count_contracts() {
+            //计算指定企业的每一份合同对就的出口和进口报关单数
+            $(contracts).each(function (i) {
+                $.ajax({
+                            type: 'get',
+                            url: '/declarations/statistic.json',
+                            data: {
+                                current_enterprise_id: $('#current_enterprise_id').val(), contract_id: contracts[i].id
+                            },
+                            async: false,
+
+                            success: function (result) {
+                                //加入统计数据
+                                var statistic = result.statistic;
+                                for (var name in statistic) {
+                                    contracts[i][name] = statistic[name];
+                                }
+
+                                if (i == 0) {
+                                    //改变表头
+                                    change_form_head({data: {index: 0}});
+                                }
+
+                            }}
+                )
+            })
+            popOff('popup','overlay');
+
+        }
+
+        function generate_form() {
+            var tbody = $('#form_body');
+            tbody.html('');
+            $(contracts).each(function (i) {
+
+                var tr = $('<tr/>').css('cursor', 'pointer').click({index: i}, change_form_head);
+                if (i % 2 == 1) {
+                    tr.css('background-color', '#e5ebe4');
+                }
+                if (i == 0) {
+                    tr.addClass('selected');
+                }
+                //生成表体  有多个
+                var ith_result = contracts[i];
+                tr.append(td().html(i + 1));
+                tr.append(td().html(ith_result.manual));
+                tr.append(td().html(ith_result.import_sum));
+                tr.append(td().html(ith_result.export_sum));
+                tr.append(td().html(ith_result.import_price));
+                tr.append(td().html(ith_result.export_price));
+                tbody.append(tr);
+            })
+        }
+
+        //生成表头  生成表头对就的成品、料件、单损耗
+        function change_form_head(e) {
+            //indicator
+            var i = e.data.index;
+            var now = i + 1;
+            $('#form_body tr:nth-child(' + pre_form_body + ')').removeClass('selected');
+            $('#form_body tr:nth-child(' + now + ')').addClass('selected');
+            pre_form_body = now;
+            popUp('popup','overlay');
+            //取得数据
+            $.get('/declarations/statistic_pro_mat_con.json',{contract_id:contracts[i].id},function(result){
+                //加入数据
+                contracts[i]['products'] = result.products
+                contracts[i]['materials'] = result.materials
+                contracts[i]['consumptions'] = result.consumptions
+
+                // 生成表格
+                fillForm('#form_head', contracts[i]);
+                generate_products_table(contracts[i]['products']);
+                generate_materials_table(contracts[i]['materials']);
+                generate_consumptions_table(contracts[i]['consumptions']);
+                popOff('popup','overlay');
+            })
+        }
+
+        function generate_products_table(products) {
+            var tbody = $('#products_body');
+            tbody.html('');
+            $(products).each(function (i) {
+
+                var tr = $('<tr/>');
+                if (i % 2 == 1) {
+                    tr.css('background-color', '#e5ebe4');
+                }
+                var ith_result = products[i];
+                tr.append(td().html(ith_result.no));
+                tr.append(td().html(ith_result.code));
+                tr.append(td().html(ith_result.name));
+                tr.append(td().html(ith_result.specification));
+                tr.append(td().html(ith_result.unit));
+                tr.append(td().html(ith_result.export_sum));
+                tr.append(td().html(ith_result.transfer_sum));
+                tr.append(td().html(ith_result.quit_sum));
+                tr.append(td().html(ith_result.import_change_sum));
+                tr.append(td().html(ith_result.export_change_sum));
+                tbody.append(tr);
+            })
+        }
+
+        function generate_materials_table(materials) {
+            var tbody = $('#materials_body');
+            tbody.html('');
+            $(materials).each(function (i) {
+
+                var tr = $('<tr/>');
+                if (i % 2 == 1) {
+                    tr.css('background-color', '#e5ebe4');
+                }
+                var ith_result = materials[i];
+                tr.append(td().html(ith_result.no));
+                tr.append(td().html(ith_result.code));
+                tr.append(td().html(ith_result.name));
+                tr.append(td().html(ith_result.specification));
+                tr.append(td().html(ith_result.unit));
+                tr.append(td().html(ith_result.import_sum));
+                tr.append(td().html(ith_result.transfer_sum));
+                tr.append(td().html(parseFloat_toFix(ith_result.consum_sum)));
+                tr.append(td().html(ith_result.domestic_sum));
+                tr.append(td().html(ith_result.again_sum));
+                tr.append(td().html(ith_result.quit_sum));
+                tr.append(td().html(ith_result.side_sum));
+                tr.append(td().html(ith_result.remain_sum));
+                tr.append(td().html(ith_result.remain2_sum));
+                tbody.append(tr);
+            })
+        }
+
+        function generate_consumptions_table(consumptions){
+            var tbody = $('#consumptions_body');
+            tbody.html('');
+            var count = 0;
+            var size = Object.size(consumptions);
+            for(var i = 0; i < size; i++){
+                for(var j = 0; j < consumptions[i].length; j++){
+                    var tr = $('<tr/>');
+                    if (count % 2 == 1) {
+                        tr.css('background-color', '#e5ebe4');
+                    }
+                    count ++;
+                    var item = consumptions[i][j];
+                    tr.append(td().html(item.contract_product_no));
+                    tr.append(td().html(item.contract_product_name));
+                    tr.append(td().html(item.contract_material_no));
+                    tr.append(td().html(item.contract_material_name));
+                    tr.append(td().html(item.used));
+                    tr.append(td().html(item.wasted));
+                    tbody.append(tr);
+                }
+            }
+        }
+
+        //各个tab之间的变换
+        $('#tabs ul li').each(function (i) {
+            $(this).click(function () {
+                if(pre == i + 1){
+                    return;
+                }
+                $('#tabs-' + pre).hide(100);
+                $('#tabs-' + (i + 1)).show(100);
+                pre = i + 1;
+            })
+        })
+
+        //表头的输入域disable掉
+        $('#form_head input').css('background-color', '#d3d3d3').attr('disabled', true);
+
+        $("#current_enterprise_id").change(function () {
+            popUp('popup','overlay');
+            //找企业
+            $.post(
+                    '/select_enterprise',
+                    {
+                        url: '/declarations/manage',
+                        current_enterprise_id: $("#current_enterprise_id").val()
+                    },
+                    find_contract_by_enterprise
+            );
+        });
+
+        //打印
+        $('#print').click(function(){
+            if(contracts){
+                window.open('/declarations/print_statistic');
+            }else{
+                alert('没有结果，打印不了');
+            }
+        })
+
+
+    })
+
+</script>
+
+<!-- Loading begin -->
+<div id="wrapper" class='wrappers'>
+  <div style="display: none;" id="overlay" class="overlays">
+  </div>
+  <div style="display: none;" id="popup" class="popups">
+    <%= image_tag('loading_my.gif') %>
+  </div>
+</div>
+<!-- Loading end -->
+
+<div style="font-size: 16px;margin-bottom: 1em">合同核销表</div>
+
+
+<div id="tabs">
+
+
+  <ul>
+    <li><a>核销表头</a></li>
+    <li><a>成品</a></li>
+    <li><a>料件</a></li>
+    <li><a>单损耗</a></li>
+  </ul>
+
+
+  <div id="enterprise_selector_form">
+    <label style="display: inline;">收发货单位</label>
+    <select name="current_enterprise_id" id="current_enterprise_id" class="medium-input ">
+      <option value="">所有企业</option>
+      <% current_user.enterprises.each do |enterprise| %>
+          <option value="<%= enterprise.id %>">
+            <%= enterprise.code + enterprise.name %>
+          </option>
+      <% end %>
+    </select>
+    <% if content_for? :enterprise_selector_extra %>
+        <%= yield :enterprise_selector_extra %>
+    <% end %>
+  </div>
+
+  <input type="button" value="打印" id="print">
+
+  <div id="tabs-1">
+    <!--表头-->
+    <div id="form_head">
+      <div class="left "><label>手册编号&nbsp;&nbsp;&nbsp;&nbsp;：</label>
+        <input name="manual">
+      </div>
+      <div class="left "><label>进口报关单数&nbsp;&nbsp;&nbsp;&nbsp;：</label>
+        <input name="import_sum">
+      </div>
+      <div class="right "><label>出口报关单数&nbsp;&nbsp;&nbsp;&nbsp;：</label>
+        <input name="export_sum">
+      </div>
+      <div class="right "><label>合同协议号：</label>
+        <input>
+      </div>
+      <div class="left "><label>进口报关单金额：</label>
+        <input name="import_price">
+      </div>
+      <div class="right "><label>出口报关单金额：</label>
+        <input name="export_price">
+      </div>
+      <div class="left "><label>进口合同号：</label>
+        <input name="import_contract">
+      </div>
+      <div class="left ">
+        <label>进口币制&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：</label>
+        <input name="import_currency">
+      </div>
+      <div class="left "><label>进口有效期&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：</label>
+        <input name="import_deadline">
+      </div>
+      <div class="right "><label>出口合同号：</label>
+        <input name="export_contract">
+      </div>
+      <div class="right ">
+        <label>出口币制&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：</label>
+        <input name="export_currency">
+      </div>
+      <div class="right "><label>出口有效期&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;：</label>
+        <input name="export_deadline">
+      </div>
+    </div>
+    <hr/>
+    <!--表体-->
+    <div class="tab-content default-tab">
+      <table>
+        <thead>
+        <tr>
+          <th>序号</th>
+          <th>手册编码</th>
+          <th>进口报关单数</th>
+          <th>出口报关单数</th>
+          <th>进口报关单金额</th>
+          <th>出口报关单金额</th>
+          <!--<th>进口有效期</th>-->
+          <!--<th>出口有效期</th>-->
+        </tr>
+        </thead>
+        <tbody id="form_body">
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="tabs-2" style="display: none">
+    <div class="tab-content default-tab">
+      <table>
+        <thead>
+        <tr>
+          <th>序号</th>
+          <th>商品编码</th>
+          <th>成品名称</th>
+          <th>规格型号</th>
+          <th>单位</th>
+          <th>出口总数量</th>
+          <th>深加工结转出口数量</th>
+          <th>成品放弃数量</th>
+          <th>成品退换进口数量</th>
+          <th>成品退换出口数量</th>
+          <!--<th>第一单位</th>-->
+          <!--<th>进口有效期</th>-->
+          <!--<th>出口有效期</th>-->
+        </tr>
+        </thead>
+        <tbody id="products_body">
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div id="tabs-3" style="display: none">
+    <div class="tab-content default-tab">
+      <table>
+        <thead>
+        <tr>
+          <th>序号</th>
+          <th>商品编码</th>
+          <th>料件名称</th>
+          <th>规格型号</th>
+          <th>单位</th>
+          <th>进口总数量</th>
+          <th>深加工结转进口数量</th>
+          <th>产品总耗用量</th>
+          <th>内销数量</th>
+          <th>复出数量</th>
+          <th>料件放弃数量</th>
+          <th>边角料数量</th>
+          <th>余料结转数量</th>
+          <th>余料剩余数量</th>
+
+          <!--<th>第一单位</th>-->
+          <!--<th>进口有效期</th>-->
+          <!--<th>出口有效期</th>-->
+        </tr>
+        </thead>
+        <tbody id="materials_body">
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div id="tabs-4" style="display: none">
+    <div class="tab-content default-tab">
+      <table>
+        <thead>
+        <tr>
+          <th>成品序号</th>
+          <th>成品名称</th>
+          <th>料件序号</th>
+          <th>料件名称</th>
+          <th>单耗</th>
+          <th>耗损率</th>
+          <!--<th>第一单位</th>-->
+          <!--<th>进口有效期</th>-->
+          <!--<th>出口有效期</th>-->
+        </tr>
+        </thead>
+        <tbody id="consumptions_body">
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

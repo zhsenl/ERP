@@ -1,0 +1,131 @@
+<style type="text/css">
+    body {
+        text-align: left;
+        font-size: 16px;
+    }
+
+    .frame {
+        margin: 0 auto;
+        width: 1228px;
+        text-align: left;
+    }
+
+    .tr {
+        padding: 1px 0 1px 0;
+    }
+
+    .table {
+        border: 1px solid;
+    }
+
+    .table .tr {
+        padding: 0;
+        height: 32px;
+        line-height: 32px;
+        border-bottom: solid 1px;
+    }
+
+    .table .tr:last-child {
+        border-bottom: none;
+    }
+
+    .table .tr .td {
+        border-right: solid 1px;
+        text-align: center;
+    }
+
+    .table .tr .td:last-child {
+        border-right: none;
+    }
+
+
+
+
+</style>
+
+<div class="frame">
+
+  <!--设置-->
+  <% materials_size = @materials.size %>
+  <% page_size = 42 %>
+  <%
+     pages = materials_size/page_size
+     if materials_size % page_size !=0
+       pages += 1
+     end
+  %>
+  <% (0..pages - 1).each do |page_count| %>
+      <!--每一页的内容-->
+      <div class="tr" style="height: 80px;"></div>
+      <div class="tr" style="height: 80px; text-align: center; font-size: 35px;">合同料件进口情况表</div>
+      <div class="tr" style="height: 20px;"></div>
+      <div class="table">
+        <div class="tr" style="height: 50px; line-height:50px;">
+          <div class="td" style="width:35px;">序号</div>
+          <div class="td" style="width:180px;">料件名称</div>
+          <!--<div class="td" style="width:80px;">单位</div>-->
+          <div class="td" style="width:100px;">合同数量</div>
+          <div class="td" style="width:100px;">实际进口数</div>
+          <div class="td" style="width:100px;">可进口数</div>
+          <div class="td" style="width:100px;">退运数量</div>
+          <div class="td" style="width:100px;">转入数量</div>
+          <div class="td" style="width:100px;">进口率</div>
+          <div class="td" style="width:100px;">合同单价</div>
+          <div class="td" style="width:100px;">合同单价金额</div>
+          <div class="td" style="width:100px;">
+            <div style="height: 25px;line-height: 25px">报关单统</div>
+            <div style="height: 25px;line-height: 25px">计总金额</div>
+          </div>
+          <div class="td" style="width:100px;">金额差</div>
+        </div>
+        <% start = page_count*page_size %>
+        <% tail = (page_count + 1) * page_size - 1 > materials_size ? materials_size : (page_count + 1) * page_size - 1 %>
+        <!--每一项-->
+        <% @materials[start..tail].each_with_index do |material, i| %>
+            <div class="tr">
+              <div class="td" style="width:35px;">
+                <span class="content"><%= material.no %></span>
+              </div>
+              <div class="td" style="width:180px;">
+                <span class="content"><%= material.name %></span>
+              </div>
+              <!--<div class="td" style="width:80px;">-->
+                <!--<span class="content"><%= dict_name(Dict::Unit, material.unit) %></span>-->
+              <!--</div>-->
+              <div class="td" style="width:100px;">
+                <span class="content"><%= sprintf "%0.2f",material.quantity %></span>
+              </div>
+              <div class="td" style="width:100px;">
+                <span class="content"><%= sprintf "%0.2f",material.import_sum %></span>
+              </div>
+              <div class="td" style="width:100px;">
+                <span class="content"><%= sprintf "%0.2f",material.can_import_sum %></span>
+              </div>
+              <div class="td" style="width:100px;">
+                <span class="content"><%= sprintf "%0.2f",material.quit_transfer_sum %></span>
+              </div>
+              <div class="td" style="width:100px;">
+                <span class="content"><%= sprintf "%0.2f",material.transfer_sum %></span>
+              </div>
+              <div class="td" style="width:100px;">
+                <span class="content"><%= sprintf "%0.2f",material.import_rate %></span>
+              </div>
+              <div class="td" style="width:100px;">
+                <span class="content"><%= material.unit_price %></span>
+              </div>
+              <div class="td" style="width:100px;">
+                <span class="content"><%= sprintf "%0.2f",material.contract_price %></span>
+              </div>
+              <div class="td" style="width:100px;">
+                <span class="content"><%= sprintf "%0.2f",material.import_price %></span>
+              </div>
+              <div class="td" style="width:100px;">
+                <span class="content"><%= sprintf "%0.2f",material.diff_price %></span>
+              </div>
+            </div>
+        <% end %>
+      </div>
+      <div class="tr" style="height: 20px;"></div>
+  <% end %>
+
+</div>

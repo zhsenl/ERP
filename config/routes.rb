@@ -21,6 +21,8 @@ ERP::Application.routes.draw do
     get 'driver_paper', :on => :collection
     get 'print_driver_paper_1', :on => :collection
     get 'print_driver_paper_2', :on => :collection
+    get 'print_declarations', :on => :collection
+    get 'print_statistic', :on => :collection
     get 'print_declaration', :on => :member
     get 'print_contract', :on => :member
     get 'print_contract2', :on => :member
@@ -29,10 +31,32 @@ ERP::Application.routes.draw do
     get 'print_packing1', :on => :member
     get 'print_packing2', :on => :member
     get 'print_packing3', :on => :member
+    get 'print_attorney', :on => :member
+    get 'manage', :on => :collection
+    post 'toggle', :on => :collection
+    get 'statistic', :on => :collection
+    get 'balance', :on => :collection
+    get 'print_material_balance', :on => :collection
+    get 'statistic_pro_mat_con', :on => :collection
+    get 'weight', :on => :collection
+    get 'print_weight', :on => :collection
+    get 'statistics', :on => :collection
+    get 'print_declaration_statistic', :on => :collection
+    get 'details1', :on => :collection
+    get 'details2', :on => :collection
+    get 'materials', :on => :collection
+    get 'products', :on => :collection
+    get 'print_materials', :on => :collection
+    get 'print_products', :on => :collection
+    get 'print_details1', :on => :collection
+    get 'print_details2', :on => :collection
+    get 'source', :on => :collection
+    get 'print_source', :on => :collection
   end
 
   resources :cargos do
     get 'search', :on => :collection
+    get 'print_cargos', :on => :collection
   end
 
   resources :contract_consumptions
@@ -46,6 +70,7 @@ ERP::Application.routes.draw do
   end
 
   resources :contracts do
+    get 'print_contract', :on => :member
     get 'import', :on => :collection
     post 'upload', :on => :collection
   end
@@ -103,13 +128,13 @@ ERP::Application.routes.draw do
               :transport_modes,
               :trucks,
               :units,
-              :usages,
+               :usages,
               :transit_types,
               :wrap_types do
       get 'search', :on => :collection
       get 'show_by_code', :on => :member
     end
   end
-  
+
   root :to => 'pages#home'
 end

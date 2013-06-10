@@ -1,0 +1,114 @@
+<style type="text/css">
+    body {
+        text-align: left;
+        font-size: 16px;
+    }
+
+    .frame {
+        margin: 0 auto;
+        width:1175px;
+        text-align: left;
+    }
+
+    .tr {
+        padding: 1px 0 1px 0;
+    }
+
+    .table {
+        border: 1px solid;
+    }
+
+    .table .tr {
+        padding: 0;
+        height: 22px;
+        line-height: 22px;
+        border-bottom: solid 1px;
+        overflow: hidden;
+
+    }
+
+    .table .tr:last-child {
+        border-bottom: none;
+    }
+
+    .table .tr .td {
+        border-right: solid 1px;
+        text-align: center;
+    }
+
+    .table .tr .td:last-child {
+        border-right: none;
+    }
+
+</style>
+
+
+
+<div class="frame">
+  <% cargos_size = @cargos.size %>
+  <% page_size = 41 %>
+  <%
+     pages = cargos_size/page_size
+      if cargos_size % page_size !=0
+        pages += 1
+      end
+  %>
+  <% (0..pages - 1).each do |page_count| %>
+      <!--每一页的内容-->
+
+      <div class="tr" style="height: 80px;"></div>
+      <div class="tr" style="height: 80px; text-align: center; font-size: 35px;">报关编码库</div>
+      <div style="width:70%; margin-bottom: 2em">保税企业:
+        <span class="content"><%= enterprise_name_and_code current_enterprise.code %></span>
+      </div>
+
+      <div class="table">
+        <div class="tr" style="height: 50px; line-height:50px;">
+          <div class="td" style="width:35px;">序号</div>
+          <div class="td" style="width:110px;">货号</div>
+          <div class="td" style="width:110px;">商品编号</div>
+          <div class="td" style="width:200px;">商品名称</div>
+          <div class="td" style="width:220px;">规格型号/申报要求</div>
+          <div class="td" style="width:80px;">申报单位</div>
+          <div class="td" style="width:80px;">第一单位</div>
+          <div class="td" style="width:80px;">第二单位</div>
+          <div class="td" style="width:250px;">辅助器(报关规范要素) </div>
+        </div>
+        <% start = page_count*page_size %>
+        <% tail = (page_count + 1) * page_size - 1 > cargos_size ? cargos_size : (page_count + 1) * page_size - 1 %>
+        <!--每一项-->
+        <% @cargos[start..tail].each_with_index do |cargo, i| %>
+            <div class="tr">
+              <div class="td" style="width:35px;">
+                <span class="content"><%= i+1 %></span>
+              </div>
+              <div class="td" style="width:110px;">
+                <span class="content"><%= cargo.no %></span>
+              </div>
+              <div class="td" style="width:110px;">
+                <span class="content"><%= cargo.code %></span>
+              </div>
+              <div class="td" style="width:200px;">
+                <span class="content"><%= cargo.name %></span>
+              </div>
+              <div class="td" style="width:220px;">
+                <span class="content"><%=  %> &nbsp;</span>
+              </div>
+              <div class="td" style="width:80px;">
+                <span class="content autoload" data-url=<%= dict_units_path %>><%= cargo.unit %></span>
+              </div>
+              <div class="td" style="width:80px;">
+                <span class="content autoload" data-url=<%= dict_units_path %>><%= cargo.unit1 %></span>
+              </div>
+              <div class="td" style="width:80px;">
+                <span class="content autoload" data-url=<%= dict_units_path %>><%= cargo.unit2 %></span>
+              </div>
+              <div class="td" style="width:250px;">
+                <span class="content"><%= cargo.specification %> &nbsp;</span>
+              </div>
+            </div>
+        <% end %>
+      </div>
+
+  <% end %>
+</div>

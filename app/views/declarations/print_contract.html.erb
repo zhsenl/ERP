@@ -1,145 +1,185 @@
 <style type="text/css">
-	body {
-		text-align: left;
-		font-size: 16px;
-	}
-	.frame {
-		margin: 0 auto;
-		width: 700px;
-		text-align: left;
-	}
-	.tr {		
-		padding: 1px 0 1px 0;
-	}
-	.table {
-		border: 1px solid;
-	}
-	.table .tr {
-		padding: 0;
-		height: 22px; 
-		line-height:22px;
-		border-bottom: solid 1px;
-	}
-	.table .tr:last-child {
-		border-bottom: none;
-	}
-	.table .tr .td {
-		border-right: solid 1px;
-		text-align: center;
-	}
-	.table .tr .td:last-child {
-		border-right: none;
-	}
+    body {
+        text-align: left;
+        font-size: 16px;
+    }
+
+    .frame {
+        margin: 0 auto;
+        width: 700px;
+        text-align: left;
+    }
+
+    .tr {
+        padding: 1px 0 1px 0;
+    }
+
+    .table {
+        border: 1px solid;
+    }
+
+    .table .tr {
+        padding: 0;
+        height: 22px;
+        line-height: 22px;
+        border-bottom: solid 1px;
+    }
+
+    .table .tr:last-child {
+        border-bottom: none;
+    }
+
+    .table .tr .td {
+        border-right: solid 1px;
+        text-align: center;
+    }
+
+    .table .tr .td:last-child {
+        border-right: none;
+    }
 
 </style>
 
 <% contract = @declaration.contract %>
 
 <div class="frame">
-	<div class="tr" style="height: 80px;"></div>
-	<div class="tr" style="height: 80px; text-align: center; font-size: 35px;"><%= @declaration_type == "export" ? "订销" : "购货"  %>合同</div>
-	<div class="tr">
-		<div class="td" style="width:70%">买方:  
-		<span class="content"><%= @declaration_type == "export" ? @declaration.foreign_enterprise.name : @declaration.enterprise.name   rescue "" %></span>
-		</div>
-		<div class="td" style="width:30%">合同号: 
-		<span class="content"><%= @declaration.contract_no %></span>
-		</div>
-	</div>
-	<div class="tr">
-		<div class="td" style="width:70%">卖方: 
-		<span class="content"><%= @declaration_type == "import" ? @declaration.foreign_enterprise.name : @declaration.enterprise.name   rescue "" %></span>
-		</div>
-		<div class="td" style="width:30%">签订日期: 
-		<span class="content"><%= (@declaration.declare_date - 1.month).strftime("%Y年%m月%d日")  rescue "" %></span>
-		</div>
-	</div>
-	<div class="tr" style="height: 20px;"></div>
-	<div class="tr">1.兹买卖双方同意由买方购进下列货物，并按下列条款签定本合同：</div>
-	<div class="table">
-		<div class="tr" style="height: 50px; line-height:50px;">
-			<div class="td" style="width:35px;">序号</div>
-			<div class="td" style="width:280px;">商品名称</div>
-			<div class="td" style="width:140px;">数量及单位</div>
-			<div class="td" style="width:110px;">单价</div>
-			<div class="td" style="width:128px;">总价</div>
-		</div>
+  <div class="tr" style="height: 80px;"></div>
+  <div class="tr" style="height: 80px; text-align: center; font-size: 35px;"><%= @declaration_type == "export" ? "订销" : "购货" %>
+    合同
+  </div>
+  <div class="tr">
+    <div class="td" style="width:70%">买方:
+      <span class="content"><%= @declaration_type == "export" ? @declaration.foreign_enterprise.name : @declaration.enterprise.name rescue "" %></span>
+    </div>
+    <div class="td" style="width:30%">合同号:
+      <span class="content"><%= @declaration.contract_no %></span>
+    </div>
+  </div>
+  <div class="tr">
+    <div class="td" style="width:70%">卖方:
+      <span class="content"><%= @declaration_type == "import" ? @declaration.foreign_enterprise.name : @declaration.enterprise.name rescue "" %></span>
+    </div>
+    <div class="td" style="width:30%">签订日期:
+      <span class="content"><%= (@declaration.declare_date - 1.month).strftime("%Y年%m月%d日") rescue "" %></span>
+    </div>
+  </div>
+  <div class="tr" style="height: 20px;"></div>
+  <div class="tr">1.兹买卖双方同意由买方购进下列货物，并按下列条款签定本合同：</div>
 
-		<% list_size = @declaration_cargos.size > 5 ? 5 : @declaration_cargos.size %>		
-		<% @declaration_cargos[0..list_size-1].each do |cargo| %>
-		<div class="tr">
-			<div class="td" style="width:35px;">
-				<span class="content"><%= cargo.no %></span>
-			</div>
-			<div class="td" style="width:280px;">
-				<span class="content"><%= cargo.name %></span>
-			</div>
-			<div class="td" style="width:140px;">
-				<span class="content"><%= "%g" % cargo.quantity + dict_name(Dict::Unit, cargo.unit)  rescue "" %></span>
-			</div>
-			<div class="td" style="width:110px;">
-				<span class="content"><%= sprintf "%0.4f", cargo.unit_price  rescue "" %></span>
-			</div>
-			<div class="td" style="width:128px;">
-				<span class="content"><%= sprintf "%0.2f", cargo.total_price rescue ""  %></span>
-			</div>
-		</div>
-		<% end %>
+  <% size = @declaration_cargos.size %>
+  <% page_size = 30 %>
+  <% pages = size/page_size + 1 %>
+  <% (0..pages - 1).each do |page_count| %>
+      <!--每一页的内容-->
+      <div class="table">
+        <div class="tr" style="height: 50px; line-height:50px;">
+          <div class="td" style="width:35px;">序号</div>
+          <div class="td" style="width:280px;">商品名称</div>
+          <div class="td" style="width:140px;">数量及单位</div>
+          <div class="td" style="width:110px;">单价</div>
+          <div class="td" style="width:128px;">总价</div>
+        </div>
 
-		<% if list_size < 5 %>
-		<% (1..5-list_size).each do |i| %>
-		<div class="tr">
-			<div class="td" style="width:35px;">&nbsp;</div>
-			<div class="td" style="width:280px;">&nbsp;</div>
-			<div class="td" style="width:140px;">&nbsp;</div>
-			<div class="td" style="width:110px;">&nbsp;</div>
-			<div class="td" style="width:128px;">&nbsp;</div>
-		</div>
-		<% end %>
-		<% end %>
+        <% start = page_count*page_size %>
+        <% tail = (page_count + 1) * page_size - 1 > size ? size : (page_count + 1) * page_size - 1 %>
+        <!--每一项-->
+        <% @declaration_cargos[start..tail].each_with_index do |cargo, i| %>
+            <div class="tr">
+              <div class="td" style="width:35px;">
+                <span class="content"><%= cargo.no %></span>
+              </div>
+              <div class="td" style="width:280px;">
+                <span class="content"><%= cargo.name %></span>
+              </div>
+              <div class="td" style="width:140px;">
+                <span class="content"><%= "%g" % cargo.quantity + dict_name(Dict::Unit, cargo.unit) rescue "" %></span>
+              </div>
+              <div  class="td" style="width:110px;">
+                <span class="content"><%= sprintf "%0.4f", cargo.unit_price rescue "" %></span>
+              </div>
+              <div class="td" style="width:128px;">
+                <span class="content"><%= sprintf "%0.2f", cargo.total_price rescue "" %></span>
+              </div>
+            </div>
+        <% end %>
+       <% if page_count < pages - 1 %>
+            </div>
+            <div class="tr" style="height: 30px"></div>
+      <% end %>
+  <% end %>
 
-		<div class="tr">
-			<div class="td" style="width:316px;">(以上详见发票或装箱单)</div>
-			<div class="td" style="width:251px;">
-				合&nbsp;&nbsp;&nbsp;&nbsp;计:
-				(<span class="content"><%= dict_name Dict::Currency, @declaration_cargos[0].currency  rescue "" %></span>)
-			</div>
-			<%
-				total_price = 0
-			 	@declaration_cargos.each do |cargo| 
-			 		total_price += cargo.total_price
-			 	end
-			%>
-			<div class="td" style="width:128px;"><span class="content"><%= sprintf "%0.2f", total_price  rescue "" %></span></div>
-		</div>
-	</div>
-	<div class="tr">2. 装运日期：<span class="content"><%= (@declaration.declare_date + 60.days).strftime("%Y年%m月%d日") + '前'  rescue "" %></span></div>
-	<div class="tr">3. <%= @declaration_type == "export" ? "运抵" : "启运" %>国:<span class="content"><%= dict_name Dict::Country, @declaration.trade_country  rescue "" %></span></div>
-	<div class="tr">4. <%= @declaration_type == "export" ? "指运港" : "装货港" %>:<span class="content"><%= dict_name Dict::Port, @declaration.port  rescue "" %></span></div>
-	<div class="tr">5. <%= @declaration_type == "export" ? "货源地" : "目的地" %>:<span class="content"><%= dict_name Dict::District, @declaration.destination  rescue "" %></span></div>
-	<div class="tr">6. 成交方式：<span class="content"><%= @declaration_type == "export" ? "FOB东莞" : "CIF东莞" %></span></div>
-	<div class="tr">7. 保&nbsp;&nbsp;险:<span class="content"><%= @declaration_type == "export" ? "买方负责" : "卖方负责" %></span></div>
-	<div class="tr">8. 包装种类:<span class="content"><%= dict_name Dict::WrapType, @declaration.wrap_type %></div>
-	<div class="tr">9. <%= @declaration_type == "export" ? "目的地" : "原产国" %>:<span class="content"><%= dict_name Dict::Country, @declaration_cargos.first.trade_country  rescue "" %></span></div>
-	<div class="tr">10.结汇方式:<span class="content"><%= @declaration_type == "export" ? "先出后结" : "T/T" %></span></div>
-	<div class="tr">11.检验和索赔:货卸目的地后买方有权进行检验,检验结果与合同约定的不符,买方有权根据本国检验<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;检疫部门出具的检验证书提出索赔,索赔有效期限为货卸目的地后三十天。</div>
-	<div class="tr">12.仲裁:一切因执行本合同或本合同有关的争议最终由中国国际经济贸易仲裁委员会按其规则进行仲</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;裁.仲裁费用由败方负担。</div>
-	<div class="tr">13.其它:本合同受国际商会的约束。</div>
-	<div class="tr">14.本合同未定的事宜须经买卖双方协商。</div>
-	<div class="tr">15.本合同一式两份，买卖双方各持一份，具有同等法律效力。</div>
-	<div class="tr" style="height: 150px;"></div>
+  <% if size < 5 %>
+      <% (1..5-size).each do |i| %>
+          <div class="tr">
+            <div class="td" style="width:35px;">&nbsp;</div>
+            <div class="td" style="width:280px;">&nbsp;</div>
+            <div class="td" style="width:140px;">&nbsp;</div>
+            <div class="td" style="width:110px;">&nbsp;</div>
+            <div class="td" style="width:128px;">&nbsp;</div>
+          </div>
+      <% end %>
+  <% end %>
 
-	<div class="tr">
-		<div class="td" style="width:50%"><%= @declaration_type == "export" ? '买方' : '卖方'  rescue "" %>: <span class="content"><%= @declaration.foreign_enterprise.name rescue "" %></span></div>
-		<div class="td" style="width:50%"><%= @declaration_type == "import" ? '买方' : '卖方'  rescue "" %>: <span class="content"><%= @declaration.enterprise.name   rescue "" %></span></div>
-	</div>
-	<div class="tr">
-		<div class="td" style="width:50%">地址: <span class="content"><%= @declaration.foreign_enterprise.address rescue "" %></span></div>
-		<div class="td" style="width:50%">地址: <span class="content"><%= @declaration.enterprise.address   rescue "" %></span></div>
-	</div>
-	<div class="tr">
-		<div class="td" style="width:50%">电话: <span class="content"><%= @declaration.foreign_enterprise.telephone rescue "" %></span></div>
-		<div class="td" style="width:50%">电话: <span class="content"><%= @declaration.enterprise.telephone   rescue "" %></span></div>
-	</div>
-	<div class="tr" style="height: 20px;"></div>
+
+  <div class="tr">
+    <div class="td" style="width:316px;">(以上详见发票或装箱单)</div>
+    <div class="td" style="width:251px;">
+      合&nbsp;&nbsp;&nbsp;&nbsp;计:
+      (<span class="content"><%= dict_name Dict::Currency, @declaration_cargos[0].currency rescue "" %></span>)
+    </div>
+    <%
+       total_price = 0
+       @declaration_cargos.each do |cargo|
+         total_price += cargo.total_price
+       end
+    %>
+    <div class="td" style="width:128px;"><span class="content"><%= sprintf "%0.2f", total_price rescue "" %></span>
+    </div>
+  </div>
+  </div>
+
+  <div class="tr">2.
+    装运日期：<span class="content"><%= (@declaration.declare_date + 60.days).strftime("%Y年%m月%d日") + '前' rescue "" %></span>
+  </div>
+  <div class="tr">3. <%= @declaration_type == "export" ? "运抵" : "启运" %>
+    国:<span class="content"><%= dict_name Dict::Country, @declaration.trade_country rescue "" %></span></div>
+  <div class="tr">4. <%= @declaration_type == "export" ? "指运港" : "装货港" %>
+    :<span class="content"><%= dict_name Dict::Port, @declaration.port rescue "" %></span></div>
+  <div class="tr">5. <%= @declaration_type == "export" ? "货源地" : "目的地" %>
+    :<span class="content"><%= dict_name Dict::District, @declaration.destination rescue "" %></span></div>
+  <div class="tr">6. 成交方式：<span class="content"><%= @declaration_type == "export" ? "FOB东莞" : "CIF东莞" %></span></div>
+  <div class="tr">7. 保&nbsp;&nbsp;险:<span class="content"><%= @declaration_type == "export" ? "买方负责" : "卖方负责" %></span>
+  </div>
+  <div class="tr">8. 包装种类:<span class="content"><%= dict_name Dict::WrapType, @declaration.wrap_type %></div>
+  <div class="tr">9. <%= @declaration_type == "export" ? "目的地" : "原产国" %>
+    :<span class="content"><%= dict_name Dict::Country, @declaration_cargos.first.trade_country rescue "" %></span>
+  </div>
+  <div class="tr">10.结汇方式:<span class="content"><%= @declaration_type == "export" ? "先出后结" : "T/T" %></span></div>
+  <div class="tr">11.检验和索赔:货卸目的地后买方有权进行检验,检验结果与合同约定的不符,买方有权根据本国检验<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;检疫部门出具的检验证书提出索赔,索赔有效期限为货卸目的地后三十天。
+  </div>
+  <div class="tr">12.仲裁:一切因执行本合同或本合同有关的争议最终由中国国际经济贸易仲裁委员会按其规则进行仲</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;裁.仲裁费用由败方负担。</div>
+  <div class="tr">13.其它:本合同受国际商会的约束。</div>
+  <div class="tr">14.本合同未定的事宜须经买卖双方协商。</div>
+  <div class="tr">15.本合同一式两份，买卖双方各持一份，具有同等法律效力。</div>
+  <div class="tr" style="height: 150px;"></div>
+
+  <div class="tr">
+    <div class="td" style="width:50%"><%= @declaration_type == "export" ? '买方' : '卖方' rescue "" %>:
+      <span class="content"><%= @declaration.foreign_enterprise.name rescue "" %></span></div>
+    <div class="td" style="width:50%"><%= @declaration_type == "import" ? '买方' : '卖方' rescue "" %>:
+      <span class="content"><%= @declaration.enterprise.name rescue "" %></span></div>
+  </div>
+  <div class="tr">
+    <div class="td" style="width:50%">地址:
+      <span class="content"><%= @declaration.foreign_enterprise.address rescue "" %></span></div>
+    <div class="td" style="width:50%">地址: <span class="content"><%= @declaration.enterprise.address rescue "" %></span>
+    </div>
+  </div>
+  <div class="tr">
+    <div class="td" style="width:50%">电话:
+      <span class="content"><%= @declaration.foreign_enterprise.telephone rescue "" %></span></div>
+    <div class="td" style="width:50%">电话:
+      <span class="content"><%= @declaration.enterprise.telephone rescue "" %></span></div>
+  </div>
+  <div class="tr" style="height: 20px;"></div>
 </div>
