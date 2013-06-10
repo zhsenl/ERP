@@ -52,91 +52,94 @@
 
 <div class="frame">
   <!--<div class="tr" style="height: 80px;"></div>-->
-  <div class="tr" style="height: 35px; text-align: center; font-size: 22px;">代理报关委托书</div>
+  <div class="tr  not_print" style="height: 35px; text-align: center; font-size: 22px;">代理报关委托书</div>
   <div class="tr">
     <div class="td" style="width:70%">&nbsp;</div>
-    <div class="td" style="width:30%">编号:
+    <div class="td" style="width:30%"><span class="not_print">编号:</span>
       <span class="content">00091888751</span>
     </div>
   </div>
 
   <div class="tr" style="height: 20px;"></div>
-  <div class="tr">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我单位现<span class="content">A</span>（A&nbsp;逐票、B&nbsp;长期）委托贵公司代理<span class="content">A</span> 等通关事宜。（A、填单申报&nbsp;B、辅助查验&nbsp;
-    C、垫缴税款&nbsp;D、办理海关证明联&nbsp;E、审批手册&nbsp;F、核销手册&nbsp;G、申办减免税手续&nbsp;H、其他）详见《委托报关协议》。
+  <div class="tr"><span class="not_print">    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我单位现</span>
+<span class="content">A</span><span class="not_print">    （A&nbsp;逐票、B&nbsp;长期）委托贵公司代理</span>
+<span class="content">A</span> <span class="not_print">    等通关事宜。（A、填单申报&nbsp;B、辅助查验&nbsp;
+    C、垫缴税款&nbsp;D、办理海关证明联&nbsp;E、审批手册&nbsp;F、核销手册&nbsp;G、申办减免税手续&nbsp;H、其他）详见《委托报关协议》。</span>
   </div>
-  <div class="tr">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我单位保证遵守《海关法》和国家有关法规，保证所提供的情况真实、完整、单货相符。否则，愿承担相关法律责任。
+  <div class="tr not_print">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我单位保证遵守《海关法》和国家有关法规，保证所提供的情况真实、完整、单货相符。否则，愿承担相关法律责任。
   </div>
   <% d = Time.now %>
-  <div class="tr">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本委托书有效期自签字之日起至
-    <span class="content"><%=d.year()%></span>年<span class="content"><%=d.mon()+1%></span>月<span class="content"><%=d.mday()%></span>日止。
+  <div class="tr"><span class="not_print">    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本委托书有效期自签字之日起至</span>
+    <span class="content"><%=d.year()%></span><span class="not_print">年</span>
+<span class="content"><%=d.mon()+1%></span><span class="not_print">月</span><span class="content"><%=d.mday()%></span><span class="not_print">日止。</span>
   </div>
   <div class="td" style="width:60%">&nbsp;</div>
-  <div class="td" style="width:40%">委托方（盖章）
+  <div class="td not_print" style="width:40%">委托方（盖章）
   </div>
   <div class="tr" style="height: 20px;"></div>
   <div class="td" style="width:20%">&nbsp;
   </div>
-  <div class="td">法定代表人或其授权签署《代理报关委托书》的人（签字）
+  <div class="td not_print">法定代表人或其授权签署《代理报关委托书》的人（签字）
   </div>
   <div class="td" style="width:85%">&nbsp;
   </div>
   <div class="td">
-    <span class="content"><%=d.year()%></span>年<span class="content"><%=d.mon()%></span>月<span class="content"><%=d.mday()%></span>日
+    <span class="content"><%=d.year()%></span><span class="not_print">年</span><span class="content"><%=d.mon()%></span><span class="not_print">月</span><span class="content"><%=d.mday()%></span><span class="not_print">日</span>
   </div>
-  <div class="tr" style="height: 40px; text-align: center; font-size: 26px;">委托报关协议</div>
-  <div class="tr">为明确委托报关具体事项和各自责任，双方经平等协商如下：
+  <div class="tr not_print" style="height: 40px; text-align: center; font-size: 26px;">委托报关协议</div>
+  <div class="tr not_print">为明确委托报关具体事项和各自责任，双方经平等协商如下：
   </div>
   <div class="table" style="width:48%;display: inline-block">
     <div class="tr">
-      <div class="td left">委托方</div>
+      <div class="td left not_print">委托方</div>
       <div class="td right"><span class="content"><%= current_enterprise.name  %></span></div>
     </div>
     <div class="tr">
-      <div class="td left">主要货物名称</div>
+      <div class="td left not_print">主要货物名称</div>
       <div class="td right"><span class="content"><%= @major_cargo.name %></span></div>
     </div>
     <div class="tr">
-      <div class="td left">HS编码</div>
+      <div class="td left not_print">HS编码</div>
       <div class="td right"><span class="content"><%= @major_cargo.code %></span></div>
     </div>
     <div class="tr">
-      <div class="td left">货物总价</div>
+      <div class="td left not_print">货物总价</div>
       <div class="td right"><span class="content"><%= @total_price %></span></div>
     </div>
     <div class="tr">
-      <div class="td left">进出口日期</div>
+      <div class="td left not_print">进出口日期</div>
       <div class="td right">
-        <span class="content"><%=d.year()%></span>年<span class="content"><%=d.mon()%></span>月<span class="content"><%=d.mday()%></span>日
+        <span class="content"><%=d.year()%></span><span class="not_print">年</span><span class="content"><%=d.mon()%></span><span class="not_print">月</span><span class="content"><%=d.mday()%></span><span class="not_print">日</span>
       </div>
     </div>
     <div class="tr">
-      <div class="td left">提单号</div>
+      <div class="td left not_print">提单号</div>
       <div class="td right"><span class="content"><%= @declaration.bill_no %></span></div>
     </div>
     <div class="tr">
-      <div class="td left">贸易方式</div>
+      <div class="td left not_print">贸易方式</div>
       <div class="td right"><span class="content autoload"  data-url='/dict/trade_modes'><%= @declaration.trade_mode %></span></div>
     </div>
     <div class="tr">
-      <div class="td left">原产地/货源地</div>
+      <div class="td left not_print">原产地/货源地</div>
       <div class="td right"><span class="content autoload"  data-url='/dict/countries'><%= @major_cargo.trade_country  %></span></div>
     </div>
     <div class="tr" style="height: 198px;">
-      <div class="td">其他要求：</div>
+      <div class="td not_print">其他要求：</div>
     </div>
     <div class="tr" style="height: 66px;">
-      <div class="td" >背面所列通用条款是本协议不可分割的一部分，对本协议的签署构成了对背面通用条款的同意</div>
+      <div class="td not_print" >背面所列通用条款是本协议不可分割的一部分，对本协议的签署构成了对背面通用条款的同意</div>
     </div>
     <div style="height: 110px">
-      <div >委托方业务签单：</div>
+      <div class="not_print">委托方业务签单：</div>
     </div>
     <div >
-      <div >经办人签单：</div>
+      <div class="not_print">经办人签单：</div>
     </div>
     <div style="height: 66px">
-      <div style="width:65%;display: inline-block">联系电话：</div>
+      <div style="width:65%;display: inline-block" class="not_print">联系电话：</div>
       <div style="width:30%;display: inline-block">
-        <span class="content"><%=d.year()%></span>年<span class="content"><%=d.mon()%></span>月<span class="content"><%=d.mday()%></span>日
+        <span class="content"><%=d.year()%></span><span class="not_print">年</span><span class="content"><%=d.mon()%></span><span class="not_print">月</span><span class="content"><%=d.mday()%></span><span class="not_print">日</span>
       </div>
     </div>
 
@@ -145,64 +148,65 @@
 
   <div class="table" style="width:48%;display: inline-block">
     <div class="tr">
-      <div class="td left">被委托方</div>
+      <div class="td left not_print">被委托方</div>
       <div class="td right"><span class="content">新泽报关公司</span></div>
     </div>
     <div class="tr">
-      <div class="td left">*报关单编码</div>
+      <div class="td left not_print">*报关单编码</div>
       <div class="td right"><span class="content"><%= @declaration.entry_no %></span></div>
     </div>
     <div class="tr">
-      <div class="td left">收到单证日期</div>
+      <div class="td left not_print">收到单证日期</div>
       <div class="td right">
-        <span class="content"><%=d.year()%></span>年<span class="content"><%=d.mon()%></span>月<span class="content"><%=d.mday()%></span>日
+        <span class="content"><%=d.year()%></span><span class="not_print">年</span><span class="content"><%=d.mon()%></span><span class="not_print">月</span><span class="content"><%=d.mday()%></span><span class="not_print">日</span>
       </div>
     </div>
     <div class="tr" style="height: 88px; ">
-      <div class="td left" style="height: 88px;line-height: 86px; ">
+      <div class="td left not_print" style="height: 88px;line-height: 86px; ">
         收到单证情况
       </div>
       <div class="td right"  >
         <div class="tr">
-          <div class="td" style="width: 49%;">合同<span class="content toggle"></span></div>
-          <div class="td" style="width: 49%;">发票<span class="content toggle">√</span></div>
+          <div class="td" style="width: 49%;"><span class="not_print">合同</span>
+<span class="content toggle"></span></div>
+          <div class="td" style="width: 49%;"><span class="not_print">发票</span><span class="content toggle">√</span></div>
         </div>
         <div class="tr">
-          <div class="td" style="width: 49%;">装箱清单<span class="content toggle">√</span></div>
-          <div class="td" style="width: 49%;">提(运)单<span class="content toggle"></span></div>
+          <div class="td" style="width: 49%;"><span class="not_print">装箱清单</span><span class="content toggle">√</span></div>
+          <div class="td" style="width: 49%;"><span class="not_print">提(运)单</span><span class="content toggle"></span></div>
         </div>
         <div class="tr">
-          <div class="td" style="width: 49%;">加工贸易手册<span class="content toggle"></span></div>
-          <div class="td" style="width: 49%;">许可证件<span class="content toggle"></span></div>
+          <div class="td" style="width: 49%;"><span class="not_print">加工贸易手册</span><span class="content toggle"></span></div>
+          <div class="td" style="width: 49%;"><span class="not_print">许可证件</span><span class="content toggle"></span></div>
         </div>
         <div class="tr">
-          <div class="td" style="width: 98%;text-align: left">&nbsp;&nbsp;其他</div>
+          <div class="td not_print" style="width: 98%;text-align: left">&nbsp;&nbsp;其他</div>
         </div>
       </div>
     </div>
     <div class="tr">
-      <div class="td left">报关收费</div>
-      <div class="td right" style="text-align: left" >&nbsp;&nbsp;人民币：
+      <div class="td left not_print">报关收费</div>
+      <div class="td right not_print" style="text-align: left" >&nbsp;&nbsp;人民币：
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;元
       </div>
     </div>
     <div class="tr" style="height: 198px;">
-      <div class="td">承诺说明：</div>
+      <div class="td not_print">承诺说明：</div>
     </div>
     <div class="tr"  style="height: 66px;">
-      <div class="td" >背面所列通用条款是本协议不可分割的一部分，对本协议的签署构成了对背面通用条款的同意</div>
+      <div class="td not_print" >背面所列通用条款是本协议不可分割的一部分，对本协议的签署构成了对背面通用条款的同意</div>
     </div>
     <div style="height: 110px">
-      <div >被委托方业务签单：</div>
+      <div class="not_print">被委托方业务签单：</div>
     </div>
     <div >
-      <div >经办报关员签单：</div>
+      <div class="not_print">经办报关员签单：</div>
     </div>
     <div style="height: 66px">
-      <div style="width:65%;display: inline-block">联系电话：</div>
+      <div style="width:65%;display: inline-block" class="not_print">联系电话：</div>
       <div style="width:30%;display: inline-block">
-        <span class="content"><%=d.year()%></span>年<span class="content"><%=d.mon()%></span>月<span class="content"><%=d.mday()%></span>日
+        <span class="content"><%=d.year()%></span><span class="not_print">年</span><span class="content"><%=d.mon()%></span><span class="not_print">月</span><span class="content"><%=d.mday()%></span><span class="not_print">日</span>
       </div>
     </div>
   </div>

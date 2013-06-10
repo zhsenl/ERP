@@ -107,64 +107,72 @@ h1 {
 </style>
 
 <div class="frame">
-<div style="width: 100%; height: 170px;"></div>
-<div class="tr" style="text-align: center; height: 50px;">
+<div style="width: 100%; height: 50px;"></div>
+<div class="tr not_print" style="text-align: center; height: 50px;">
 <h1><b>出　口　货　物　装　箱　单</b></h1>
 </div>
 
 <div class="tr" style="height: 20px; margin-top: 10px;">
-<div class="td" style="height: 20px; width: 94px;"><span class="bgText">商　　　号：</span></div>
+<div class="td" style="height: 20px; width: 94px;"><span class="bgText not_print">商　　　号：</span></div>
 <div class="td" style="height: 20px; width: 365px; border-bottom: 1px solid;"><span class="content"><%= @declaration.foreign_enterprise.name rescue "" %></span></div>
 <div class="td" style="height: 20px; width: 22px;"></div>
-<div class="td" style="height: 20px; width: 70px;"><span class="bgText">海关编号：</span></div>
+<div class="td" style="height: 20px; width: 70px;"><span class="bgText not_print">海关编号：</span></div>
 <div class="td" style="height: 20px; width: 146px; border-bottom: 1px solid;"><span class="content"><%= @declaration.enterprise.code rescue "" %></span></div>
 </div>
 <div class="tr" style="height: 20px; margin-top: 10px;">
-<div class="td" style="height: 20px; width: 94px;"><span class="bgText"><%= @declaration_type == "export" ? "发 货" : "收 货"  %> 单 位：</span></div>
+<div class="td" style="height: 20px; width: 94px;"><span class="bgText not_print"><%= @declaration_type == "export" ? "发 货" : "收 货"  %> 单 位：</span></div>
 <div class="td" style="height: 20px; width: 365px; border-bottom: 1px solid;"><span class="content"><%= @declaration.enterprise.name %></span></div>
 <div class="td" style="height: 20px; width: 22px;"></div>
-<div class="td" style="height: 20px; width: 70px;"><span class="bgText">手册编号：</span></div>
+<div class="td" style="height: 20px; width: 70px;"><span class="bgText not_print">手册编号：</span></div>
 <div class="td" style="height: 20px; width: 146px; border-bottom: 1px solid;"><span class="content"><%= contract.manual rescue "" %></span></div>
 </div>
 <div class="clear"></div>
 
-<div style="width:100%;height:70px; border: solid 1px; margin-top: 10px;">
+<div style="width:100%;height:110px; border: solid 1px; margin-top: 10px;">
 <div class="tr" style="height: 20px; margin-top: 10px;">
-<div class="td" style="height: 20px; width: 60px;"><span class="bgText">合同号：</span></div>
+<div class="td" style="height: 20px; width: 100px;"><span class="bgText not_print">协议(合同)号：</span></div>
 <div class="td" style="height: 20px; width: 169px; border-bottom: 1px solid;"><span class="content"><%= @declaration.contract_no %></span></div>
-<div class="td" style="height: 20px; width: 100px;"><span class="bgText">运抵国(地区)：</span></div>
-<div class="td" style="height: 20px; width: 172px; border-bottom: 1px solid;"><span class="content"><%= dict_name Dict::Country, @declaration.trade_country %></span></div>
-<div class="td" style="height: 20px; width: 75px;"><span class="bgText">　车牌号：</span></div>
+  <div class="td" style="height: 20px; width: 60px;"><span class="bgText not_print">运输单位：</span></div>
+  <div class="td" style="height: 20px; width: 169px; border-bottom: 1px solid;"><span class="content"><%=  %></span></div>
+<div class="td" style="height: 20px; width: 75px;"><span class="bgText not_print">　车牌号：</span></div>
 <div class="td" style="height: 20px; width: 121px; border-bottom: 1px solid;"><span class="content"><%= dict_name Dict::Truck, @declaration.truck %></span></div>
 </div>
+  <div class="tr" style="height: 20px; margin-top: 10px;">
+    <div class="td" style="height: 20px; width: 100px;"><span class="bgText not_print">运抵国：</span></div>
+    <div class="td" style="height: 20px; width: 172px; border-bottom: 1px solid;"><span class="content"><%= dict_name Dict::Country, @declaration.trade_country %></span></div>
+    <div class="td" style="height: 20px; width: 60px;"><span class="bgText not_print">最终目的国：</span></div>
+    <div class="td" style="height: 20px; width: 169px; border-bottom: 1px solid;"><span class="content"><%=  %></span></div>
+    <div class="td" style="height: 20px; width: 75px;"><span class="bgText not_print">　司机姓名：</span></div>
+    <div class="td" style="height: 20px; width: 121px; border-bottom: 1px solid;"><span class="content"><%=  %></span></div>
+  </div>
 <div class="tr" style="height: 20px; margin-top: 10px;">
-<div class="td" style="height: 20px; width: 50px;"><span class="bgText">件数：</span></div>
+<div class="td" style="height: 20px; width: 50px;"><span class="bgText not_print">件数：</span></div>
 <div class="td" style="height: 20px; width: 86px; border-bottom: 1px solid;"><span class="content"><%= @declaration.package_amount %></span></div>
-<div class="td" style="height: 20px; width: 85px;"><span class="bgText">　包装种类：</span></div>
+<div class="td" style="height: 20px; width: 85px;"><span class="bgText not_print">　包装种类：</span></div>
 <div class="td" style="height: 20px; width: 100px; border-bottom: 1px solid;"><span class="content"><%= dict_name Dict::WrapType, @declaration.wrap_type %></span></div>
-<div class="td" style="height: 20px; width: 100px;"><span class="bgText">　毛重(公斤)：</span></div>
+<div class="td" style="height: 20px; width: 100px;"><span class="bgText not_print">　毛重(公斤)：</span></div>
 <div class="td" style="height: 20px; width: 86px; border-bottom: 1px solid;"><span class="content"><%= @declaration.gross_weight %></span></div>
-<div class="td" style="height: 20px; width: 100px;"><span class="bgText">　净重(公斤)：</span></div>
+<div class="td" style="height: 20px; width: 100px;"><span class="bgText not_print">　净重(公斤)：</span></div>
 <div class="td" style="height: 20px; width: 86px; border-bottom: 1px solid;"><span class="content"><%= @declaration.net_weight %></span></div>
 </div>
 </div>
 
 <div class="tr header" style="margin-top: -1px; ">
-<div class="td" style="width: 40px;"><span class="bgText">序<br/>号</span></div>
-<div class="td" style="width: 80px;"><span class="bgText">海关统计商品编号</span></div>
-<div class="td" style="width: 280px; padding: 18px 0 0 0; height: 37px;"><span class="bgText">货名规格及货号</span></div>
+<div class="td" style="width: 40px;"><span class="bgText not_print">序<br/>号</span></div>
+<div class="td" style="width: 80px;"><span class="bgText not_print">海关统计商品编号</span></div>
+<div class="td" style="width: 280px; padding: 18px 0 0 0; height: 37px;"><span class="bgText not_print">货名规格及货号</span></div>
 <div class="td" style="width: 150px; padding: 0; height: 55px;">
-<div class="tr" style="padding:3px; height:20px; border-bottom: solid 1px; width: 144px;">数量</div>
+<div class="tr not_print" style="padding:3px; height:20px; border-bottom: solid 1px; width: 144px;">数量</div>
 <div class="tr" style="height:29px;">
-<div class="td" style="width: 100px; height:24px; padding: 5px 0 0 0;">数　量</div>
-<div class="td" style="width: 49px; height:24px;border: none; padding: 5px 0 0 0;">单位</div>
+<div class="td not_print" style="width: 100px; height:24px; padding: 5px 0 0 0;">数　量</div>
+<div class="td not_print" style="width: 49px; height:24px;border: none; padding: 5px 0 0 0;">单位</div>
 </div>
 </div>
 <div class="td last-td" style="width: 148px; padding: 0;">
-<div class="tr" style="padding:3px; height:20px; border-bottom: solid 1px; width: 142px;">成交价格</div>
+<div class="tr not_print" style="padding:3px; height:20px; border-bottom: solid 1px; width: 142px;">成交价格</div>
 <div class="tr" style="height:27px;">
-<div class="td" style="width: 70px; height:24px; padding: 5px 0 0 0; ">单价</div>
-<div class="td" style="width: 77px; height:24px; padding: 5px 0 0 0; border: none;">总价</div>
+<div class="td not_print" style="width: 70px; height:24px; padding: 5px 0 0 0; ">单价</div>
+<div class="td not_print" style="width: 77px; height:24px; padding: 5px 0 0 0; border: none;">总价</div>
 </div>
 </div>
 </div>
@@ -218,28 +226,28 @@ h1 {
 
 <div style="height:5px;"></div>
 
-<div class="tr" style=height:15px;"">
-<div class="td" style="width:80px;height:15px;"><span class="bgText">申报日期：</span></div>
+<div class="tr" style="height:15px;">
+<div class="td" style="width:80px;height:15px;"><span class="bgText not_print">申报日期：</span></div>
 <div class="td" style="width: 40px;height:15px;"><span class="content"><%= @declaration.declare_date.strftime('%Y') %></span></div>
-<div class="td" style="width:20px;height:15px;"><span class="bgText">年</span></div>
+<div class="td" style="width:20px;height:15px;"><span class="bgText not_print">年</span></div>
 <div class="td" style="width: 40px;height:15px;"><span class="content"><%= @declaration.declare_date.strftime('%m') %></span></div>
-<div class="td" style="width:20px;height:15px;"><span class="bgText">月</span></div>
+<div class="td" style="width:20px;height:15px;"><span class="bgText not_print">月</span></div>
 <div class="td" style="width: 40px;height:15px;"><span class="content"><%= @declaration.declare_date.strftime('%d') %></span></div>
-<div class="td" style="width:20px;height:15px;"><span class="bgText">日</span></div>
+<div class="td" style="width:20px;height:15px;"><span class="bgText not_print">日</span></div>
 
 <div class="td" style="width:170px;height:15px;"></div>
 
-<div class="td" style="width:80px;height:15px;"><span class="bgText">发货日期：</span></div>
+<div class="td" style="width:80px;height:15px;"><span class="bgText not_print">发货日期：</span></div>
 <div class="td" style="width: 40px;height:15px;"></div>
-<div class="td" style="width:20px;height:15px;"><span class="bgText">年</span></div>
+<div class="td" style="width:20px;height:15px;"><span class="bgText not_print">年</span></div>
 <div class="td" style="width: 40px;height:15px;"></div>
-<div class="td" style="width:20px;height:15px;"><span class="bgText">月</span></div>
+<div class="td" style="width:20px;height:15px;"><span class="bgText not_print">月</span></div>
 <div class="td" style="width: 40px;height:15px;"></div>
-<div class="td" style="width:20px;height:15px;"><span class="bgText">日</span></div>
+<div class="td" style="width:20px;height:15px;"><span class="bgText not_print">日</span></div>
 </div>
 <div class="tr">
-<div class="td" style="width:430px;"><span class="bgText">报关单位及报关员(签章)</span></div>
-<div class="td" style="width:100px;"><span class="bgText">发货厂商(签章)</span></div>
+<div class="td" style="width:430px;"><span class="bgText not_print">报关单位及报关员(签章)</span></div>
+<div class="td" style="width:100px;"><span class="bgText not_print">发货厂商(签章)</span></div>
 </div>
 
 

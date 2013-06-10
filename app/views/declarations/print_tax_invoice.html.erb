@@ -96,7 +96,7 @@
 		text-align: center;
 	}
 	
-	.table .content { .
+	.table .content {
 		line-height: 14px;
 	}
 	
@@ -136,99 +136,99 @@
 
 <div class="frame">
 <div style="width: 100%; height: 20px;"></div>
-<div id="title"><span class="title_cn">广东省出口商品统一发票</span><br />
+<div id="title" class="not_print"><span class="title_cn ">广东省出口商品统一发票</span><br />
 <span class="title_en">Guangdong Province Export Goods Unify
 Invoice</span></div>
-<div id="top-export">出口专用</div>
+<div id="top-export" class="not_print">出口专用</div>
 <div class="clear"></div>
-<div
+<div   class="not_print"
 	style="width: 192px; height: 22px; float: right; font-size: 14px; margin-top: 14px; margin-top: 16px\9;">发票代码</div>
 <div class="clear"></div>
-<div
+<div   class="not_print"
 	style="width: 192px; height: 22px; float: right; font-size: 14px; margin-top: 4px;">发票号码:</div>
 <div class="clear"></div>
 <% foreign_enterprise = @declaration.foreign_enterprise rescue nil %>
 <div class="tr" style="margin-top: -12px;">
-<div class="td" style="width: 73px;">购货单位:<br />
+<div class="td not_print" style="width: 73px;">购货单位:<br />
 <span class="en-font">Purchaser:</span></div>
 <div class="td" style="width: 175px; line-height: 30px;"><span
 	class="content"><%= foreign_enterprise.name rescue "" %></span></div>
 </div>
 <div class="clear"></div>
 <div class="tr" style="margin-top: 0px; margin-top: 0px;">
-<div class="td" style="width: 53px;">地址:<br />
+<div class="td not_print" style="width: 53px;">地址:<br />
 <span class="en-font">Add:</span></div>
 <div class="td" style="width: 205px; line-height: 30px;"><span
 	class="content"><%= foreign_enterprise.address rescue "" %></span></div>
-<div class="td" style="width: 53px;">电话:<br />
+<div class="td not_print" style="width: 53px;">电话:<br />
 <span class="en-font">Tel:</span></div>
 <div class="td" style="width: 120px;"><span class="content"><%= foreign_enterprise.telephone rescue "" %></span></div>
-<div class="td" style="width: 65px;">开票日期:<br />
+<div class="td not_print" style="width: 65px;">开票日期:<br />
 <span class="en-font">Issued date:</span></div>
 <div class="td" style="width: 43px; text-align: right;"><span
-	class="content"><%= @declaration.declare_date.strftime('%Y') %></span>年<br />
-<span class="en-font">Year</span></div>
+	class="content"><%= @declaration.declare_date.strftime('%Y') %></span><span class="not_print">年</span><br />
+<span class="en-font not_print">Year</span></div>
 <div class="td" style="width: 38px; text-align: right;"><span
-	class="content"><%= @declaration.declare_date.strftime('%m') %></span>月<br />
-<span class="en-font">Month</span></div>
+	class="content"><%= @declaration.declare_date.strftime('%m') %></span><span class="not_print">月</span><br />
+<span class="en-font not_print">Month</span></div>
 <div class="td" style="width: 31px; text-align: right;"><span
-	class="content"><%= @declaration.declare_date.strftime('%d') %></span>日<br />
-<span class="en-font">Date</span></div>
+	class="content"><%= @declaration.declare_date.strftime('%d') %></span><span class="not_print">日</span><br />
+<span class="en-font not_print">Date</span></div>
 </div>
 
 <% contract = @declaration.contract %>
 
 <div class="table">
 <div class="tr">
-<div class="td" style="width: 107px;">合同号码<br />
+<div class="td not_print" style="width: 107px;">合同号码<br />
 <span class="en-font">Contract No</span></div>
 <div class="td" style="width: 147px;"><span class="content"><%= @declaration.contract_no %></span></div>
-<div class="td" style="width: 86px;">贸易方式<br />
+<div class="td  not_print" style="width: 86px;">贸易方式<br />
 <span class="en-font">Trade Method</span></div>
-<div class="td" style="width: 90px;"><span class="content"><%= dict_name Dict::TradeMode, @declaration.trade_mode %></span></div>
-<div class="td" style="width: 86px;">收汇方式<br />
+<div class="td not_print" style="width: 90px;"><span class="content"><%= dict_name Dict::TradeMode, @declaration.trade_mode %></span></div>
+<div class="td not_print" style="width: 86px;">收汇方式<br />
 <span class="en-font">Foreign Exchange<br />
 Collection Form</span></div>
 <div class="td last-td" style="width: 87px;"><span class="content"><%= dict_name Dict::PayWay, @declaration.pay_way %></span></div>
 </div>
 <div class="tr">
-<div class="td" style="width: 107px;">开户银行及账号<br />
+<div class="td not_print" style="width: 107px;">开户银行及账号<br />
 <span class="en-font">Bank where account<br />
 opened&A/C Number</span></div>
 <div class="td" style="width: 147px;"><span class="content"><%= current_enterprise.bank %></span><br />
 <span class="content"><%= current_enterprise.bank_account %></span></div>
-<div class="td" style="width: 86px;">发运港<br />
+<div class="td not_print" style="width: 86px;">发运港<br />
 <span class="en-font">Port of Departure</span></div>
 <div class="td" style="width: 90px;"><span class="content"><%= dict_name Dict::Custom, @declaration.custom %></span></div>
-<div class="td" style="width: 86px;">转运港<br />
+<div class="td not_print" style="width: 86px;">转运港<br />
 <span class="en-font">Port of<br />
 Transshipment</span></div>
 <div class="td last-td" style="width: 87px;"><span class="content"></span></div>
 </div>
 <div class="tr">
-<div class="td" style="width: 107px;">信用证号<br />
+<div class="td not_print" style="width: 107px;">信用证号<br />
 <span class="en-font">I./C No.</span></div>
 <div class="td" style="width: 147px;"><span class="content"></span></div>
-<div class="td" style="width: 86px;">运输工具<br />
+<div class="td not_print" style="width: 86px;">运输工具<br />
 <span class="en-font">Means of<br />
 Transportation</span></div>
 <div class="td" style="width: 90px;"><span class="content">汽车</span></div>
-<div class="td" style="width: 86px;">目的港<br />
+<div class="td not_print" style="width: 86px;">目的港<br />
 <span class="en-font">Port of Destination</span></div>
 <div class="td last-td" style="width: 87px;"><span class="content"><%= dict_name Dict::Port, @declaration.port %></span></div>
 </div>
 <div class="tr" style="height: 27px">
-<div class="td" style="width: 90px;">订单号码<br />
+<div class="td not_print" style="width: 90px;">订单号码<br />
 <span class="en-font">P.O.No.</span></div>
-<div class="td" style="width: 202px;">品&nbsp;名&nbsp;规&nbsp;格<br />
+<div class="td not_print" style="width: 202px;">品&nbsp;名&nbsp;规&nbsp;格<br />
 <span class="en-font">Description and Specification of Goods</span></div>
-<div class="td" style="width: 48px;">单位<br />
+<div class="td not_print" style="width: 48px;">单位<br />
 <span class="en-font">Unit</span></div>
-<div class="td" style="width: 90px;">数量<br />
+<div class="td not_print" style="width: 90px;">数量<br />
 <span class="en-font">Quantity</span></div>
-<div class="td" style="width: 70px;">销售单价<br />
+<div class="td not_print" style="width: 70px;">销售单价<br />
 <span class="en-font">Unit Price</span></div>
-<div class="td last-td" style="width: 103px;">销售总额<br />
+<div class="td last-td not_print" style="width: 103px;">销售总额<br />
 <span class="en-font">Total Sales Amount</span></div>
 </div>
 <div id="goodlist-items">
@@ -267,18 +267,18 @@ Transportation</span></div>
 %>
 
 <div class="tr" style="height: 27px; border-top: 1px solid;">
-<div class="td" style="width: 142px; text-align: left;">合计金额大写(币种:<span
-	class="content"><%= dict_attr Dict::Currency, @declaration_cargos[0].currency, "short_name" %></span>)<br />
-<span class="en-font">Total Amount Currency</span></div>
+<div class="td" style="width: 142px; text-align: left;"><span class="not_print">合计金额大写(币种:</span><span
+	class="content"><%= dict_attr Dict::Currency, @declaration_cargos[0].currency, "short_name" %></span><span class="not_print">)</span><br />
+<span class="en-font not_print">Total Amount Currency</span></div>
 <div class="td" style="width: 290px; width: 288px\9;"><span
 	class="content"><%= num_to_chinese total_price %></span></div>
-<div class="td" style="width: 70px;">(小写)<br />
+<div class="td not_print" style="width: 70px;">(小写)<br />
 <span class="en-font">Total Amount</span></div>
 <div class="td last-td" style="width: 103px;"><span
 	class="content"><%= sprintf "%0.2f", total_price %></span></div>
 </div>
 <div class="tr last-tr" style="height: 27px;">
-<div class="td" style="width: 90px;">备注<span class="en-font">Notes</span></div>
+<div class="td not_print" style="width: 90px;">备注<span class="en-font">Notes</span></div>
 <div class="td last-td" style="width: 515px;"><span
 	class="content"><%= dict_name Dict::DealMode, @declaration.deal_mode %><%= dict_name Dict::District, @declaration.destination %></span></div>
 </div>
@@ -290,24 +290,24 @@ Transportation</span></div>
 
 <div id="footer">
 <div class="tr" style="margin-top: 5px; height: 14px;">
-<div class="td" style="width: 110px;">销货单位(盖章):</div>
+<div class="td not_print" style="width: 110px;">销货单位(盖章):</div>
 <div class="td" style="width: 490px;"><span class="content"><%= current_enterprise.name %></span></div>
 </div>
 <div class="tr" style="margin-top: 0px;">
-<div class="td" style="width: 50px;">地址:</div>
+<div class="td not_print" style="width: 50px;">地址:</div>
 <div class="td" style="width: 550px;"><span class="content"><%= current_enterprise.address %></span></div>
 
 </div>
 <div class="tr" style="margin-top: 0px;">
-<div class="td" style="width: 110px;">电话:</div>
+<div class="td not_print" style="width: 110px;">电话:</div>
 <div class="td" style="width: 190px;"><span class="content"><%= current_enterprise.telephone %></span></div>
-<div class="td" style="width: 110px;">Tel:</div>
+<div class="td not_print" style="width: 110px;">Tel:</div>
 <div class="td" style="width: 190px;"><span class="content"></span></div>
 </div>
 <div class="tr" style="margin-top: 0px;">
-<div class="td" style="width: 110px;">传真:</div>
+<div class="td not_print" style="width: 110px;">传真:</div>
 <div class="td" style="width: 190px;"><span class="content"><%= current_enterprise.fax %></span></div>
-<div class="td" style="width: 110px;">Fax:</div>
+<div class="td not_print" style="width: 110px;">Fax:</div>
 <div class="td" style="width: 190px;"><span class="content"></span></div>
 </div>
 </div>

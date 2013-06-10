@@ -126,7 +126,7 @@
 
 <% @groups.each_with_index do |group, group_index| %>
 <div class="frame">
-	<div style="width:100%;height:75px;">		
+	<div style="width:100%;height:75px;">
 		<div id="barcode1">
 			<% if !@declaration.eport_no.blank? %>
 				<img src="<%= barcode_path(:code => @declaration.eport_no) %>">
@@ -142,58 +142,58 @@
 			<% end %>
 		</div>
 	</div>
-	<div class="title" >
+	<div class="title not_print" >
 		<h1>中华人民共和国海关<%= @declaration_type == "export" ? "出口" : "进口"  %>货物报关单</h1>			
 	</div>
 	<div id="top">
 		<div id="top-left">
-			预录入编号：<span class="content"><%= @declaration.pre_entry_no %></span>
+          <span class="not_print">预录入编号：</span><span class="content"><%= @declaration.pre_entry_no %></span>
 			<span class="content">申报现场:<%= dict_name_and_code Dict::Custom, Dict::LoadPort.find_by_code(@declaration.load_port).custom_code rescue '' %></span>
 		</div>
-		<div id="top-right">海关编号：<span class="content"><%= @declaration.entry_no %></span></div>
+		<div id="top-right"><span class="not_print">海关编号：</span><span class="content"><%= @declaration.entry_no %></span></div>
 		<div class="clear"></div>
 	</div>
 	
 	<div class="table">
 		<div class="tr">
-			<div class="td" style="width:295px;"><div class="bg-text"><%= @declaration_type == "export" ? "出口" : "进口" %>口岸</div> <span class="content"><%= dict_name_and_code Dict::Custom, @declaration.custom %></span></div>
-			<div class="td" style="width:170px;"><div class="bg-text">备案号</div> 
+			<div class="td" style="width:295px;"><div class="bg-text not_print"><%= @declaration_type == "export" ? "出口" : "进口" %>口岸</div> <span class="content"><%= dict_name_and_code Dict::Custom, @declaration.custom %></span></div>
+			<div class="td" style="width:170px;"><div class="bg-text not_print">备案号</div>
 				<span class="content"><%=  @declaration.contract.manual if (@declaration.contract && @declaration.trade_mode != '0110') %></span>
 			</div>
-			<div class="td" style="width:142px;"><div class="bg-text"><%= @declaration_type == "export" ? "出口" : "进口" %>日期</div> <span class="content"><%= @declaration.import_export_date.strftime('%Y%m%d') if @declaration.import_export_date %></span></div>
-			<div class="td last-td" style="width:128px;"><div class="bg-text">申报日期</div> <span class="content"><%= @declaration.declare_date.strftime('%Y%m%d') if @declaration.declare_date %></span></div>
+			<div class="td" style="width:142px;"><div class="bg-text not_print"><%= @declaration_type == "export" ? "出口" : "进口" %>日期</div> <span class="content"><%= @declaration.import_export_date.strftime('%Y%m%d') if @declaration.import_export_date %></span></div>
+			<div class="td last-td" style="width:128px;"><div class="bg-text not_print">申报日期</div> <span class="content"><%= @declaration.declare_date.strftime('%Y%m%d') if @declaration.declare_date %></span></div>
 		</div>
 		<div class="tr">
-			<div class="td" style="width:295px;"><div class="bg-text">经营单位</div> <span class="content"><%= enterprise_name_and_code @declaration.operate_enterprise_code %></span></div>
-			<div class="td" style="width:79px;"><div class="bg-text">运输方式</div> <span class="content"><%= dict_name Dict::TransportMode, @declaration.transport_mode %></span></div>
-			<div class="td" style="width:171px;"><div class="bg-text">运输工具名称</div> <span class="content"><%= @declaration.transport_tool %> <%= @declaration.voyage_no %></span></div>
-			<div class="td last-td" style="width:190px;"><div class="bg-text">提运单号</div> <span class="content"><%= @declaration.bill_no %></span></div>
+			<div class="td" style="width:295px;"><div class="bg-text not_print">经营单位</div> <span class="content"><%= enterprise_name_and_code @declaration.operate_enterprise_code %></span></div>
+			<div class="td" style="width:79px;"><div class="bg-text not_print">运输方式</div> <span class="content"><%= dict_name Dict::TransportMode, @declaration.transport_mode %></span></div>
+			<div class="td" style="width:171px;"><div class="bg-text not_print">运输工具名称</div> <span class="content"><%= @declaration.transport_tool %> <%= @declaration.voyage_no %></span></div>
+			<div class="td last-td" style="width:190px;"><div class="bg-text not_print">提运单号</div> <span class="content"><%= @declaration.bill_no %></span></div>
 		</div>
 		<div class="tr">
-			<div class="td" style="width:295px;"><div class="bg-text"><%= @declaration_type == "export" ? "发货" : "收货" %>单位</div> <span class="content"><%= enterprise_name_and_code @declaration.enterprise %></span></div>
-			<div class="td" style="width:157px;"><div class="bg-text">贸易方式</div> <span class="content"><%= dict_name_and_code Dict::TradeMode, @declaration.trade_mode %></span></div>
-			<div class="td" style="width:152px;"><div class="bg-text">征免性质</div> <span class="content"><%= dict_name_and_code Dict::TaxKind, @declaration.tax_kind %></span></div>
-			<div class="td last-td" style="width:131px;"><div class="bg-text"><%= @declaration_type == "export" ? "结汇方式" : "征税比例" %></div> <span class="content"><%= dict_name Dict::PayWay, @declaration.pay_way if @declaration_type == "export" %></span></div>
+			<div class="td" style="width:295px;"><div class="bg-text not_print"><%= @declaration_type == "export" ? "发货" : "收货" %>单位</div> <span class="content"><%= enterprise_name_and_code @declaration.enterprise %></span></div>
+			<div class="td" style="width:157px;"><div class="bg-text not_print">贸易方式</div> <span class="content"><%= dict_name_and_code Dict::TradeMode, @declaration.trade_mode %></span></div>
+			<div class="td" style="width:152px;"><div class="bg-text not_print">征免性质</div> <span class="content"><%= dict_name_and_code Dict::TaxKind, @declaration.tax_kind %></span></div>
+			<div class="td last-td" style="width:131px;"><div class="bg-text not_print"><%= @declaration_type == "export" ? "结汇方式" : "征税比例" %></div> <span class="content"><%= dict_name Dict::PayWay, @declaration.pay_way if @declaration_type == "export" %></span></div>
 		</div>
 		<div class="tr">
-			<div class="td" style="width:210px;"><div class="bg-text">许可证号</div> <span class="content"></span></div>
-			<div class="td" style="width:186px;"><div class="bg-text"><%= @declaration_type == "export" ? "运抵" : "启运" %>国（地区）</div> <span class="content"><%= dict_name_and_code Dict::Country, @declaration.trade_country %></span></div>
-			<div class="td" style="width:189px;"><div class="bg-text"><%= @declaration_type == "export" ? "指运港" : "装货港" %></div> <span class="content"><%= dict_name_and_code Dict::Port, @declaration.port %></span></div>
-			<div class="td last-td" style="width:152px;"><div class="bg-text"><%= @declaration_type == "export" ? "境内货源地" : "境内目的地" %></div> <span class="content"><%= dict_name_and_code Dict::District, @declaration.destination %></span></div>
+			<div class="td" style="width:210px;"><div class="bg-text not_print">许可证号</div> <span class="content"></span></div>
+			<div class="td" style="width:186px;"><div class="bg-text not_print"><%= @declaration_type == "export" ? "运抵" : "启运" %>国（地区）</div> <span class="content"><%= dict_name_and_code Dict::Country, @declaration.trade_country %></span></div>
+			<div class="td" style="width:189px;"><div class="bg-text not_print"><%= @declaration_type == "export" ? "指运港" : "装货港" %></div> <span class="content"><%= dict_name_and_code Dict::Port, @declaration.port %></span></div>
+			<div class="td last-td" style="width:152px;"><div class="bg-text not_print"><%= @declaration_type == "export" ? "境内货源地" : "境内目的地" %></div> <span class="content"><%= dict_name_and_code Dict::District, @declaration.destination %></span></div>
 		</div>
 		<div class="tr">
-			<div class="td" style="width:210px;"><div class="bg-text">批准文号</div> <span class="content"></span></div>
-			<div class="td" style="width:97px;"><div class="bg-text">成交方式</div> <span class="content"><%= dict_name Dict::DealMode, @declaration.deal_mode %></span></div>
-			<div class="td" style="width:157px;"><div class="bg-text">运费</div> <span class="content"></span></div>
-			<div class="td" style="width:131px;"><div class="bg-text">保费</div> <span class="content"></span></div>
-			<div class="td last-td" style="width:151px;"><div class="bg-text">杂费</div> <span class="content"></span></div>
+			<div class="td" style="width:210px;"><div class="bg-text not_print">批准文号</div> <span class="content"></span></div>
+			<div class="td" style="width:97px;"><div class="bg-text not_print">成交方式</div> <span class="content"><%= dict_name Dict::DealMode, @declaration.deal_mode %></span></div>
+			<div class="td" style="width:157px;"><div class="bg-text not_print">运费</div> <span class="content"></span></div>
+			<div class="td" style="width:131px;"><div class="bg-text not_print">保费</div> <span class="content"></span></div>
+			<div class="td last-td" style="width:151px;"><div class="bg-text not_print">杂费</div> <span class="content"></span></div>
 		</div>
 		<div class="tr">
-			<div class="td" style="width:210px;"><div class="bg-text">合同协议号</div> <span class="content"><%= @declaration.contract_no %></span></div>
-			<div class="td" style="width:133px;"><div class="bg-text">件数</div> <span class="content"><%= @declaration.package_amount %></span></div>
-			<div class="td" style="width:121px;"><div class="bg-text">包装种类</div> <span class="content"><%= dict_name Dict::WrapType, @declaration.wrap_type %></span></div>
-			<div class="td" style="width:145px;"><div class="bg-text">毛重</div> <span class="content"><%= "%g" % @declaration.gross_weight %></span></div>
-			<div class="td last-td" style="width:128px;"><div class="bg-text">净重</div> <span class="content"><%= "%g" % @declaration.net_weight %></span></div>
+			<div class="td" style="width:210px;"><div class="bg-text not_print">合同协议号</div> <span class="content"><%= @declaration.contract_no %></span></div>
+			<div class="td" style="width:133px;"><div class="bg-text not_print">件数</div> <span class="content"><%= @declaration.package_amount %></span></div>
+			<div class="td" style="width:121px;"><div class="bg-text not_print">包装种类</div> <span class="content"><%= dict_name Dict::WrapType, @declaration.wrap_type %></span></div>
+			<div class="td" style="width:145px;"><div class="bg-text not_print">毛重</div> <span class="content"><%= "%g" % @declaration.gross_weight %></span></div>
+			<div class="td last-td" style="width:128px;"><div class="bg-text not_print">净重</div> <span class="content"><%= "%g" % @declaration.net_weight %></span></div>
 		</div>
 		<div class="tr">
 		<%
@@ -203,15 +203,15 @@
 				total_valent_num += Dict::Container.find_by_code(declaration_container.container).valent_num
 			end		
 		%>
-			<div class="td" style="width:210px;"><div class="bg-text">集装箱号</div> <span class="content"><%= "#{declaration_containers.first.code} * #{declaration_containers.size} (#{total_valent_num})" rescue '' %></span></div>
+			<div class="td" style="width:210px;"><div class="bg-text not_print">集装箱号</div> <span class="content"><%= "#{declaration_containers.first.code} * #{declaration_containers.size} (#{total_valent_num})" rescue '' %></span></div>
 		<% 
 			attachments = Array.new
 			@declaration.attachments.keys.each do |key|
 				attachments << ( dict_name Dict::Attachment, key )
 			end
 		%>
-			<div class="td" style="width:370px;"><div class="bg-text">随附单证</div> <span class="content"><%= attachments.join(" ") %></span></div>
-			<div class="td last-td" style="width:157px;"><div class="bg-text"><%= @declaration_type == "export" ? "生产厂家" : "用途" %></div>
+			<div class="td" style="width:370px;"><div class="bg-text not_print">随附单证</div> <span class="content"><%= attachments.join(" ") %></span></div>
+			<div class="td last-td" style="width:157px;"><div class="bg-text not_print"><%= @declaration_type == "export" ? "生产厂家" : "用途" %></div>
 				<% if @declaration_type == "export" %>
 				<span class="content"></span>
 				<% else %>
@@ -234,14 +234,14 @@
 		
 		<div id="goodlist-head">
 			<div class="tr">
-				<div class="td goodlist-head-first" style="width:32px;">项号</div>
-				<div class="td" style="width:80px;">商品编号</div>
-				<div class="td" style="width:185px;">商品名称、规格型号</div>
-				<div class="td" style="width:105px;">数量及单位</div>
-				<div class="td" style="width:180px;"><%= @declaration_type == "export" ? "最终目的国" : "原产国" %>（地区）单价</div>
-				<div class="td" style="width:80px;">总价</div>
-				<div class="td" style="width:35px;">币制</div>
-				<div class="td last-td" style="width:30px;">征免</div>
+				<div class="td goodlist-head-first not_print" style="width:32px;">项号</div>
+				<div class="td not_print" style="width:80px;">商品编号</div>
+				<div class="td not_print" style="width:185px;">商品名称、规格型号</div>
+				<div class="td not_print" style="width:105px;">数量及单位</div>
+				<div class="td not_print" style="width:180px;"><%= @declaration_type == "export" ? "最终目的国" : "原产国" %>（地区）单价</div>
+				<div class="td not_print" style="width:80px;">总价</div>
+				<div class="td not_print" style="width:35px;">币制</div>
+				<div class="td last-td not_print" style="width:30px;">征免</div>
 			</div>
 		</div>
 		<div id="goodlist-items">
@@ -277,7 +277,7 @@
 		
 		<div class="tr" style="height: 173px;">
 			<div class="td last-td" style="width:696px;height:150px;">
-				<div class="bg-text">税费征收情况</div> 
+				<div class="bg-text not_print">税费征收情况</div>
 				<span class="content"></span>
 			</div>
 		</div>
@@ -285,47 +285,47 @@
 		<div class="tr last-tr" style="height: 166px;">
 			<div class="td" style="width:248px;height:166px; border-right: none;">
 				<div class="tr" style="height: 45px; border-bottom: none;">
-					<div class="td" style="width:93px;height:45px;border-bottom:1px solid;border-right: none;"><div class="bg-text">录入员</div> <span class="content"></span></div>
-					<div class="td" style="width:116px;height:45px;border-bottom:1px solid;"><div class="bg-text">录入单位</div> <span class="content"></span></div>				
+					<div class="td" style="width:93px;height:45px;border-bottom:1px solid;border-right: none;"><div class="bg-text not_print">录入员</div> <span class="content"></span></div>
+					<div class="td" style="width:116px;height:45px;border-bottom:1px solid;"><div class="bg-text not_print">录入单位</div> <span class="content"></span></div>
 				</div>	
 				<div class="tr" style="height: 45px; border-bottom: none;">
-					<div class="td last-td" style="width:200px;height:45px;"><div class="bg-text">报关员</div> <span class="content"><%= @declaration.declarant %></span></div>				
+					<div class="td last-td" style="width:200px;height:45px;"><div class="bg-text not_print">报关员</div> <span class="content"><%= @declaration.declarant %></span></div>
 				</div>
 				<div class="tr" style="height: 50px; border-bottom: none;">
-					<div class="td last-td" style="width:200px;height:50px;"><div class="bg-text">单位地址</div><span class="content"></span> </div>				
+					<div class="td last-td" style="width:200px;height:50px;"><div class="bg-text not_print">单位地址</div><span class="content"></span> </div>
 				</div>	
 				<div class="tr" style="height: 14px; border-bottom: none;">
-					<div class="td last-td" style="width:117px;height:16px;"><div class="bg-text">邮编&nbsp;<span class="content"></span></div></div>	
-					<div class="td last-td" style="width:125px;height:16px;">电话&nbsp;<span class="content"></span></div>				
+					<div class="td last-td" style="width:117px;height:16px;"><div class="bg-text"><span class="not_print">邮编&nbsp;</span><span class="content"></span></div></div>
+					<div class="td last-td" style="width:125px;height:16px;"><span class="not_print">电话&nbsp;</span><span class="content"></span></div>
 				</div>							
 			</div>
 			<div class="td" style="width:236px;height:166px;">
 				<div class="tr" style="height: 75px; border-bottom: none;">
-					<div class="td last-td" style="width:100%;height:75px;"><div class="bg-text">兹声明以上申报无讹并承担法律责任</div> </div>				
+					<div class="td last-td" style="width:100%;height:75px;"><div class="bg-text not_print">兹声明以上申报无讹并承担法律责任</div> </div>
 				</div>	
 				<div class="tr" style="height: 65px; border-bottom: none;">
-					<div class="td last-td" style="width:100%;height:65px;"><div class="bg-text" style="margin-left: 20px;">申报单位（签章）</div><span class="content"><%= @declaration.declare_enterprise.name %></span> </div>				
+					<div class="td last-td" style="width:100%;height:65px;"><div class="bg-text not_print" style="margin-left: 20px;">申报单位（签章）</div><span class="content"><%= @declaration.declare_enterprise.name %></span> </div>
 				</div>	
 				<div class="tr" style="height: 14px; border-bottom: none;">
-					<div class="td last-td" style="width:100%;height:16px;"><div class="bg-text"  style="margin-left: 20px;">填制日期&nbsp;<span class="content"><%= @declaration.declare_date.strftime('%Y%m%d') if @declaration.declare_date %></span></div></div>	
+					<div class="td last-td" style="width:100%;height:16px;"><div class="bg-text"  style="margin-left: 20px;"><span class="not_print">填制日期&nbsp;</span><span class="content"><%= @declaration.declare_date.strftime('%Y%m%d') if @declaration.declare_date %></span></div></div>
 				</div>	
 			</div>
 			
 			<div class="td last-td" style="width:265px;height:166px;">
 				<div class="tr" style="height: 38px; border-bottom: none;">
-					<div class="td last-td" style="width:100%;height:38px;"><div class="bg-text">海关审单批注及放行日期（签章）</div></div>				
+					<div class="td last-td" style="width:100%;height:38px;"><div class="bg-text not_print">海关审单批注及放行日期（签章）</div></div>
 				</div>	
 				<div class="tr" style="height: 36px;">
-					<div class="td last-td" style="width:95px;height:36px;"><div class="bg-text">审单</div></div>
-					<div class="td last-td" style="width:142px;height:36px;"><div class="bg-text">审价</div> </div>				
+					<div class="td last-td" style="width:95px;height:36px;"><div class="bg-text not_print">审单</div></div>
+					<div class="td last-td" style="width:142px;height:36px;"><div class="bg-text not_print">审价</div> </div>
 				</div>		
 				<div class="tr" style="height: 45px;">
-					<div class="td last-td" style="width:95px;height:45px;"><div class="bg-text">征税</div></div>
-					<div class="td last-td" style="width:142px;height:45px;"><div class="bg-text">统计</div></div>				
+					<div class="td last-td" style="width:95px;height:45px;"><div class="bg-text not_print">征税</div></div>
+					<div class="td last-td" style="width:142px;height:45px;"><div class="bg-text not_print">统计</div></div>
 				</div>	
 				<div class="tr last-tr" style="height: 45px;">
-					<div class="td last-td" style="width:95px;height:45px;"><div class="bg-text">查验</div></div>
-					<div class="td last-td" style="width:142px;height:45px;"><div class="bg-text">放行</div></div>				
+					<div class="td last-td" style="width:95px;height:45px;"><div class="bg-text not_print">查验</div></div>
+					<div class="td last-td" style="width:142px;height:45px;"><div class="bg-text not_print">放行</div></div>
 				</div>			
 			</div>
 			
