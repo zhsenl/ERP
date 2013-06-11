@@ -4,14 +4,14 @@
 function preview_all() {
 	$(".frame div").css("border-color", "#000000");
 //	$(".frame div").css("color", "#000000");
-    $(".frame .not_print").css('opacity',1)
+    $(".frame .not_print").css('visibility','visible')
 }
 
 function preview_content() {
 	$(".frame div").css("border-color", "#ffffff");
 //	$(".frame div").css("color", "#ffffff");
 //	$(".frame .content").css("color", "#000000");
-    $(".frame .not_print").css('opacity',0)
+    $(".frame .not_print").css('visibility','hidden')
 }
 
 function html_decode(text){
