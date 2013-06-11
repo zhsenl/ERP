@@ -16,14 +16,14 @@
 	}	
 	#barcode1{
 		float:left;
-		margin-top:40px;
+		margin-top:5px;
 		width:50%;
 		text-align: center;
 		line-height: 12px;
 	}
 	#barcode2{
 		float:left;
-		margin-top:40px;
+		margin-top:10px;
 		width:50%;
 		text-align: center;
 		line-height: 12px;
@@ -31,7 +31,7 @@
 	.title {
 		padding-top: 1px;
 		text-align: center;
-		height: 60px;
+		height: 35px;
 	}
 	
 	#top {
@@ -143,7 +143,7 @@
 		</div>
 	</div>
 	<div class="title not_print" >
-		<h1>中华人民共和国海关<%= @declaration_type == "export" ? "出口" : "进口"  %>货物报关单</h1>			
+		<h1>中华人民共和国海关<%= @declaration_type == "export" ? "出口" : "进口"  %>货物报关单</h1>
 	</div>
 	<div id="top">
 		<div id="top-left">
