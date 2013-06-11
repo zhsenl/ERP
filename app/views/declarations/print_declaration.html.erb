@@ -1,11 +1,11 @@
 <style>
 	body {
 		font-family: "KaiTi_GB2312";
-		font-size: 12px;
+		font-size: 15px;
 	}
 	.frame {
 		margin: 0 auto;
-		width: 752px;
+		width: 852px;
 		text-align: left;
 	}
 	h1 {
@@ -29,9 +29,9 @@
 		line-height: 12px;
 	}
 	.title {
-		padding-top: 1px;
+		/*padding-top: 1px;*/
 		text-align: center;
-		height: 35px;
+		height: 25px;
 	}
 	
 	#top {
@@ -40,9 +40,9 @@
 	}
 	
 	#top-left {
-		margin-left: 60px;
+		margin-left: 20px;
 		float: left;
-		width: 370px;
+		width: 450px;
 	}
 	
 	#top-right {
@@ -56,9 +56,9 @@
 	
 	.tr {
 		float: none;
-		height: 28px;
+		height: 37px;
 		width: 100%;
-		height: 30px;
+		/*height: 30px;*/
 		border-bottom: 1px solid;
 	}
 	
@@ -69,7 +69,7 @@
 	.td {
 		float: left;
 		text-align: center;
-		height: 28px;
+		height: 37px;
 		border-right: 1px solid;
 		overflow:hidden;
 		text-overflow:ellipsis;
@@ -86,7 +86,7 @@
 	
 	.content {
 		font-family: "SimSun";
-		font-size: 13px;
+		font-size: 15px;
 		overflow: hidden;
 	}
 	
@@ -105,12 +105,12 @@
 	}
 	
 	#goodlist-items .tr {
-		height: 47px;
+		height: 62px;
 		border-bottom: 1px dashed;
 	}	
 	#goodlist-items .td {
 		text-align: left;
-		height: 47px;
+		height: 62px;
 		border-right: none;
 		vertical-align: middle;
 	}	
@@ -126,25 +126,28 @@
 
 <% @groups.each_with_index do |group, group_index| %>
 <div class="frame">
-	<div style="width:100%;height:75px;">
+	<div style="width:50%;height:40px;">
 		<div id="barcode1">
 			<% if !@declaration.eport_no.blank? %>
 				<img src="<%= barcode_path(:code => @declaration.eport_no) %>">
 				<br/>
-				<%= @declaration.eport_no %>
+              <span class="content"><%= @declaration.eport_no %></span>
 			<% end %>
 		</div>
-		<div id="barcode2">
-			<% if !@declaration.entry_no.blank? %>
-				<img src="<%= barcode_path(:code => @declaration.entry_no) %>">
-				<br/>
-				<%= @declaration.entry_no %>
-			<% end %>
-		</div>
+
 	</div>
 	<div class="title not_print" >
 		<h1>中华人民共和国海关<%= @declaration_type == "export" ? "出口" : "进口"  %>货物报关单</h1>
 	</div>
+    <div style="width:50%;height:55px;margin-left: 65%">
+      <div id="barcode2">
+        <% if !@declaration.entry_no.blank? %>
+            <img src="<%= barcode_path(:code => @declaration.entry_no) %>">
+            <br/>
+            <span class="content"><%= @declaration.entry_no %></span>
+        <% end %>
+      </div>
+    </div>
 	<div id="top">
 		<div id="top-left">
           <span class="not_print">预录入编号：</span><span class="content"><%= @declaration.pre_entry_no %></span>
@@ -227,8 +230,8 @@
 				attachments << ( key + ":" + val )
 			end
 		%>
-		<div class="tr" style="height: 67px;">
-			<div class="td last-td" style="width:696px;height:60px;text-align: left;"><div class="bg-text">标记唛码及备注</div> <span class="content">[装卸口岸]<%= dict_name Dict::LoadPort, @declaration.load_port %> <%= @declaration.memo %> <%= attachments.join(" ") %></span></div>
+		<div class="tr" style="height: 77px;">
+			<div class="td last-td" style="width:696px;height:77px;text-align: left;"><div class="bg-text">标记唛码及备注</div> <span class="content">[装卸口岸]<%= dict_name Dict::LoadPort, @declaration.load_port %> <%= @declaration.memo %> <%= attachments.join(" ") %></span></div>
 		</div>
 		
 		

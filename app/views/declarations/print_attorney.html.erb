@@ -110,7 +110,7 @@
     </div>
     <div class="tr">
       <div class="td left not_print">货物总价</div>
-      <div class="td right"><span class="content"><%= dict_name Dict::Currency, @major_cargo.currency %><%= @total_price %></span></div>
+      <div class="td right"><span class="content"><%= dict_attr Dict::Currency, @major_cargo.currency , "short_name"%><%= @total_price %></span></div>
     </div>
     <div class="tr">
       <div class="td left not_print">进出口日期</div>
@@ -164,7 +164,7 @@
   <div class="table" style="width:48%;display: inline-block;font-size: 12px">
     <div class="tr">
       <div class="td left not_print">被委托方</div>
-      <div class="td right"><span class="content">新泽报关公司</span></div>
+      <div class="td right"><span class="content">新泽</span></div>
     </div>
     <div class="tr">
       <div class="td left not_print">*报关单编码</div>

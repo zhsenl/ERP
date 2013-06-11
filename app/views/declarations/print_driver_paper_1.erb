@@ -12,7 +12,25 @@
 	position: absolute;
 }
 </style>
-
+ <script>
+     //主函数
+     function DX(n) {
+         if (!/^(0|[1-9]\d*)(\.\d+)?$/.test(n))
+             return "数据非法";
+         var unit = "千百拾亿千百拾万千百拾元角分", str = "";
+         n += "00";
+         var p = n.indexOf('.');
+         if (p >= 0)
+             n = n.substring(0, p) + n.substr(p+1, 2);
+         unit = unit.substr(unit.length - n.length);
+         for (var i=0; i < n.length; i++)
+             str += '零壹贰叁肆伍陆柒捌玖'.charAt(n.charAt(i)) + unit.charAt(i);
+         return str.replace(/零(千|百|拾|角)/g, "零").replace(/(零)+/g, "零").replace(/零(万|亿|元)/g, "$1").replace(/(亿)万|壹(拾)/g, "$1$2").replace(/^元零?|零分/g, "").replace(/元$/g, "元整");
+     }
+    $(function(){
+        $('#weight_print').append('('+DX($('#weight').text())+')');
+    })
+ </script>
 <div class="frame">
 	<div id="content">
 		<div class="content" style="top:15px; left:185px;"><%= @truck.name %></div>
@@ -27,13 +45,21 @@
 		<div class="content" style="top:105px; left:213px;"><%= @declaration_cargos.first.code rescue '' %></div>
 		<div class="content" style="top:105px; left:300px;"><%= @package_amount.to_s + (dict_name Dict::WrapType, @declaration.wrap_type) %></div>
 		<div class="content" style="top:105px; left:370px;"><%= @net_weight %></div>
-		<div class="content" style="top:105px; left:430px;"><%= @total_price %></div>
+		<div class="content" style="top:105px; left:430px;"><%= dict_attr Dict::Currency, @declaration_cargos.first.currency, "short_name" %><%= @total_price %></div>
 		<div class="content" style="top:105px; left:550px;"><%= @declaration.enterprise.name rescue '' %></div>
 		<div class="content" style="top:105px; left:770px;"><%= @declaration.foreign_enterprise.name rescue '' %></div>
 
 		<div class="content" style="top:262px; left:78px;"><%= @package_amount.to_s + (dict_name Dict::WrapType, @declaration.wrap_type) %></div>
-		<div class="content" style="top:262px; left:320px;"><%= @gross_weight %></div>
-		<div class="content" style="top:262px; left:630px;"><%= @declaration_container %></div>
+		<div class="content" style="top:262px; left:320px;" id="weight_print"><%= @gross_weight %>千克</div>
+        <div id="weight" style="display: none"><%= @gross_weight %></div>
+      <%
+         declaration_containers = @declaration.declaration_containers
+         total_valent_num = 0
+         declaration_containers.each do |declaration_container|
+           total_valent_num += Dict::Container.find_by_code(declaration_container.container).valent_num
+         end
+      %>
+      <div class="content" style="top:262px; left:630px;"><%= "#{declaration_containers.first.code} * #{declaration_containers.size} (#{total_valent_num})" rescue '' %></div>
 
 		<div class="content" style="top:292px; left:260px;"><%= @declaration.enterprise.name rescue '' %></div>
 		<div class="content" style="top:318px; left:130px;"><%= @truck.corporation_name %></div>
@@ -44,8 +70,13 @@
 		<div class="content" style="top:402px; left:140px;"><%= @declaration.contract_no %></div>
 		<div class="content" style="top:432px; left:140px;"><%= dict_name Dict::TradeMode, @declaration.trade_mode %></div>
 		<div class="content" style="top:467px; left:140px;"><%= dict_name Dict::Country, @declaration_cargos.first.trade_country rescue '' %></div>
-		<div class="content" style="top:497px; left:140px;"><%= dict_name Dict::Port, @declaration.port rescue '' %></div>
-		<div class="content" style="top:517px; left:140px;"><%= dict_name Dict::Custom, @declaration.custom rescue '' %></div>
+		<% if @declaration.declaration_type == 'export' %>
+          <div class="content" style="top:497px; left:140px;"><%= dict_name_and_code Dict::Custom, Dict::LoadPort.find_by_code(@declaration.load_port).custom_code rescue '' %></div>
+          <div class="content" style="top:517px; left:140px;"><%= dict_name_and_code Dict::Custom, @declaration.custom %></div>
+        <% else %>
+          <div class="content" style="top:497px; left:140px;"><%= dict_name_and_code Dict::Custom, @declaration.custom %></div>
+          <div class="content" style="top:517px; left:140px;"><%= dict_name_and_code Dict::Custom, Dict::LoadPort.find_by_code(@declaration.load_port).custom_code rescue '' %></div>
+        <% end %>
 		<div class="content" style="top:542px; left:140px;"><%= @truck.code %></div>
 	</div>
 </div>

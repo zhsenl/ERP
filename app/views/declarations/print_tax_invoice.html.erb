@@ -79,7 +79,7 @@
 	
 	.td {
 		float: left;
-		height: 22px;
+		height: 24px;
 		overflow: hidden;
 	}
 	
@@ -109,7 +109,7 @@
 	}
 	
 	#goodlist-items {
-		height: 505px;
+		height: 485px;
 		overflow: hidden;
 	}
 	
@@ -148,6 +148,7 @@ Invoice</span></div>
 	style="width: 192px; height: 18px; float: right; font-size: 13px; ">发票号码:</div>
 <div class="clear"></div>
 <% foreign_enterprise = @declaration.foreign_enterprise rescue nil %>
+<div style="height: 30px"></div>
 <div class="tr" style="margin-top: -12px;">
 <div class="td not_print" style="width: 73px;">购货单位:<br />
 <span class="en-font">Purchaser:</span></div>
@@ -245,8 +246,8 @@ Transportation</span></div>
 </div>
 <% end %>
 
-<% if list_size < 26 %>
-<% (1..26-list_size).each do |i| %>
+<% if list_size < 25 %>
+<% (1..25-list_size).each do |i| %>
 <div class="tr">
 <div class="td" style="width: 90px;"></div>
 <div class="td" style="width: 202px;"></div>
