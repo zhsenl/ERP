@@ -1,11 +1,11 @@
 <style type="text/css">
 body {
-	font-size: 16px;
+	font-size: 12px;
 }
 
 .frame {
 	margin: 0 auto;
-	width: 640px;
+	width: 620px;
 	text-align: left;
 }
 
@@ -42,7 +42,7 @@ h1 {
 .table .td {
 	border-right: 1px solid;
 	height: 31px;
-	text-align: center;
+	text-align: left;
 	line-height: 31px;
 }
 
@@ -114,14 +114,14 @@ h1 {
 
 <div class="tr" style="height: 30px; margin-top: 10px;">
 <div class="td" style="height: 30px; width: 94px;"><span class="bgText not_print">商　　　号：</span></div>
-<div class="td" style="height: 30px; width: 305px; border-bottom: 1px solid;"><span class="content"><%= @declaration.foreign_enterprise.name rescue "" %></span></div>
+<div class="td" style="height: 30px; width:285px; border-bottom: 1px solid;"><span class="content"><%= @declaration.foreign_enterprise.name rescue "" %></span></div>
 <div class="td" style="height: 30px; width: 22px;"></div>
 <div class="td" style="height: 30px; width: 70px;"><span class="bgText not_print">海关编号：</span></div>
 <div class="td" style="height: 30px; width: 146px; border-bottom: 1px solid;"><span class="content"><%= @declaration.enterprise.code rescue "" %></span></div>
 </div>
 <div class="tr" style="height: 30px; margin-top: 10px;">
 <div class="td" style="height: 30px; width: 94px;"><span class="bgText not_print"><%= @declaration_type == "export" ? "发 货" : "收 货"  %> 单 位：</span></div>
-<div class="td" style="height: 30px; width: 305px; border-bottom: 1px solid;"><span class="content"><%= @declaration.enterprise.name %></span></div>
+<div class="td" style="height: 30px; width: 285px; border-bottom: 1px solid;"><span class="content"><%= @declaration.enterprise.name %></span></div>
 <div class="td" style="height: 30px; width: 22px;"></div>
 <div class="td" style="height: 30px; width: 70px;"><span class="bgText not_print">手册编号：</span></div>
 <div class="td" style="height: 30px; width: 146px; border-bottom: 1px solid;"><span class="content"><%= contract.manual rescue "" %></span></div>
@@ -131,7 +131,7 @@ h1 {
 <div style="width:100%;height:130px; border: solid 1px; margin-top: 10px;">
 <div class="tr" style="height: 30px; margin-top: 10px;">
 <div class="td" style="height: 30px; width: 100px;"><span class="bgText not_print">协议(合同)号：</span></div>
-<div class="td" style="height: 30px; width: 130px; border-bottom: 1px solid;"><span class="content"><%= @declaration.contract_no %></span></div>
+<div class="td" style="height: 30px; width: 110px; border-bottom: 1px solid;"><span class="content"><%= @declaration.contract_no %></span></div>
   <div class="td" style="height: 30px; width: 85px;"><span class="bgText not_print">运输单位：</span></div>
   <div class="td" style="height: 30px; width: 130px; border-bottom: 1px solid;"><span class="content"><%=  %></span></div>
 <div class="td" style="height: 30px; width: 85px;"><span class="bgText not_print">　车牌号：</span></div>
@@ -139,7 +139,7 @@ h1 {
 </div>
   <div class="tr" style="height: 30px; margin-top: 10px;">
     <div class="td" style="height: 30px; width: 100px;"><span class="bgText not_print">运抵国：</span></div>
-    <div class="td" style="height: 30px; width: 130px; border-bottom: 1px solid;"><span class="content"><%= dict_name Dict::Country, @declaration.trade_country %></span></div>
+    <div class="td" style="height: 30px; width: 110px; border-bottom: 1px solid;"><span class="content"><%= dict_name Dict::Country, @declaration.trade_country %></span></div>
     <div class="td" style="height: 30px; width: 85px;"><span class="bgText not_print">最终目的国：</span></div>
     <div class="td" style="height: 30px; width: 130px; border-bottom: 1px solid;"><span class="content"><%=  %></span></div>
     <div class="td" style="height: 30px; width: 85px;"><span class="bgText not_print">　司机姓名：</span></div>
@@ -147,9 +147,9 @@ h1 {
   </div>
 <div class="tr" style="height: 30px; margin-top: 10px;">
 <div class="td" style="height: 30px; width: 50px;"><span class="bgText not_print">件数：</span></div>
-<div class="td" style="height: 30px; width: 66px; border-bottom: 1px solid;"><span class="content"><%= @declaration.package_amount %></span></div>
+<div class="td" style="height: 30px; width: 56px; border-bottom: 1px solid;"><span class="content"><%= @declaration.package_amount %></span></div>
 <div class="td" style="height: 30px; width: 85px;"><span class="bgText not_print">　包装种类：</span></div>
-<div class="td" style="height: 30px; width: 80px; border-bottom: 1px solid;"><span class="content"><%= dict_name Dict::WrapType, @declaration.wrap_type %></span></div>
+<div class="td" style="height: 30px; width: 70px; border-bottom: 1px solid;"><span class="content"><%= dict_name Dict::WrapType, @declaration.wrap_type %></span></div>
 <div class="td" style="height: 30px; width: 100px;"><span class="bgText not_print">　毛重(公斤)：</span></div>
 <div class="td" style="height: 30px; width: 66px; border-bottom: 1px solid;"><span class="content"><%= @declaration.gross_weight %></span></div>
 <div class="td" style="height: 30px; width: 100px;"><span class="bgText not_print">　净重(公斤)：</span></div>
@@ -160,12 +160,12 @@ h1 {
 <div class="tr header" style="margin-top: -1px; ">
 <div class="td" style="width: 40px;"><span class="bgText not_print">序<br/>号</span></div>
 <div class="td" style="width: 85px;"><span class="bgText not_print">海关统计商品编号</span></div>
-<div class="td" style="width: 200px; padding: 18px 0 0 0; height: 50px;"><span class="bgText not_print">货名规格及货号</span></div>
+<div class="td" style="width: 180px; padding: 18px 0 0 0; height: 50px;"><span class="bgText not_print">货名规格及货号</span></div>
 <div class="td" style="width: 150px; padding: 0; height:70px;">
 <div class="tr not_print" style="padding:3px; height:25px; border-bottom: solid 1px; width: 144px;">数量</div>
 <div class="tr" style="height:29px;">
-<div class="td not_print" style="width: 100px; height:34px; padding: 5px 0 0 0;">数　量</div>
-<div class="td not_print" style="width: 49px; height:34px;border: none; padding: 5px 0 0 0;">单位</div>
+<div class="td not_print" style="width: 80px; height:34px; padding: 5px 0 0 0;">数　量</div>
+<div class="td not_print" style="width: 69px; height:34px;border: none; padding: 5px 0 0 0;">单位</div>
 </div>
 </div>
 <div class="td last-td" style="width: 148px; padding: 0;">
@@ -183,9 +183,9 @@ h1 {
 <div class="tr">
 <div class="td" style="width: 40px;"><span class="content"><%= cargo.no %></span></div>
 <div class="td" style="width: 85px;"><span class="content"><%= cargo.code %></span></div>
-<div class="td" style="width: 200px; text-align:left;overflow:hidden;"><span class="content"><%= cargo.name %><% if !cargo.specification.blank? %>/<% end %><%= cargo.specification %></span></div>
-<div class="td" style="width: 100px;"><span class="content"><%= cargo.quantity %><%= dict_name Dict::Unit, cargo.unit %></span></div>
-<div class="td" style="width: 49px;"><span class="content"><%= dict_name Dict::Unit, cargo.unit %></span></div>
+<div class="td" style="width: 180px; text-align:left;overflow:hidden;"><span class="content"><%= cargo.name %><% if !cargo.specification.blank? %>/<% end %><%= cargo.specification %></span></div>
+<div class="td" style="width: 80px;"><span class="content"><%= cargo.quantity %><%= dict_name Dict::Unit, cargo.unit %></span></div>
+<div class="td" style="width: 69px;"><span class="content"><%= dict_name Dict::Unit, cargo.unit %></span></div>
 <div class="td" style="width: 70px;"><span class="content"><%= sprintf "%0.2f", cargo.unit_price %></span></div>
 <div class="td last-td" style="width: 77px;"><span class="content"><%= sprintf "%0.2f", cargo.total_price %></span></div>
 </div>
@@ -195,9 +195,9 @@ h1 {
 <div class="tr">
 <div class="td" style="width: 40px;"></div>
 <div class="td" style="width: 85px;"></div>
-<div class="td" style="width: 200px;"></div>
-<div class="td" style="width: 100px;"></div>
-<div class="td" style="width: 49px;"></div>
+<div class="td" style="width: 180px;"></div>
+<div class="td" style="width: 80px;"></div>
+<div class="td" style="width: 69px;"></div>
 <div class="td" style="width: 70px;"></div>
 <div class="td last-td" style="width: 77px;"></div>
 </div>
@@ -215,9 +215,9 @@ h1 {
 <div class="tr">
 <div class="td" style="width: 40px;"></div>
 <div class="td" style="width: 85px;"></div>
-<div class="td" style="width: 200px;"></div>
-<div class="td" style="width: 100px;"></div>
-<div class="td" style="width: 49px;"></div>
+<div class="td" style="width: 180px;"></div>
+<div class="td" style="width: 80px;"></div>
+<div class="td" style="width: 69px;"></div>
 <div class="td" style="width: 70px;">合计<span class="content"><%= dict_attr Dict::Currency, @declaration_cargos[0].currency, "short_name" %></span></div>
 <div class="td last-td" style="width: 77px;"><span class="content"><%= sprintf "%0.2f", total_price %></span></div>
 </div>
@@ -235,7 +235,7 @@ h1 {
 <div class="td" style="width: 40px;height:15px;"><span class="content"><%= @declaration.declare_date.strftime('%d') %></span></div>
 <div class="td" style="width:20px;height:15px;"><span class="bgText not_print">日</span></div>
 
-<div class="td" style="width:120px;height:15px;"></div>
+<div class="td" style="width:100px;height:15px;"></div>
 
 <div class="td" style="width:80px;height:15px;"><span class="bgText not_print">发货日期：</span></div>
 <div class="td" style="width: 40px;height:15px;"></div>
@@ -246,7 +246,7 @@ h1 {
 <div class="td" style="width:20px;height:15px;"><span class="bgText not_print">日</span></div>
 </div>
 <div class="tr">
-<div class="td" style="width:380px;"><span class="bgText not_print">报关单位及报关员(签章)</span></div>
+<div class="td" style="width:360px;"><span class="bgText not_print">报关单位及报关员(签章)</span></div>
 <div class="td" style="width:100px;"><span class="bgText not_print">发货厂商(签章)</span></div>
 </div>
 

@@ -51,8 +51,8 @@
 <% contract = @declaration.contract %>
 
 <div class="frame">
-  <div class="tr" style="height: 60px;"></div>
-  <div class="tr  not_print" style="height: 35px; text-align: center; font-size: 22px;">代理报关委托书</div>
+  <div class="tr" style="height: 20px;"></div>
+  <div class="tr  not_print" style="height: 45px; text-align: center; font-size: 22px;">代理报关委托书</div>
   <div class="tr">
     <div class="td" style="width:70%">&nbsp;</div>
     <div class="td" style="width:30%"><span class="not_print">编号:</span>
@@ -70,8 +70,8 @@
   </div>
   <% d = Time.now %>
   <div class="tr"><span class="not_print">    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本委托书有效期自签字之日起至</span>
-    <span class="content"><%=d.year()%></span><span class="not_print">年</span>
-<span class="content"><%=d.mon()+1%></span><span class="not_print">月</span><span class="content"><%=d.mday()%></span><span class="not_print">日止。</span>
+    <span class="content"><%=d.year()%></span><span class="not_print">&nbsp;&nbsp;年</span>
+<span class="content"><%=d.mon()+1%></span><span class="not_print">&nbsp;&nbsp;月</span><span class="content"><%=d.mday()%></span><span class="not_print">&nbsp;&nbsp;日止。</span>
   </div>
   <div class="td" style="width:60%">&nbsp;</div>
   <div class="td not_print" style="width:40%">委托方（盖章）
@@ -79,17 +79,17 @@
   <div class="tr" style="height: 20px;"></div>
   <div class="td" style="width:20%">&nbsp;
   </div>
-  <div class="td not_print">法定代表人或其授权签署《代理报关委托书》的人（签字）
+  <div class="td not_print" style="margin-top: 15px">法定代表人或其授权签署《代理报关委托书》的人（签字）
   </div>
-  <div class="td" style="width:85%">&nbsp;
+  <div class="td" style="width:75%">&nbsp;
   </div>
   <div class="td">
-    <span class="content"><%=d.year()%></span><span class="not_print">年</span><span class="content"><%=d.mon()%></span><span class="not_print">月</span><span class="content"><%=d.mday()%></span><span class="not_print">日</span>
+    <span class="content"><%=d.year()%></span><span class="not_print">&nbsp;&nbsp;年</span><span class="content"><%=d.mon()%></span><span class="not_print">&nbsp;&nbsp;月</span><span class="content"><%=d.mday()%></span><span class="not_print">&nbsp;&nbsp;日</span>
   </div>
-  <div class="tr not_print" style="height: 40px; text-align: center; font-size: 26px;">委托报关协议</div>
-  <div class="tr not_print">为明确委托报关具体事项和各自责任，双方经平等协商如下：
+  <div class="tr not_print" style="height: 50px; text-align: center; font-size: 20px;">委托报关协议</div>
+  <div class="tr not_print" style="font-size: 13px">为明确委托报关具体事项和各自责任，双方经平等协商如下：
   </div>
-  <div class="table" style="width:48%;display: inline-block">
+  <div class="table" style="width:48%;display: inline-block;font-size: 12px">
     <div class="tr">
       <div class="td left not_print">委托方</div>
       <div class="td right"><span class="content"><%= current_enterprise.name  %></span></div>
@@ -100,16 +100,22 @@
     </div>
     <div class="tr">
       <div class="td left not_print">HS编码</div>
-      <div class="td right"><span class="content"><%= @major_cargo.code %></span></div>
+      <div class="td right">
+        <span class="content">
+          <% @major_cargo.code.each_char do |char| %>
+            &nbsp;<%=	 char %>&nbsp;&nbsp;
+          <% end %>
+        </span>
+      </div>
     </div>
     <div class="tr">
       <div class="td left not_print">货物总价</div>
-      <div class="td right"><span class="content"><%= @total_price %></span></div>
+      <div class="td right"><span class="content"><%= dict_name Dict::Currency, @major_cargo.currency %><%= @total_price %></span></div>
     </div>
     <div class="tr">
       <div class="td left not_print">进出口日期</div>
       <div class="td right">
-        <span class="content"><%=d.year()%></span><span class="not_print">年</span><span class="content"><%=d.mon()%></span><span class="not_print">月</span><span class="content"><%=d.mday()%></span><span class="not_print">日</span>
+        <span class="content"><%=d.year()%></span><span class="not_print">&nbsp;&nbsp;&nbsp;年</span><span class="content"><%=d.mon()%></span><span class="not_print">&nbsp;&nbsp;&nbsp;月</span><span class="content"><%=d.mday()%></span><span class="not_print">&nbsp;&nbsp;&nbsp;日</span>
       </div>
     </div>
     <div class="tr">
@@ -118,19 +124,28 @@
     </div>
     <div class="tr">
       <div class="td left not_print">贸易方式</div>
-      <div class="td right"><span class="content autoload"  data-url='/dict/trade_modes'><%= @declaration.trade_mode %></span></div>
+      <div class="td right"><span class="content " ><%= dict_name Dict::TradeMode , @declaration.trade_mode %></span></div>
     </div>
     <div class="tr">
       <div class="td left not_print">原产地/货源地</div>
-      <div class="td right"><span class="content autoload"  data-url='/dict/countries'><%= @major_cargo.trade_country  %></span></div>
+      <div class="td right">
+        <span class="content"  >
+          <% if @declaration.declaration_type == 'export' %>
+            <%=	 "中国" %>
+          <% else %>
+            <%= dict_name Dict::Country , @major_cargo.trade_country %>
+          <% end %>
+        </span>
+      </div>
+
     </div>
-    <div class="tr" style="height: 198px;">
+    <div class="tr" style="height: 143px;">
       <div class="td not_print">其他要求：</div>
     </div>
-    <div class="tr" style="height: 66px;">
+    <div class="tr" style="height: 60px;">
       <div class="td not_print" >背面所列通用条款是本协议不可分割的一部分，对本协议的签署构成了对背面通用条款的同意</div>
     </div>
-    <div style="height: 110px">
+    <div style="height: 95px">
       <div class="not_print">委托方业务签单：</div>
     </div>
     <div >
@@ -138,15 +153,15 @@
     </div>
     <div style="height: 66px">
       <div style="width:65%;display: inline-block" class="not_print">联系电话：</div>
-      <div style="width:30%;display: inline-block">
-        <span class="content"><%=d.year()%></span><span class="not_print">年</span><span class="content"><%=d.mon()%></span><span class="not_print">月</span><span class="content"><%=d.mday()%></span><span class="not_print">日</span>
+      <div style="width:20%;display: inline-block">
+        <span class="content"><%=d.year()%></span><span class="not_print">&nbsp;&nbsp;年</span><span class="content"><%=d.mon()%></span><span class="not_print">&nbsp;&nbsp;月</span><span class="content"><%=d.mday()%></span><span class="not_print">&nbsp;&nbsp;日</span>
       </div>
     </div>
 
   </div>
   <div style="width:1%;display: inline-block"></div>
 
-  <div class="table" style="width:48%;display: inline-block">
+  <div class="table" style="width:48%;display: inline-block;font-size: 12px">
     <div class="tr">
       <div class="td left not_print">被委托方</div>
       <div class="td right"><span class="content">新泽报关公司</span></div>
@@ -191,13 +206,13 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;元
       </div>
     </div>
-    <div class="tr" style="height: 198px;">
+    <div class="tr" style="height: 143px;">
       <div class="td not_print">承诺说明：</div>
     </div>
-    <div class="tr"  style="height: 66px;">
+    <div class="tr"  style="height: 60px;">
       <div class="td not_print" >背面所列通用条款是本协议不可分割的一部分，对本协议的签署构成了对背面通用条款的同意</div>
     </div>
-    <div style="height: 110px">
+    <div style="height: 95px">
       <div class="not_print">被委托方业务签单：</div>
     </div>
     <div >
@@ -205,8 +220,8 @@
     </div>
     <div style="height: 66px">
       <div style="width:65%;display: inline-block" class="not_print">联系电话：</div>
-      <div style="width:30%;display: inline-block">
-        <span class="content"><%=d.year()%></span><span class="not_print">年</span><span class="content"><%=d.mon()%></span><span class="not_print">月</span><span class="content"><%=d.mday()%></span><span class="not_print">日</span>
+      <div style="width:20%;display: inline-block">
+        <span class="content"><%=d.year()%></span><span class="not_print">&nbsp;&nbsp;年</span><span class="content"><%=d.mon()%></span><span class="not_print">&nbsp;&nbsp;月</span><span class="content"><%=d.mday()%></span><span class="not_print">&nbsp;&nbsp;日</span>
       </div>
     </div>
   </div>

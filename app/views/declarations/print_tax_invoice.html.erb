@@ -2,13 +2,13 @@
 	body {
 		margin: 0;
 		font-family: "KaiTi_GB2312";
-		font-size: 12px;
+		font-size: 10px;
 		text-align: center;
 	}
 	
 	.en-font {
 		font-family: "Times New Roman";
-		font-size: 12px;
+		font-size: 10px;
 	}
 	
 	.frame {
@@ -22,7 +22,7 @@
 	#title {
 		margin-left: 35px;
 		margin-left: 33px\9;
-		padding-top: 26px;
+		/*padding-top: 6px;*/
 		padding-top: 28px\9;
 		text-align: center;
 		height: 45px;
@@ -33,14 +33,14 @@
 	
 	.title_cn {
 		font-family: "KaiTi_GB2312";
-		font-size: 23px;
+		font-size: 24px;
 		font-weight: normal;
 		letter-spacing: 6px;
 	}
 	
 	.title_en {
 		font-family: "Times New Roman";
-		font-size: 17px;
+		font-size: 18px;
 		font-weight: normal;
 	}
 	
@@ -50,7 +50,7 @@
 		height: 25px !important;
 		border: 1px solid;
 		float: left;
-		margin-top: 42px;
+		margin-top: 22px;
 		margin-left: 62px;
 		margin-top: 45px\9;
 		margin-left: 65px\9;
@@ -63,7 +63,7 @@
 	
 	.content {
 		overflow: hidden;
-		font-size: 14px;
+		font-size: 12px;
 		font-family: "SimSun";
 	}
 	
@@ -73,13 +73,13 @@
 	
 	.tr {
 		float: none;
-		height: 30px;
+		height: 25px;
 		width: 100%;
 	}
 	
 	.td {
 		float: left;
-		height: 30px;
+		height: 22px;
 		overflow: hidden;
 	}
 	
@@ -135,30 +135,30 @@
 <% contract = @declaration.contract %>
 
 <div class="frame">
-<div style="width: 100%; height: 20px;"></div>
+<!--<div style="width: 100%; height: 20px;"></div>-->
 <div id="title" class="not_print"><span class="title_cn ">广东省出口商品统一发票</span><br />
 <span class="title_en">Guangdong Province Export Goods Unify
 Invoice</span></div>
 <div id="top-export" class="not_print">出口专用</div>
 <div class="clear"></div>
 <div   class="not_print"
-	style="width: 192px; height: 22px; float: right; font-size: 14px; margin-top: 14px; margin-top: 16px\9;">发票代码</div>
+	style="width: 192px; height: 18px; float: right; font-size: 13px; margin-top: 5px; margin-top: 16px\9;">发票代码</div>
 <div class="clear"></div>
 <div   class="not_print"
-	style="width: 192px; height: 22px; float: right; font-size: 14px; margin-top: 4px;">发票号码:</div>
+	style="width: 192px; height: 18px; float: right; font-size: 13px; ">发票号码:</div>
 <div class="clear"></div>
 <% foreign_enterprise = @declaration.foreign_enterprise rescue nil %>
 <div class="tr" style="margin-top: -12px;">
 <div class="td not_print" style="width: 73px;">购货单位:<br />
 <span class="en-font">Purchaser:</span></div>
-<div class="td" style="width: 175px; line-height: 30px;"><span
+<div class="td" style="width: 175px; line-height: 22px;"><span
 	class="content"><%= foreign_enterprise.name rescue "" %></span></div>
 </div>
 <div class="clear"></div>
 <div class="tr" style="margin-top: 0px; margin-top: 0px;">
 <div class="td not_print" style="width: 53px;">地址:<br />
 <span class="en-font">Add:</span></div>
-<div class="td" style="width: 205px; line-height: 30px;"><span
+<div class="td" style="width: 205px; line-height: 22px;"><span
 	class="content"><%= foreign_enterprise.address rescue "" %></span></div>
 <div class="td not_print" style="width: 53px;">电话:<br />
 <span class="en-font">Tel:</span></div>
@@ -245,8 +245,8 @@ Transportation</span></div>
 </div>
 <% end %>
 
-<% if list_size < 26 %>
-<% (1..26-list_size).each do |i| %>
+<% if list_size < 21 %>
+<% (1..21-list_size).each do |i| %>
 <div class="tr">
 <div class="td" style="width: 90px;"></div>
 <div class="td" style="width: 202px;"></div>
