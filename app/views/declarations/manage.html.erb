@@ -42,7 +42,7 @@
                                 {},
                                 function (result) {
                                     var select = $('#contract_id');
-                                    select.html('<option  value="">所有手册</option>');
+                                    select.html('<option  value="">所有报关单</option>');
                                     for (var i = 0; i < result.length; i++) {
                                         var option = $('<option/>').val(result[i].id).html(result[i].manual);
                                         select.append(option);
@@ -82,6 +82,13 @@
             from = $('#from').val().trim();
             to = $('#to').val().trim();
             //global variables
+
+//            alert(enterprise_name)
+
+            if(!enterprise_name){
+                alert('请选择收发货企业')
+                return
+            }
 
             var json = getFormData('#search_form select[name], #search_form input[name]');
             if ((json['from'] || json['to']) && !(json['from'] && json['to'])) {
@@ -258,7 +265,7 @@
   <div id="enterprise_selector_form" class="left">
     <label style="display: inline;">收发货单位</label>
     <select name="current_enterprise_id" id="current_enterprise_id" class="medium-input ">
-      <option value="">所有企业</option>
+      <option value=""></option>
       <% current_user.enterprises.each do |enterprise| %>
           <option value="<%= enterprise.id %>">
             <%= enterprise.code + enterprise.name %>
@@ -272,7 +279,7 @@
 
   <div class="right "><label>手册编号</label>
     <select name="contract_id" id="contract_id" class="medium-input ">
-      <option value="">所有手册</option>
+      <option value="">所有报关单</option>
     </select>
   </div>
 
@@ -306,7 +313,6 @@
   <div>1类：海关已审，且是正常走单</div>
   <div>2类：人工录入海关已审报关单</div>
   <div>3类：强制已审，走单报关单</div>
-  <div>4类：强制已审报关单</div>
   <div>注意：走单情况只统计类型为1，3的报关单；重量传输，进口料件</div>
 </div>
 

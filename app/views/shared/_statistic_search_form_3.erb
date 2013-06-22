@@ -10,12 +10,12 @@
     }
 </style>
 
-<div id="search_form" style="width:70%;display: inline-block">
+<div id="search_form" style="width:90%;display: inline-block">
 
   <div id="enterprise_selector_form" class="left">
     <label style="display: inline;">收发货单位</label>
     <select name="current_enterprise_id" id="current_enterprise_id" class="medium-input ">
-      <option value="">所有企业</option>
+      <option value="044199">东莞所有企业</option>
       <% current_user.enterprises.each do |enterprise| %>
           <option value="<%= enterprise.id %>">
             <%= enterprise.code + enterprise.name %>
@@ -29,7 +29,7 @@
 
   <div class="right "><label>手册编号</label>
     <select name="contract_id" id="contract_id" class="medium-input ">
-      <option value="">所有手册</option>
+      <option value="">所有报关单</option>
     </select>
   </div>
 
@@ -53,6 +53,18 @@
   </div>
 
   <div class="right">
+    <label>申报现场</label>
+    <select name="custom" id="custom" class="medium-input ">
+      <option value=""></option>
+      <% Dict::Custom.all.each do |custom| %>
+          <option value="<%= custom.code %>">
+            <%= custom.code + custom.name %>
+          </option>
+      <% end %>
+    </select>
+  </div>
+
+  <div class="left">
     <input type="button" value="查询" id="search">
     <input type="button" value="预览&打印" id="print">
   </div>

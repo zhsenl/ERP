@@ -1,12 +1,12 @@
 <style type="text/css">
     body {
         text-align: left;
-        font-size: 16px;
+        font-size: 14px;
     }
 
     .frame {
         margin: 0 auto;
-        width: 682px;
+        width: 852px;
         text-align: left;
     }
 
@@ -15,14 +15,14 @@
     }
 
     .table {
-        border: 1px solid;
+        /*border: 1px solid;*/
     }
 
     .table .tr {
         padding: 0;
-        height: 32px;
-        line-height: 32px;
-        border-bottom: solid 1px;
+        height: 24px;
+        line-height: 24px;
+        /*border-bottom: solid 1px;*/
     }
 
     .table .tr:last-child {
@@ -30,12 +30,16 @@
     }
 
     .table .tr .td {
-        border-right: solid 1px;
+        /*border-right: solid 1px;*/
         text-align: center;
     }
 
     .table .tr .td:last-child {
         border-right: none;
+    }
+
+    .bord{
+        font-weight: bold;
     }
 
 
@@ -46,22 +50,38 @@
 <div class="frame">
 
   <!--设置-->
+  <% print_time = Time.new.strftime("%Y-%m-%d %H:%M:%S") %>
+  <% count = 1 %>
   <% statistic_declarations_size = @statistic_declarations.size %>
-  <% page_size = 22 %>
+  <% page_size = 44 %>
   <% pages = statistic_declarations_size/page_size + 1 %>
   <% (0..pages - 1).each do |page_count| %>
       <!--每一页的内容-->
-      <div class="tr" style="height: 80px;"></div>
-      <div class="tr" style="height: 80px; text-align: center; font-size: 35px;">进出口报关单统计</div>
-      <div class="tr" style="height: 20px;"></div>
-      <div class="table">
-        <div class="tr" style="height: 50px; line-height:50px;">
+      <!--<div class="tr" style="height: 80px;"></div>-->
+      <div class="tr" style="height: 50px; text-align: center; font-size: 35px;">进 出 ( 报关单 ) 统 计 表</div>
+
+      <div class="tr">
+        <div class="td" style="width:50%"><span class="bord">企业名称：</span><span class="content"><%=  @enterprise_name %></div>
+        <div class="td" style="width:24%"><span class="bord">手册：</span><span class="content"><%= @manual  %></div>
+        <div class="td" style="width:24%"><span class="bord">申报现场：</span><span class="content"><%= @custom_name  %></div>
+      </div>
+
+      <div class="tr">
+        <div class="td" style="width:50%;"><span class="bord">统计时间：</span>截止<span class="content"><%=  Time.new.strftime("%Y-%m-%d") %></span></div>
+        <div class="td" style="width:48%;"><span class="bord">合计：</span><span class="content"><%=   %></div>
+      </div>
+
+      <div class="tr" style="height: 10px;"></div>
+
+      <div class="table" style="border-bottom: 1px solid;">
+        <div class="tr" style="font-weight: bold;border-bottom: 1px solid;border-top: 1px solid">
           <div class="td" style="width:35px;">序号</div>
-          <div class="td" style="width:150px;">申报日期</div>
+          <div class="td" style="width:100px;">申报日期</div>
           <div class="td" style="width:152px;">海关编号</div>
           <div class="td" style="width:150px;">预录入号</div>
-          <div class="td" style="width:100px;">批准文号</div>
-          <div class="td" style="width:80px;">车牌号</div>
+          <div class="td" style="width:240px;">装卸口岸</div>
+          <div class="td" style="width:80px;">提运单号</div>
+          <div class="td" style="width:80px;">报关单数</div>
         </div>
         <% start = page_count*page_size %>
         <% tail = (page_count + 1) * page_size - 1 > statistic_declarations_size ? statistic_declarations_size : (page_count + 1) * page_size - 1 %>
@@ -69,9 +89,9 @@
         <% @statistic_declarations[start..tail].each_with_index do |statistic_declaration, i| %>
             <div class="tr">
               <div class="td" style="width:35px;">
-                <span ><%= i+1 %></span>
+                <span ><%= count %><% count += 1 %></span>
               </div>
-              <div class="td" style="width:150px;">
+              <div class="td" style="width:100px;">
                 <span >&nbsp;<%= statistic_declaration.declare_date %>&nbsp;</span>
               </div>
               <div class="td" style="width:152px;">
@@ -80,15 +100,25 @@
               <div class="td" style="width:150px;">
                 <span >&nbsp;<%= statistic_declaration.pre_entry_no %>&nbsp;</span>
               </div>
-              <div class="td" style="width:100px;">
-                <span >&nbsp;<%= statistic_declaration.certification %>&nbsp;</span>
+              <div class="td" style="width:240px;">
+                <span >&nbsp;<%= dict_name Dict::LoadPort, statistic_declaration.load_port %>&nbsp;</span>
               </div>
               <div class="td" style="width:80px;">
-                <span >&nbsp;<%= statistic_declaration.truck %>&nbsp;</span>
+                <span >&nbsp;<%= statistic_declaration.bill_no %>&nbsp;</span>
+              </div>
+              <div class="td" style="width:80px;">
+                <span >&nbsp;<%= 1 %>&nbsp;</span>
               </div>
             </div>
         <% end %>
+        <!--填充使满页-->
+        <% ((page_count + 1) * page_size - 1 - statistic_declarations_size).times do %>
+            <div class="tr"></div>
+        <% end %>
       </div>
+      <div style="float: right">第<%= page_count + 1 %>页/共<%= pages %>页
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        打印时间：&nbsp;&nbsp;&nbsp;&nbsp;<%= print_time %>&nbsp;&nbsp;&nbsp;&nbsp;</div>
       <div class="tr" style="height: 20px;"></div>
   <% end %>
 

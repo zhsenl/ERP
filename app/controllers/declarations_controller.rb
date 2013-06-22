@@ -458,6 +458,9 @@ class DeclarationsController < ApplicationController
     respond_to do |format|
       format.html
       format.json {
+        $custom_name =   params[:custom] != '' ? Dict::Custom.find_by_code(params[:custom]).name : ''
+        $manual =  params[:contract_id] == '' ? '': Contract.find(params[:contract_id]).manual
+        $enterprise_name = params[:current_enterprise_id] == '' ? '东莞所有企业' : current_enterprise.name
         $statistic_declarations=find_declarations_by_ent_cont_type_time
         render json:$statistic_declarations
       }
@@ -465,6 +468,9 @@ class DeclarationsController < ApplicationController
   end
 
   def print_declaration_statistic
+    @custom_name = $custom_name
+    @manual = $manual
+    @enterprise_name = $enterprise_name
     @statistic_declarations = $statistic_declarations
     render :layout => 'print'
   end
@@ -483,6 +489,9 @@ class DeclarationsController < ApplicationController
           opt[:declaration_type] = 'import'
           if params[:from] !='' and params[:to] != ''
             opt[:declare_date] = params[:from]..params[:to]
+          end
+          if !params[:custom].nil? and  params[:custom] != ''
+            opt[:custom] = params[:custom]
           end
           @import_declarations = Declaration.where(opt).all
 
@@ -521,6 +530,9 @@ class DeclarationsController < ApplicationController
           opt[:declaration_type] = 'export'
           if params[:from] !='' and params[:to] != ''
             opt[:declare_date] = params[:from]..params[:to]
+          end
+          if !params[:custom].nil? and  params[:custom] != ''
+            opt[:custom] = params[:custom]
           end
           @export_declarations = Declaration.where(opt).all
 
@@ -573,6 +585,9 @@ class DeclarationsController < ApplicationController
           opt[:declaration_type] = 'import'
           if params[:from] !='' and params[:to] != ''
             opt[:declare_date] = params[:from]..params[:to]
+          end
+          if !params[:custom].nil? and  params[:custom] != ''
+            opt[:custom] = params[:custom]
           end
           @import_declarations = Declaration.where(opt)
 
@@ -629,6 +644,9 @@ class DeclarationsController < ApplicationController
           opt[:declaration_type] = 'export'
           if params[:from] !='' and params[:to] != ''
             opt[:declare_date] = params[:from]..params[:to]
+          end
+          if !params[:custom].nil? and  params[:custom] != ''
+            opt[:custom] = params[:custom]
           end
           @export_declarations = Declaration.where(opt)
           opt[:declaration_type] = 'import'

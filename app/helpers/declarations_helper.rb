@@ -68,7 +68,7 @@ module DeclarationsHelper
 
   def find_declarations_by_ent_cont_type_time
     opt = {}
-    if  params[:current_enterprise_id] != ''
+    if  params[:current_enterprise_id] != '' and  params[:current_enterprise_id] != '044199'
       opt[:enterprise_id] = params[:current_enterprise_id]
     end
     if  params[:contract_id] != ''
@@ -81,7 +81,13 @@ module DeclarationsHelper
     if params[:from] !='' and params[:to] != ''
       opt[:declare_date] = params[:from]..params[:to]
     end
-    return Declaration.where(opt)
+    if !params[:custom].nil? and  params[:custom] != ''
+      opt[:custom] = params[:custom]
+    end
+    if params[:current_enterprise_id] == '044199'
+      return Declaration.where(opt).order('declare_date').joins('LEFT OUTER JOIN enterprises ON enterprises.id = declarations.enterprise_id').where("enterprises.code like '44199%'")
+    end
+    return  Declaration.where(opt).order('declare_date')
   end
 
 end
