@@ -203,7 +203,7 @@ class DeclarationsController < ApplicationController
       }
       format.json {
         $DECLARATIONS =  find_declarations_by_ent_cont_type_time
-        #Rails.cache.write('manage_declarations', @declarations)
+        Rails.cache.write('manage_declarations', $DECLARATIONS)
         render json: $DECLARATIONS
       }
     end
@@ -223,8 +223,8 @@ class DeclarationsController < ApplicationController
   end
 
   def print_declarations
-    @declarations = $DECLARATIONS
-    #@declarations = Rails.cache.read('manage_declarations')
+    #@declarations = $DECLARATIONS
+    @declarations = Rails.cache.read('manage_declarations')
     @title = '报关单预入库管理查询结果'
     @enterprise_name = params[:enterprise_name]
     @manual = params[:manual]
