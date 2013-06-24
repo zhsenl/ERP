@@ -1,8 +1,8 @@
 # -*- encoding : utf-8 -*-
 class DeclarationsController < ApplicationController
   include ApplicationHelper, DeclarationsHelper, PrintHelper
-  before_filter :init  
-  
+  before_filter :init
+
   def init
     if params[:id]
       @declaration = Declaration.find(params[:id])
@@ -10,7 +10,7 @@ class DeclarationsController < ApplicationController
     else
       @declaration_type = params[:declaration_type] || params[:declaration][:declaration_type] rescue nil
     end
-    @mark = @declaration_type    
+    @mark = @declaration_type
   end
 
   # GET /declarations
@@ -203,6 +203,7 @@ class DeclarationsController < ApplicationController
       }
       format.json {
         $DECLARATIONS =  find_declarations_by_ent_cont_type_time
+        #Rails.cache.write('manage_declarations', @declarations)
         render json: $DECLARATIONS
       }
     end
@@ -223,6 +224,7 @@ class DeclarationsController < ApplicationController
 
   def print_declarations
     @declarations = $DECLARATIONS
+    #@declarations = Rails.cache.read('manage_declarations')
     @title = '报关单预入库管理查询结果'
     @enterprise_name = params[:enterprise_name]
     @manual = params[:manual]
