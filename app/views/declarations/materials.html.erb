@@ -58,6 +58,7 @@
 
 
         $('#search').click(function () {
+            result = undefined
             $('tbody').html('');
             $('#nav_div').html('');
             var json = getFormData('#search_form select[name], #search_form input[name]');
@@ -182,7 +183,8 @@
 
         $('#print').click(function () {
             if (result) {
-                window.open('/declarations/print_materials');
+                window.open('/declarations/print_materials?cache_name=' +
+                        result[0]['cache_name']);
             } else {
                 alert('没有结果，打印不了');
             }

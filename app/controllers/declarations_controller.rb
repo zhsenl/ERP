@@ -198,13 +198,15 @@ class DeclarationsController < ApplicationController
 
   def manage
     respond_to do |format|
-      format.html {
-        @declarations = [];
-      }
+      format.html
       format.json {
-        $DECLARATIONS =  find_declarations_by_ent_cont_type_time
-        Rails.cache.write('manage_declarations', $DECLARATIONS)
-        render json: $DECLARATIONS
+        declarations =  find_declarations_by_ent_cont_type_time
+        cache_name =  "manage_declarations_#{Time.new.to_i}"
+        Rails.cache.write(cache_name, declarations)
+        if declarations.size > 0
+          declarations[0][:cache_name] = cache_name
+        end
+        render json: declarations
       }
     end
   end
@@ -223,8 +225,7 @@ class DeclarationsController < ApplicationController
   end
 
   def print_declarations
-    #@declarations = $DECLARATIONS
-    @declarations = Rails.cache.read('manage_declarations')
+    @declarations = Rails.cache.read(params[:cache_name])
     @title = '报关单预入库管理查询结果'
     @enterprise_name = params[:enterprise_name]
     @manual = params[:manual]
@@ -238,7 +239,7 @@ class DeclarationsController < ApplicationController
       format.html
       format.json {
         opt = {}
-        @statistic = {}
+        statistic = {}
         result = {}
         if  params[:current_enterprise_id] != ''
           opt[:enterprise_id] = params[:current_enterprise_id]
@@ -249,17 +250,16 @@ class DeclarationsController < ApplicationController
         opt[:review_type] = %w[1 3]
         #报关单数   报关单金额
         opt[:declaration_type] = 'import'
-        @import_declarations = Declaration.where(opt)
-        @statistic[:import_sum] = @import_declarations.count
-        @statistic[:import_price] = @import_declarations.joins(:declaration_cargos).sum('unit_price * quantity')
+        import_declarations = Declaration.where(opt)
+        statistic[:import_sum] = import_declarations.count
+        statistic[:import_price] = import_declarations.joins(:declaration_cargos).sum('unit_price * quantity')
         opt[:declaration_type] = 'export'
-        @export_declarations = Declaration.where(opt)
-        @statistic[:export_sum] = @export_declarations.count
-        @statistic[:export_price] = @export_declarations.joins(:declaration_cargos).sum('unit_price * quantity')
-        $statistic = @statistic
-
-        result[:statistic] = @statistic
-
+        export_declarations = Declaration.where(opt)
+        statistic[:export_sum] = export_declarations.count
+        statistic[:export_price] = export_declarations.joins(:declaration_cargos).sum('unit_price * quantity')
+        cache_name =  "statistic_#{Time.new.to_i}"
+        Rails.cache.write(cache_name, statistic)
+        result[:statistic] = statistic
         render json: result
       }
     end
@@ -268,7 +268,7 @@ class DeclarationsController < ApplicationController
   def print_statistic
     @title = '加工贸易合同核销申请表'
     @contract = $contract
-    @statistic = $statistic
+    @statistic = Rails.cache.read(params[:cache_name])
     @statistic_pro_mat_con = $statistic_pro_mat_con
     render :layout => 'print'
   end
@@ -387,9 +387,9 @@ class DeclarationsController < ApplicationController
         result = []
         if  params[:contract_id] != ''
 
-          @contract = Contract.find(params[:contract_id])
-          result = @contract.contract_materials
-          contract_products =  @contract.contract_products
+          contract = Contract.find(params[:contract_id])
+          result = contract.contract_materials
+          contract_products =  contract.contract_products
 
           opt = {}
           opt[:enterprise_id] = current_enterprise.id
@@ -399,13 +399,13 @@ class DeclarationsController < ApplicationController
           if params[:from] !='' and params[:to] != ''
             opt[:declare_date] = params[:from]..params[:to]
           end
-          @import_declarations = Declaration.where(opt)
+          import_declarations = Declaration.where(opt)
 
 
           result.each_with_index { |material, i|
             #实际进口数量
             trade_mode = %w[9900 1300 0214 0255 0300 0245 0258 0615 0715 1215 0700 0657 0644 0654 0110 0633 1200 1234 1215 6033 1233 9700 0420 0245 2025 2225]
-            result[i][:import_sum] = @import_declarations.joins(:declaration_cargos)
+            result[i][:import_sum] = import_declarations.joins(:declaration_cargos)
             .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
             #进口金额
             result[i][:import_price] = result[i][:import_sum].to_f * material.unit_price
@@ -422,14 +422,18 @@ class DeclarationsController < ApplicationController
           }
 
         end
-        $material_balance = result
+        cache_name =  "material_balance#{Time.new.to_i}"
+        Rails.cache.write(cache_name, result)
+        if result.size > 0
+          result[0][:cache_name] = cache_name
+        end
         render json: result
       }
     end
   end
 
   def print_material_balance
-    @materials = $material_balance
+    @materials = Rails.cache.read(params[:cache_name])
     render :layout => 'print'
   end
 
@@ -437,22 +441,26 @@ class DeclarationsController < ApplicationController
     respond_to do |format|
       format.html
       format.json {
-        @declarations = find_declarations_by_ent_cont_type_time
+        declarations = find_declarations_by_ent_cont_type_time
         total_price = 0
-        @declarations.each{|declaration|
+        declarations.each{|declaration|
           declaration.declaration_cargos.each{|cargo|
             total_price += cargo.total_price
           }
           declaration[:total_price] = total_price
         }
-        $weight_prices = @declarations
-        render json: @declarations
+        cache_name =  "weight_prices_#{Time.new.to_i}"
+        Rails.cache.write(cache_name, declarations)
+        if declarations.size > 0
+          declarations[0][:cache_name] = cache_name
+        end
+        render json: declarations
       }
     end
   end
 
   def print_weight
-    @weight_prices = $weight_prices
+    @weight_prices = Rails.cache.read(params[:cache_name])
     render :layout => 'print'
   end
 
@@ -460,20 +468,24 @@ class DeclarationsController < ApplicationController
     respond_to do |format|
       format.html
       format.json {
-        $custom_name =   params[:custom] != '' ? Dict::Custom.find_by_code(params[:custom]).name : ''
-        $manual =  params[:contract_id] == '' ? '': Contract.find(params[:contract_id]).manual
-        $enterprise_name = params[:current_enterprise_id] == '' ? '东莞所有企业' : current_enterprise.name
-        $statistic_declarations=find_declarations_by_ent_cont_type_time
-        render json:$statistic_declarations
+        statistic_declarations=find_declarations_by_ent_cont_type_time
+        cache_name =  "statistic_declarations#{Time.new.to_i}"
+        Rails.cache.write(cache_name, statistic_declarations)
+        if statistic_declarations.size > 0
+          statistic_declarations[0][:cache_name] = cache_name
+        end
+        render json:statistic_declarations
       }
     end
   end
 
   def print_declaration_statistic
-    @custom_name = $custom_name
-    @manual = $manual
-    @enterprise_name = $enterprise_name
-    @statistic_declarations = $statistic_declarations
+    @custom_name = params[:custom]
+    @enterprise_name = params[:enterprise_name]
+    @manual = params[:manual]
+    @from = params[:from]
+    @to = params[:to]
+    @statistic_declarations = Rails.cache.read(params[:cache_name])
     render :layout => 'print'
   end
 
@@ -511,8 +523,12 @@ class DeclarationsController < ApplicationController
             }
           }
         end
-
-        $materials = result
+        cache_name =  "materials_#{Time.new.to_i}"
+        Rails.cache.write(cache_name, result)
+        if result.size > 0
+          result[0][:cache_name] = cache_name
+        end
+        #$materials = result
         render json: result
       }
     end
@@ -536,11 +552,11 @@ class DeclarationsController < ApplicationController
           if !params[:custom].nil? and  params[:custom] != ''
             opt[:custom] = params[:custom]
           end
-          @export_declarations = Declaration.where(opt).all
+          export_declarations = Declaration.where(opt).all
 
           count = 0
           accumulation = {}
-          @export_declarations.each {|declaration|
+          export_declarations.each {|declaration|
             declaration.declaration_cargos.each{|product|
               result[count] = product
               result[count][:declare_date] = declaration.declare_date
@@ -553,20 +569,93 @@ class DeclarationsController < ApplicationController
           }
 
         end
-        $products = result
+        cache_name =  "products_#{Time.new.to_i}"
+        Rails.cache.write(cache_name, result)
+        if result.size > 0
+          result[0][:cache_name] = cache_name
+        end
+        #$products = result
         render json: result
       }
     end
   end
 
+  def details3
+    respond_to do |format|
+      format.html
+      format.json {
+        details3_declarations=find_declarations_by_ent_cont_type_time
+        details3_declarations.each_with_index do |declaration, i|
+          enterprise =  Enterprise.find(declaration.enterprise_id)
+          details3_declarations[i][:enterprise_name] = enterprise.name
+          details3_declarations[i][:enterprise_code] = enterprise.code
+        end
+        cache_name =  "details3_declarations#{Time.new.to_i}"
+        Rails.cache.write(cache_name, details3_declarations)
+        if details3_declarations.size > 0
+          details3_declarations[0][:cache_name] = cache_name
+        end
+        render json:details3_declarations
+      }
+    end
+  end
+
   def print_details1
-    @materials = $materials
+    @materials = Rails.cache.read(params[:cache_name])
     render :layout => 'print'
   end
 
   def print_details2
-    @products = $products
+    @products = Rails.cache.read(params[:cache_name])
     render :layout => 'print'
+  end
+
+  def print_details3
+    @enterprise_name = params[:enterprise_name]
+    @to = params[:to]
+    @details3_declarations = Rails.cache.read(params[:cache_name])
+
+    #excel
+    book = Spreadsheet::Workbook.new
+    sheet1 = book.create_worksheet :name => '报关单明细表'
+    #sheet1[0,0] = '申报企业名称（盖章）：'
+    #sheet1[0,1] = @enterprise_name
+
+    #format the spreadsheet
+    sheet1.column(0).width = 5
+    sheet1.column(1).width = 20
+    sheet1.column(2).width = 30
+    sheet1.column(3).width = 14
+    sheet1.column(4).width = 10
+
+    #set spreadsheet data
+    sheet1.row(0).replace %w[序号 报关单号 企业名称 企业海关编码 仓库类型]
+    @details3_declarations.each_with_index do |details3_declaration,i|
+      sheet1.row(i+1).push i+1 ,details3_declaration.entry_no ,details3_declaration.enterprise_name ,details3_declaration.enterprise_code, details3_declaration.warehouse_no
+    end
+    #@filename = "#{@enterprise_name}#{(@to.nil? or @to == '') ? Time.new.strftime("%Y-%m") : @to}.xls"
+    @filename = "#{ Time.new.strftime("%Y%m%d%H%M%S")}.xls"
+    @export_file_path = ['public','excels' ,@filename].join("/")
+    book.write @export_file_path
+    #send_file @export_file_path, :content_type => "application/vnd.ms-excel", :disposition => 'inline'
+
+    render :layout => 'print'
+  end
+
+  def export_details3
+    details3_declarations = Rails.cache.read(params[:cache_name])
+    enterprise_name = params[:enterprise_name]
+    to = params[:to]
+    book = Spreadsheet::Workbook.new
+    sheet1 = book.create_worksheet :name => '报关单明细表'
+    sheet1[1,1] = '申报企业名称（盖章）：'
+    sheet1[1,2] = enterprise_name
+    sheet1.row(2) << %w[1 2 3]
+    puts  RAILS.root
+    export_file_path = [Rails.root , 'excels',   "test.xls"].join("/")
+    book.write export_file_path
+    send_file export_file_path, :content_type => "application/vnd.ms-excel", :disposition => 'attachment'
+    #render :nothing => true
   end
 
   def materials
@@ -576,9 +665,9 @@ class DeclarationsController < ApplicationController
         result = {}
         if  params[:contract_id] != ''
 
-          @contract = Contract.find(params[:contract_id])
-          result = @contract.contract_materials
-          contract_products =  @contract.contract_products
+          contract = Contract.find(params[:contract_id])
+          result = contract.contract_materials
+          contract_products =  contract.contract_products
 
           opt = {}
           opt[:enterprise_id] = current_enterprise.id
@@ -591,23 +680,23 @@ class DeclarationsController < ApplicationController
           if !params[:custom].nil? and  params[:custom] != ''
             opt[:custom] = params[:custom]
           end
-          @import_declarations = Declaration.where(opt)
+          import_declarations = Declaration.where(opt)
 
 
           result.each_with_index { |material, i|
             #进口总数量
             trade_mode = %w[9900 1300 0214 0255 0300 0245 0258 0615 0715 1215 0700 0657 0644 0654 0110 0633 1200 1234 1215 6033 1233 9700 0420 0245 2025 2225]
-            result[i][:import_sum] = @import_declarations.joins(:declaration_cargos)
+            result[i][:import_sum] = import_declarations.joins(:declaration_cargos)
             .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
             #可进口数量
             result[i][:can_import_sum] = material.quantity - result[i][:import_sum].to_f
             #退运数量
             trade_mode = %w[0265 0664]
-            result[i][:quit_transfer_sum] = @import_declarations.joins(:declaration_cargos)
+            result[i][:quit_transfer_sum] = import_declarations.joins(:declaration_cargos)
             .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
             #转入数量
             trade_mode = %w[0285 0657]
-            result[i][:transfer_sum] = @import_declarations.joins(:declaration_cargos)
+            result[i][:transfer_sum] = import_declarations.joins(:declaration_cargos)
             .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
             #进口率
             result[i][:import_rate] = result[i][:import_sum].to_f / material.quantity
@@ -615,14 +704,19 @@ class DeclarationsController < ApplicationController
             result[i][:contract_price] = result[i][:import_sum].to_f * material.unit_price
             #报关单统计总金额
             trade_mode = %w[9900 1300 0214 0255 0300 0245 0258 0615 0715 1215 0700 0657 0644 0654 0110 0633 1200 1234 1215 6033 1233 9700 0420 0245 2025 2225]
-            result[i][:import_price] = @import_declarations.joins(:declaration_cargos)
+            result[i][:import_price] = import_declarations.joins(:declaration_cargos)
             .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity*unit_price')
             #金额差
             result[i][:diff_price] = result[i][:contract_price].to_f -  result[i][:import_price].to_f
           }
 
         end
-        $materials = result
+        cache_name =  "materials_#{Time.new.to_i}"
+        Rails.cache.write(cache_name, result)
+        if result.size > 0
+          result[0][:cache_name] = cache_name
+        end
+        #$materials = result
         render json: result
       }
     end
@@ -635,9 +729,9 @@ class DeclarationsController < ApplicationController
         result = {}
         if  params[:contract_id] != ''
 
-          @contract = Contract.find(params[:contract_id])
-          result = @contract.contract_products
-          contract_materials =  @contract.contract_materials
+          contract = Contract.find(params[:contract_id])
+          result = contract.contract_products
+          contract_materials =  contract.contract_materials
 
           opt = {}
           opt[:enterprise_id] = current_enterprise.id
@@ -650,29 +744,29 @@ class DeclarationsController < ApplicationController
           if !params[:custom].nil? and  params[:custom] != ''
             opt[:custom] = params[:custom]
           end
-          @export_declarations = Declaration.where(opt)
+          export_declarations = Declaration.where(opt)
           opt[:declaration_type] = 'import'
-          @import_declarations = Declaration.where(opt)
+          import_declarations = Declaration.where(opt)
 
           result.each_with_index { |product, i|
 
             #出口总数量
             trade_mode = %w[9900 1300 0214 0255 0466 4400 0615 0715 1215 4600 0744 0110 0633 1200 1234 1215 6033 1233 9700 0400 0654]
-            result[i][:export_sum] = @export_declarations.joins(:declaration_cargos)
+            result[i][:export_sum] = export_declarations.joins(:declaration_cargos)
             .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', product.no ,trade_mode).sum('quantity')
             #可出口数量
             result[i][:can_export_sum] = product.quantity - result[i][:export_sum].to_f
             #返工进口数量  -- 按进口报关单统计
             trade_mode = %w[4400 4600]
-            result[i][:rework_import_sum] = @import_declarations.joins(:declaration_cargos)
+            result[i][:rework_import_sum] = import_declarations.joins(:declaration_cargos)
             .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', product.no ,trade_mode).sum('quantity')
             #返工复出数量
             trade_mode = %w[4400 4600]
-            result[i][:rework_again_sum] = @export_declarations.joins(:declaration_cargos)
+            result[i][:rework_again_sum] = export_declarations.joins(:declaration_cargos)
             .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', product.no ,trade_mode).sum('quantity')
             #转厂数量
             trade_mode = %w[0255 0654]
-            result[i][:transfer_sum] = @export_declarations.joins(:declaration_cargos)
+            result[i][:transfer_sum] = export_declarations.joins(:declaration_cargos)
             .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', product.no ,trade_mode).sum('quantity')
             #出口率
             result[i][:export_rate] = result[i][:export_sum].to_f / product.quantity
@@ -680,7 +774,7 @@ class DeclarationsController < ApplicationController
             result[i][:contract_price] = result[i][:export_sum].to_f * product.unit_price
             #报关单统计总金额
             trade_mode = %w[9900 1300 0214 0255 0466 4400 0615 0715 1215 4600 0744 0110 0633 1200 1234 1215 6033 1233 9700 0400 0654]
-            result[i][:export_price] = @export_declarations.joins(:declaration_cargos)
+            result[i][:export_price] = export_declarations.joins(:declaration_cargos)
             .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', product.no ,trade_mode).sum('quantity*unit_price')
             #金额差
             result[i][:diff_price] = result[i][:contract_price].to_f -  result[i][:export_price].to_f
@@ -688,19 +782,24 @@ class DeclarationsController < ApplicationController
           }
 
         end
-        $products = result
+        cache_name =  "products_#{Time.new.to_i}"
+        Rails.cache.write(cache_name, result)
+        if result.size > 0
+          result[0][:cache_name] = cache_name
+        end
+        #$products = result
         render json: result
       }
     end
   end
 
   def print_materials
-    @materials = $materials
+    @materials = Rails.cache.read(params[:cache_name])
     render :layout => 'print'
   end
 
   def print_products
-    @products = $products
+    @products = Rails.cache.read(params[:cache_name])
     render :layout => 'print'
   end
 
@@ -711,9 +810,9 @@ class DeclarationsController < ApplicationController
         result = []
         if  params[:contract_id] != ''
 
-          @contract = Contract.find(params[:contract_id])
-          result = @contract.contract_materials
-          contract_products =  @contract.contract_products
+          contract = Contract.find(params[:contract_id])
+          result = contract.contract_materials
+          contract_products =  contract.contract_products
 
           opt = {}
           opt[:enterprise_id] = current_enterprise.id
@@ -723,41 +822,41 @@ class DeclarationsController < ApplicationController
           if params[:from] !='' and params[:to] != ''
             opt[:declare_date] = params[:from]..params[:to]
           end
-          @import_declarations = Declaration.where(opt)
+          import_declarations = Declaration.where(opt)
 
 
           result.each_with_index { |material, i|
             #进口总数量
             trade_mode = %w[9900 1300 0214 0255 0300 0245 0258 0615 0715 1215 0700 0657 0644 0654 0110 0633 1200 1234 1215 6033 1233 9700 0420 0245 2025 2225]
-            result[i][:import_sum] = @import_declarations.joins(:declaration_cargos)
+            result[i][:import_sum] = import_declarations.joins(:declaration_cargos)
             .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
             #直接进口数量
             trade_mode = %w[0124 0615 0715]
-            result[i][:direct_import_sum] = @import_declarations.joins(:declaration_cargos)
+            result[i][:direct_import_sum] = import_declarations.joins(:declaration_cargos)
             .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
             #结转进口数量
             trade_mode = %w[0255 0654]
-            result[i][:transfer_import_sum] = @import_declarations.joins(:declaration_cargos)
+            result[i][:transfer_import_sum] = import_declarations.joins(:declaration_cargos)
             .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
             #余料结转进口数量
             trade_mode = %w[0258 0657]
-            result[i][:remain_transfer_import_sum] = @import_declarations.joins(:declaration_cargos)
+            result[i][:remain_transfer_import_sum] = import_declarations.joins(:declaration_cargos)
             .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
             #内销数量
             trade_mode = %w[0245 0644]
-            result[i][:domestic_sum] = @import_declarations.joins(:declaration_cargos)
+            result[i][:domestic_sum] = import_declarations.joins(:declaration_cargos)
             .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
             #退运出口数量
             trade_mode = %w[0265 0664]
-            result[i][:quit_sum] = @import_declarations.joins(:declaration_cargos)
+            result[i][:quit_sum] = import_declarations.joins(:declaration_cargos)
             .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
             #边角料内销数量
             trade_mode = %w[0844 0845]
-            result[i][:remain_domestic_sum] = @import_declarations.joins(:declaration_cargos)
+            result[i][:remain_domestic_sum] = import_declarations.joins(:declaration_cargos)
             .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
             #边角料复出数量
             trade_mode = %w[0864 0865]
-            result[i][:remain_again_sum] = @import_declarations.joins(:declaration_cargos)
+            result[i][:remain_again_sum] = import_declarations.joins(:declaration_cargos)
             .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', material.no ,trade_mode).sum('quantity')
 
             trade_mode = %w[9900 1300 0214 0255 0300 0245 0258 0615 0715 1215 0700 0657 0644 0654 0110 0633 1200 1234 1215 6033 1233 9700 0420 0245 2025 2225]
@@ -788,14 +887,19 @@ class DeclarationsController < ApplicationController
           }
 
         end
-        $sources = result
+        cache_name =  "sources_#{Time.new.to_i}"
+        Rails.cache.write(cache_name, result)
+        if result.size > 0
+          result[0][:cache_name] = cache_name
+        end
+        #$sources = result
         render json: result
       }
     end
   end
 
   def print_source
-    @sources = $sources
+    @sources = Rails.cache.read(params[:cache_name])
     render :layout => 'print'
   end
   

@@ -55,20 +55,27 @@
   <% statistic_declarations_size = @statistic_declarations.size %>
   <% page_size = 44 %>
   <% pages = statistic_declarations_size/page_size + 1 %>
+  <% total_declaration_size = 0 %>
+  <% declaration_size_array = [] %>
+  <% @statistic_declarations.each_with_index do |statistic_declaration, i|%>
+      <% cargo_size = statistic_declaration.declaration_cargos.size %>
+      <% declaration_size_array[i] = cargo_size/5+(cargo_size%5==0?0:1) %>
+      <% total_declaration_size += declaration_size_array[i] %>
+  <% end %>
   <% (0..pages - 1).each do |page_count| %>
       <!--每一页的内容-->
       <!--<div class="tr" style="height: 80px;"></div>-->
       <div class="tr" style="height: 50px; text-align: center; font-size: 35px;">进 出 ( 报关单 ) 统 计 表</div>
 
       <div class="tr">
-        <div class="td" style="width:50%"><span class="bord">企业名称：</span><span class="content"><%=  @enterprise_name %></div>
-        <div class="td" style="width:24%"><span class="bord">手册：</span><span class="content"><%= @manual  %></div>
-        <div class="td" style="width:24%"><span class="bord">申报现场：</span><span class="content"><%= @custom_name  %></div>
+        <div class="td" style="width:50%"><span class="bord">企业名称：</span><span class="content"><%=  @enterprise_name %></span></div>
+        <div class="td" style="width:24%"><span class="bord">手册：</span><span class="content"><%= @manual  %></span></div>
+        <div class="td" style="width:24%"><span class="bord">申报现场：</span><span class="content"><%= @custom_name  %></span></div>
       </div>
 
       <div class="tr">
         <div class="td" style="width:50%;"><span class="bord">统计时间：</span>截止<span class="content"><%=  Time.new.strftime("%Y-%m-%d") %></span></div>
-        <div class="td" style="width:48%;"><span class="bord">合计：</span><span class="content"><%=   %></div>
+        <div class="td" style="width:48%;"><span class="bord">合计：</span><span class="content"><%= statistic_declarations_size  %></span>项&nbsp;&nbsp;&nbsp;&nbsp;报关单<span class="content"><%= total_declaration_size  %></span>份</div>
       </div>
 
       <div class="tr" style="height: 10px;"></div>
@@ -107,7 +114,7 @@
                 <span >&nbsp;<%= statistic_declaration.bill_no %>&nbsp;</span>
               </div>
               <div class="td" style="width:80px;">
-                <span >&nbsp;<%= 1 %>&nbsp;</span>
+                <span >&nbsp;<%= declaration_size_array[i] %>&nbsp;</span>
               </div>
             </div>
         <% end %>

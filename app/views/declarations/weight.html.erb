@@ -51,6 +51,7 @@
 
 
         $('#search').click(function () {
+            result = undefined
             $('tbody').html('');
             $('#nav_div').html('');
 
@@ -180,7 +181,8 @@
         }
         $('#print').click(function(){
             if(result){
-                window.open('/declarations/print_weight');
+                window.open('/declarations/print_weight?cache_name=' +
+                        result[0]['cache_name']);
             }else{
                 alert('没有结果，打印不了');
             }

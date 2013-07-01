@@ -1,0 +1,125 @@
+<style type="text/css">
+    body {
+        text-align: left;
+        font-size: 14px;
+    }
+
+    .frame {
+        margin: 0 auto;
+        width: 715px;
+        text-align: left;
+    }
+
+    .tr {
+        padding: 1px 0 1px 0;
+    }
+
+    .table {
+        border: 1px solid;
+    }
+
+    .table .tr {
+        padding: 0;
+        height: 24px;
+        line-height: 24px;
+        border-bottom: solid 1px;
+    }
+
+    .table .tr:last-child {
+        border-bottom: none;
+    }
+
+    .table .tr .td {
+        border-right: solid 1px;
+        text-align: center;
+    }
+
+    .table .tr .td:last-child {
+        border-right: none;
+    }
+
+    .bord{
+        font-weight: bold;
+    }
+
+
+
+
+</style>
+
+
+
+<div class="frame">
+  <!--设置-->
+  <% print_time = Time.new.strftime("%Y-%m-%d %H:%M:%S") %>
+  <% count = 1 %>
+  <% details3_declarations_size = @details3_declarations.size %>
+  <% page_size = 35 %>
+  <% pages = details3_declarations_size/page_size + 1 %>
+  <% if @to == "" %>
+      <% @to = print_time[0..6] %>
+  <% end %>
+  <div class='noprint' style="text-align: right">
+    <%=  link_to "导出 excel", "/excels/#{@filename}" %>
+  </div>
+  <% (0..pages - 1).each do |page_count| %>
+      <!--每一页的内容-->
+      <!--<div class="tr" style="height: 80px;"></div>-->
+
+      <div class="tr" style="height: 50px; text-align: center; font-size: 26px;"><span class="content"><%=  @to[0..3] %></span>年<span class="content"><%=  @to[5..6] %></span>月报关单明细表</div>
+
+      <div class="tr">
+        <div class="td" ><span class="bord">申报企业名称：</span><span class="content"><%=  @enterprise_name %></span></div>
+      </div>
+
+
+      <div class="tr" style="height: 10px;"></div>
+
+      <div class="table" >
+        <div class="tr" style="font-weight: bold;">
+          <div class="td" style="width:35px;">序号</div>
+          <div class="td" style="width:150px;">报关单号</div>
+          <div class="td" style="width:300px;">企业名称</div>
+          <div class="td" style="width:150px;">企业海关编码</div>
+          <div class="td" style="width:70px;">仓库类型</div>
+        </div>
+        <% start = page_count*page_size %>
+        <% tail = (page_count + 1) * page_size - 1 > details3_declarations_size ? details3_declarations_size : (page_count + 1) * page_size - 1 %>
+        <!--每一项-->
+        <% @details3_declarations[start..tail].each_with_index do |details3_declaration, i| %>
+            <div class="tr">
+              <div class="td" style="width:35px;">
+                <span ><%= count %><% count += 1 %></span>
+              </div>
+              <div class="td" style="width:150px;">
+                <span >&nbsp;<%= details3_declaration.entry_no %>&nbsp;</span>
+              </div>
+              <div class="td" style="width:300px;">
+                <span >&nbsp;<%= details3_declaration.enterprise_name %>&nbsp;</span>
+              </div>
+              <div class="td" style="width:150px;">
+                <span >&nbsp;<%= details3_declaration.enterprise_code %>&nbsp;</span>
+              </div>
+              <div class="td" style="width:70px;">
+                <span >&nbsp;<%= details3_declaration.warehouse_no %>&nbsp;</span>
+              </div>
+            </div>
+        <% end %>
+        <!--填充使满页-->
+        <% ((page_count + 1) * page_size - 1 - details3_declarations_size).times do %>
+            <div class="tr">
+              <div class="td" style="width:35px;">&nbsp;</div>
+              <div class="td" style="width:150px;">&nbsp;</div>
+              <div class="td" style="width:300px;">&nbsp;</div>
+              <div class="td" style="width:150px;">&nbsp;</div>
+              <div class="td" style="width:70px;">&nbsp;</div>
+            </div>
+        <% end %>
+      </div>
+      <div style="float: right">第<%= page_count + 1 %>页/共<%= pages %>页
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        打印时间：&nbsp;&nbsp;&nbsp;&nbsp;<%= print_time %>&nbsp;&nbsp;&nbsp;&nbsp;</div>
+      <div class="tr" style="height: 20px;"></div>
+  <% end %>
+
+</div>
