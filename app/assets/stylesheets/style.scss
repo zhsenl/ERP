@@ -836,3 +836,36 @@ div.wysiwyg iframe {
     border: 1px solid #6EAA09;
     border-radius: 5px 5px 5px 5px;
 }
+
+.wrappers {
+  /*width: 1002px;*/
+  /*margin: 10px auto;*/
+  /*text-align: center;*/
+}
+
+.overlays {
+  background: #000000;
+  opacity: 0.5;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 10000;
+}
+
+.popups{
+  background: none repeat scroll 0 0 #FFFFFF;
+  border: 10px solid #DDDDDD;
+  padding: 50px;
+  position: fixed;
+  text-align: center;
+  top: 15%;
+  left: 15%;
+  width: 750px;
+  /*min-height: 500px;*/
+  /*margin: 10px auto;*/
+
+  z-index: 20000;
+  -moz-border-radius: 30px 0;
+}

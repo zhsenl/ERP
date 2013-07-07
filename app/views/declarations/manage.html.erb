@@ -29,6 +29,8 @@
             return $('<td/>');
         }
 
+
+
         $("#current_enterprise_id").change(function () {
             $('#contract_id').css({disabled: true}).addClass('grey')
             $.post(
@@ -108,6 +110,7 @@
                 default :
                     json['declaration_type'] = 'export';
             }
+            popUp('popup','overlay');
             $.get('/declarations/manage.json', json, paginate)
         })
 
@@ -117,11 +120,13 @@
             var total_pages = result.length/page_size;
             if(result.length == 0){
                 alert('没有结果');
+                popOff('popup','overlay');
                 return;
             }
             display_page(0, page_size);
             display_nav(0,total_pages, page_size);
             operate_listener();
+            popOff('popup','overlay');
         }
 
         function display_page(page_num,page_size) {
@@ -263,6 +268,16 @@
         display: inline-block;
     }
 </style>
+
+<!-- Loading begin -->
+<div id="wrapper" class='wrappers'>
+  <div style="display: none;" id="overlay" class="overlays">
+  </div>
+  <div style="display: none;font-size: 16px;font-weight: bold;color: orange" id="popup" class="popups">
+    正在统计中...
+  </div>
+</div>
+<!-- Loading end -->
 
 <div id="search_form" style="width:70%;display: inline-block">
 

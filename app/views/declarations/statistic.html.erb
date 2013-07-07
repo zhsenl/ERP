@@ -24,38 +24,7 @@
         border: 1px solid orange;
     }
 
-    .wrappers {
-        /*width: 1002px;*/
-        /*margin: 10px auto;*/
-        /*text-align: center;*/
-    }
 
-    .overlays {
-        background: #000000;
-        opacity: 0.5;
-        bottom: 0;
-        left: 0;
-        position: fixed;
-        right: 0;
-        top: 0;
-        z-index: 10000;
-    }
-
-    .popups{
-        background: none repeat scroll 0 0 #FFFFFF;
-        border: 10px solid #DDDDDD;
-        padding: 50px;
-        position: fixed;
-        text-align: center;
-        top: 15%;
-        left: 15%;
-        width: 750px;
-        /*min-height: 500px;*/
-        /*margin: 10px auto;*/
-
-        z-index: 20000;
-        -moz-border-radius: 30px 0;
-    }
 
 </style>
 
@@ -66,30 +35,7 @@
         var pre = 1;  //pre form head
         var pre_form_body = 1;
         var contracts;
-//        var products;
-//        var materials;
         //global variables
-
-        var time = 500;
-        /**
-         * 弹出层
-         * @param popUp
-         * @param overlay
-         */
-        function popUp(popUp, overlay){
-            jQuery("#" + overlay).css('display', 'block'); // displaying the overlay
-            jQuery("#" + popUp).css('display', 'block'); // displaying the popup
-            jQuery("#" + popUp).fadeIn(time); // Displaying popup with fade in animation
-        }
-        /**
-         * 收回层
-         * @param popUp
-         * @param overlay
-         */
-        function popOff(popUp, overlay){
-            jQuery("#" + overlay).fadeOut(time); // displaying the overlay
-            jQuery("#" + popUp).fadeOut(time); //function to redirect the page after few seconds
-        }
 
 
         //fill form begin
@@ -235,6 +181,7 @@
                 contracts[i]['products'] = result.products
                 contracts[i]['materials'] = result.materials
                 contracts[i]['consumptions'] = result.consumptions
+                contracts[i]['cache_name_2'] = result.cache_name_2
 
                 // 生成表格
                 fillForm('#form_head', contracts[i]);
@@ -355,7 +302,11 @@
         //打印
         $('#print').click(function(){
             if(contracts){
-                window.open('/declarations/print_statistic');
+//                alert(contracts[pre_form_body - 1]['cache_name'])
+//                alert(contracts[pre_form_body - 1]['cache_name_2'])
+//                alert(contracts[pre_form_body - 1].id)
+                window.open('/declarations/print_statistic?cache_name=' +
+                        contracts[pre_form_body - 1]['cache_name'] + '&cache_name_2=' + contracts[pre_form_body - 1]['cache_name_2'] + '&contract_id=' + contracts[pre_form_body - 1].id);
             }else{
                 alert('没有结果，打印不了');
             }
@@ -380,7 +331,6 @@
 
 
 <div id="tabs">
-
 
   <ul>
     <li><a>核销表头</a></li>

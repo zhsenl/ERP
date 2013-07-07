@@ -78,6 +78,7 @@
                 default :
                     json['declaration_type'] = 'export';
             }
+            popUp('popup','overlay');
             $.get('/declarations/statistics.json', json, paginate)
         })
 
@@ -87,11 +88,13 @@
             var total_pages = result.length/page_size;
             if(result.length == 0){
                 alert('没有结果');
+                popOff('popup','overlay');
                 return;
             }
             display_page(0, page_size);
             display_nav(0,total_pages, page_size);
             operate_listener();
+            popOff('popup','overlay');
         }
 
         function display_page(page_num,page_size) {
