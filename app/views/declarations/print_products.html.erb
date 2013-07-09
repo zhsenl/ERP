@@ -1,12 +1,12 @@
 <style type="text/css">
     body {
         text-align: left;
-        font-size: 16px;
+        font-size: 14px;
     }
 
     .frame {
         margin: 0 auto;
-        width: 1329px;
+        width: 1069px;
         text-align: left;
     }
 
@@ -20,8 +20,8 @@
 
     .table .tr {
         padding: 0;
-        height: 32px;
-        line-height: 32px;
+        height: 24px;
+        line-height: 24px;
         border-bottom: solid 1px;
     }
 
@@ -47,7 +47,7 @@
 
   <!--设置-->
   <% products_size = @products.size %>
-  <% page_size = 42 %>
+  <% page_size = 53 %>
   <%
      pages = products_size/page_size
      if products_size % page_size !=0
@@ -56,7 +56,6 @@
   %>
   <% (0..pages - 1).each do |page_count| %>
       <!--每一页的内容-->
-      <div class="tr" style="height: 80px;"></div>
       <div class="tr" style="height: 80px; text-align: center; font-size: 35px;">合同成品出口情况表</div>
       <div class="tr" style="height: 20px;"></div>
       <div class="table">
@@ -64,20 +63,32 @@
           <div class="td" style="width:35px;">序号</div>
           <div class="td" style="width:180px;">成品名称</div>
           <!--<div class="td" style="width:80px;">单位</div>-->
-          <div class="td" style="width:100px;">合同数量</div>
-          <div class="td" style="width:100px;">实际出口数量</div>
-          <div class="td" style="width:100px;">可出口数</div>
-          <div class="td" style="width:100px;">返工进口数量</div>
-          <div class="td" style="width:100px;">返工复出数量</div>
-          <div class="td" style="width:100px;">转厂数量</div>
-          <div class="td" style="width:100px;">出口率</div>
-          <div class="td" style="width:100px;">合同单价</div>
-          <div class="td" style="width:100px;">合同单价金额</div>
-          <div class="td" style="width:100px;">
+          <div class="td" style="width:80px;">合同数量</div>
+          <div class="td" style="width:80px;">
+            <div style="height: 25px;line-height: 25px">实际</div>
+            <div style="height: 25px;line-height: 25px">出口数量</div>
+          </div>
+          <div class="td" style="width:80px;">可出口数</div>
+          <div class="td" style="width:80px;">
+            <div style="height: 25px;line-height: 25px">返工</div>
+            <div style="height: 25px;line-height: 25px">进口数量</div>
+          </div>
+          <div class="td" style="width:80px;">
+            <div style="height: 25px;line-height: 25px">返工</div>
+            <div style="height: 25px;line-height: 25px">复出数量</div>
+          </div>
+          <div class="td" style="width:80px;">转厂数量</div>
+          <div class="td" style="width:50px;">出口率</div>
+          <div class="td" style="width:80px;">合同单价</div>
+          <div class="td" style="width:80px;">
+            <div style="height: 25px;line-height: 25px">合同</div>
+            <div style="height: 25px;line-height: 25px">单价金额</div>
+          </div>
+          <div class="td" style="width:80px;">
             <div style="height: 25px;line-height: 25px">报关单统</div>
             <div style="height: 25px;line-height: 25px">计总金额</div>
           </div>
-          <div class="td" style="width:100px;">金额差</div>
+          <div class="td" style="width:70px;">金额差</div>
         </div>
         <% start = page_count*page_size %>
         <% tail = (page_count + 1) * page_size - 1 > products_size ? products_size : (page_count + 1) * page_size - 1 %>
@@ -93,39 +104,57 @@
               <!--<div class="td" style="width:80px;">-->
               <!--<span class="content"><%= dict_name(Dict::Unit, product.unit) %></span>-->
               <!--</div>-->
-              <div class="td" style="width:100px;">
-                <span class="content"><%= sprintf "%0.2f",product.quantity %></span>
+              <div class="td" style="width:80px;">
+                <span class="content"><%= sprintf "%0.0f",product.quantity %></span>
               </div>
-              <div class="td" style="width:100px;">
-                <span class="content"><%= sprintf "%0.2f",product.export_sum %></span>
+              <div class="td" style="width:80px;">
+                <span class="content"><%= sprintf "%0.1f",product.export_sum %></span>
               </div>
-              <div class="td" style="width:100px;">
-                <span class="content"><%= sprintf "%0.2f",product.can_export_sum %></span>
+              <div class="td" style="width:80px;">
+                <span class="content"><%= sprintf "%0.0f",product.can_export_sum %></span>
               </div>
-              <div class="td" style="width:100px;">
-                <span class="content"><%= sprintf "%0.2f",product.rework_import_sum %></span>
+              <div class="td" style="width:80px;">
+                <span class="content"><%= sprintf "%0.0f",product.rework_import_sum %></span>
               </div>
-              <div class="td" style="width:100px;">
-                <span class="content"><%= sprintf "%0.2f",product.rework_again_sum %></span>
+              <div class="td" style="width:80px;">
+                <span class="content"><%= sprintf "%0.0f",product.rework_again_sum %></span>
               </div>
-              <div class="td" style="width:100px;">
-                <span class="content"><%= sprintf "%0.2f",product.transfer_sum %></span>
+              <div class="td" style="width:80px;">
+                <span class="content"><%= sprintf "%0.0f",product.transfer_sum %></span>
               </div>
-              <div class="td" style="width:100px;">
-                <span class="content"><%= sprintf "%0.2f",product.export_rate %></span>
+              <div class="td" style="width:50px;">
+                <span class="content"><%= sprintf "%0.1f",product.export_rate %></span>
               </div>
-              <div class="td" style="width:100px;">
+              <div class="td" style="width:80px;">
                 <span class="content"><%= product.unit_price %></span>
               </div>
-              <div class="td" style="width:100px;">
-                <span class="content"><%= sprintf "%0.2f",product.contract_price %></span>
+              <div class="td" style="width:80px;">
+                <span class="content"><%= sprintf "%0.1f",product.contract_price %></span>
               </div>
-              <div class="td" style="width:100px;">
-                <span class="content"><%= sprintf "%0.2f",product.export_price %></span>
+              <div class="td" style="width:80px;">
+                <span class="content"><%= sprintf "%0.1f",product.export_price %></span>
               </div>
-              <div class="td" style="width:100px;">
-                <span class="content"><%= sprintf "%0.2f",product.diff_price %></span>
+              <div class="td" style="width:70px;">
+                <span class="content"><%= sprintf "%0.1f",product.diff_price %></span>
               </div>
+            </div>
+        <% end %>
+        <!--填充使满页-->
+        <% ((page_count + 1) * page_size - 1 - products_size).times do %>
+            <div class="tr">
+              <div class="td" style="width:35px;">&nbsp;</div>
+              <div class="td" style="width:180px;">&nbsp;</div>
+              <div class="td" style="width:80px;">&nbsp;</div>
+              <div class="td" style="width:80px;">&nbsp;</div>
+              <div class="td" style="width:80px;">&nbsp;</div>
+              <div class="td" style="width:80px;">&nbsp;</div>
+              <div class="td" style="width:80px;">&nbsp;</div>
+              <div class="td" style="width:80px;">&nbsp;</div>
+              <div class="td" style="width:50px;">&nbsp;</div>
+              <div class="td" style="width:80px;">&nbsp;</div>
+              <div class="td" style="width:80px;">&nbsp;</div>
+              <div class="td" style="width:80px;">&nbsp;</div>
+              <div class="td" style="width:70px;">&nbsp;</div>
             </div>
         <% end %>
       </div>
