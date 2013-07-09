@@ -1,7 +1,7 @@
 <style type="text/css">
     body {
         text-align: left;
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .frame {
@@ -12,7 +12,7 @@
 
     .frame2 {
         margin: 0 auto;
-        width: 960px;
+        width: 972px;
         text-align: left;
     }
 
@@ -88,7 +88,7 @@
 </script>
 
 <% ith_page = 1 %>
-<div class="frame">
+<div class="frame" >
 
 <!--表头-->
 <div class="tr" style="height: 80px;"></div>
@@ -232,7 +232,7 @@
 <div class="tr" style="height: 70px;"></div>
 <div style="float: right">第&nbsp;&nbsp;<%= ith_page %><% ith_page = ith_page + 1 %>&nbsp;&nbsp;页</div>
 </div>
-<div class="frame2">
+<div class="frame2" style="font-size: 12px;">
 <!--料件栏-->
 <!--设置-->
 <% materials_size = @statistic_pro_mat_con[:materials].size %>
@@ -247,7 +247,7 @@
     <!--每一页的内容-->
     <!--<div class="tr" style="height: 80px;"></div>-->
     <div class="tr" style="height: 30px; text-align: center; font-size: 24px;font-weight:bold">加工贸易合同核销申请表分表</div>
-    <div class="tr" style="height: 20px; text-align: center; font-weight: bold">料件栏</div>
+    <div class="tr" style="height: 20px; text-align: center; font-size: 14px;font-weight: bold">料件栏</div>
     <div class="table">
       <div class="tr" style="height: 50px; line-height:50px;">
         <div class="td" style="width:35px;">序号</div>
@@ -320,15 +320,28 @@
             </div>
           </div>
       <% end %>
+    <!--填充使满页-->
+    <% ((page_count + 1) * page_size - 1 - materials_size).times do %>
+        <div class="tr">
+          <div class="td" style="width:35px;">&nbsp;</div>
+          <div class="td" style="width:200px;">&nbsp;</div>
+          <div class="td" style="width:45px;">&nbsp;</div>
+          <div class="td" style="width:85px;">&nbsp;</div>
+          <div class="td" style="width:100px;">&nbsp;</div>
+          <div class="td" style="width:100px;">&nbsp;</div>
+          <div class="td" style="width:100px;">&nbsp;</div>
+          <div class="td" style="width:70px;">&nbsp;</div>
+          <div class="td" style="width:70px;">&nbsp;</div>
+          <div class="td" style="width:70px;">&nbsp;</div>
+          <div class="td" style="width:70px;">&nbsp;</div>
+        </div>
+    <% end %>
     </div>
-      <% ((page_count + 1) * page_size - 1 - materials_size).times do %>
-          <div style="height:25px"></div>
-      <% end %>
-    <div class="tr" style="height: 18px;"></div>
+
+    <div class="tr" style="height: 22px;"></div>
     <div style="float: right">第&nbsp;&nbsp;<%= ith_page %><% ith_page = ith_page + 1 %>&nbsp;&nbsp;页</div>
 <% end %>
 <!--成品栏-->
-
 <!--设置-->
 <% products_size = @statistic_pro_mat_con[:products].size %>
 <% page_size = 21 %>
@@ -342,7 +355,7 @@
     <!--每一页的内容-->
     <!--<div class="tr" style="height: 80px;"></div>-->
     <div class="tr" style="height: 30px; text-align: center; font-size: 24px;font-weight:bold">加工贸易合同核销申请表分表</div>
-    <div class="tr" style="height: 20px; text-align: center; font-weight: bold">成品栏</div>
+    <div class="tr" style="height: 20px; text-align: center; font-size: 14px;font-weight: bold">成品栏</div>
     <div class="table">
       <div class="tr" style="height: 50px; line-height:50px;">
         <div class="td" style="width:35px;">序号</div>
@@ -385,78 +398,209 @@
             </div>
           </div>
       <% end %>
-    </div>
+    <!--填充使满页-->
     <% ((page_count + 1) * page_size - 1 - products_size).times do %>
-        <div style="height:25px"></div>
-    <% end %>
-    <div class="tr" style="height: 18px;"></div>
+        <div class="tr">
+          <div class="td" style="width:35px;">&nbsp;</div>
+          <div class="td" style="width:200px;">&nbsp;</div>
+          <div class="td" style="width:45px;">&nbsp;</div>
+          <div class="td" style="width:100px;">&nbsp;</div>
+          <div class="td" style="width:150px;">&nbsp;</div>
+          <div class="td" style="width:120px;">&nbsp;</div>
+          <div class="td" style="width:150px;">&nbsp;</div>
+          <div class="td" style="width:150px;">&nbsp;</div>
+        </div>
+       <% end %>
+    </div>
+
+    <div class="tr" style="height: 22px;"></div>
     <div style="float: right">第&nbsp;&nbsp;<%= ith_page %><% ith_page = ith_page + 1 %>&nbsp;&nbsp;页</div>
 <% end %>
 
 <!--单损耗栏-->
 <!--设置-->
+<% count = 1 %>
 <% consumptions = [] %>
-<% consumptions_size = 0 %>
+<% items_arr = [] %>
+<% items_arr_idx = -1 %>
+<% products = [] %>
 <% @statistic_pro_mat_con[:consumptions].each_with_index do |consumption_product, i|%>
-    <% @statistic_pro_mat_con[:consumptions][i].each_with_index do |consumption_product_material, j|%>
-        <% consumptions[consumptions_size] = consumption_product_material %>
-        <% consumptions_size += 1 %>
+    <% col = i%4 %>
+    <% ith_consump = i/4%>
+    <%
+        if consumptions[ith_consump].nil?
+            consumptions[ith_consump] = []
+        end
+    %>
+    <% if col == 0
+         items_arr_idx += 1
+         items_arr[items_arr_idx]  = 0
+     end %>
+    <% @statistic_pro_mat_con[:consumptions][i].each do |consumption_product_material|%>
+        <%
+            if products[i].nil?
+              products[i] = consumption_product_material.contract_product_name
+            end
+        %>
+        <% if consumptions[ith_consump][consumption_product_material.contract_material_no.to_i].nil?
+           consumptions[ith_consump][consumption_product_material.contract_material_no.to_i] = []
+         end %>
+        <%
+           new_item = true
+           (col).times do |n|
+                if !consumptions[ith_consump][consumption_product_material.contract_material_no.to_i][n].nil?
+                  new_item = false
+                end
+            end
+           if  new_item
+            items_arr[items_arr_idx]  += 1
+           end
+        %>
+        <% consumptions[ith_consump][consumption_product_material.contract_material_no.to_i][col] = consumption_product_material %>
     <% end %>
 <% end %>
 
-<% page_size = 22 %>
+<% page_size = 21 %>
+<% pages = 0 %>
+<% pages_arr = [] %>
 <%
-   pages = consumptions_size/page_size
-   if consumptions_size % page_size !=0
-     pages += 1
+   items_arr.each_with_index do |items,i|
+     pages_arr[i] = items/page_size
+       if items % page_size !=0
+         pages_arr[i] += 1
+       end
+     pages += pages_arr[i]
    end
 %>
-<% (0..pages - 1).each do |page_count| %>
+<% consumptions.each do |consumption| consumption.delete nil end %>
+<% pages_arr.each_with_index do |pages,i| %>
+    <% pages.times do |page_count| %>
     <!--每一页的内容-->
     <!--<div class="tr" style="height: 80px;"></div>-->
     <div class="tr" style="height: 30px; text-align: center; font-size: 24px;font-weight:bold">加工贸易合同核销申请表分表</div>
-    <div class="tr" style="height: 20px; text-align: center; font-weight: bold">单损耗栏</div>
+    <div class="tr" style="height: 20px; text-align: center; font-size: 14px;font-weight: bold">单损耗栏</div>
     <div class="table">
-      <div class="tr" style="height: 50px; line-height:50px;">
-        <div class="td" style="width:90px;">成品序号</div>
-        <div class="td" style="width:200px;">成品名称</div>
-        <div class="td" style="width:90px;">料件序号</div>
-        <div class="td" style="width:200px;">料件名称</div>
-        <div class="td" style="width:160px;">料件</div>
-        <div class="td" style="width:160px;">耗损率</div>
+      <div class="tr" style="height: 50px; line-height:50px; font-size: 12px">
+        <div class="td" style="width:25px;">序号</div>
+        <div class="td" style="width:140px;">料件名称</div>
+        <div class="td" style="width:200px;">
+          <div style="height: 25px;line-height: 25px">成品(<%= i * 4 + 1 %>)名称:<%= products[i*4] %></div>
+          <div style="height: 25px;line-height: 25px;border-top: 1px solid">
+            <div class="td" style="width:59px;">单耗</div>
+            <div class="td" style="width:69px;">耗损量</div>
+            <div class="td" style="width:70px;">总用量</div>
+          </div>
+        </div>
+        <div class="td" style="width:200px;">
+          <div style="height: 25px;line-height: 25px">成品(<%=  i * 4 + 2 %>)名称:<%=products[i*4 + 1]%></div>
+          <div style="height: 25px;line-height: 25px;border-top: 1px solid">
+            <div class="td" style="width:59px;">单耗</div>
+            <div class="td" style="width:69px;">耗损量</div>
+            <div class="td" style="width:70px;">总用量</div>
+          </div>
+        </div>
+        <div class="td" style="width:200px;">
+          <div style="height: 25px;line-height: 25px">成品(<%=  i * 4 + 3 %>)名称:<%= products[i*4+2] %></div>
+          <div style="height: 25px;line-height: 25px;border-top: 1px solid">
+            <div class="td" style="width:59px;">单耗</div>
+            <div class="td" style="width:69px;">耗损量</div>
+            <div class="td" style="width:70px;">总用量</div>
+          </div>
+        </div>
+        <div class="td" style="width:200px;">
+          <div style="height: 25px;line-height: 25px">成品(<%=  i * 4 + 4 %>)名称:<%=products[i*4+3] %></div>
+          <div style="height: 25px;line-height: 25px;border-top: 1px solid">
+            <div class="td" style="width:59px;">单耗</div>
+            <div class="td" style="width:69px;">耗损量</div>
+            <div class="td" style="width:70px;">总用量</div>
+          </div>
+        </div>
       </div>
       <% start = page_count*page_size %>
-      <% tail = (page_count + 1) * page_size - 1 > consumptions_size ? consumptions_size : (page_count + 1) * page_size - 1 %>
+      <% tail = (page_count + 1) * page_size - 1 > items_arr[i] ? items_arr[i] : (page_count + 1) * page_size - 1 %>
       <!--每一项-->
-      <% consumptions[start..tail].each_with_index do |consumption, i| %>
+      <% consumptions[i][start..tail].each do |consumption| %>
           <div class="tr">
-            <div class="td" style="width:90px;">
-              <span class="content"><%= consumption.contract_product_no %></span>
+            <div class="td" style="width:25px;">
+              <span class="content"><%= count %><% count += 1 %></span>
             </div>
-            <div class="td" style="width:200px;">
-              <span class="content"><%=consumption.contract_product_name %></span>
-            </div>
-            <div class="td" style="width:90px;">
-              <span class="content"><%= consumption.contract_material_no %></span>
-            </div>
-            <div class="td" style="width:200px;">
-              <span class="content"><%= consumption.contract_material_name %></span>
-            </div>
-            <div class="td" style="width:160px;">
-              <span class="content"><%= consumption.used %></span>
-            </div>
-            <div class="td" style="width:160px;">
-              <span class="content"><%= consumption.wasted %></span>
-            </div>
+            <div class="td" style="width:140px;">
+              <span class="content">
 
+                  <% contract_material_name = ''
+                       consumption[0..3].each do |consump|
+                            if !consump.nil?
+                              contract_material_name = consump.contract_material_name
+                              break
+                            end
+                         end
+                  %>
+                <%= contract_material_name %>
+              </span>
+            </div>
+            <div class="td" style="width:59px;">
+              <span class="content"><%= consumption[0].used if !consumption[0].nil? %></span>
+            </div>
+            <div class="td" style="width:69px;">
+              <span class="content"><%= consumption[0].wasted if !consumption[0].nil? %></span>
+            </div>
+            <div class="td" style="width:70px;">
+              <span class="content"><%= consumption[0].quantity * consumption[0].used + consumption[0].wasted if !consumption[0].nil? %></span>
+            </div>
+            <div class="td" style="width:59px;">
+              <span class="content"><%= consumption[1].used if !consumption[1].nil? %></span>
+            </div>
+            <div class="td" style="width:69px;">
+              <span class="content"><%= consumption[1].wasted if !consumption[1].nil? %></span>
+            </div>
+            <div class="td" style="width:70px;">
+              <span class="content"><%= consumption[1].quantity * consumption[1].used + consumption[1].wasted if !consumption[1].nil? %></span>
+            </div>
+            <div class="td" style="width:59px;">
+              <span class="content"><%= consumption[2].used if !consumption[2].nil? %></span>
+            </div>
+            <div class="td" style="width:69px;">
+              <span class="content"><%= consumption[2].wasted if !consumption[2].nil? %></span>
+            </div>
+            <div class="td" style="width:70px;">
+              <span class="content"><%= consumption[2].quantity * consumption[2].used + consumption[2].wasted if !consumption[2].nil? %></span>
+            </div>
+            <div class="td" style="width:59px;">
+              <span class="content"><%= consumption[3].used if !consumption[3].nil? %></span>
+            </div>
+            <div class="td" style="width:69px;">
+              <span class="content"><%= consumption[3].wasted if !consumption[3].nil? %></span>
+            </div>
+            <div class="td" style="width:70px;">
+              <span class="content"><%= consumption[3].quantity * consumption[3].used + consumption[3].wasted if !consumption[3].nil? %></span>
+            </div>
+          </div>
+      <% end %>
+      <!--填充使满页-->
+      <% ((page_count + 1) * page_size - 1 - items_arr[i]).times do %>
+          <div class="tr">
+            <div class="td" style="width:25px;">&nbsp;</div>
+            <div class="td" style="width:140px;">&nbsp;</div>
+            <div class="td" style="width:59px;">&nbsp;</div>
+            <div class="td" style="width:69px;">&nbsp;</div>
+            <div class="td" style="width:70px;">&nbsp;</div>
+            <div class="td" style="width:59px;">&nbsp;</div>
+            <div class="td" style="width:69px;">&nbsp;</div>
+            <div class="td" style="width:70px;">&nbsp;</div>
+            <div class="td" style="width:59px;">&nbsp;</div>
+            <div class="td" style="width:69px;">&nbsp;</div>
+            <div class="td" style="width:70px;">&nbsp;</div>
+            <div class="td" style="width:59px;">&nbsp;</div>
+            <div class="td" style="width:69px;">&nbsp;</div>
+            <div class="td" style="width:70px;">&nbsp;</div>
           </div>
       <% end %>
     </div>
-    <% ((page_count + 1) * page_size - 1 - consumptions_size).times do %>
-        <div style="height:25px"></div>
-    <% end %>
-    <div class="tr" style="height: 18px;"></div>
+
+    <div class="tr" style="height: 22px;"></div>
     <div style="float: right">第&nbsp;&nbsp;<%= ith_page %><% ith_page = ith_page + 1 %>&nbsp;&nbsp;页</div>
 <% end %>
+    <% end %>
+
     <input type="hidden" id="ith_page" value=<%= ith_page-1 %>    />
 </div>
