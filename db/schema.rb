@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130623135321) do
+ActiveRecord::Schema.define(:version => 20130630162454) do
 
   create_table "cargos", :force => true do |t|
     t.integer  "enterprise_id"
@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(:version => 20130623135321) do
     t.string   "unit"
     t.string   "unit1"
     t.string   "unit2"
-    t.string   "no"
     t.string   "trade_country"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
@@ -128,10 +127,10 @@ ActiveRecord::Schema.define(:version => 20130623135321) do
     t.integer  "package_amount"
     t.decimal  "quantity",                 :precision => 10, :scale => 0
     t.string   "unit"
-    t.decimal  "gross_weight",             :precision => 10, :scale => 2
-    t.decimal  "net_weight",               :precision => 10, :scale => 2
-    t.decimal  "gross_weight_per_package", :precision => 10, :scale => 2
-    t.decimal  "net_weight_per_package",   :precision => 10, :scale => 2
+    t.decimal  "gross_weight",             :precision => 10, :scale => 0
+    t.decimal  "net_weight",               :precision => 10, :scale => 0
+    t.decimal  "gross_weight_per_package", :precision => 10, :scale => 0
+    t.decimal  "net_weight_per_package",   :precision => 10, :scale => 0
     t.integer  "no"
     t.datetime "created_at",                                              :null => false
     t.datetime "updated_at",                                              :null => false
@@ -186,8 +185,8 @@ ActiveRecord::Schema.define(:version => 20130623135321) do
     t.string   "memo"
     t.string   "attachments_mark"
     t.date     "import_export_date"
-    t.datetime "created_at",                                                                :null => false
-    t.datetime "updated_at",                                                                :null => false
+    t.datetime "created_at",                                             :null => false
+    t.datetime "updated_at",                                             :null => false
     t.string   "voyage_no"
     t.string   "transit_type"
     t.boolean  "is_finish"
@@ -196,10 +195,7 @@ ActiveRecord::Schema.define(:version => 20130623135321) do
     t.string   "warehouse_no"
     t.string   "foreign_enterprise_code"
     t.string   "usage"
-    t.integer  "review_type",                                            :default => 0
-    t.boolean  "is_deleted",                                             :default => false
-    t.boolean  "is_paperless",                                           :default => false
-    t.boolean  "is_paperless_deleted",                                   :default => false
+    t.string   "declaration_mode"
   end
 
   create_table "delayed_jobs", :force => true do |t|
@@ -454,6 +450,22 @@ ActiveRecord::Schema.define(:version => 20130623135321) do
     t.string   "trade_code"
   end
 
+  create_table "enterprise_custom_options_copy", :force => true do |t|
+    t.integer  "enterprise_id"
+    t.string   "custom_code"
+    t.string   "platform_id"
+    t.string   "area_name"
+    t.string   "user_private_key"
+    t.string   "process_no"
+    t.string   "ic_card_no"
+    t.string   "certificate_no"
+    t.decimal  "proxy_unit_price",   :precision => 15, :scale => 4
+    t.decimal  "service_unit_price", :precision => 15, :scale => 4
+    t.datetime "created_at",                                        :null => false
+    t.datetime "updated_at",                                        :null => false
+    t.string   "trade_code"
+  end
+
   create_table "enterprises", :force => true do |t|
     t.string   "code"
     t.string   "name"
@@ -469,6 +481,21 @@ ActiveRecord::Schema.define(:version => 20130623135321) do
   end
 
   add_index "enterprises", ["code"], :name => "index_enterprises_on_code", :unique => true
+
+  create_table "enterprises_copy", :force => true do |t|
+    t.string   "code"
+    t.string   "name"
+    t.string   "address"
+    t.string   "linkman"
+    t.string   "telephone"
+    t.string   "fax"
+    t.string   "bank"
+    t.string   "bank_account"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
+
+  add_index "enterprises_copy", ["code"], :name => "index_enterprises_on_code", :unique => true
 
   create_table "foreign_enterprises", :force => true do |t|
     t.string   "code"
@@ -516,16 +543,6 @@ ActiveRecord::Schema.define(:version => 20130623135321) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "sessions", :force => true do |t|
-    t.string   "session_id", :null => false
-    t.text     "data"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
-  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "users", :force => true do |t|
     t.string   "username"
