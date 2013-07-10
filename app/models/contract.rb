@@ -17,4 +17,6 @@ class Contract < ActiveRecord::Base
   def operate_enterprise
     Enterprise.find_by_code(operate_enterprise_code);
   end
+
+
 end

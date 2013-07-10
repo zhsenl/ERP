@@ -90,4 +90,6 @@ module DeclarationsHelper
     return  Declaration.where(opt).order('declare_date')
   end
 
+
+
 end
