@@ -80,9 +80,9 @@
     <label>申报现场&nbsp;&nbsp;&nbsp;&nbsp;</label>
     <select name="custom" id="custom" class="medium-input ">
       <option value=""></option>
-      <% Dict::Custom.all.each do |custom| %>
-          <option value="<%= custom.code %>">
-            <%= custom.code + custom.name %>
+      <% Dict::LoadPort.all.each do |load_port| %>
+          <option value="<%= load_port.custom_code %>">
+            <%= dict_name_and_code Dict::Custom, load_port.custom_code %>
           </option>
       <% end %>
     </select>

@@ -1,12 +1,12 @@
 <style type="text/css">
     body {
         text-align: left;
-        font-size: 16px;
+        font-size: 14px;
     }
 
     .frame {
         margin: 0 auto;
-        width: 824px;
+        width: 844px;
         text-align: left;
     }
 
@@ -20,8 +20,8 @@
 
     .table .tr {
         padding: 0;
-        height: 32px;
-        line-height: 32px;
+        height: 24px;
+        line-height: 24px;
         border-bottom: solid 1px;
     }
 
@@ -47,7 +47,7 @@
 
   <!--设置-->
   <% materials_size = @materials.size %>
-  <% page_size = 42 %>
+  <% page_size = 46 %>
   <%
      pages = materials_size/page_size
      if materials_size % page_size !=0
@@ -56,14 +56,13 @@
   %>
   <% (0..pages - 1).each do |page_count| %>
       <!--每一页的内容-->
-      <div class="tr" style="height: 80px;"></div>
-      <div class="tr" style="height: 80px; text-align: center; font-size: 35px;">合同料件进口详细表</div>
+      <div class="tr" style="height: 40px; text-align: center; font-size: 32px;">合 同 料 件 进 口 详 细 表</div>
       <div class="tr" style="height: 20px;"></div>
       <div class="table">
-        <div class="tr" style="height: 50px; line-height:50px;">
+        <div class="tr" style="height: 35px; line-height:35px;">
           <div class="td" style="width:35px;">序号</div>
-          <div class="td" style="width:100px;">申报日期</div>
-          <div class="td" style="width:100px;">海关编号</div>
+          <div class="td" style="width:80px;">申报日期</div>
+          <div class="td" style="width:140px;">海关编号</div>
           <div class="td" style="width:100px;">贸易方式</div>
           <div class="td" style="width:180px;">料件名称</div>
           <div class="td" style="width:100px;">进口数量</div>
@@ -81,10 +80,10 @@
               <!--<div class="td" style="width:80px;">-->
               <!--<span class="content"><%= dict_name(Dict::Unit, material.unit) %></span>-->
               <!--</div>-->
-              <div class="td" style="width:100px;">
+              <div class="td" style="width:80px;">
                 <span class="content"><%= material.declare_date %></span>
               </div>
-              <div class="td" style="width:100px;">
+              <div class="td" style="width:140px;">
                 <span class="content"><%= material.entry_no %></span>
               </div>
               <div class="td" style="width:100px;">
@@ -102,6 +101,19 @@
               <div class="td" style="width:100px;">
                 <span class="content"><%= material.accumulation %></span>
               </div>
+            </div>
+        <% end %>
+        <!--填充使满页-->
+        <% ((page_count + 1) * page_size - 1 - materials_size).times do %>
+            <div class="tr">
+              <div class="td" style="width:35px;">&nbsp;</div>
+              <div class="td" style="width:80px;">&nbsp;</div>
+              <div class="td" style="width:140px;">&nbsp;</div>
+              <div class="td" style="width:100px;">&nbsp;</div>
+              <div class="td" style="width:180px;">&nbsp;</div>
+              <div class="td" style="width:100px;">&nbsp;</div>
+              <div class="td" style="width:100px;">&nbsp;</div>
+              <div class="td" style="width:100px;">&nbsp;</div>
             </div>
         <% end %>
       </div>

@@ -1,12 +1,12 @@
 <style type="text/css">
     body {
         text-align: left;
-        font-size: 16px;
+        font-size: 14px;
     }
 
     .frame {
         margin: 0 auto;
-        width: 1228px;
+        width: 1068px;
         text-align: left;
     }
 
@@ -20,8 +20,8 @@
 
     .table .tr {
         padding: 0;
-        height: 32px;
-        line-height: 32px;
+        height: 24px;
+        line-height: 24px;
         border-bottom: solid 1px;
     }
 
@@ -47,7 +47,7 @@
 
   <!--设置-->
   <% materials_size = @materials.size %>
-  <% page_size = 42 %>
+  <% page_size = 57 %>
   <%
      pages = materials_size/page_size
      if materials_size % page_size !=0
@@ -56,22 +56,27 @@
   %>
   <% (0..pages - 1).each do |page_count| %>
       <!--每一页的内容-->
-      <div class="tr" style="height: 80px;"></div>
-      <div class="tr" style="height: 80px; text-align: center; font-size: 35px;">合同料件进口情况表</div>
+      <div class="tr" style="height: 40px; text-align: center; font-size: 32px;">合 同 料 件 进 口 情 况 表</div>
       <div class="tr" style="height: 20px;"></div>
       <div class="table">
         <div class="tr" style="height: 50px; line-height:50px;">
           <div class="td" style="width:35px;">序号</div>
           <div class="td" style="width:180px;">料件名称</div>
           <!--<div class="td" style="width:80px;">单位</div>-->
-          <div class="td" style="width:100px;">合同数量</div>
-          <div class="td" style="width:100px;">实际进口数</div>
-          <div class="td" style="width:100px;">可进口数</div>
-          <div class="td" style="width:100px;">退运数量</div>
-          <div class="td" style="width:100px;">转入数量</div>
-          <div class="td" style="width:100px;">进口率</div>
-          <div class="td" style="width:100px;">合同单价</div>
-          <div class="td" style="width:100px;">合同单价金额</div>
+          <div class="td" style="width:80px;">合同数量</div>
+          <div class="td" style="width:80px;">
+            <div style="height: 25px;line-height: 25px">实际</div>
+            <div style="height: 25px;line-height: 25px">进口数</div>
+          </div>
+          <div class="td" style="width:80px;">可进口数</div>
+          <div class="td" style="width:80px;">退运数量</div>
+          <div class="td" style="width:80px;">转入数量</div>
+          <div class="td" style="width:80px;">进口率</div>
+          <div class="td" style="width:80px;">合同单价</div>
+          <div class="td" style="width:80px;">
+            <div style="height: 25px;line-height: 25px">合同</div>
+            <div style="height: 25px;line-height: 25px">单价金额</div>
+          </div>
           <div class="td" style="width:100px;">
             <div style="height: 25px;line-height: 25px">报关单统</div>
             <div style="height: 25px;line-height: 25px">计总金额</div>
@@ -92,36 +97,53 @@
               <!--<div class="td" style="width:80px;">-->
                 <!--<span class="content"><%= dict_name(Dict::Unit, material.unit) %></span>-->
               <!--</div>-->
-              <div class="td" style="width:100px;">
-                <span class="content"><%= sprintf "%0.2f",material.quantity %></span>
+              <div class="td" style="width:80px;">
+                <span class="content"><%= sprintf "%0.0f",material.quantity %></span>
               </div>
-              <div class="td" style="width:100px;">
-                <span class="content"><%= sprintf "%0.2f",material.import_sum %></span>
+              <div class="td" style="width:80px;">
+                <span class="content"><%= sprintf "%0.0f",material.import_sum %></span>
               </div>
-              <div class="td" style="width:100px;">
-                <span class="content"><%= sprintf "%0.2f",material.can_import_sum %></span>
+              <div class="td" style="width:80px;">
+                <span class="content"><%= sprintf "%0.0f",material.can_import_sum %></span>
               </div>
-              <div class="td" style="width:100px;">
-                <span class="content"><%= sprintf "%0.2f",material.quit_transfer_sum %></span>
+              <div class="td" style="width:80px;">
+                <span class="content"><%= sprintf "%0.0f",material.quit_transfer_sum %></span>
               </div>
-              <div class="td" style="width:100px;">
-                <span class="content"><%= sprintf "%0.2f",material.transfer_sum %></span>
+              <div class="td" style="width:80px;">
+                <span class="content"><%= sprintf "%0.0f",material.transfer_sum %></span>
               </div>
-              <div class="td" style="width:100px;">
-                <span class="content"><%= sprintf "%0.2f",material.import_rate %></span>
+              <div class="td" style="width:80px;">
+                <span class="content"><%= sprintf "%0.0f",material.import_rate %></span>
               </div>
-              <div class="td" style="width:100px;">
+              <div class="td" style="width:80px;">
                 <span class="content"><%= material.unit_price %></span>
               </div>
-              <div class="td" style="width:100px;">
-                <span class="content"><%= sprintf "%0.2f",material.contract_price %></span>
+              <div class="td" style="width:80px;">
+                <span class="content"><%= sprintf "%0.1f",material.contract_price %></span>
               </div>
               <div class="td" style="width:100px;">
-                <span class="content"><%= sprintf "%0.2f",material.import_price %></span>
+                <span class="content"><%= sprintf "%0.1f",material.import_price %></span>
               </div>
               <div class="td" style="width:100px;">
-                <span class="content"><%= sprintf "%0.2f",material.diff_price %></span>
+                <span class="content"><%= sprintf "%0.1f",material.diff_price %></span>
               </div>
+            </div>
+        <% end %>
+        <!--填充使满页-->
+        <% ((page_count + 1) * page_size - 1 - materials_size).times do %>
+            <div class="tr">
+              <div class="td" style="width:35px;">&nbsp;</div>
+              <div class="td" style="width:180px;">&nbsp;</div>
+              <div class="td" style="width:80px;">&nbsp;</div>
+              <div class="td" style="width:80px;">&nbsp;</div>
+              <div class="td" style="width:80px;">&nbsp;</div>
+              <div class="td" style="width:80px;">&nbsp;</div>
+              <div class="td" style="width:80px;">&nbsp;</div>
+              <div class="td" style="width:80px;">&nbsp;</div>
+              <div class="td" style="width:80px;">&nbsp;</div>
+              <div class="td" style="width:80px;">&nbsp; </div>
+              <div class="td" style="width:100px;">&nbsp;</div>
+              <div class="td" style="width:100px;">&nbsp;</div>
             </div>
         <% end %>
       </div>

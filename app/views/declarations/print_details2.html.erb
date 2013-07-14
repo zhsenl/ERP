@@ -47,7 +47,7 @@
 
   <!--设置-->
   <% products_size = @products.size %>
-  <% page_size = 43 %>
+  <% page_size = 47 %>
   <%
      pages = products_size/page_size
      if products_size % page_size !=0
@@ -56,7 +56,7 @@
   %>
   <% (0..pages - 1).each do |page_count| %>
       <!--每一页的内容-->
-      <div class="tr" style="height: 80px; text-align: center; font-size: 35px;">合同成品出口详细表</div>
+      <div class="tr" style="height: 40px; text-align: center; font-size: 32px;">合 同 成 品 出 口 详 细 表</div>
       <div class="tr" style="height: 20px;"></div>
       <div class="table">
         <div class="tr" style="height: 34px; line-height:34px;">

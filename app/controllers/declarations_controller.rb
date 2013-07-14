@@ -1,4 +1,4 @@
-# -*- encoding : utf-8 -*-
+                     # -*- encoding : utf-8 -*-
 class DeclarationsController < ApplicationController
   include ApplicationHelper, DeclarationsHelper, PrintHelper
   before_filter :init
