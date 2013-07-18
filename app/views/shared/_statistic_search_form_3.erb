@@ -92,7 +92,7 @@
     <select name="custom" id="custom" class="medium-input ">
       <option value=""></option>
       <% Dict::LoadPort.all.each do |load_port| %>
-          <option value="<%= load_port.custom_code %>">
+          <option value="<%= load_port.code %>">
             <%= dict_name_and_code Dict::Custom, load_port.custom_code %>
           </option>
       <% end %>

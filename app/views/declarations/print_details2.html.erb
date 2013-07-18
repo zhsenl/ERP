@@ -10,7 +10,7 @@
 
     .frame {
         margin: 0 auto;
-        width: 874px;
+        width: 910px;
         text-align: left;
     }
 
@@ -58,6 +58,7 @@
        pages += 1
      end
   %>
+  <% count = 1 %>
   <% (0..pages - 1).each do |page_count| %>
       <!--每一页的内容-->
       <div class="tr" style="height: 40px; text-align: center; font-size: 32px;">合 同 成 品 出 口 详 细 表</div>
@@ -67,10 +68,11 @@
           <div class="td" style="width:35px;">序号</div>
           <div class="td" style="width:100px;">申报日期</div>
           <div class="td" style="width:150px;">海关编号</div>
-          <div class="td" style="width:100px;">贸易方式</div>
+          <div class="td" style="width:126px;">贸易方式</div>
+          <div class="td" style="width:60px;">合同序号</div>
           <div class="td" style="width:180px;">成品名称</div>
           <div class="td" style="width:100px;">出口数量</div>
-          <div class="td" style="width:100px;">单位</div>
+          <div class="td" style="width:45px;">单位</div>
           <div class="td" style="width:100px;">累计</div>
         </div>
         <% start = page_count*page_size %>
@@ -79,31 +81,36 @@
         <% @products[start..tail].each_with_index do |product, i| %>
             <div class="tr">
               <div class="td" style="width:35px;">
-                <span class="content"><%= product.no %></span>
+                <span class="content"><%= count %><% count += 1 %></span>
               </div>
               <!--<div class="td" style="width:80px;">-->
               <!--<span class="content"><%= dict_name(Dict::Unit, product.unit) %></span>-->
               <!--</div>-->
               <div class="td" style="width:100px;">
-                <span class="content"><%= product.declare_date %></span>
+                <span class="content"><%= product.declare_date %></span> &nbsp;
               </div>
               <div class="td" style="width:150px;">
                 <span class="content"><%= product.entry_no %></span>
               </div>
-              <div class="td" style="width:100px;">
+              <div class="td" style="width:126px;">
                 <span class="content"><%= dict_name(Dict::TradeMode, product.trade_mode) %></span>
               </div>
-              <div class="td" style="width:180px;">
-                <span class="content"><%= product.name %></span>
+              <div class="td" style="width:60px;">
+                <span class="content"><%= product.no_in_contract %></span>
               </div>
-              <div class="td" style="width:100px;">
-                <span class="content"><%= product.quantity %></span>
+              <div class="td" style="width:180px; height: 24px;
+                      overflow:hidden;
+                      text-overflow:ellipsis;text-align: left;">
+                &nbsp;<span class="content"><%= product.name %></span>
               </div>
-              <div class="td" style="width:100px;">
+              <div class="td" style="width:100px;text-align: right;">
+                <span class="content"><%= product.quantity %></span>&nbsp;
+              </div>
+              <div class="td" style="width:45px;">
                 <span class="content"><%= dict_name(Dict::Unit, product.unit) %></span>
               </div>
-              <div class="td" style="width:100px;">
-                <span class="content"><%= product.accumulation %></span>
+              <div class="td" style="width:100px;text-align: right;">
+                <span class="content"><%= sprintf "%0.1f",product.accumulation %></span>&nbsp;
               </div>
             </div>
         <% end %>
@@ -113,10 +120,11 @@
               <div class="td" style="width:35px;">&nbsp;</div>
               <div class="td" style="width:100px;">&nbsp;</div>
               <div class="td" style="width:150px;">&nbsp;</div>
-              <div class="td" style="width:100px;">&nbsp;</div>
+              <div class="td" style="width:126px;">&nbsp;</div>
+              <div class="td" style="width:60px;">&nbsp;</div>
               <div class="td" style="width:180px;">&nbsp;</div>
               <div class="td" style="width:100px;">&nbsp;</div>
-              <div class="td" style="width:100px;">&nbsp;</div>
+              <div class="td" style="width:45px;">&nbsp;</div>
               <div class="td" style="width:100px;">&nbsp;</div>
             </div>
         <% end %>

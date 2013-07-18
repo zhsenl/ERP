@@ -202,7 +202,7 @@
   <div class="tr">
     <div class="tr">
       <div class="td">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本合同执行完毕，实际应收加工费
-        <span class="content" style="border-bottom: solid 1px"> 3476.5   </span>美元。
+        <span class="content" style="border-bottom: solid 1px">  &nbsp;  </span>美元。
       </div>
     </div>
   </div>
@@ -216,18 +216,18 @@
   <div>
     <div id="left" style="height: 192px;width:50%;float:left;">
       <div style="height: 160px;padding-top: 6px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;外经贸主管部门意见：</div>
-      <div style="height: 30px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 签名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月 &nbsp;&nbsp;&nbsp;&nbsp; 日
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;盖章
+      <div style="height: 30px">&nbsp;&nbsp; 签名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        年
+        &nbsp;&nbsp;&nbsp;&nbsp;月 &nbsp;&nbsp; 日
+        &nbsp;&nbsp;盖章
       </div>
     </div>
     <div id="right" style="height: 192px;margin-left:50%;border-left:solid 1px ">
       <div style="height: 160px;padding-top: 6px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;海关核销意见：</div>
-      <div style="height: 30px">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 签名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;年
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;月 &nbsp;&nbsp;&nbsp;&nbsp; 日
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;盖章
+      <div style="height: 30px">&nbsp;&nbsp; 签名：&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        年
+        &nbsp;&nbsp;&nbsp;&nbsp;月 &nbsp;&nbsp; 日
+        &nbsp;&nbsp;盖章
       </div>
     </div>
   </div>
@@ -236,6 +236,8 @@
 <div class="tr" style="height: 70px;"></div>
 <div style="float: right">第&nbsp;&nbsp;<%= ith_page %><% ith_page = ith_page + 1 %>&nbsp;&nbsp;页</div>
 </div>
+<div class="tr" style="height: 10px;"></div>
+
 <div class="frame2" style="font-size: 12px;">
 <!--料件栏-->
 <!--设置-->
@@ -292,8 +294,9 @@
             <div class="td" style="width:35px;">
               <span class="content"><%= material.no %></span>
             </div>
-            <div class="td" style="width:200px;">
-              <span class="content"><%= material.name %></span>
+            <div class="td" style="width:200px;overflow:hidden;
+                    text-overflow:ellipsis;text-align: left;height: 24px;">
+              &nbsp;<span class="content"><%= material.name %></span>
             </div>
             <div class="td" style="width:45px;">
               <span class="content"><%= dict_name(Dict::Unit, material.unit) %></span>
@@ -342,8 +345,10 @@
     <% end %>
     </div>
 
-    <div class="tr" style="height: 22px;"></div>
+    <div class="tr" style="height: 10px;"></div>
     <div style="float: right">第&nbsp;&nbsp;<%= ith_page %><% ith_page = ith_page + 1 %>&nbsp;&nbsp;页</div>
+    <div class="tr" style="height: 22px;"></div>
+
 <% end %>
 <!--成品栏-->
 <!--设置-->
@@ -379,8 +384,9 @@
             <div class="td" style="width:35px;">
               <span class="content"><%= product.no %></span>
             </div>
-            <div class="td" style="width:200px;">
-              <span class="content"><%= product.name %></span>
+            <div class="td" style="width:200px;overflow:hidden;
+                    text-overflow:ellipsis;text-align: left;height: 24px;">
+              &nbsp;<span class="content"><%= product.name %></span>
             </div>
             <div class="td" style="width:45px;">
               <span class="content"><%= dict_name(Dict::Unit, product.unit) %></span>
@@ -417,8 +423,10 @@
        <% end %>
     </div>
 
-    <div class="tr" style="height: 22px;"></div>
+    <div class="tr" style="height: 10px;"></div>
     <div style="float: right">第&nbsp;&nbsp;<%= ith_page %><% ith_page = ith_page + 1 %>&nbsp;&nbsp;页</div>
+    <div class="tr" style="height: 22px;"></div>
+
 <% end %>
 
 <!--单损耗栏-->
@@ -488,22 +496,22 @@
         <div class="td" style="width:25px;">序号</div>
         <div class="td" style="width:140px;">料件名称</div>
         <div class="td" style="width:200px;">
-          <div style="height: 25px;line-height: 25px">成品(<%= i * 4 + 1 %>)名称:<%= products[i*4] %></div>
+          <div style="height: 25px;line-height: 25px;text-align: left;overflow:hidden;text-overflow:ellipsis;">成品(<%= i * 4 + 1 %>)名称:<%= products[i*4] %></div>
           <div style="height: 25px;line-height: 25px;border-top: 1px solid">
             <div class="td" style="width:59px;">单耗</div>
             <div class="td" style="width:69px;">耗损量</div>
             <div class="td" style="width:70px;">总用量</div>
           </div>
         </div>
-        <div class="td" style="width:200px;">
-          <div style="height: 25px;line-height: 25px">成品(<%=  i * 4 + 2 %>)名称:<%=products[i*4 + 1]%></div>
+        <div class="td" style="width:200px;text-align: left;overflow:hidden;text-overflow:ellipsis;">
+         <div style="height: 25px;line-height: 25px">成品(<%=  i * 4 + 2 %>)名称:<%=products[i*4 + 1]%></div>
           <div style="height: 25px;line-height: 25px;border-top: 1px solid">
             <div class="td" style="width:59px;">单耗</div>
             <div class="td" style="width:69px;">耗损量</div>
             <div class="td" style="width:70px;">总用量</div>
           </div>
         </div>
-        <div class="td" style="width:200px;">
+        <div class="td" style="width:200px;text-align: left;overflow:hidden;text-overflow:ellipsis;">
           <div style="height: 25px;line-height: 25px">成品(<%=  i * 4 + 3 %>)名称:<%= products[i*4+2] %></div>
           <div style="height: 25px;line-height: 25px;border-top: 1px solid">
             <div class="td" style="width:59px;">单耗</div>
@@ -511,7 +519,7 @@
             <div class="td" style="width:70px;">总用量</div>
           </div>
         </div>
-        <div class="td" style="width:200px;">
+        <div class="td" style="width:200px;text-align: left;overflow:hidden;text-overflow:ellipsis;">
           <div style="height: 25px;line-height: 25px">成品(<%=  i * 4 + 4 %>)名称:<%=products[i*4+3] %></div>
           <div style="height: 25px;line-height: 25px;border-top: 1px solid">
             <div class="td" style="width:59px;">单耗</div>
@@ -528,55 +536,53 @@
             <div class="td" style="width:25px;">
               <span class="content"><%= count %><% count += 1 %></span>
             </div>
-            <div class="td" style="width:140px;">
-              <span class="content">
-
-                  <% contract_material_name = ''
-                       consumption[0..3].each do |consump|
-                            if !consump.nil?
-                              contract_material_name = consump.contract_material_name
-                              break
-                            end
-                         end
-                  %>
-                <%= contract_material_name %>
-              </span>
+            <% contract_material_name = ''
+               consumption[0..3].each do |consump|
+                 if !consump.nil?
+                   contract_material_name = consump.contract_material_name
+                   break
+                 end
+               end
+            %>
+            <div class="td" style="width:140px;overflow:hidden;
+                    text-overflow:ellipsis;text-align: left;height: 24px;">
+              &nbsp;<span class="content"><%= contract_material_name %></span>
             </div>
-            <div class="td" style="width:59px;">
-              <span class="content"><%= consumption[0].used if !consumption[0].nil? %></span>
+            <div class="td" style="width:59px;text-align: right;">
+              <span class="content"><%= consumption[0].used if !consumption[0].nil? %></span>&nbsp;
             </div>
-            <div class="td" style="width:69px;">
-              <span class="content"><%= consumption[0].wasted if !consumption[0].nil? %></span>
+            <div class="td" style="width:69px;text-align: right;">
+              <span class="content"><%= consumption[0].wasted if !consumption[0].nil? %></span>&nbsp;
             </div>
-            <div class="td" style="width:70px;">
-              <span class="content"><%= consumption[0].quantity * consumption[0].used + consumption[0].wasted if !consumption[0].nil? %></span>
+            <div class="td" style="width:70px;text-align: right;">
+              <span class="content"><%= sprintf "%0.1f",consumption[0].quantity * consumption[0].used + consumption[0].wasted if !consumption[0].nil? %></span>&nbsp;
             </div>
-            <div class="td" style="width:59px;">
-              <span class="content"><%= consumption[1].used if !consumption[1].nil? %></span>
+            <div class="td" style="width:59px;text-align: right;">
+              <span class="content"><%= consumption[1].used if !consumption[1].nil? %></span>&nbsp;
             </div>
-            <div class="td" style="width:69px;">
-              <span class="content"><%= consumption[1].wasted if !consumption[1].nil? %></span>
+            <div class="td" style="width:69px;text-align: right;">
+              <span class="content"><%= consumption[1].wasted if !consumption[1].nil? %></span>&nbsp;
             </div>
-            <div class="td" style="width:70px;">
-              <span class="content"><%= consumption[1].quantity * consumption[1].used + consumption[1].wasted if !consumption[1].nil? %></span>
+            <div class="td" style="width:70px;text-align: right;">
+              <span class="content"><%= sprintf "%0.1f",consumption[1].quantity * consumption[1].used + consumption[1].wasted if !consumption[1].nil? %></span>&nbsp;
             </div>
-            <div class="td" style="width:59px;">
-              <span class="content"><%= consumption[2].used if !consumption[2].nil? %></span>
+            <div class="td" style="width:59px;text-align: right;">
+              <span class="content"><%= consumption[2].used if !consumption[2].nil? %></span>&nbsp;
             </div>
-            <div class="td" style="width:69px;">
-              <span class="content"><%= consumption[2].wasted if !consumption[2].nil? %></span>
+            <div class="td" style="width:69px;text-align: right;">
+              <span class="content"><%= consumption[2].wasted if !consumption[2].nil? %></span>&nbsp;
             </div>
-            <div class="td" style="width:70px;">
-              <span class="content"><%= consumption[2].quantity * consumption[2].used + consumption[2].wasted if !consumption[2].nil? %></span>
+            <div class="td" style="width:70px;text-align: right;">
+              <span class="content"><%= sprintf "%0.1f",consumption[2].quantity * consumption[2].used + consumption[2].wasted if !consumption[2].nil? %></span>&nbsp;
             </div>
-            <div class="td" style="width:59px;">
-              <span class="content"><%= consumption[3].used if !consumption[3].nil? %></span>
+            <div class="td" style="width:59px;text-align: right;">
+              <span class="content"><%= consumption[3].used if !consumption[3].nil? %></span>&nbsp;
             </div>
-            <div class="td" style="width:69px;">
-              <span class="content"><%= consumption[3].wasted if !consumption[3].nil? %></span>
+            <div class="td" style="width:69px;text-align: right;">
+              <span class="content"><%= consumption[3].wasted if !consumption[3].nil? %></span>&nbsp;
             </div>
-            <div class="td" style="width:70px;">
-              <span class="content"><%= consumption[3].quantity * consumption[3].used + consumption[3].wasted if !consumption[3].nil? %></span>
+            <div class="td" style="width:70px;text-align: right;">
+              <span class="content"><%= sprintf "%0.1f",consumption[3].quantity * consumption[3].used + consumption[3].wasted if !consumption[3].nil? %></span>&nbsp;
             </div>
           </div>
       <% end %>
@@ -601,8 +607,10 @@
       <% end %>
     </div>
 
-    <div class="tr" style="height: 22px;"></div>
+    <div class="tr" style="height: 10px;"></div>
     <div style="float: right">第&nbsp;&nbsp;<%= ith_page %><% ith_page = ith_page + 1 %>&nbsp;&nbsp;页</div>
+        <div class="tr" style="height: 22px;"></div>
+
 <% end %>
     <% end %>
 

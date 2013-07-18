@@ -10,7 +10,7 @@
 
     .frame {
         margin: 0 auto;
-        width: 846px;
+        width: 816px;
         text-align: left;
     }
 
@@ -51,8 +51,12 @@
 
   <!--设置-->
   <% weight_prices_size = @weight_prices.size %>
-  <% page_size = 43 %>
+  <% page_size = 41 %>
   <% pages = weight_prices_size/page_size + 1 %>
+  <% sum_package_amount = 0 %>
+  <% sum_gross_weight = 0 %>
+  <% sum_net_weight = 0 %>
+  <% sum_total_price = 0 %>
   <% (0..pages - 1).each do |page_count| %>
       <!--每一页的内容-->
       <div class="tr" style="height: 60px; text-align: center; font-size: 32px;">进 出 口 重 量 总 价 统 计</div>
@@ -60,13 +64,14 @@
       <div class="table">
         <div class="tr" style="height: 34px; line-height:34px;">
           <div class="td" style="width:35px;">序号</div>
-          <div class="td" style="width:150px;">申报日期</div>
-          <div class="td" style="width:152px;">报关口岸</div>
+          <div class="td" style="width:100px;">申报日期</div>
+          <div class="td" style="width:80px;">报关口岸</div>
           <div class="td" style="width:150px;">海关编号</div>
-          <div class="td" style="width:100px;">件数</div>
-          <div class="td" style="width:80px;">毛重</div>
-          <div class="td" style="width:70px;">净重</div>
-          <div class="td" style="width:100px;">总价</div>
+          <div class="td" style="width:70px;">件数</div>
+          <div class="td" style="width:100px;">毛重</div>
+          <div class="td" style="width:100px;">净重</div>
+          <div class="td" style="width:120px;">总价</div>
+          <div class="td" style="width:50px;">币制</div>
         </div>
         <% start = page_count*page_size %>
         <% tail = (page_count + 1) * page_size - 1 > weight_prices_size ? weight_prices_size : (page_count + 1) * page_size - 1 %>
@@ -76,42 +81,62 @@
               <div class="td" style="width:35px;">
                 <span ><%= i+1 %></span>
               </div>
-              <div class="td" style="width:150px;">
+              <div class="td" style="width:100px;">
                 <span >&nbsp;<%= weight_price.declare_date %>&nbsp;</span>
               </div>
-              <div class="td" style="width:152px;">
+              <div class="td" style="width:80px;">
                 <span >&nbsp;<%= weight_price.custom %>&nbsp;</span>
               </div>
               <div class="td" style="width:150px;">
                 <span >&nbsp;<%= weight_price.entry_no %>&nbsp;</span>
               </div>
-              <div class="td" style="width:100px;">
-                <span >&nbsp;<%= weight_price.package_amount %>&nbsp;</span>
+              <div class="td" style="width:70px;text-align: right">
+                <span ><%= weight_price.package_amount %>&nbsp;</span>
+                <% sum_package_amount += weight_price.package_amount %>
               </div>
-              <div class="td" style="width:80px;">
-                <span >&nbsp;<%= weight_price.gross_weight %>&nbsp;</span>
+              <div class="td" style="width:100px;text-align: right">
+                <span ><%= sprintf "%0.1f",weight_price.gross_weight %>&nbsp;</span>
+                <% sum_gross_weight += weight_price.gross_weight %>
               </div>
-              <div class="td" style="width:70px;">
-                <span >&nbsp;<%= weight_price.net_weight %>&nbsp;</span>
+              <div class="td" style="width:100px;text-align: right">
+                <span ><%= sprintf "%0.1f",weight_price.net_weight %>&nbsp;</span>
+                <% sum_net_weight += weight_price.net_weight %>
               </div>
-              <div class="td" style="width:100px;">
-                <span >&nbsp;<%= sprintf "%0.2f",weight_price.total_price %>&nbsp;</span>
+              <div class="td" style="width:120px;text-align: right">
+                <span ><%= sprintf "%0.2f",weight_price.total_price %>&nbsp;</span>
+                <% sum_total_price += weight_price.total_price %>
+              </div>
+              <div class="td" style="width:50px;">
+                <span ><%= dict_name Dict::Currency, weight_price.declaration_cargos[0].currency if !weight_price.declaration_cargos[0].nil? %></span>
               </div>
             </div>
         <% end %>
         <!--填充使满页-->
-        <% ((page_count + 1) * page_size - 1 - weight_prices_size).times do %>
+        <% ((page_count + 1) * page_size - 1 - weight_prices_size - 1).times do %>
             <div class="tr">
               <div class="td" style="width:35px;">&nbsp;</div>
-              <div class="td" style="width:150px;">&nbsp;</div>
-              <div class="td" style="width:152px;">&nbsp;</div>
-              <div class="td" style="width:150px;">&nbsp;</div>
               <div class="td" style="width:100px;">&nbsp;</div>
               <div class="td" style="width:80px;">&nbsp;</div>
+              <div class="td" style="width:150px;">&nbsp;</div>
               <div class="td" style="width:70px;">&nbsp;</div>
               <div class="td" style="width:100px;">&nbsp;</div>
+              <div class="td" style="width:100px;">&nbsp;</div>
+              <div class="td" style="width:120px;">&nbsp;</div>
+              <div class="td" style="width:50px;">&nbsp;</div>
             </div>
         <% end %>
+        <!--统计-->
+        <div class="tr">
+              <div class="td" style="width:35px;">&nbsp;</div>
+              <div class="td" style="width:100px;">&nbsp;</div>
+              <div class="td" style="width:80px;">&nbsp;</div>
+              <div class="td" style="width:150px;">合计数据：</div>
+              <div class="td" style="width:70px;text-align: right"><%= sum_package_amount %>&nbsp;</div>
+              <div class="td" style="width:100px;text-align: right"><%= sprintf "%0.1f",sum_gross_weight %>&nbsp;</div>
+              <div class="td" style="width:100px;text-align: right"><%= sprintf "%0.1f",sum_net_weight %>&nbsp;</div>
+              <div class="td" style="width:120px;text-align: right"><%= sprintf "%0.2f",sum_total_price %>&nbsp;</div>
+              <div class="td" style="width:50px;text-align: right"></div>
+            </div>
       </div>
       <div class="tr" style="height: 20px;"></div>
   <% end %>

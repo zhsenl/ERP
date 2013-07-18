@@ -82,7 +82,7 @@ module DeclarationsHelper
       opt[:declare_date] = params[:from]..params[:to]
     end
     if !params[:custom].nil? and  params[:custom] != ''
-      opt[:custom] = params[:custom]
+      opt[:load_port] = params[:custom]
     end
     if params[:current_enterprise_id] == '044199'
       return Declaration.where(opt).order('declare_date').joins('LEFT OUTER JOIN enterprises ON enterprises.id = declarations.enterprise_id').where("enterprises.code like '44199%'")

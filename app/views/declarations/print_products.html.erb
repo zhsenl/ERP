@@ -36,6 +36,7 @@
     .table .tr .td {
         border-right: solid 1px;
         text-align: center;
+
     }
 
     .table .tr .td:last-child {
@@ -102,44 +103,46 @@
               <div class="td" style="width:35px;">
                 <span class="content"><%= product.no %></span>
               </div>
-              <div class="td" style="width:180px;">
-                <span class="content"><%= product.name %></span>
+              <div class="td" style="width:180px;text-align: left;  height: 24px;
+                      overflow:hidden;
+                      text-overflow:ellipsis;">
+                &nbsp;<span class="content"><%= product.name %></span>
               </div>
               <!--<div class="td" style="width:80px;">-->
               <!--<span class="content"><%= dict_name(Dict::Unit, product.unit) %></span>-->
               <!--</div>-->
-              <div class="td" style="width:80px;">
-                <span class="content"><%= sprintf "%0.0f",product.quantity %></span>
+              <div class="td" style="width:80px;text-align: right;">
+                <span class="content"><%= sprintf "%0.0f",product.quantity %></span>&nbsp;
               </div>
-              <div class="td" style="width:80px;">
-                <span class="content"><%= sprintf "%0.1f",product.export_sum %></span>
+              <div class="td" style="width:80px;text-align: right;">
+                <span class="content"><%= sprintf "%0.1f",product.export_sum %></span>&nbsp;
               </div>
-              <div class="td" style="width:80px;">
-                <span class="content"><%= sprintf "%0.0f",product.can_export_sum %></span>
+              <div class="td" style="width:80px;text-align: right;">
+                <span class="content"><%= sprintf "%0.0f",product.can_export_sum %></span>&nbsp;
               </div>
-              <div class="td" style="width:80px;">
-                <span class="content"><%= sprintf "%0.0f",product.rework_import_sum %></span>
+              <div class="td" style="width:80px;text-align: right;">
+                <span class="content"><%= sprintf "%0.0f",product.rework_import_sum %></span>&nbsp;
               </div>
-              <div class="td" style="width:80px;">
-                <span class="content"><%= sprintf "%0.0f",product.rework_again_sum %></span>
+              <div class="td" style="width:80px;text-align: right;">
+                <span class="content"><%= sprintf "%0.0f",product.rework_again_sum %></span>&nbsp;
               </div>
-              <div class="td" style="width:80px;">
-                <span class="content"><%= sprintf "%0.0f",product.transfer_sum %></span>
+              <div class="td" style="width:80px;text-align: right;">
+                <span class="content"><%= sprintf "%0.0f",product.transfer_sum %></span>&nbsp;
               </div>
-              <div class="td" style="width:50px;">
-                <span class="content"><%= sprintf "%0.1f",product.export_rate %></span>
+              <div class="td" style="width:50px;text-align: right;">
+                <span class="content"><%= product.export_rate %></span>&nbsp;
               </div>
-              <div class="td" style="width:80px;">
-                <span class="content"><%= product.unit_price %></span>
+              <div class="td" style="width:80px;text-align: right;">
+                <span class="content"><%= product.unit_price %></span>&nbsp;
               </div>
-              <div class="td" style="width:80px;">
-                <span class="content"><%= sprintf "%0.1f",product.contract_price %></span>
+              <div class="td" style="width:80px;text-align: right;">
+                <span class="content"><%= sprintf "%0.1f",product.contract_price %></span>&nbsp;
               </div>
-              <div class="td" style="width:80px;">
-                <span class="content"><%= sprintf "%0.1f",product.export_price %></span>
+              <div class="td" style="width:80px;text-align: right;">
+                <span class="content"><%= sprintf "%0.1f",product.export_price %></span>&nbsp;
               </div>
-              <div class="td" style="width:70px;">
-                <span class="content"><%= sprintf "%0.1f",product.diff_price %></span>
+              <div class="td" style="width:70px;text-align: right;">
+                <span class="content"><%= sprintf "%0.1f",product.diff_price %></span>&nbsp;
               </div>
             </div>
         <% end %>

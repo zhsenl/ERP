@@ -125,7 +125,7 @@
             }
             display_page(0, page_size);
             display_nav(0,total_pages, page_size);
-            operate_listener();
+
             popOff('popup','overlay');
         }
 
@@ -158,7 +158,7 @@
                 tr.append(td().html(ith_result.is_paperless_deleted ? operate('是','取消','is_paperless_deleted', ith_result.id):operate('否',"强制为无纸删单", 'is_paperless_deleted', ith_result.id)));
                 tbody.append(tr);
             }
-
+            operate_listener();
         }
 
         function display_nav(current_page, total_pages, page_size){

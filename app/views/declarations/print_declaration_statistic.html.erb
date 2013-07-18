@@ -10,7 +10,7 @@
 
     .frame {
         margin: 0 auto;
-        width: 852px;
+        width: 862px;
         text-align: left;
     }
 
@@ -36,6 +36,9 @@
     .table .tr .td {
         /*border-right: solid 1px;*/
         text-align: center;
+        height: 24px;
+        overflow:hidden;
+        text-overflow:ellipsis;
     }
 
     .table .tr .td:last-child {
@@ -79,7 +82,7 @@
 
       <div class="tr">
         <div class="td" style="width:50%;"><span class="bord">统计时间：</span>截止<span class="content"><%=  Time.new.strftime("%Y-%m-%d") %></span></div>
-        <div class="td" style="width:48%;"><span class="bord">合计：</span><span class="content"><%= statistic_declarations_size  %></span>项&nbsp;&nbsp;&nbsp;&nbsp;报关单<span class="content"><%= total_declaration_size  %></span>份</div>
+        <div class="td" style="width:48%;"><span class="bord">合计：</span><span class="content"><%= statistic_declarations_size  %></span>份&nbsp;&nbsp;&nbsp;&nbsp;报关单<span class="content"><%= total_declaration_size  %></span>页</div>
       </div>
 
       <div class="tr" style="height: 10px;"></div>
@@ -90,7 +93,7 @@
           <div class="td" style="width:100px;">申报日期</div>
           <div class="td" style="width:152px;">海关编号</div>
           <div class="td" style="width:150px;">预录入号</div>
-          <div class="td" style="width:240px;">装卸口岸</div>
+          <div class="td" style="width:250px;">装卸口岸</div>
           <div class="td" style="width:80px;">提运单号</div>
           <div class="td" style="width:80px;">报关单数</div>
         </div>
@@ -111,7 +114,7 @@
               <div class="td" style="width:150px;">
                 <span >&nbsp;<%= statistic_declaration.pre_entry_no %>&nbsp;</span>
               </div>
-              <div class="td" style="width:240px;">
+              <div class="td" style="width:250px;">
                 <span >&nbsp;<%= dict_name Dict::LoadPort, statistic_declaration.load_port %>&nbsp;</span>
               </div>
               <div class="td" style="width:80px;">

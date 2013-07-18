@@ -75,17 +75,17 @@
           <div class="td" style="width:80px;">可进口数</div>
           <div class="td" style="width:80px;">退运数量</div>
           <div class="td" style="width:80px;">转入数量</div>
-          <div class="td" style="width:80px;">进口率</div>
+          <div class="td" style="width:60px;">进口率</div>
           <div class="td" style="width:80px;">合同单价</div>
-          <div class="td" style="width:80px;">
+          <div class="td" style="width:90px;">
             <div style="height: 25px;line-height: 25px">合同</div>
             <div style="height: 25px;line-height: 25px">单价金额</div>
           </div>
-          <div class="td" style="width:100px;">
+          <div class="td" style="width:105px;">
             <div style="height: 25px;line-height: 25px">报关单统</div>
             <div style="height: 25px;line-height: 25px">计总金额</div>
           </div>
-          <div class="td" style="width:100px;">金额差</div>
+          <div class="td" style="width:105px;">金额差</div>
         </div>
         <% start = page_count*page_size %>
         <% tail = (page_count + 1) * page_size - 1 > materials_size ? materials_size : (page_count + 1) * page_size - 1 %>
@@ -95,41 +95,39 @@
               <div class="td" style="width:35px;">
                 <span class="content"><%= material.no %></span>
               </div>
-              <div class="td" style="width:180px;">
-                <span class="content"><%= material.name %></span>
+              <div class="td" style="text-align: left;width:180px;height:23px; overflow: hidden;text-overflow:ellipsis;">
+                &nbsp;<span class="content"><%= material.name %></span>
               </div>
-              <!--<div class="td" style="width:80px;">-->
-                <!--<span class="content"><%= dict_name(Dict::Unit, material.unit) %></span>-->
-              <!--</div>-->
-              <div class="td" style="width:80px;">
-                <span class="content"><%= sprintf "%0.0f",material.quantity %></span>
+
+              <div class="td" style="width:80px;text-align: right">
+                <span class="content"><%= sprintf "%0.0f",material.quantity %></span>&nbsp;
               </div>
-              <div class="td" style="width:80px;">
-                <span class="content"><%= sprintf "%0.0f",material.import_sum %></span>
+              <div class="td" style="width:80px;text-align: right">
+                <span class="content"><%= sprintf "%0.0f",material.import_sum %></span>&nbsp;
               </div>
-              <div class="td" style="width:80px;">
-                <span class="content"><%= sprintf "%0.0f",material.can_import_sum %></span>
+              <div class="td" style="width:80px;text-align: right">
+                <span class="content"><%= sprintf "%0.0f",material.can_import_sum %></span>&nbsp;
               </div>
-              <div class="td" style="width:80px;">
-                <span class="content"><%= sprintf "%0.0f",material.quit_transfer_sum %></span>
+              <div class="td" style="width:80px;text-align: right">
+                <span class="content"><%= sprintf "%0.0f",material.quit_transfer_sum %></span>&nbsp;
               </div>
-              <div class="td" style="width:80px;">
-                <span class="content"><%= sprintf "%0.0f",material.transfer_sum %></span>
+              <div class="td" style="width:80px;text-align: right">
+                <span class="content"><%= sprintf "%0.0f",material.transfer_sum %></span>&nbsp;
               </div>
-              <div class="td" style="width:80px;">
-                <span class="content"><%= sprintf "%0.0f",material.import_rate %></span>
+              <div class="td" style="width:60px;text-align: right">
+                <span class="content"><%= sprintf "%0.0f",material.import_rate %></span>&nbsp;
               </div>
-              <div class="td" style="width:80px;">
-                <span class="content"><%= material.unit_price %></span>
+              <div class="td" style="width:80px;text-align: right">
+                <span class="content"><%= material.unit_price %></span> &nbsp;
               </div>
-              <div class="td" style="width:80px;">
-                <span class="content"><%= sprintf "%0.1f",material.contract_price %></span>
+              <div class="td" style="width:90px;text-align: right">
+                <span class="content"><%= sprintf "%0.1f",material.contract_price %></span>&nbsp;
               </div>
-              <div class="td" style="width:100px;">
-                <span class="content"><%= sprintf "%0.1f",material.import_price %></span>
+              <div class="td" style="width:105px;text-align: right">
+                <span class="content"><%= sprintf "%0.1f",material.import_price %></span>&nbsp;
               </div>
-              <div class="td" style="width:100px;">
-                <span class="content"><%= sprintf "%0.1f",material.diff_price %></span>
+              <div class="td" style="width:105px;text-align: right">
+                <span class="content"><%= sprintf "%0.1f",material.diff_price %></span>&nbsp;
               </div>
             </div>
         <% end %>
@@ -143,11 +141,11 @@
               <div class="td" style="width:80px;">&nbsp;</div>
               <div class="td" style="width:80px;">&nbsp;</div>
               <div class="td" style="width:80px;">&nbsp;</div>
+              <div class="td" style="width:60px;">&nbsp;</div>
               <div class="td" style="width:80px;">&nbsp;</div>
-              <div class="td" style="width:80px;">&nbsp;</div>
-              <div class="td" style="width:80px;">&nbsp; </div>
-              <div class="td" style="width:100px;">&nbsp;</div>
-              <div class="td" style="width:100px;">&nbsp;</div>
+              <div class="td" style="width:90px;">&nbsp; </div>
+              <div class="td" style="width:105px;">&nbsp;</div>
+              <div class="td" style="width:105px;">&nbsp;</div>
             </div>
         <% end %>
       </div>

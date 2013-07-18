@@ -10,7 +10,7 @@
 
     .frame {
         margin: 0 auto;
-        width: 844px;
+        width: 876px;
         text-align: left;
     }
 
@@ -51,26 +51,28 @@
 
   <!--设置-->
   <% materials_size = @materials.size %>
-  <% page_size = 46 %>
+  <% page_size = 45 %>
   <%
      pages = materials_size/page_size
      if materials_size % page_size !=0
        pages += 1
      end
   %>
+  <% count = 1 %>
   <% (0..pages - 1).each do |page_count| %>
       <!--每一页的内容-->
-      <div class="tr" style="height: 40px; text-align: center; font-size: 32px;">合 同 料 件 进 口 详 细 表</div>
+      <div class="tr" style="height: 40px; text-align: center; font-size: 32px;">合 同 料 件 进 口 明 细 表</div>
       <div class="tr" style="height: 20px;"></div>
       <div class="table">
         <div class="tr" style="height: 35px; line-height:35px;">
           <div class="td" style="width:35px;">序号</div>
           <div class="td" style="width:80px;">申报日期</div>
           <div class="td" style="width:140px;">海关编号</div>
-          <div class="td" style="width:100px;">贸易方式</div>
+          <div class="td" style="width:126px;">贸易方式</div>
+          <div class="td" style="width:60px;">合同序号</div>
           <div class="td" style="width:180px;">料件名称</div>
           <div class="td" style="width:100px;">进口数量</div>
-          <div class="td" style="width:100px;">单位</div>
+          <div class="td" style="width:45px;">单位</div>
           <div class="td" style="width:100px;">累计</div>
         </div>
         <% start = page_count*page_size %>
@@ -79,31 +81,33 @@
         <% @materials[start..tail].each_with_index do |material, i| %>
             <div class="tr">
               <div class="td" style="width:35px;">
-                <span class="content"><%= material.no %></span>
+                <span class="content"><%= count %><% count += 1 %></span>
               </div>
-              <!--<div class="td" style="width:80px;">-->
-              <!--<span class="content"><%= dict_name(Dict::Unit, material.unit) %></span>-->
-              <!--</div>-->
               <div class="td" style="width:80px;">
                 <span class="content"><%= material.declare_date %></span>
               </div>
               <div class="td" style="width:140px;">
                 <span class="content"><%= material.entry_no %></span>
               </div>
-              <div class="td" style="width:100px;">
+              <div class="td" style="width:126px;">
                 <span class="content"><%= dict_name(Dict::TradeMode, material.trade_mode) %></span>
               </div>
-              <div class="td" style="width:180px;">
-                <span class="content"><%= material.name %></span>
+              <div class="td" style="width:60px;">
+                <span class="content"><%= material.no_in_contract %>&nbsp;</span>
               </div>
-              <div class="td" style="width:100px;">
-                <span class="content"><%= material.quantity %></span>
+              <div class="td" style="width:180px;text-align: left;height: 24px;
+                      overflow:hidden;
+                      text-overflow:ellipsis;">
+                &nbsp;<span class="content"><%= material.name %></span>
               </div>
-              <div class="td" style="width:100px;">
+              <div class="td" style="width:100px;text-align: right;">
+                <span class="content"><%= material.quantity %></span>  &nbsp;
+              </div>
+              <div class="td" style="width:45px;">
                 <span class="content"><%= dict_name(Dict::Unit, material.unit) %></span>
               </div>
-              <div class="td" style="width:100px;">
-                <span class="content"><%= material.accumulation %></span>
+              <div class="td" style="width:100px;text-align: right;">
+                <span class="content"><%= material.accumulation %></span>&nbsp;
               </div>
             </div>
         <% end %>
@@ -113,10 +117,11 @@
               <div class="td" style="width:35px;">&nbsp;</div>
               <div class="td" style="width:80px;">&nbsp;</div>
               <div class="td" style="width:140px;">&nbsp;</div>
-              <div class="td" style="width:100px;">&nbsp;</div>
+              <div class="td" style="width:126px;">&nbsp;</div>
+              <div class="td" style="width:60px;">&nbsp;</div>
               <div class="td" style="width:180px;">&nbsp;</div>
               <div class="td" style="width:100px;">&nbsp;</div>
-              <div class="td" style="width:100px;">&nbsp;</div>
+              <div class="td" style="width:45px;">&nbsp;</div>
               <div class="td" style="width:100px;">&nbsp;</div>
             </div>
         <% end %>

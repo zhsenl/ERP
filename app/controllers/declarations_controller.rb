@@ -517,7 +517,7 @@ class DeclarationsController < ApplicationController
             opt[:declare_date] = params[:from]..params[:to]
           end
           if !params[:custom].nil? and  params[:custom] != ''
-            opt[:custom] = params[:custom]
+            opt[:load_port] = params[:custom]
           end
           @import_declarations = Declaration.where(opt).all
 
@@ -529,8 +529,8 @@ class DeclarationsController < ApplicationController
               result[count][:declare_date] = declaration.declare_date
               result[count][:entry_no] =  declaration.entry_no
               result[count][:trade_mode] =  declaration.trade_mode
-              accumulation[material.no] = accumulation[material.no] ? accumulation[material.no] + material.quantity : material.quantity
-              result[count][:accumulation] = accumulation[material.no]
+              accumulation[material.no_in_contract] = accumulation[material.no_in_contract] ? accumulation[material.no_in_contract] + material.quantity : material.quantity
+              result[count][:accumulation] = accumulation[material.no_in_contract]
               count += 1
             }
           }
@@ -562,7 +562,7 @@ class DeclarationsController < ApplicationController
             opt[:declare_date] = params[:from]..params[:to]
           end
           if !params[:custom].nil? and  params[:custom] != ''
-            opt[:custom] = params[:custom]
+            opt[:load_port] = params[:custom]
           end
           export_declarations = Declaration.where(opt).all
 
@@ -574,8 +574,8 @@ class DeclarationsController < ApplicationController
               result[count][:declare_date] = declaration.declare_date
               result[count][:entry_no] =  declaration.entry_no
               result[count][:trade_mode] =  declaration.trade_mode
-              accumulation[product.no] = accumulation[product.no] ? accumulation[product.no] + product.quantity : product.quantity
-              result[count][:accumulation] = accumulation[product.no]
+              accumulation[product.no_in_contract] = accumulation[product.no_in_contract] ? accumulation[product.no_in_contract] + product.quantity : product.quantity
+              result[count][:accumulation] = accumulation[product.no_in_contract]
               count += 1
             }
           }
@@ -690,7 +690,7 @@ class DeclarationsController < ApplicationController
             opt[:declare_date] = params[:from]..params[:to]
           end
           if !params[:custom].nil? and  params[:custom] != ''
-            opt[:custom] = params[:custom]
+            opt[:load_port] = params[:custom]
           end
           import_declarations = Declaration.where(opt)
 
@@ -754,7 +754,7 @@ class DeclarationsController < ApplicationController
             opt[:declare_date] = params[:from]..params[:to]
           end
           if !params[:custom].nil? and  params[:custom] != ''
-            opt[:custom] = params[:custom]
+            opt[:load_port] = params[:custom]
           end
           export_declarations = Declaration.where(opt)
           opt[:declaration_type] = 'import'
