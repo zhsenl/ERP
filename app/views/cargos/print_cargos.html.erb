@@ -1,12 +1,16 @@
 <style type="text/css">
+    @page {
+        size: portrait;
+    }
+
     body {
         text-align: left;
-        font-size: 16px;
+        font-size: 14px;
     }
 
     .frame {
         margin: 0 auto;
-        width:1175px;
+        width:1040px;
         text-align: left;
     }
 
@@ -20,8 +24,8 @@
 
     .table .tr {
         padding: 0;
-        height: 22px;
-        line-height: 22px;
+        height: 24px;
+        line-height: 24px;
         border-bottom: solid 1px;
         overflow: hidden;
 
@@ -46,7 +50,7 @@
 
 <div class="frame">
   <% cargos_size = @cargos.size %>
-  <% page_size = 41 %>
+  <% page_size = 55 %>
   <%
      pages = cargos_size/page_size
       if cargos_size % page_size !=0
@@ -56,9 +60,9 @@
   <% (0..pages - 1).each do |page_count| %>
       <!--每一页的内容-->
 
-      <div class="tr" style="height: 80px;"></div>
-      <div class="tr" style="height: 80px; text-align: center; font-size: 35px;">报关编码库</div>
-      <div style="width:70%; margin-bottom: 2em">保税企业:
+      <div class="tr" style="height: 20px;"></div>
+      <div class="tr" style="height: 40px; text-align: center; font-size: 32px;">报关编码库</div>
+      <div style="margin-bottom: 1em">保税企业:
         <span class="content"><%= enterprise_name_and_code current_enterprise.code %></span>
       </div>
 
@@ -66,12 +70,21 @@
         <div class="tr" style="height: 50px; line-height:50px;">
           <div class="td" style="width:35px;">序号</div>
           <div class="td" style="width:110px;">货号</div>
-          <div class="td" style="width:110px;">商品编号</div>
+          <div class="td" style="width:80px;">商品编号</div>
           <div class="td" style="width:200px;">商品名称</div>
           <div class="td" style="width:220px;">规格型号/申报要求</div>
-          <div class="td" style="width:80px;">申报单位</div>
-          <div class="td" style="width:80px;">第一单位</div>
-          <div class="td" style="width:80px;">第二单位</div>
+          <div class="td" style="width:45px;">
+            <div style="height: 25px;line-height: 25px">申报</div>
+            <div style="height: 25px;line-height: 25px">单位</div>
+          </div>
+          <div class="td" style="width:45px;">
+            <div style="height: 25px;line-height: 25px">第一</div>
+            <div style="height: 25px;line-height: 25px">单位</div>
+          </div>
+          <div class="td" style="width:45px;">
+            <div style="height: 25px;line-height: 25px">第二</div>
+            <div style="height: 25px;line-height: 25px">单位</div>
+          </div>
           <div class="td" style="width:250px;">辅助器(报关规范要素) </div>
         </div>
         <% start = page_count*page_size %>
@@ -85,27 +98,47 @@
               <div class="td" style="width:110px;">
                 <span class="content"><%= cargo.no %></span>
               </div>
-              <div class="td" style="width:110px;">
+              <div class="td" style="width:80px;">
                 <span class="content"><%= cargo.code %></span>
               </div>
-              <div class="td" style="width:200px;">
-                <span class="content"><%= cargo.name %></span>
+              <div class="td" style="width:200px; height: 24px;
+                      overflow:hidden;
+                      text-overflow:ellipsis;
+                      text-align: left;">&nbsp;<span class="content"><%= cargo.name %></span>
               </div>
-              <div class="td" style="width:220px;">
-                <span class="content"><%=  %> &nbsp;</span>
+              <div class="td" style="width:220px; height: 24px;
+                      overflow:hidden;
+                      text-overflow:ellipsis;
+                      text-align: left;">&nbsp;<span class="content"><%=  %> &nbsp;</span>
               </div>
-              <div class="td" style="width:80px;">
-                <span class="content autoload" data-url=<%= dict_units_path %>><%= cargo.unit %></span>
+              <div class="td" style="width:45px;">
+                <span class="content" ><%= dict_name(Dict::Unit, cargo.unit) %></span>
               </div>
-              <div class="td" style="width:80px;">
-                <span class="content autoload" data-url=<%= dict_units_path %>><%= cargo.unit1 %></span>
+              <div class="td" style="width:45px;">
+                <span class="content" ><%= dict_name(Dict::Unit, cargo.unit1) %></span>
               </div>
-              <div class="td" style="width:80px;">
-                <span class="content autoload" data-url=<%= dict_units_path %>><%= cargo.unit2 %></span>
+              <div class="td" style="width:45px;">
+                <span class="content" ><%= dict_name(Dict::Unit, cargo.unit2) %></span>
               </div>
-              <div class="td" style="width:250px;">
-                <span class="content"><%= cargo.specification %> &nbsp;</span>
+              <div class="td" style="width:250px; height: 24px;
+                      overflow:hidden;
+                      text-overflow:ellipsis;
+                      text-align: left;">&nbsp;<span class="content"><%= cargo.specification %> &nbsp;</span>
               </div>
+            </div>
+        <% end %>
+        <!--填充使满页-->
+        <% ((page_count + 1) * page_size - 1 - cargos_size).times do %>
+            <div class="tr">
+              <div class="td" style="width:35px;">&nbsp;</div>
+              <div class="td" style="width:110px;">&nbsp;</div>
+              <div class="td" style="width:80px;">&nbsp;</div>
+              <div class="td" style="width:200px;">&nbsp;</div>
+              <div class="td" style="width:220px;">&nbsp;</div>
+              <div class="td" style="width:45px;">&nbsp;</div>
+              <div class="td" style="width:45px;">&nbsp;</div>
+              <div class="td" style="width:45px;">&nbsp;</div>
+              <div class="td" style="width:250px;">&nbsp;</div>
             </div>
         <% end %>
       </div>

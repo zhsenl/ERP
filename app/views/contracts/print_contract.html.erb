@@ -1,4 +1,9 @@
 <style type="text/css">
+
+    @page {
+        size: landscape;
+    }
+
     body {
         text-align: left;
         font-size: 16px;
@@ -6,13 +11,13 @@
 
     .frame {
         margin: 0 auto;
-        width: 907px;
+        width: 957px;
         text-align: left;
     }
 
     .frame2 {
         margin: 0 auto;
-        width: 1579px;
+        width: 1235px;
         text-align: left;
     }
 
@@ -24,13 +29,21 @@
         border: 1px solid;
     }
 
-    .table .tr {
+    #table .tr {
         padding: 0;
         height: 32px;
         line-height: 32px;
-        border-bottom: solid 1px;
+        /*border-bottom: solid 1px;*/
         overflow: hidden;
     }
+
+    .table .tr {
+        padding: 0;
+        height: 25px;
+        line-height: 25px;
+        border-bottom: solid 1px;
+    }
+
 
     .table .tr:last-child {
         border-bottom: none;
@@ -51,7 +64,7 @@
     }
 
     .second {
-        width: 200px;
+        width: 250px;
     }
 
     .third {
@@ -80,9 +93,10 @@
 
   <!--表头-->
   <div class="tr" style="height: 80px;"></div>
-  <!--<div class="tr" style="height: 80px; text-align: center; font-size: 35px;">加工贸易合同核销申请表-->
-  <!--</div>-->
-  <div class="table">
+  <div class="tr" style="height: 80px; text-align: center; font-size: 35px;">合同（<%= @enterprise.code  %><%= @enterprise.name %> ）
+  </div>
+  <div class="tr" style="height: 80px;"></div>
+  <div class="table" id='table' >
     <div class="tr">
       <div class="td first">企业内部编号</div>
       <div class="td second" >
@@ -113,7 +127,7 @@
     </div>
     <div class="tr">
       <div class="td first">经营单位</div>
-      <div class="td second" style="width: 301px">
+      <div class="td second" style="width: 351px">
         <span class="content"><%= @enterprise.code  %><%= @enterprise.name %></span>
       </div>
       <div class="td fifth">加工单位</div>
@@ -124,11 +138,11 @@
     <div class="tr">
       <div class="td first">外商公司</div>
       <div class="td second" >
-        <span class="content"><%= @foreign_enterprise.name %></span>
+        <span class="content"><%= @foreign_enterprise.name if !@foreign_enterprise.nil? %></span>
       </div>
       <div class="td third" >外商经理人</div>
       <div class="td fourth" >
-        <span class="content"><%= @foreign_enterprise.linkman %></span>
+        <span class="content"><%= @foreign_enterprise.linkman if !@foreign_enterprise.nil? %></span>
       </div>
       <div class="td fifth">贸易方式</div>
       <div class="td sixth">
@@ -283,15 +297,16 @@
     </div>
 
   </div>
-  <div class="tr" style="height: 22px;"></div>
+  <div class="tr" style="height:20px;"></div>
   <div style="float: right">第&nbsp;&nbsp;<%= ith_page %><% ith_page = ith_page + 1 %>&nbsp;&nbsp;页</div>
+  <div class="tr" style="height:80px;"></div>
 </div>
 
-<div class="frame2">
+<div class="frame2" style="font-size: 14px">
 <!--料件栏-->
 <!--设置-->
 <% materials_size = @contract.contract_materials.size %>
-<% page_size = 12 %>
+<% page_size = 29 %>
 <%
    pages = materials_size/page_size
    if materials_size % page_size !=0
@@ -300,8 +315,7 @@
 %>
 <% (0..pages - 1).each do |page_count| %>
     <!--每一页的内容-->
-    <div class="tr" style="height: 80px;"></div>
-    <div class="tr" style="height: 20px; text-align: center; ">料件栏</div>
+    <div class="tr" style="height: 25px; text-align: center; font-size: 18px;font-weight: bold">料件栏</div>
     <div class="table">
       <div class="tr" style="height: 50px; line-height:50px;">
         <div class="td" style="width:35px;">序号</div>
@@ -310,26 +324,38 @@
           <div style="height: 25px;line-height: 25px">号</div>
         </div>
         <div class="td" style="width:80px;">商品编码</div>
-        <div class="td" style="width:200px;">商品名称</div>
-        <div class="td" style="width:300px;">规格型号</div>
-        <div class="td" style="width:70px;">主料标志</div>
-        <div class="td" style="width:70px;">计量单位</div>
-        <div class="td" style="width:70px;">
+        <div class="td" style="width:150px;">商品名称</div>
+        <div class="td" style="width:200px;">规格型号</div>
+        <div class="td" style="width:45px;">
+          <div style="height: 25px;line-height: 25px">主料</div>
+          <div style="height: 25px;line-height: 25px">标志</div>
+        </div>
+        <div class="td" style="width:45px;">
+          <div style="height: 25px;line-height: 25px">计量</div>
+          <div style="height: 25px;line-height: 25px">单位</div>
+        </div>
+        <div class="td" style="width:45px;">
           <div style="height: 25px;line-height: 25px">法定计</div>
           <div style="height: 25px;line-height: 25px">量单位</div>
         </div>
         <div class="td" style="width:70px;">申报数量</div>
         <div class="td" style="width:70px;">申报单价</div>
         <div class="td" style="width:70px;">申报总价</div>
-        <div class="td" style="width:70px;">币制</div>
-        <div class="td" style="width:70px;">产销国</div>
-        <div class="td" style="width:70px;">
+        <div class="td" style="width:45px;">币制</div>
+        <div class="td" style="width:50px;">产销国</div>
+        <div class="td" style="width:45px;">
           <div style="height: 25px;line-height: 25px">法定单</div>
           <div style="height: 25px;line-height: 25px">位比例</div>
         </div>
         <div class="td" style="width:70px;">征免方式</div>
-        <div class="td" style="width:70px;">处理标志</div>
-        <div class="td" style="width:70px;">征税比例</div>
+        <div class="td" style="width:45px;">
+          <div style="height: 25px;line-height: 25px">处理</div>
+          <div style="height: 25px;line-height: 25px">标志</div>
+        </div>
+        <div class="td" style="width:45px;">
+          <div style="height: 25px;line-height: 25px">征税</div>
+          <div style="height: 25px;line-height: 25px">比例</div>
+        </div>
         <div class="td" style="width:70px;">备注</div>
       </div>
       <% start = page_count*page_size %>
@@ -346,19 +372,19 @@
             <div class="td" style="width:80px;">
               <span class="content"><%= material.code %></span>
             </div>
-            <div class="td" style="width:200px;">
-              <span class="content"><%= material.name %></span>
-            </div>
-            <div class="td" style="width:300px;">
-              <span class="content"><%= material.specification %></span>
-            </div>
-            <div class="td" style="width:70px;">
+            <div class="td" style="width:150px;text-align: left; height: 24px;
+                    overflow:hidden;
+                    text-overflow:ellipsis;">&nbsp;<span class="content"><%= material.name %></span></div>
+            <div class="td" style="width:200px;text-align: left; height: 24px;
+                    overflow:hidden;
+                    text-overflow:ellipsis;">&nbsp;<span class="content"><%= material.specification %></span></div>
+            <div class="td" style="width:45px;">
               <span class="content"><%=  %>&nbsp;</span>
             </div>
-            <div class="td" style="width:70px;">
+            <div class="td" style="width:45px;">
               <span class="content"><%= dict_name(Dict::Unit, material.unit) %></span>
             </div>
-            <div class="td" style="width:70px;">
+            <div class="td" style="width:45px;">
               <span class="content"><%= dict_name(Dict::Unit, material.unit) %></span>
             </div>
             <div class="td" style="width:70px;">
@@ -368,24 +394,24 @@
               <span class="content"><%= material.unit_price %></span>
             </div>
             <div class="td" style="width:70px;">
-              <span class="content"><%= material.quantity*material.unit_price %></span>
+              <span class="content"><%= 	sprintf "%0.1f",material.quantity*material.unit_price %></span>
             </div>
-            <div class="td" style="width:70px;">
+            <div class="td" style="width:45px;">
               <span class="content"><%= dict_name(Dict::Currency, @contract.import_currency) %></span>
             </div>
-            <div class="td" style="width:70px;">
+            <div class="td" style="width:50px;">
               <span class="content"><%= dict_name(Dict::District, material.trade_country) %></span>
             </div>
-            <div class="td" style="width:70px;">
+            <div class="td" style="width:45px;">
               <span class="content"><%=  %>&nbsp;</span>
             </div>
             <div class="td" style="width:70px;">
               <span class="content"><%= dict_name(Dict::TaxMode, material.tax_mode) %></span>
             </div>
-            <div class="td" style="width:70px;">
+            <div class="td" style="width:45px;">
               <span class="content"><%=  %>&nbsp;</span>
             </div>
-            <div class="td" style="width:70px;">
+            <div class="td" style="width:45px;">
               <span class="content"><%=  %>&nbsp;</span>
             </div>
             <div class="td" style="width:70px;">
@@ -393,18 +419,38 @@
             </div>
           </div>
       <% end %>
+      <!--填充使满页-->
+      <% ((page_count + 1) * page_size - 1 - materials_size).times do %>
+          <div class="tr">
+            <div class="td" style="width:35px;">&nbsp;</div>
+            <div class="td" style="width:35px;">&nbsp;</div>
+            <div class="td" style="width:80px;">&nbsp;</div>
+            <div class="td" style="width:150px;">&nbsp;</div>
+            <div class="td" style="width:200px;">&nbsp;</div>
+            <div class="td" style="width:45px;">&nbsp;</div>
+            <div class="td" style="width:45px;">&nbsp;</div>
+            <div class="td" style="width:45px;">&nbsp;</div>
+            <div class="td" style="width:70px;">&nbsp;</div>
+            <div class="td" style="width:70px;">&nbsp;</div>
+            <div class="td" style="width:70px;">&nbsp;</div>
+            <div class="td" style="width:45px;">&nbsp;</div>
+            <div class="td" style="width:50px;">&nbsp;</div>
+            <div class="td" style="width:45px;">&nbsp;</div>
+            <div class="td" style="width:70px;">&nbsp;</div>
+            <div class="td" style="width:45px;">&nbsp;</div>
+            <div class="td" style="width:45px;">&nbsp;</div>
+            <div class="td" style="width:70px;">&nbsp;</div>
+          </div>
+      <% end %>
     </div>
-    <% ((page_count + 1) * page_size - 1 - materials_size).times do %>
-        <div style="height:32px"></div>
-    <% end %>
-    <div class="tr" style="height: 18px;"></div>
+    <div class="tr" style="height: 6px"></div>
     <div style="float: right">第&nbsp;&nbsp;<%= ith_page %><% ith_page = ith_page + 1 %>&nbsp;&nbsp;页</div>
 <% end %>
 
   <!--成品栏-->
   <!--设置-->
   <% products_size = @contract.contract_products.size %>
-  <% page_size = 12 %>
+  <% page_size = 29 %>
 <%
    pages = products_size/page_size
    if products_size % page_size !=0
@@ -413,8 +459,7 @@
 %>
   <% (0..pages - 1).each do |page_count| %>
       <!--每一页的内容-->
-    <div class="tr" style="height: 80px;"></div>
-    <div class="tr" style="height: 20px; text-align: center; ">成品栏</div>
+    <div class="tr" style="height: 25px; text-align: center; font-size: 18px;font-weight: bold">成品栏</div>
     <div class="table">
       <div class="tr" style="height: 50px; line-height:50px;">
         <div class="td" style="width:35px;">序号</div>
@@ -423,26 +468,38 @@
           <div style="height: 25px;line-height: 25px">号</div>
         </div>
         <div class="td" style="width:80px;">商品编码</div>
-        <div class="td" style="width:200px;">商品名称</div>
-        <div class="td" style="width:300px;">规格型号</div>
-        <div class="td" style="width:70px;">主料标志</div>
-        <div class="td" style="width:70px;">计量单位</div>
-        <div class="td" style="width:70px;">
+        <div class="td" style="width:150px;">商品名称</div>
+        <div class="td" style="width:200px;">规格型号</div>
+        <div class="td" style="width:45px;">
+          <div style="height: 25px;line-height: 25px">主料</div>
+          <div style="height: 25px;line-height: 25px">标志</div>
+        </div>
+        <div class="td" style="width:45px;">
+          <div style="height: 25px;line-height: 25px">计量</div>
+          <div style="height: 25px;line-height: 25px">单位</div>
+        </div>
+        <div class="td" style="width:45px;">
           <div style="height: 25px;line-height: 25px">法定计</div>
           <div style="height: 25px;line-height: 25px">量单位</div>
         </div>
         <div class="td" style="width:70px;">申报数量</div>
         <div class="td" style="width:70px;">申报单价</div>
         <div class="td" style="width:70px;">申报总价</div>
-        <div class="td" style="width:70px;">币制</div>
-        <div class="td" style="width:70px;">产销国</div>
-        <div class="td" style="width:70px;">
+        <div class="td" style="width:45px;">币制</div>
+        <div class="td" style="width:50px;">产销国</div>
+        <div class="td" style="width:45px;">
           <div style="height: 25px;line-height: 25px">法定单</div>
           <div style="height: 25px;line-height: 25px">位比例</div>
         </div>
         <div class="td" style="width:70px;">征免方式</div>
-        <div class="td" style="width:70px;">处理标志</div>
-        <div class="td" style="width:70px;">征税比例</div>
+        <div class="td" style="width:45px;">
+          <div style="height: 25px;line-height: 25px">处理</div>
+          <div style="height: 25px;line-height: 25px">标志</div>
+        </div>
+        <div class="td" style="width:45px;">
+          <div style="height: 25px;line-height: 25px">征税</div>
+          <div style="height: 25px;line-height: 25px">比例</div>
+        </div>
         <div class="td" style="width:70px;">备注</div>
       </div>
       <% start = page_count*page_size %>
@@ -459,19 +516,21 @@
             <div class="td" style="width:80px;">
               <span class="content"><%= product.code %></span>
             </div>
-            <div class="td" style="width:200px;">
-              <span class="content"><%= product.name %></span>
+            <div class="td" style="width:150px;text-align: left; height: 24px;
+                    overflow:hidden;
+                    text-overflow:ellipsis;">&nbsp;<span class="content"><%= product.name %></span>
             </div>
-            <div class="td" style="width:300px;">
-              <span class="content"><%= product.specification %></span>
+            <div class="td" style="width:200px;text-align: left; height: 24px;
+                    overflow:hidden;
+                    text-overflow:ellipsis;">&nbsp;<span class="content"><%= product.specification %></span>
             </div>
-            <div class="td" style="width:70px;">
+            <div class="td" style="width:45px;">
               <span class="content"><%=  %>&nbsp;</span>
             </div>
-            <div class="td" style="width:70px;">
+            <div class="td" style="width:45px;">
               <span class="content"><%= dict_name(Dict::Unit, product.unit) %></span>
             </div>
-            <div class="td" style="width:70px;">
+            <div class="td" style="width:45px;">
               <span class="content"><%= dict_name(Dict::Unit, product.unit) %></span>
             </div>
             <div class="td" style="width:70px;">
@@ -481,24 +540,24 @@
               <span class="content"><%= product.unit_price %></span>
             </div>
             <div class="td" style="width:70px;">
-              <span class="content"><%= product.quantity*product.unit_price %></span>
+              <span class="content"><%= 	sprintf "%0.1f",product.quantity*product.unit_price %></span>
             </div>
-            <div class="td" style="width:70px;">
+            <div class="td" style="width:45px;">
               <span class="content"><%= dict_name(Dict::Currency, @contract.import_currency) %></span>
             </div>
-            <div class="td" style="width:70px;">
+            <div class="td" style="width:50px;">
               <span class="content"><%= dict_name(Dict::District, product.trade_country) %></span>
             </div>
-            <div class="td" style="width:70px;">
+            <div class="td" style="width:45px;">
               <span class="content"><%=  %>&nbsp;</span>
             </div>
             <div class="td" style="width:70px;">
               <span class="content"><%= dict_name(Dict::TaxMode, product.tax_mode) %></span>
             </div>
-            <div class="td" style="width:70px;">
+            <div class="td" style="width:45px;">
               <span class="content"><%=  %>&nbsp;</span>
             </div>
-            <div class="td" style="width:70px;">
+            <div class="td" style="width:45px;">
               <span class="content"><%=  %>&nbsp;</span>
             </div>
             <div class="td" style="width:70px;">
@@ -506,13 +565,33 @@
             </div>
           </div>
       <% end %>
-      </div>
+      <!--填充使满页-->
       <% ((page_count + 1) * page_size - 1 - products_size).times do %>
-          <div style="height:32px"></div>
+          <div class="tr">
+            <div class="td" style="width:35px;">&nbsp;</div>
+            <div class="td" style="width:35px;">&nbsp;</div>
+            <div class="td" style="width:80px;">&nbsp;</div>
+            <div class="td" style="width:150px;">&nbsp;</div>
+            <div class="td" style="width:200px;">&nbsp;</div>
+            <div class="td" style="width:45px;">&nbsp;</div>
+            <div class="td" style="width:45px;">&nbsp;</div>
+            <div class="td" style="width:45px;">&nbsp;</div>
+            <div class="td" style="width:70px;">&nbsp;</div>
+            <div class="td" style="width:70px;">&nbsp;</div>
+            <div class="td" style="width:70px;">&nbsp;</div>
+            <div class="td" style="width:45px;">&nbsp;</div>
+            <div class="td" style="width:50px;">&nbsp;</div>
+            <div class="td" style="width:45px;">&nbsp;</div>
+            <div class="td" style="width:70px;">&nbsp;</div>
+            <div class="td" style="width:45px;">&nbsp;</div>
+            <div class="td" style="width:45px;">&nbsp;</div>
+            <div class="td" style="width:70px;">&nbsp;</div>
+          </div>
       <% end %>
-      <div class="tr" style="height: 18px;"></div>
-      <div style="float: right">第&nbsp;&nbsp;<%= ith_page %><% ith_page = ith_page + 1 %>&nbsp;&nbsp;页</div>
-  <% end %>
+      </div>
+    <div class="tr" style="height: 6px"></div>
+    <div style="float: right">第&nbsp;&nbsp;<%= ith_page %><% ith_page = ith_page + 1 %>&nbsp;&nbsp;页</div>
+<% end %>
 
   <!--单损耗栏-->
   <!--设置-->
@@ -525,7 +604,7 @@
     <% end %>
 <% end %>
 
-<% page_size = 12 %>
+<% page_size = 29%>
 <%
    pages = consumptions_size/page_size
    if consumptions_size % page_size !=0
@@ -533,16 +612,15 @@
    end
 %><% (0..pages - 1).each do |page_count| %>
     <!--每一页的内容-->
-    <div class="tr" style="height: 80px;"></div>
-    <div class="tr" style="height: 20px; text-align: center; ">单损耗栏</div>
+    <div class="tr" style="height: 18px; text-align: center; font-size: 18px;font-weight: bold">单损耗栏</div>
     <div class="table">
       <div class="tr" style="height: 50px; line-height:50px;">
         <div class="td" style="width:35px;">
           <div style="height: 25px;line-height: 25px">成品</div>
           <div style="height: 25px;line-height: 25px">序号</div>
         </div>
-        <div class="td" style="width:200px;">成品名称</div>
-        <div class="td" style="width:300px;">成品规格</div>
+        <div class="td" style="width:150px;">成品名称</div>
+        <div class="td" style="width:200px;">成品规格</div>
         <div class="td" style="width:55px;">
           <div style="height: 25px;line-height: 25px">成品计</div>
           <div style="height: 25px;line-height: 25px">量单位</div>
@@ -551,8 +629,8 @@
           <div style="height: 25px;line-height: 25px">料件</div>
           <div style="height: 25px;line-height: 25px">序号</div>
         </div>
-        <div class="td" style="width:200px;">料件名称</div>
-        <div class="td" style="width:300px;">料件规格</div>
+        <div class="td" style="width:150px;">料件名称</div>
+        <div class="td" style="width:200px;">料件规格</div>
         <div class="td" style="width:55px;">
           <div style="height: 25px;line-height: 25px">料件计</div>
           <div style="height: 25px;line-height: 25px">量单位</div>
@@ -567,7 +645,7 @@
           <div style="height: 25px;line-height: 25px">非保税料/</div>
           <div style="height: 25px;line-height: 25px">件比例%</div>
         </div>
-        <div class="td" style="width:105px;">备注</div>
+        <div class="td" style="width:45px;">备注</div>
       </div>
       <% start = page_count*page_size %>
       <% tail = (page_count + 1) * page_size - 1 > consumptions_size ? consumptions_size : (page_count + 1) * page_size - 1 %>
@@ -577,11 +655,13 @@
             <div class="td" style="width:35px;">
               <span class="content"><%= consumption.contract_product_no %></span>
             </div>
-            <div class="td" style="width:200px;">
-              <span class="content"><%=consumption.contract_product_name %></span>
+            <div class="td" style="width:150px;text-align: left; height: 24px;
+                    overflow:hidden;
+                    text-overflow:ellipsis;">&nbsp;<span class="content"><%=consumption.contract_product_name %></span>
             </div>
-            <div class="td" style="width:300px;">
-              <span class="content"><%=consumption.contract_product_specification %></span>
+            <div class="td" style="width:200px;text-align: left; height: 24px;
+                    overflow:hidden;
+                    text-overflow:ellipsis;">&nbsp;<span class="content"><%=consumption.contract_product_specification %></span>
             </div>
             <div class="td" style="width:55px;">
               <span class="content"><%= dict_name(Dict::Unit, consumption.contract_product_unit ) %></span>
@@ -589,11 +669,13 @@
             <div class="td" style="width:35px;">
               <span class="content"><%= consumption.contract_material_no %></span>
             </div>
-            <div class="td" style="width:200px;">
-              <span class="content"><%= consumption.contract_material_name %></span>
+            <div class="td" style="width:150px;text-align: left; height: 24px;
+                    overflow:hidden;
+                    text-overflow:ellipsis;">&nbsp;<span class="content"><%= consumption.contract_material_name %></span>
             </div>
-            <div class="td" style="width:300px;">
-              <span class="content"><%= consumption.contract_material_specification %></span>
+            <div class="td" style="width:200px;text-align: left; height: 24px;
+                    overflow:hidden;
+                    text-overflow:ellipsis;">&nbsp;<span class="content"><%= consumption.contract_material_specification %></span>
             </div>
             <div class="td" style="width:55px;">
               <span class="content"><%= dict_name(Dict::Unit, consumption.contract_material_unit ) %></span>
@@ -610,16 +692,31 @@
             <div class="td" style="width:70px;">
               <span class="content"><%=  %>&nbsp;</span>
             </div>
-            <div class="td" style="width:105px;">
+            <div class="td" style="width:45px;">
               <span class="content"><%=  %>&nbsp;</span>
             </div>
           </div>
       <% end %>
+      <!--填充使满页-->
+      <% ((page_count + 1) * page_size - 1 - consumptions_size).times do %>
+          <div class="tr">
+            <div class="td" style="width:35px;">&nbsp;</div>
+            <div class="td" style="width:150px;">&nbsp;</div>
+            <div class="td" style="width:200px;">&nbsp;</div>
+            <div class="td" style="width:55px;">&nbsp;</div>
+            <div class="td" style="width:35px;">&nbsp;</div>
+            <div class="td" style="width:150px;">&nbsp;</div>
+            <div class="td" style="width:200px;">&nbsp;</div>
+            <div class="td" style="width:55px;">&nbsp;</div>
+            <div class="td" style="width:70px;">&nbsp;</div>
+            <div class="td" style="width:70px;">&nbsp;</div>
+            <div class="td" style="width:70px;">&nbsp;</div>
+            <div class="td" style="width:70px;">&nbsp;</div>
+            <div class="td" style="width:45px;">&nbsp;</div>
+          </div>
+      <% end %>
     </div>
-    <% ((page_count + 1) * page_size - 1 - consumptions_size).times do %>
-        <div style="height:32px"></div>
-    <% end %>
-    <div class="tr" style="height: 18px;"></div>
+    <div class="tr" style="height: 1px"></div>
     <div style="float: right">第&nbsp;&nbsp;<%= ith_page %><% ith_page = ith_page + 1 %>&nbsp;&nbsp;页</div>
 <% end %>
 
