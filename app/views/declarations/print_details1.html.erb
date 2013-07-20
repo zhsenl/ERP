@@ -51,7 +51,7 @@
 
   <!--设置-->
   <% materials_size = @materials.size %>
-  <% page_size = 45 %>
+  <% page_size = 44 %>
   <%
      pages = materials_size/page_size
      if materials_size % page_size !=0
@@ -62,7 +62,17 @@
   <% (0..pages - 1).each do |page_count| %>
       <!--每一页的内容-->
       <div class="tr" style="height: 40px; text-align: center; font-size: 32px;">合 同 料 件 进 口 明 细 表</div>
-      <div class="tr" style="height: 20px;"></div>
+      <div class="tr">
+        <div class="td" style="width:50%"><span class="bord">企业名称：</span><span class="content"><%=  @enterprise_name %></span></div>
+        <div class="td" style="width:24%"><span class="bord">手册：</span><span class="content"><%= @manual  %></span></div>
+        <div class="td" style="width:24%"><span class="bord">申报现场：</span><span class="content"><%= @custom_name  %></span></div>
+      </div>
+
+      <div class="tr">
+        <div class="td" style="width:50%;"><span class="bord">统计时间：</span>截止<span class="content"><%= @to.nil? || @to == '' ? Time.new.strftime("%Y-%m-%d") : @to %></span></div>
+        <div class="td" style="width:48%;"><span class="bord">合计：</span><span class="content"><%= pages  %></span>份</div>
+      </div>
+      <div class="tr" style="height: 15px;"></div>
       <div class="table">
         <div class="tr" style="height: 35px; line-height:35px;">
           <div class="td" style="width:35px;">序号</div>
@@ -126,7 +136,7 @@
             </div>
         <% end %>
       </div>
-      <div class="tr" style="height: 20px;"></div>
+      <div class="tr" style="height: 10px;"></div>
   <% end %>
 
 </div>

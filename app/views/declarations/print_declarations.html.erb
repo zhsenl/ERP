@@ -5,7 +5,7 @@
     }
     body {
         text-align: left;
-        font-size: 16px;
+        font-size: 14px;
     }
     .frame {
         margin: 0 auto;
@@ -20,8 +20,8 @@
     }
     .table .tr {
         padding: 0;
-        height: 22px;
-        line-height:22px;
+        height: 24px;
+        line-height:24px;
         border-bottom: solid 1px;
     }
     .table .tr:last-child {
@@ -41,12 +41,13 @@
 <div class="frame">
   <!--设置-->
   <% declarations_size =  @declarations.size %>
-  <% page_size = 42 %>
+  <% page_size = 41 %>
   <% pages = declarations_size/page_size + 1 %>
   <% (0..pages - 1).each do |page_count| %>
       <!--每一页的内容-->
-      <div class="tr" style="height: 80px;"></div>
-      <div class="tr" style="height: 80px; text-align: center; font-size: 35px;">报关单预入库管理查询结果</div>
+      <div class="tr" style="height: 10px;"></div>
+      <div class="tr" style="height: 40px; text-align: center; font-size: 35px;">报关单预入库管理</div>
+      <div class="tr" style="height: 10px;"></div>
       <div class="tr">
         <div class="td" style="width:70%">企业名称:
           <span class="content"><%= @enterprise_name %></span>
@@ -63,7 +64,6 @@
       <div class="tr" style="height: 20px;"></div>
       <div class="table">
         <div class="tr" style="height: 50px; line-height:50px;">
-          <!--<div class="td" style="width:35px;">序号</div>-->
           <div class="td" style="width:150px;">海关编号</div>
           <div class="td" style="width:150px;">预录入号</div>
           <div class="td" style="width:100px;">申报日期</div>
@@ -111,8 +111,22 @@
               </div>
             </div>
         <% end %>
+        <!--填充使满页-->
+        <% ((page_count + 1) * page_size - 1 - declarations_size).times do %>
+            <div class="tr">
+              <div class="td" style="width:150px;">&nbsp;</div>
+              <div class="td" style="width:150px;">&nbsp;</div>
+              <div class="td" style="width:100px;">&nbsp;</div>
+              <div class="td" style="width:100px;">&nbsp;</div>
+              <div class="td" style="width:80px;">&nbsp;</div>
+              <div class="td" style="width:70px;">&nbsp;</div>
+              <div class="td" style="width:50px;">&nbsp;</div>
+              <div class="td" style="width:50px;">&nbsp;</div>
+              <div class="td" style="width:70px;">&nbsp;</div>
+            </div>
+        <% end %>
       </div>
-      <div class="tr" style="height: 20px;"></div>
+      <div class="tr" style="height: 10px;"></div>
 
   <% end %>
 </div>

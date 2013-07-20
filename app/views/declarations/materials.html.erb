@@ -61,6 +61,16 @@
             result = undefined
             $('tbody').html('');
             $('#nav_div').html('');
+
+            //global variables
+            enterprise_name = $('#current_enterprise_id').find(":selected").text().trim();
+            manual = $('#contract_id').find(":selected").text().trim();
+            from = $('#from').val().trim();
+            to = $('#to').val().trim();
+            custom = $('#custom').find(":selected").text().trim();
+            declaration_type = $('input[name=declaration_type]:checked').val()
+            //global variables
+
             var json = getFormData('#search_form select[name], #search_form input[name]');
             if (!json['current_enterprise_id']) {
                 alert('请先选择企业');
@@ -186,8 +196,18 @@
 
         $('#print').click(function () {
             if (result) {
-                window.open('/declarations/print_materials?cache_name=' +
-                        result[0]['cache_name']);
+//                window.open('/declarations/print_materials?cache_name=' +
+//                        result[0]['cache_name']);
+                window.open(encodeURI('/declarations/print_materials?declaration_type=&enterprise_name='+
+                        enterprise_name +'&manual='+
+                        manual +'&from='+
+                        from +'&to=' +
+                        to + '&cache_name=' +
+                        result[0]['cache_name'] + '&custom=' +
+                        custom + '&declaration_type=' +
+                        declaration_type
+                ));
+
             } else {
                 alert('没有结果，打印不了');
             }

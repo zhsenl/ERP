@@ -473,6 +473,11 @@ class DeclarationsController < ApplicationController
 
   def print_weight
     declaration_type_hash = {'1'=>'进 出 口','2'=>'进 口','3'=>'出 口'}
+    @custom_name = params[:custom]
+    @enterprise_name = params[:enterprise_name]
+    @manual = params[:manual]
+    @from = params[:from]
+    @to = params[:to]
     @declaration_type= declaration_type_hash[params[:declaration_type]]
     @weight_prices = Rails.cache.read(params[:cache_name])
     render :layout => 'print'
@@ -617,11 +622,25 @@ class DeclarationsController < ApplicationController
   end
 
   def print_details1
+    declaration_type_hash = {'1'=>'进 出 口','2'=>'进 口','3'=>'出 口'}
+    @custom_name = params[:custom]
+    @enterprise_name = params[:enterprise_name]
+    @manual = params[:manual]
+    @from = params[:from]
+    @to = params[:to]
+    @declaration_type= declaration_type_hash[params[:declaration_type]]
     @materials = Rails.cache.read(params[:cache_name])
     render :layout => 'print'
   end
 
   def print_details2
+    declaration_type_hash = {'1'=>'进 出 口','2'=>'进 口','3'=>'出 口'}
+    @custom_name = params[:custom]
+    @enterprise_name = params[:enterprise_name]
+    @manual = params[:manual]
+    @from = params[:from]
+    @to = params[:to]
+    @declaration_type= declaration_type_hash[params[:declaration_type]]
     @products = Rails.cache.read(params[:cache_name])
     render :layout => 'print'
   end
@@ -874,11 +893,25 @@ class DeclarationsController < ApplicationController
   end
 
   def print_materials
+    declaration_type_hash = {'1'=>'进 出 口','2'=>'进 口','3'=>'出 口'}
+    @custom_name = params[:custom]
+    @enterprise_name = params[:enterprise_name]
+    @manual = params[:manual]
+    @from = params[:from]
+    @to = params[:to]
+    @declaration_type= declaration_type_hash[params[:declaration_type]]
     @materials = Rails.cache.read(params[:cache_name])
     render :layout => 'print'
   end
 
   def print_products
+    declaration_type_hash = {'1'=>'进 出 口','2'=>'进 口','3'=>'出 口'}
+    @custom_name = params[:custom]
+    @enterprise_name = params[:enterprise_name]
+    @manual = params[:manual]
+    @from = params[:from]
+    @to = params[:to]
+    @declaration_type= declaration_type_hash[params[:declaration_type]]
     @products = Rails.cache.read(params[:cache_name])
     render :layout => 'print'
   end

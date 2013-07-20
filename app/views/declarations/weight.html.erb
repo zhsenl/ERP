@@ -60,6 +60,7 @@
             manual = $('#contract_id').find(":selected").text().trim();
             from = $('#from').val().trim();
             to = $('#to').val().trim();
+            custom = $('#custom').find(":selected").text().trim();
             declaration_type = $('input[name=declaration_type]:checked').val()
             //global variables
 
@@ -185,9 +186,18 @@
         }
         $('#print').click(function(){
             if(result){
-                window.open('/declarations/print_weight?cache_name=' +
-                        result[0]['cache_name']+ '&declaration_type=' +
-                        declaration_type);
+//                window.open('/declarations/print_weight?cache_name=' +
+//                        result[0]['cache_name']+ '&declaration_type=' +
+//                        declaration_type);
+                window.open(encodeURI('/declarations/print_weight?declaration_type=&enterprise_name='+
+                        enterprise_name +'&manual='+
+                        manual +'&from='+
+                        from +'&to=' +
+                        to + '&cache_name=' +
+                        result[0]['cache_name'] + '&custom=' +
+                        custom + '&declaration_type=' +
+                        declaration_type
+                ));
             }else{
                 alert('没有结果，打印不了');
             }
