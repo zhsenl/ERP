@@ -6,9 +6,6 @@
     <% if can? :update, @declaration %><%= link_to '编辑', edit_declaration_path(@declaration) %> |
     <% end %>
     <%= link_to '打印', "#print_dialog", :rel => "facebox" %> |
-    <% if can? :declare, @declaration %><%= link_to '申报', declare_declaration_path(@declaration, :format => :json), :id => "declare_button" %>
-        |
-    <% end %>
     <%= link_to @declaration_type == "export" ? "出口成品" : "进口料件", declaration_cargos_path(:declaration_id => @declaration.id) %>
     |
     <%= link_to "集装箱", declaration_containers_path(:declaration_id => @declaration.id) %> |
@@ -315,34 +312,36 @@
   <% end %>
 </div>
 
-<% if @declaration.dispatch_records.size > 0 %>
-    <div class="content-box">
-      <div class="content-box-header">
-        <h3>申报记录</h3>
-      </div>
-      <div class="content-box-content">
-        <div class="tab-content default-tab">
-          <table>
-            <thead>
+<div class="content-box">
+  <div class="content-box-header">
+    <h3>申报记录</h3>
+    <div class="operations"> 
+    <% if can? :declare, @declaration %><%= link_to '申报', declare_declaration_path(@declaration, :format => :json), :id => "declare_button" %>
+    <% end %>
+  </div>
+  </div>
+  <div class="content-box-content">
+    <div class="tab-content default-tab">
+      <table>
+        <thead>
+        <tr>
+          <th>时间</th>
+          <th>报文ID</th>
+          <th>状态</th>
+          <th>备注</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @declaration.dispatch_records.each do |record| %>
             <tr>
-              <th>时间</th>
-              <th>报文ID</th>
-              <th>状态</th>
-              <th>备注</th>
+              <td><%= record.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
+              <td><%= record.message_id %></td>
+              <td><%= record.channel %></td>
+              <td><%= record.note %></td>
             </tr>
-            </thead>
-            <tbody>
-            <% @declaration.dispatch_records.each do |record| %>
-                <tr>
-                  <td><%= record.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
-                  <td><%= record.message_id %></td>
-                  <td><%= record.channel %></td>
-                  <td><%= record.note %></td>
-                </tr>
-            <% end %>
-            </tbody>
-          </table>
-        </div>
-      </div>
+        <% end %>
+        </tbody>
+      </table>
     </div>
-<% end %>
+  </div>
+</div>
