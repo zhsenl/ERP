@@ -7,7 +7,10 @@ class Enterprise < ActiveRecord::Base
   has_many :cargos, :dependent => :destroy
   has_many :contracts, :dependent => :destroy
   has_many :declarations, :dependent => :destroy
-  
+  has_many :applications, :dependent => :destroy
+  has_many :in_applications, foreign_key: "in_enterprise_id",
+           class_name:  "Application",:dependent => :destroy
+
   validates :code, :presence => true, :uniqueness => true, :length => { :is => 10 }
   validates :organization_code, :presence => true, :uniqueness => true, :length => { :is => 9 }
   validates :name, :presence => true

@@ -1,0 +1,2 @@
+module ApplicationCargosHelper
+end

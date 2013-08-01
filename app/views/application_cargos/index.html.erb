@@ -1,0 +1,76 @@
+<div class="content-box">
+  <div class="content-box-header">
+    <h3>深加工结转申请表(<%= @application.pre_entry_no %>)货物列表</h3>
+    <div class="operations">
+      <%= link_to '添加转出货物', new_application_cargo_path(:application_id => @application.id, :in_out => 0) %> |
+      <%= link_to '添加转入货物', new_application_cargo_path(:application_id => @application.id, :in_out => 1) %> |
+      <%= link_to '返回表头', @application %>
+    </div>
+  </div>
+
+  <div class="content-box-content">
+    <fieldset>
+      <legend>转出货物</legend>
+      <div class="tab-content default-tab">
+        <table>
+          <thead>
+          <tr>
+            <th>序号</th>
+            <th>商品编码</th>
+            <th>商品名称</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tfoot>
+          <tr>
+            <td colspan="6"> <%= will_paginate @application_cargos.out %> </td>
+          </tr>
+          </tfoot>
+          <tbody>
+          <% @application_cargos.out.each do |application_cargo| %>
+            <tr>
+              <td><%= application_cargo.no %></td>
+              <td><%= application_cargo.code %></td>
+              <td><%= link_to application_cargo.name, application_cargo %></td>
+              <td> <%= link_to image_tag("icons/pencil.png", :alt => "编辑", :title => "编辑"), edit_application_cargo_path(application_cargo) %>
+                <%= link_to image_tag("icons/cross.png", :alt => "删除", :title => "删除"), application_cargo, confirm: '确定删除?', method: :delete %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>转入货物</legend>
+      <div class="tab-content default-tab">
+        <table>
+          <thead>
+          <tr>
+            <th>序号</th>
+            <th>商品编码</th>
+            <th>商品名称</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tfoot>
+          <tr>
+            <td colspan="6"> <%= will_paginate @application_cargos.in %> </td>
+          </tr>
+          </tfoot>
+          <tbody>
+          <% @application_cargos.in.each do |application_cargo| %>
+            <tr>
+              <td><%= application_cargo.no %></td>
+              <td><%= application_cargo.code %></td>
+              <td><%= link_to application_cargo.name, application_cargo %></td>
+              <td> <%= link_to image_tag("icons/pencil.png", :alt => "编辑", :title => "编辑"), edit_application_cargo_path(application_cargo) %>
+                <%= link_to image_tag("icons/cross.png", :alt => "删除", :title => "删除"), application_cargo, confirm: '确定删除?', method: :delete %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </fieldset>
+
+  </div>
+</div>

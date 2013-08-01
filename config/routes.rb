@@ -1,6 +1,12 @@
 # -*- encoding : utf-8 -*-
 ERP::Application.routes.draw do
 
+  resources :application_cargos
+
+  resources :applications  do
+    get 'print_application', :on => :member
+  end
+
   namespace :dict do resources :transit_types end
 
   resources :declaration_packings

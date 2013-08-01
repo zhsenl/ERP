@@ -1,0 +1,49 @@
+<%= render "shared/enterprise_selector" %>
+
+<div class="content-box">
+  <div class="content-box-header">
+    <h3>深加工结转申请表列表</h3>
+
+    <div class="operations">
+      <%= link_to "添加新申请单", new_application_path %>
+    </div>
+  </div>
+  <div class="content-box-content">
+    <div class="tab-content default-tab">
+      <table>
+        <thead>
+        <tr>
+          <th>预录入号</th>
+          <th>申报日期</th>
+          <th>完成转出申报</th>
+          <th>完成转入申报</th>
+          <th>操作</th>
+        </tr>
+        </thead>
+        <tfoot>
+          <tr>
+            <td colspan="6"> <%= will_paginate @applications %> </td>
+          </tr>
+        </tfoot>
+        <tbody>
+        <% @applications.each do |application| %>
+            <tr>
+              <td><%= link_to application.pre_entry_no, application %></td>
+              <td><%= application.d_date %></td>
+              <td><%= application.seq_no != '' ? '是' : '否' %></td>
+              <td><%= application.app_no != '' ? '是' : '否' %></td>
+              <td>
+                <% if can? :edit, application %>
+                    <%= link_to image_tag("icons/pencil.png", :alt => "Edit"), edit_application_path(application) %>
+                <% end %>
+                <% if can? :destroy, application %>
+                    <%= link_to image_tag("icons/cross.png", :alt => "Delete"), application, confirm: '确定删除?', method: :delete %>
+                <% end %>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

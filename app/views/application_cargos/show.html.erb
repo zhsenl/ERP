@@ -1,0 +1,64 @@
+<div class="content-box">
+  <div class="content-box-header">
+    <h3>查看<%= @application_cargo.in_out ? '转入':'转出' %>货物</h3>
+    <div class="operations">
+      <%= link_to '编辑', edit_application_cargo_path(@application_cargo) %> |
+      <%= link_to '返回', application_cargos_path(:application_id => @application.id) %>
+    </div>
+  </div>
+  <div class="content-box-content">
+    <div class="tab-content default-tab">
+      <p>
+        <b>合同序号:</b>
+        <%= @application_cargo.no_in_contract %>
+      </p>
+      <% if @application_cargo.in_out %>
+        <p>
+          <b>转出序号:</b>
+          <%= @application_cargo.in_out_no %>
+        </p>
+      <% end %>
+
+      <p>
+        <b>商品编码:</b>
+        <%= @application_cargo.code %>
+      </p>
+
+      <p>
+        <b>商品名称:</b>
+        <%= @application_cargo.name %>
+      </p>
+
+      <p>
+        <b>规格型号:</b>
+        <%= @application_cargo.specification %>
+      </p>
+
+      <p>
+        <b>申报数量:</b>
+        <%= @application_cargo.quantity %>
+      </p>
+
+      <p>
+        <b>申报单位:</b>
+        <span class="autoload" data-url=<%= dict_units_path %> ><%= @application_cargo.unit %></span>
+      </p>
+
+      <p>
+        <b>法定数量:</b>
+        <%= @application_cargo.quantity1 %>
+      </p>
+
+      <p>
+        <b>法定单位:</b>
+        <span class="autoload" data-url=<%= dict_units_path %> ><%= @application_cargo.unit1 %></span>
+      </p>
+      <p>
+        <b>序号:</b>
+        <%= @application_cargo.no %>
+      </p>
+    </div>
+  </div>
+</div>
+
+

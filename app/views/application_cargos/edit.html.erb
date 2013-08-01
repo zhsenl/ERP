@@ -1,0 +1,12 @@
+<div class="content-box">
+  <div class="content-box-header">
+    <h3>编辑<%= @application_cargo.in_out  ? "转入" : "转出" %>货物</h3>
+    <div class="operations">
+      <%= link_to '查看', @application_cargo %> |
+      <%= link_to '返回列表', application_cargos_path(:application_id => @application.id) %>
+    </div>
+  </div>
+  <div class="content-box-content">
+    <%= render 'form' %>
+  </div>
+</div>

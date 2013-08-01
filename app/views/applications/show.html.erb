@@ -1,0 +1,156 @@
+<div class="content-box">
+<div class="content-box-header">
+  <h3>查看申请表(<%= @application.pre_entry_no %>)</h3>
+
+  <div class="operations">
+    <% if can? :update, @application %><%= link_to '编辑', edit_application_path(@application) %> |
+    <% end %>
+    <%= link_to '打印', print_application_application_path(@application), :target => "_blank", :class => "print_button" %> |
+    <%= link_to "转入转出货物", application_cargos_path(:application_id => @application.id) %>
+    <%= link_to '返回列表', applications_path(:application_type => @application_type) %>
+  </div>
+</div>
+<script>
+  $("#declare_button").click(function () {
+    if (confirm('确定要申报吗?')) {
+      var url = this.getAttribute("href");
+      $.get(url, function (result) {
+        show_tips(result.type, result.content);
+      });
+    }
+    return false;
+  });
+</script>
+<div class="content-box-content">
+  <div class="tab-content default-tab">
+    <fieldset>
+      <legend>基本信息：</legend>
+      <p>
+        <b>预录入号:</b>
+        <%= @application.pre_entry_no %>
+      </p>
+      <p>
+        <b>申请表编号:</b>
+        <%= @application.app_no %>
+      </p>
+      <p>
+        <b>电子口岸号:</b>
+        <%= @application.seq_no %>
+      </p>
+      <p>
+        <b>申请表有效期:</b>
+        <%= @application.end_date %>
+      </p>
+    </fieldset>
+    <fieldset>
+      <legend>转出地申报信息</legend>
+      <p>
+        <b>转出手册号:</b>
+        <% if @application.contract %>
+          <%= @application.contract.manual %>
+        <% end %>
+      </p>
+      <p>
+        <b>转出企业:</b>
+        <span class="autoload" data-url=<%= enterprises_path %>><%= @application.trade_code %></span>
+      </p>
+      <p>
+        <b>转入企业:</b>
+        <span class="autoload" data-url=<%= enterprises_path %>><%= @application.in_trade_code %></span>
+      </p>
+      <p>
+        <b>转出地海关:</b>
+        <%= @application.mast_cust %>
+      </p>
+      <p>
+        <b>转出地:</b>
+        <%= @application.dict_code %>
+      </p>
+      <p>
+        <b>目的地:</b>
+        <%= @application.in_dict_code %>
+      </p>
+      <p>
+        <b>转出批准证编号:</b>
+        <%= @application.lice_no %>
+      </p>
+      <p>
+        <b>转出企业内部编号:</b>
+        <%= @application.cop_app_no %>
+      </p>
+      <p>
+        <b>企业合同号:</b>
+        <%= @application.contr_no %>
+      </p>
+      <p>
+        <b>申报企业:</b>
+        <span class="autoload" data-url=<%= enterprises_path %>><%= @application.agent_code %></span>
+      </p>
+      <p>
+        <b>申报日期:</b>
+        <%= @application.d_date %>
+      </p>
+      <p>
+        <b>送货距离（公里）:</b>
+        <%= @application.convey_spa %>
+      </p>
+      <p>
+        <b>预计运输耗时（天）:</b>
+        <%= @application.convey_day %>
+      </p>
+      <p>
+        <b>转出企业法人/联系电话:</b>
+        <%= @application.corp %>
+      </p>
+      <p>
+        <b>转出申报人/联系电话:</b>
+        <%= @application.decl %>
+      </p>
+      <p>
+        <b>申请表类型:</b>
+        <%= @application.app_class ? "加工区的深加工结转":"加工贸易企业保税货物的深加工结转"%>
+      </p>
+      <p>
+        <b>备注:</b>
+        <%= @application.note %>
+      </p>
+    </fieldset>
+    <fieldset>
+      <legend>转入地申报信息</legend>
+      <p>
+        <b>转入手册号:</b>
+
+      </p>
+      <p>
+        <b>转入企业内部编号:</b>
+        <%= @application.in_cop_app_no %>
+      </p>
+      <p>
+        <b>转入地海关:</b>
+        <%= @application.in_mast_cust %>
+      </p>
+      <p>
+        <b>转入申报企业:</b>
+        <span class="autoload" data-url=<%= enterprises_path %>><%= @application.in_agent_code %></span>
+      </p>
+      <p>
+        <b>转入申报日期:</b>
+        <%= @application.in_d_date %>
+      </p>
+      <p>
+        <b>转入企业法人/联系电话:</b>
+        <%= @application.in_corp %>
+      </p>
+      <p>
+        <b>转入申报人/联系电话:</b>
+        <%= @application.in_decl %>
+      </p>
+      <p>
+        <b>备注:</b>
+        <%= @application.in_note %>
+      </p>
+    </fieldset>
+  </div>
+</div>
+</div>
+

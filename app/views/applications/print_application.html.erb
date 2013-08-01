@@ -1,0 +1,242 @@
+<style>
+
+  @page {
+    size: landscape;
+  }
+
+  body {
+    font-family: "KaiTi_GB2312";
+    font-size: 14px;
+    /*font-weight: bold;*/
+  }
+
+  .frame {
+    margin: 0 auto;
+    width: 960px;
+    text-align: left;
+  }
+
+  h1 {
+    font-family: "SimHei",  \9 ed1\4f53, arial, sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+  }
+
+
+  .table {
+    border: 1px solid;
+  }
+
+  .tr {
+    float: none;
+    height: 24px;
+    width: 100%;
+    border-bottom: 1px solid;
+  }
+
+  .last-tr {
+    border-bottom: none;
+  }
+
+  .td {
+    float: left;
+    text-align: left;
+    height: 24px;
+    border-right: 1px solid;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left: 1px;
+  }
+
+  .last-td {
+    border-right: none;
+  }
+
+  #application-head-table .tr{
+    height: 34px;
+  }
+
+  #application-head-table .td{
+    height: 34px;
+  }
+
+  #in-application-body-table .td, #out-application-body-table .td{
+    line-height: 24px;
+  }
+
+  .content {
+    font-family: "SimSun";
+    font-size: 13px;
+    overflow: hidden;
+    font-weight: normal;
+  }
+
+    /* columns */
+  .first {
+    width: 89px;
+  }
+
+  .second {
+    width: 131px;
+  }
+
+  .third {
+    width: 115px;
+  }
+
+  .fourth {
+    width: 136px;
+  }
+
+</style>
+
+<% @out_groups.each_with_index do |out_group, out_group_index| %>
+  <% in_group = out_group_index < @in_groups.size ?  @in_groups[out_group_index] : []%>
+ <div class="frame">
+   <!--表头-->
+   <div style="height: 10px;"></div>
+   <div style="height: 40px; text-align: center; font-size: 24px;">中华人民共和国海关加工贸易保税货物/出口加工区货物深加工结转申请表</div>
+   <div style="height: 25px">
+     <div style="width: 30%;display: inline-block">申请表编号：<span class="content"><%= @application.app_no %></span></div>
+     <div style="width: 50%;display: inline-block">电子口岸统一编号：<span class="content"><%= @application.seq_no %></span></div>
+     <div style="width: 18%;display: inline-block">打印日期:<%= Time.now.strftime('%Y-%m-%d') %></div>
+   </div>
+   <div class="table" id='application-head-table'>
+     <div class="tr">
+       <div class="td" style="width: 477px;text-align: center">转出地申报</div>
+       <div class="td last-td" style="width: 477px;text-align: center">转入地申报</div>
+     </div>
+     <div class="tr">
+       <div class="td first">转出企业</div>
+       <div class="td second"><span class="content"><%= @application.enterprise.name %></span></div>
+       <div class="td" style="width:56px">主管海关</div>
+       <div class="td" style="width:57px"><span class="content"><%= dict_name(Dict::Custom, @application.mast_cust) %></span></div>
+       <div class="td" style="width:55px">转出地</div>
+       <div class="td" style="width:79px"><span class="content"><%= dict_name(Dict::District, @application.dict_code) %></span></div>
+       <div class="td first">转入企业</div>
+       <div class="td second"><span class="content"><%= @application.in_enterprise.name  %></span></div>
+       <div class="td" style="width:56px">主管海关</div>
+       <div class="td" style="width:57px"><span class="content"><%= dict_name(Dict::Custom, @application.in_mast_cust) %></span></div>
+       <div class="td" style="width:55px">目的地</div>
+       <div class="td last-td" style="width: 79px"><span class="content"><%= dict_name(Dict::District, @application.in_dict_code) %></span></div>
+     </div>
+     <div class="tr">
+       <div class="td first">转出企业内部编号</div>
+       <div class="td second"><span class="content"><%= @application.cop_app_no %></span></div>
+       <div class="td third">转出批准证编号</div>
+       <div class="td fourth"><span class="content"><%= @application.lice_no %></span></div>
+       <div class="td first">转入企业内部编号</div>
+       <div class="td second"><span class="content"><%= @application.in_cop_app_no  %></span></div>
+       <div class="td third">转入批准证编号</div>
+       <div class="td fourth last-td"><span class="content"><%= @application.in_lice_no  %></span></div>
+     </div>
+     <div class="tr">
+       <div class="td first">转出企业法人/联系电话</div>
+       <div class="td second"><span class="content"><%= @application.corp %></span></div>
+       <div class="td third">转出申报企业</div>
+       <div class="td fourth"><span class="content"><%= Enterprise.find_by_code(@application.agent_code).name %></span></div>
+       <div class="td first">转入企业法人/联系电话</div>
+       <div class="td second"><span class="content"><%= @application.decl %></span></div>
+       <div class="td third">转入申报企业</div>
+       <div class="td fourth last-td"><span class="content"><%= Enterprise.find_by_code(@application.in_agent_code).name %></span></div>
+     </div>
+     <div class="tr">
+       <div class="td first">申报日期</div>
+       <div class="td second"><span class="content"><%= @application.d_date %></span></div>
+       <div class="td third">审批日期</div>
+       <div class="td fourth"><span class="content"><%=  %></span></div>
+       <div class="td first">申报日期</div>
+       <div class="td second"><span class="content"><%=  %></span></div>
+       <div class="td third">审批日期</div>
+       <div class="td fourth last-td"><span class="content"><%= @application.in_d_date %></span></div>
+     </div>
+     <div class="tr">
+       <div class="td first">申报表类型</div>
+       <div class="td second"><span class="content"><%= @application.app_class ? "加工区的深加工结转":"加工贸易企业保税货物的深加工结转"  %></span></div>
+       <div class="td third">企业合同号</div>
+       <div class="td fourth"><span class="content"><%= @application.contr_no %></span></div>
+       <div class="td first">送货距离（公里）</div>
+       <div class="td second"><span class="content"><%= @application.convey_spa %></span></div>
+       <div class="td third">预计运输耗时（天）</div>
+       <div class="td fourth last-td"><span class="content"><%= @application.convey_day %></span></div>
+     </div>
+   </div>
+   <div class="table" id="out-application-body-table" style="border-top: none">
+     <!--转出货物表体-->
+     <div class="tr">结转出口货物情况</div>
+     <div class="tr">
+       <div class="td" style="width:35px">序号</div>
+       <div class="td" style="width:80px">商品项号</div>
+       <div class="td" style="width:80px">商品编号</div>
+       <div class="td" style="width:120px">商品名称</div>
+       <div class="td" style="width:130px">规格型号</div>
+       <div class="td" style="width:80px">计量单位</div>
+       <div class="td" style="width:80px">数量</div>
+       <div class="td" style="width:80px">法定单位</div>
+       <div class="td" style="width:80px">法定数量</div>
+       <div class="td last-td" style="width:174px">转出手册号</div>
+     </div>
+     <% out_group.each do |application_cargo| %>
+       <div class="tr">
+         <div class="td" style="width:35px"><span class="content"><%= application_cargo.no %></span></div>
+         <div class="td" style="width:80px"><span class="content"><%= application_cargo.no_in_contract %></span></div>
+         <div class="td" style="width:80px"><span class="content"><%= application_cargo.code %></span></div>
+         <div class="td" style="width:120px"><span class="content"><%= application_cargo.name %></span></div>
+         <div class="td" style="width:130px"><span class="content"><%= application_cargo.specification %></span></div>
+         <div class="td" style="width:80px"><span class="content"><%= dict_name(Dict::Unit, application_cargo.unit) %></span></div>
+         <div class="td" style="width:80px"><span class="content"><%= sprintf "%0.0f", application_cargo.quantity rescue '' %></span></div>
+         <div class="td" style="width:80px"><span class="content"><%= dict_name(Dict::Unit, application_cargo.unit1) %></span></div>
+         <div class="td" style="width:80px"><span class="content"><%= sprintf "%0.0f", application_cargo.quantity1 %></span></div>
+         <div class="td last-td" style="width:174px"><span class="content"><%= @application.contract.manual %></span></div>
+       </div>
+     <% end %>
+
+   </div>
+   <div class="table" id="in-application-body-table" style="border-top:none">
+     <!--转入货物表体-->
+     <div class="tr">结转进口货物情况</div>
+     <div class="tr">
+       <div class="td" style="width:35px">序号</div>
+       <div class="td" style="width:80px">商品项号</div>
+       <div class="td" style="width:80px">商品编号</div>
+       <div class="td" style="width:120px">商品名称</div>
+       <div class="td" style="width:130px">规格型号</div>
+       <div class="td" style="width:80px">计量单位</div>
+       <div class="td" style="width:80px">数量</div>
+       <div class="td" style="width:80px">法定单位</div>
+       <div class="td" style="width:80px">法定数量</div>
+       <div class="td" style="width:80px">转出序号</div>
+       <div class="td last-td" style="width:92px">转入手册号</div>
+     </div>
+     <% in_group.each do |application_cargo| %>
+       <div class="tr">
+         <div class="td" style="width:35px"><span class="content"><%= application_cargo.no %></span></div>
+         <div class="td" style="width:80px"><span class="content"><%= application_cargo.no_in_contract %></span></div>
+         <div class="td" style="width:80px"><span class="content"><%= application_cargo.code %></span></div>
+         <div class="td" style="width:120px"><span class="content"><%= application_cargo.name %></span></div>
+         <div class="td" style="width:130px"><span class="content"><%= application_cargo.specification %></span></div>
+         <div class="td" style="width:80px"><span class="content"><%= dict_name(Dict::Unit, application_cargo.unit) %></span></div>
+         <div class="td" style="width:80px"><span class="content"><%= sprintf "%0.0f", application_cargo.quantity rescue '' %></span></div>
+         <div class="td" style="width:80px"><span class="content"><%= dict_name(Dict::Unit, application_cargo.unit1) %></span></div>
+         <div class="td" style="width:80px"><span class="content"><%= sprintf "%0.0f", application_cargo.quantity1 %></span></div>
+         <div class="td" style="width:80px"><span class="content"><%= application_cargo.in_out_no %></span></div>
+         <div class="td last-td" style="width:92px"><span class="content"><%= @application.contract.manual %></span></div>
+       </div>
+     <% end %>
+
+   </div>
+   <div class="table" id="note-table" style="border-top:none">
+     <!--海关批注-->
+     <div class="tr last-tr">
+       <div class="td" style='width:117px'>转出地海关批注</div>
+       <div class="td" style="width:232px"></div>
+       <div class="td" style='width:115px'>转入地海关批注</div>
+       <div class="td last-td"></div>
+     </div>
+   </div>
+
+ </div>
+  <% if out_group_index != @out_groups.size - 1 %>
+    <div style="page-break-before: always;"></div>
+  <% end %>
+<% end %>

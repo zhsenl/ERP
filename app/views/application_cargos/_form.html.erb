@@ -1,0 +1,142 @@
+<%= render "shared/error_messages", :model => @application_cargo %>
+<%= form_for @application_cargo do |f| %>
+  <fieldset>
+    <%= f.hidden_field :application_id %>
+    <%= f.hidden_field :in_out %>
+    <div class="filed">
+      <label>合同序号</label>
+      <%= f.text_field :no_in_contract, :class => "text-input small-input first-field" %>
+      <br/>
+      <% if @application.contract %>
+        <small>输入合同序号或名字后有提示</small>
+      <% end %>
+    </div>
+    <%= %>
+    <% contract = @application_cargo.in_out == false ? @application.contract : @application.in_contract %>
+    <% if contract %>
+      <script type="text/javascript">
+        $(function () {
+          $("#application_cargo_no_in_contract").autocomplete({
+            source: function (request, response) {
+              var url = "<%= @application_cargo.in_out == false ? contract_products_path : contract_materials_path %>/search.json?contract_id=<%= contract.id %>&term=" + request.term
+              $.get(url, function (result) {
+                response($.map(result, function (item) {
+                  item.label = item.no + ":" + item.code + item.name;
+                  item.value = item.no;
+                  return item;
+                }));
+              });
+            },
+            minLength: 1,
+            select: function (event, ui) {
+              $("#application_cargo_code").val(ui.item.code);
+              $("#application_cargo_name").val(ui.item.name);
+              $("#application_cargo_specification").val(ui.item.specification);
+              $("#unit_autocomplete").val(ui.item.unit).blur();
+              $("#unit1_autocomplete").val(ui.item.unit1).blur();
+              $("#application_cargo_no_in_contract").val(ui.item.no);
+              $("#tax_mode_autocomplete").val(ui.item.tax_mode).blur();
+            }
+          });
+        });
+      </script>
+    <% end %>
+    <% if @application_cargo.in_out %>
+      <div class="filed">
+        <label>转出序号</label>
+        <%= f.text_field :in_out_no, :class => "text-input small-input first-field" %>
+        <br/>
+        <% if @application.contract %>
+          <small>输入转出序号或名字后有提示</small>
+        <% end %>
+      </div>
+      <% contract = @application_cargo.in_out == false ? @application.in_contract : @application.contract %>
+      <% if contract %>
+        <script type="text/javascript">
+          $(function () {
+            $("#application_cargo_in_out_no").autocomplete({
+              source: function (request, response) {
+                var result = <%= @application.application_cargos.out.to_json.html_safe %>
+                response($.map(result, function (item) {
+                  item.label = item.no + ":" + item.code + item.name;
+                  item.value = item.no;
+                  return item;
+                }));
+
+              },
+              minLength: 1
+
+            });
+          });
+        </script>
+      <% end %>
+    <% end %>
+    <div class="filed">
+      <label>商品编码</label>
+      <%= f.text_field :code, :class => "text-input small-input" %>
+      <br/>
+      <small>输入编码或名字后有提示</small>
+    </div>
+    <script>
+      $(function () {
+        $("#application_cargo_code").autocomplete({
+          source: function (request, response) {
+            var url = "<%= cargos_path %>/search.json?term=" + request.term
+            $.get(url, function (result) {
+              response($.map(result, function (item) {
+                item.label = item.code + item.name;
+                item.value = item.code;
+                return item;
+              }));
+            });
+          },
+          minLength: 1,
+          select: function (event, ui) {
+            $("#application_cargo_name").val(ui.item.name);
+            $("#application_cargo_specification").val(ui.item.specification);
+            $("#unit_autocomplete").val(ui.item.unit).blur();
+            $("#unit1_autocomplete").val(ui.item.unit1).blur();
+            $("#unit2_autocomplete").val(ui.item.unit2).blur();
+            $("#trade_country_autocomplete").val(ui.item.trade_country).blur();
+            $("#application_cargo_no_in_contract").val("");
+          }
+        });
+      });
+    </script>
+    <div class="filed">
+      <label>商品名称</label>
+      <%= f.text_field :name, :class => "text-input small-input" %>
+    </div>
+    <div class="filed">
+      <label>规格型号 <a id="specification_helper_link" href="#">辅助器</a></label>
+      <%= f.text_field :specification, :class => "text-input small-input" %>
+    </div>
+
+    <div class="filed">
+      <label>申报数量</label>
+      <%= f.text_field :quantity, :class => "text-input small-input" %>
+    </div>
+    <div class="filed">
+      <label>申报单位</label>
+      <%= render "shared/autocomplete_field", :form => f, :attribute => :unit, :url => dict_units_path, :klass => "text-input small-input" %>
+    </div>
+    <div class="filed">
+      <label>法定单位</label>
+      <%= render "shared/autocomplete_field", :form => f, :attribute => :unit1, :url => dict_units_path, :klass => "text-input small-input" %>
+    </div>
+    <div class="filed">
+      <label>法定数量</label>
+      <%= f.text_field :quantity1, :class => "text-input small-input" %>
+    </div>
+    <div class="filed">
+      <label>序号</label>
+      <%= f.text_field :no, :class => "text-input small-input" %>
+    </div>
+  </fieldset>
+  <div>
+    <%= f.submit :class => "button" %>
+  </div>
+  <div class="clear"></div><!-- End .clear -->
+<% end %>
+
+<%= render "shared/specification_helper", :model_name => "application_cargo" %>
