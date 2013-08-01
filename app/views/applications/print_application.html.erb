@@ -114,7 +114,7 @@
        <div class="td" style="width:55px">转出地</div>
        <div class="td" style="width:79px"><span class="content"><%= dict_name(Dict::District, @application.dict_code) %></span></div>
        <div class="td first">转入企业</div>
-       <div class="td second"><span class="content"><%= @application.in_enterprise.name  %></span></div>
+       <div class="td second"><span class="content"><%= @application.in_enterprise.name rescue '' %></span></div>
        <div class="td" style="width:56px">主管海关</div>
        <div class="td" style="width:57px"><span class="content"><%= dict_name(Dict::Custom, @application.in_mast_cust) %></span></div>
        <div class="td" style="width:55px">目的地</div>

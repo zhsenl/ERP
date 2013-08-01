@@ -6,6 +6,16 @@ class Application < ActiveRecord::Base
   belongs_to :in_contract, class_name: "Contract"
   has_many :application_cargos, :dependent => :destroy
 
-
+  validates :pre_entry_no, :presence => true, :uniqueness => true
+  validates :enterprise_id, :presence => true, :numericality => true
+  validates :contract_id, :presence => true
+  validates :cop_app_no, :presence => true
+  validates :mast_cust, :presence => true
+  validates :trade_code, :presence => true
+  validates :agent_code, :presence => true
+  validates :dict_code, :presence => true
+  validates :lice_no, :presence => true
+  validates :d_date, :presence => true
+  validates :in_trade_code, :presence => true
 
 end
