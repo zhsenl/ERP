@@ -60,15 +60,15 @@
       </p>
       <p>
         <b>转出地海关:</b>
-        <%= @application.mast_cust %>
+        <span class="autoload" data-url=<%= dict_customs_path %>><%= @application.mast_cust %></span>
       </p>
       <p>
         <b>转出地:</b>
-        <%= @application.dict_code %>
+        <span class="autoload" data-url=<%= dict_districts_path %>><%= @application.dict_code %></span>
       </p>
       <p>
         <b>目的地:</b>
-        <%= @application.in_dict_code %>
+        <span class="autoload" data-url=<%= dict_districts_path %>><%= @application.in_dict_code %></span>
       </p>
       <p>
         <b>转出批准证编号:</b>
@@ -127,7 +127,7 @@
       </p>
       <p>
         <b>转入地海关:</b>
-        <%= @application.in_mast_cust %>
+        <span class="autoload" data-url=<%= dict_customs_path %>><%= @application.in_mast_cust %></span>
       </p>
       <p>
         <b>转入申报企业:</b>

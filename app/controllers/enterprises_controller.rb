@@ -46,7 +46,7 @@ class EnterprisesController < ApplicationController
     @enterprise = Enterprise.find_by_code(params[:id])
 
     respond_to do |format|
-      format.json { render json: @enterprise, :only => [:id, :code, :name] }
+      format.json { render json: @enterprise, :only => [:id, :code, :name, :linkman, :telephone] }
     end
   end
 
