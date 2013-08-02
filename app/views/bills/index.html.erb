@@ -1,0 +1,49 @@
+<%= render "shared/enterprise_selector" %>
+
+<div class="content-box">
+  <div class="content-box-header">
+    <h3>深加工结转收发货单列表</h3>
+
+    <div class="operations">
+      <%= link_to "添加新收发货单", new_bill_path %>
+    </div>
+  </div>
+  <div class="content-box-content">
+    <div class="tab-content default-tab">
+      <table>
+        <thead>
+        <tr>
+          <th>预录入号</th>
+          <th>申报日期</th>
+          <th>完成转出申报</th>
+          <th>完成转入申报</th>
+          <th>操作</th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+          <td colspan="6"> <%= will_paginate @bills %> </td>
+        </tr>
+        </tfoot>
+        <tbody>
+        <% @bills.each do |bill| %>
+          <tr>
+            <td><%= link_to bill.pre_entry_no, bill %></td>
+            <td><%= bill.d_date %></td>
+            <td><%= bill.seq_no != '' ? '是' : '否' %></td>
+            <td><%= bill.app_no != '' ? '是' : '否' %></td>
+            <td>
+              <% if can? :edit, bill %>
+                <%= link_to image_tag("icons/pencil.png", :alt => "Edit"), edit_bill_path(bill) %>
+              <% end %>
+              <% if can? :destroy, bill %>
+                <%= link_to image_tag("icons/cross.png", :alt => "Delete"), bill, confirm: '确定删除?', method: :delete %>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

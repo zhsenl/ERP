@@ -46,10 +46,13 @@
     </div>
     <script type="text/javascript">
       $(function () {
-        function auto_complete_linkman_telephone(code, id){
+        function auto_complete_linkman_telephone(code, id, is_in_corp){
           $.get('/enterprises/'+code+'/show_by_code.json',{}, function(result){
             if (result['linkman'] &&  result['telephone']) {
               $('#' + id).val(result['linkman']+'/'+result['telephone']);
+            }
+            if(is_in_corp){
+              $('#in_enterprise_id').val(result['id']);
             }
           })
         }
@@ -58,7 +61,6 @@
             if (data) {
               $("#trade_code_autocomplete").val(data.operate_enterprise_code).blur();
               $("#in_trade_code_autocomplete").val(data.foreign_enterprise_code).blur();
-              $('#in_enterprise_id').val(data.in_enterprise_id);
               $(this).focus();
             }
             ;
@@ -73,7 +75,7 @@
         $("#in_trade_code_autocomplete").blur(function(){
           if(this.value){
             $('#in_dict_code_autocomplete').val(this.value.substr(0,5)).blur();
-            auto_complete_linkman_telephone(this.value, 'in_corp');
+            auto_complete_linkman_telephone(this.value, 'in_corp', true);
           }
         });
         $('#agent_code_autocomplete').blur(function(){

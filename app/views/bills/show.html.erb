@@ -1,0 +1,106 @@
+<div class="content-box">
+  <div class="content-box-header">
+    <h3>查看申请表(<%= @bill.pre_entry_no %>)</h3>
+
+    <div class="operations">
+      <% if can? :update, @bill %><%= link_to '编辑', edit_bill_path(@bill) %> |
+      <% end %>
+      <%= link_to '打印', print_bill_bill_path(@bill), :target => "_blank", :class => "print_button" %> |
+      <%= link_to "收发货物", bill_cargos_path(:bill_id => @bill.id) %>
+      <%= link_to '返回列表', bills_path(:bill_type => @bill_type) %>
+    </div>
+  </div>
+  <script>
+    $("#declare_button").click(function () {
+      if (confirm('确定要申报吗?')) {
+        var url = this.getAttribute("href");
+        $.get(url, function (result) {
+          show_tips(result.type, result.content);
+        });
+      }
+      return false;
+    });
+  </script>
+  <div class="content-box-content">
+    <div class="tab-content default-tab">
+      <fieldset>
+        <legend>基本信息：</legend>
+        <p>
+          <b>预录入号:</b>
+          <%= @bill.pre_entry_no %>
+        </p>
+        <p>
+          <b>收发货单编号:</b>
+          <%= @bill.bill_no %>
+        </p>
+        <p>
+          <b>电子口岸号:</b>
+          <%= @bill.seq_no %>
+        </p>
+      </fieldset>
+      <fieldset>
+        <legend>转出地申报信息</legend>
+        <p>
+          <b>转出手册号:</b>
+          <% if @bill.contract %>
+            <%= @bill.contract.manual %>
+          <% end %>
+        </p>
+        <p>
+          <b>转出企业:</b>
+          <span class="autoload" data-url=<%= enterprises_path %>><%= @bill.trade_code %></span>
+        </p>
+        <p>
+          <b>转入企业:</b>
+          <span class="autoload" data-url=<%= enterprises_path %>><%= @bill.in_trade_code %></span>
+        </p>
+
+        <p>
+          <b>企业合同号:</b>
+          <%= @bill.contr_no %>
+        </p>
+        <p>
+          <b>申报企业:</b>
+          <span class="autoload" data-url=<%= enterprises_path %>><%= @bill.agent_code %></span>
+        </p>
+        <p>
+          <b>发货日期:</b>
+          <%= @bill.issue_date %>
+        </p>
+        <p>
+          <b>运输工具类别:</b>
+          <%= @bill.convey_type %>
+        </p>
+        <p>
+          <b>运输工具编号:</b>
+          <%= @bill.convey_no %>
+        </p>
+        <p>
+          <b>备注:</b>
+          <%= @bill.note %>
+        </p>
+      </fieldset>
+      <fieldset>
+        <legend>转入地申报信息</legend>
+        <p>
+          <b>转入企业内部编号:</b>
+          <%= @bill.in_cop_bill_no %>
+        </p>
+
+        <p>
+          <b>转入申报企业:</b>
+          <span class="autoload" data-url=<%= enterprises_path %>><%= @bill.in_agent_code %></span>
+        </p>
+        <p>
+          <b>收货日期:</b>
+          <%= @bill.in_issue_date %>
+        </p>
+        <p>
+          <b>备注:</b>
+          <%= @bill.in_note %>
+        </p>
+      </fieldset>
+    </div>
+  </div>
+</div>
+

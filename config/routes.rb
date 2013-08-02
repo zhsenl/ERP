@@ -1,6 +1,10 @@
 # -*- encoding : utf-8 -*-
 ERP::Application.routes.draw do
 
+  get "bill/print_bill"
+
+  resources :bills
+
   resources :application_cargos
 
   resources :applications  do

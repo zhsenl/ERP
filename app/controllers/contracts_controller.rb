@@ -25,7 +25,6 @@ class ContractsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json {
-        @contract[:in_enterprise_id] =   Enterprise.find_by_code(@contract[:foreign_enterprise_code]).id rescue ''
         render json: @contract
       }
     end
