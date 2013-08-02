@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130802025541) do
+ActiveRecord::Schema.define(:version => 20130802130748) do
 
   create_table "application_cargos", :force => true do |t|
     t.integer  "application_id"
@@ -72,6 +72,25 @@ ActiveRecord::Schema.define(:version => 20130802025541) do
     t.string   "in_lice_no"
   end
 
+  create_table "bill_cargos", :force => true do |t|
+    t.integer  "declaration_id"
+    t.integer  "no_in_contract"
+    t.integer  "no"
+    t.integer  "in_out_no"
+    t.string   "code"
+    t.string   "name"
+    t.string   "specification"
+    t.decimal  "quantity",       :precision => 15, :scale => 4
+    t.string   "unit"
+    t.decimal  "quantity1",      :precision => 15, :scale => 4
+    t.string   "unit1"
+    t.string   "note"
+    t.string   "bak_code_ts"
+    t.integer  "modify_mark"
+    t.datetime "created_at",                                    :null => false
+    t.datetime "updated_at",                                    :null => false
+  end
+
   create_table "bills", :force => true do |t|
     t.string   "pre_entry_no"
     t.string   "bill_no"
@@ -98,6 +117,7 @@ ActiveRecord::Schema.define(:version => 20130802025541) do
     t.integer  "application_id"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+    t.boolean  "sys_type"
   end
 
   create_table "cargos", :force => true do |t|

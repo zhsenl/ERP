@@ -4,6 +4,7 @@
     <legend>基本信息：</legend>
     <%= f.hidden_field :enterprise_id %>
     <%= f.hidden_field :in_enterprise_id, :id => 'in_enterprise_id' %>
+    <%= f.hidden_field :sys_type %>
     <div class="filed">
       <label>预录入号</label>
       <%= f.text_field :pre_entry_no, :class => "text-input small-input", :readonly => "readonly" %>
@@ -27,7 +28,7 @@
     <legend>转出企业填写：</legend>
     <div class="filed">
       <label>申请表编号</label>
-      <% applications_array = current_enterprise.applications.map { |application| [application.app_no, application.id] }.select { |application| application[0] and application[1] } %>
+      <% applications_array = current_enterprise.applications.map { |application| [application.app_no, application.id] }.select { |application| application[0]!='' and application[1]!='' } %>
       <% applications_array = [["请选择", 0]] + applications_array %>
       <%= f.select :application_id, applications_array, {}, :id => "application_id_combobox", :class => "text-input small-input" %>
       <br/>

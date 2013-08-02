@@ -8,7 +8,11 @@ class BillsController < ApplicationController
   def init
     if params[:id]
       @bill = Bill.find(params[:id])
+      @sys_type = @bill.sys_type
+    else
+      @sys_type = params[:sys_type] || params[:bill][:sys_type] rescue nil
     end
+    @mark = @sys_type
   end
 
 
@@ -16,7 +20,7 @@ class BillsController < ApplicationController
   # GET /bills.json
   def index
     if current_enterprise
-      @bills =  Bill.where("enterprise_id = ? ", current_enterprise.id).page(params[:page]).order("updated_at DESC")
+      @bills =  Bill.where("enterprise_id = ? and sys_type = ?", current_enterprise.id, @sys_type).page(params[:page]).order("updated_at DESC")
     else
       @bills = Enterprise.new.bills.page(params[:page])
     end
@@ -43,6 +47,7 @@ class BillsController < ApplicationController
     if current_enterprise
       pre_entry_no = Time.now.strftime('%Y%m%d%H%M%S') + system_serial_no
       @bill = Bill.new(:enterprise_id => current_enterprise.id,
+                                     :sys_type => @sys_type,
                                      :agent_code => "4419980074",
                                      :in_agent_code => "4419980074" ,
                                      :pre_entry_no =>  pre_entry_no

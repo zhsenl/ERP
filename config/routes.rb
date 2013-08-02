@@ -1,9 +1,13 @@
 # -*- encoding : utf-8 -*-
 ERP::Application.routes.draw do
 
+  resources :bill_cargos
+
   get "bill/print_bill"
 
-  resources :bills
+  resources :bills do
+    get 'print_bill', :on => :member
+  end
 
   resources :application_cargos
 
