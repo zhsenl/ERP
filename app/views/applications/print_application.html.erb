@@ -134,11 +134,11 @@
        <div class="td first">转出企业法人/联系电话</div>
        <div class="td second"><span class="content"><%= @application.corp %></span></div>
        <div class="td third">转出申报企业</div>
-       <div class="td fourth"><span class="content"><%= Enterprise.find_by_code(@application.agent_code).name %></span></div>
+       <div class="td fourth"><span class="content"><%= Enterprise.find_by_code(@application.agent_code).name rescue '' %></span></div>
        <div class="td first">转入企业法人/联系电话</div>
        <div class="td second"><span class="content"><%= @application.decl %></span></div>
        <div class="td third">转入申报企业</div>
-       <div class="td fourth last-td"><span class="content"><%= Enterprise.find_by_code(@application.in_agent_code).name %></span></div>
+       <div class="td fourth last-td"><span class="content"><%= Enterprise.find_by_code(@application.in_agent_code).name rescue '' %></span></div>
      </div>
      <div class="tr">
        <div class="td first">申报日期</div>
