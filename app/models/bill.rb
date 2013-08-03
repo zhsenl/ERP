@@ -13,6 +13,5 @@ class Bill < ActiveRecord::Base
   validates :agent_code, :presence => true
   validates :is_decla_date, :presence => true
   validates :is_decla_em, :presence => true
-  validates :d_date, :presence => true
   validates :in_trade_code, :presence => true
 end

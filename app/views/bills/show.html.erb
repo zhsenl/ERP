@@ -1,6 +1,6 @@
 <div class="content-box">
   <div class="content-box-header">
-    <h3>查看申请表(<%= @bill.pre_entry_no %>)</h3>
+    <h3>查看<%= @bill.sys_type=='normal'? '收发' : '退' %>货单(<%= @bill.pre_entry_no %>)</h3>
 
     <div class="operations">
       <% if can? :update, @bill %><%= link_to '编辑', edit_bill_path(@bill) %> |

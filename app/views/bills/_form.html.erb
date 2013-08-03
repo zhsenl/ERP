@@ -30,7 +30,7 @@
       <label>申请表编号</label>
       <% applications_array = current_enterprise.applications.map { |application| [application.app_no, application.id] }.select { |application| application[0]!='' and application[1]!='' } %>
       <% applications_array = [["请选择", 0]] + applications_array %>
-      <%= f.select :application_id, applications_array, {}, :id => "application_id_combobox", :class => "text-input small-input" %>
+      <%= f.select :application_id, applications_array, {}, :id => "application_id_combobox", :class => "text-input small-input first-field" %>
       <br/>
     </div>
     <script>
@@ -76,7 +76,7 @@
     </script>
     <div class="filed">
       <label>转出企业</label>
-      <%= render "shared/autocomplete_field", :form => f, :attribute => :trade_code, :url => enterprises_path, :klass => "text-input small-input first-field" %>
+      <%= render "shared/autocomplete_field", :form => f, :attribute => :trade_code, :url => enterprises_path, :klass => "text-input small-input" %>
     </div>
     <div class="filed">
       <label>转入企业</label>

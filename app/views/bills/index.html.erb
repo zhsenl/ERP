@@ -2,10 +2,10 @@
 
 <div class="content-box">
   <div class="content-box-header">
-    <h3>深加工结转收发货单列表</h3>
+    <h3>深加工结转<%= @sys_type=='normal'? '收发' : '退' %>货单列表</h3>
 
     <div class="operations">
-      <%= link_to "添加新收发货单", new_bill_path(:sys_type => @sys_type) %>
+      <%= link_to "添加新#{@sys_type=='normal'? '收发' : '退'}货单", new_bill_path(:sys_type => @sys_type) %>
     </div>
   </div>
   <div class="content-box-content">
