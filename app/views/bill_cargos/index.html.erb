@@ -1,21 +1,72 @@
-<h1>Listing bill_cargos</h1>
+<div class="content-box">
+  <div class="content-box-header">
+    <h3>深加工结转收发货(<%= @bill.pre_entry_no %>)货物列表</h3>
+    <div class="operations">
+      <%= link_to '添加转出货物', new_bill_cargo_path(:bill_id => @bill.id, :in_out => 0) %> |
+      <%= link_to '添加转入货物', new_bill_cargo_path(:bill_id => @bill.id, :in_out => 1) %> |
+      <%= link_to '返回表头', @bill %>
+    </div>
+  </div>
 
-<table>
-  <tr>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+  <div class="content-box-content">
+    <fieldset>
+      <legend>转出货物</legend>
+      <div class="tab-content default-tab">
+        <table>
+          <thead>
+          <tr>
+            <th>序号</th>
+            <th>商品编码</th>
+            <th>商品名称</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tfoot>
 
-<% @bill_cargos.each do |bill_cargo| %>
-  <tr>
-    <td><%= link_to 'Show', bill_cargo %></td>
-    <td><%= link_to 'Edit', edit_bill_cargo_path(bill_cargo) %></td>
-    <td><%= link_to 'Destroy', bill_cargo, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
+          </tfoot>
+          <tbody>
+          <% @bill_cargos.out.each do |bill_cargo| %>
+            <tr>
+              <td><%= bill_cargo.no %></td>
+              <td><%= bill_cargo.code %></td>
+              <td><%= link_to bill_cargo.name, bill_cargo %></td>
+              <td> <%= link_to image_tag("icons/pencil.png", :alt => "编辑", :title => "编辑"), edit_bill_cargo_path(bill_cargo) %>
+                <%= link_to image_tag("icons/cross.png", :alt => "删除", :title => "删除"), bill_cargo, confirm: '确定删除?', method: :delete %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </fieldset>
+    <fieldset>
+      <legend>转入货物</legend>
+      <div class="tab-content default-tab">
+        <table>
+          <thead>
+          <tr>
+            <th>序号</th>
+            <th>商品编码</th>
+            <th>商品名称</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tfoot>
 
-<br />
+          </tfoot>
+          <tbody>
+          <% @bill_cargos.in.each do |bill_cargo| %>
+            <tr>
+              <td><%= bill_cargo.no %></td>
+              <td><%= bill_cargo.code %></td>
+              <td><%= link_to bill_cargo.name, bill_cargo %></td>
+              <td> <%= link_to image_tag("icons/pencil.png", :alt => "编辑", :title => "编辑"), edit_bill_cargo_path(bill_cargo) %>
+                <%= link_to image_tag("icons/cross.png", :alt => "删除", :title => "删除"), bill_cargo, confirm: '确定删除?', method: :delete %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </div>
+    </fieldset>
 
-<%= link_to 'New Bill cargo', new_bill_cargo_path %>
+  </div>
+</div>

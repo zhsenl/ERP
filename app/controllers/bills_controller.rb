@@ -95,7 +95,7 @@ class BillsController < ApplicationController
   def destroy
     @bill.destroy
     respond_to do |format|
-      format.html { redirect_to bills_url }
+      format.html { redirect_to bills_url(:sys_type => @sys_type) }
       format.json { head :no_content }
     end
   end

@@ -1,5 +1,79 @@
-<p id="notice"><%= notice %></p>
+<div class="content-box">
+  <div class="content-box-header">
+    <h3>查看<%= @bill_cargo.in_out ? '转入':'转出' %>货物</h3>
+    <div class="operations">
+      <%= link_to '编辑', edit_bill_cargo_path(@bill_cargo) %> |
+      <%= link_to '返回', bill_cargos_path(:bill_id => @bill.id) %>
+    </div>
+  </div>
+  <div class="content-box-content">
+    <div class="tab-content default-tab">
+      <p>
+        <b>申请表序号:</b>
+        <%= @bill.application.id %>
+      </p>
+      <p>
+        <b>申请表项号:</b>
+        <%= @bill_cargo.no_in_application %>
+      </p>
+      <% if @bill_cargo.in_out %>
+        <p>
+          <b>转出序号:</b>
+          <%= @bill_cargo.no_in_out %>
+        </p>
+      <% end %>
+
+      <p>
+        <b>归并前商品名称:</b>
+        <%= @bill_cargo.before_name %>
+      </p>
+
+      <p>
+        <b>归并前规格型号:</b>
+        <%= @bill_cargo.before_specification %>
+      </p>
 
 
-<%= link_to 'Edit', edit_bill_cargo_path(@bill_cargo) %> |
-<%= link_to 'Back', bill_cargos_path %>
+      <p>
+        <b>商品编码:</b>
+        <%= @bill_cargo.code %>
+      </p>
+
+      <p>
+        <b>商品名称:</b>
+        <%= @bill_cargo.name %>
+      </p>
+
+      <p>
+        <b>规格型号:</b>
+        <%= @bill_cargo.specification %>
+      </p>
+
+      <p>
+        <b>申报数量:</b>
+        <%= @bill_cargo.quantity %>
+      </p>
+
+      <p>
+        <b>申报单位:</b>
+        <span class="autoload" data-url=<%= dict_units_path %> ><%= @bill_cargo.unit %></span>
+      </p>
+
+      <p>
+        <b>交易数量:</b>
+        <%= @bill_cargo.quantity1 %>
+      </p>
+
+      <p>
+        <b>交易单位:</b>
+        <span class="autoload" data-url=<%= dict_units_path %> ><%= @bill_cargo.unit1 %></span>
+      </p>
+      <p>
+        <b>序号:</b>
+        <%= @bill_cargo.no %>
+      </p>
+    </div>
+  </div>
+</div>
+
+

@@ -17,7 +17,7 @@ class ApplicationCargosController < ApplicationController
   # GET /application_cargos
   # GET /application_cargos.json
   def index
-    @application_cargos = @application.application_cargos.page(params[:page])
+    @application_cargos = @application.application_cargos
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @application_cargos }
@@ -60,7 +60,7 @@ class ApplicationCargosController < ApplicationController
 
     respond_to do |format|
       if @application_cargo.save
-        format.html { redirect_to @application_cargo, notice: 'Application cargo was successfully created.' }
+        format.html { redirect_to @application_cargo, notice: '申请表货物创建成功' }
         format.json { render json: @application_cargo, status: :created, location: @application_cargo }
       else
         format.html { render action: "new" }

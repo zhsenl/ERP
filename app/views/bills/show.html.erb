@@ -6,8 +6,8 @@
       <% if can? :update, @bill %><%= link_to '编辑', edit_bill_path(@bill) %> |
       <% end %>
       <%= link_to '打印', print_bill_bill_path(@bill), :target => "_blank", :class => "print_button" %> |
-      <%= link_to "收发货物" %>
-      <%= link_to '返回列表', bills_path(:bill_type => @bill_type) %>
+      <%= link_to "收发货物" ,bill_cargos_path(:bill_id => @bill.id)%>
+      <%= link_to '返回列表', bills_path(:sys_type => @sys_type) %>
     </div>
   </div>
   <script>

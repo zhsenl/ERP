@@ -73,22 +73,27 @@ ActiveRecord::Schema.define(:version => 20130802130748) do
   end
 
   create_table "bill_cargos", :force => true do |t|
-    t.integer  "declaration_id"
-    t.integer  "no_in_contract"
+    t.boolean  "in_out"
+    t.integer  "bill_id"
+    t.integer  "no_in_application"
     t.integer  "no"
-    t.integer  "in_out_no"
+    t.integer  "no_in_out"
+    t.integer  "cop_g_no"
+    t.integer  "g_no"
     t.string   "code"
+    t.string   "before_name"
+    t.string   "before_specification"
     t.string   "name"
     t.string   "specification"
-    t.decimal  "quantity",       :precision => 15, :scale => 4
+    t.decimal  "quantity",             :precision => 15, :scale => 4
     t.string   "unit"
-    t.decimal  "quantity1",      :precision => 15, :scale => 4
+    t.decimal  "quantity1",            :precision => 15, :scale => 4
     t.string   "unit1"
     t.string   "note"
     t.string   "bak_code_ts"
     t.integer  "modify_mark"
-    t.datetime "created_at",                                    :null => false
-    t.datetime "updated_at",                                    :null => false
+    t.datetime "created_at",                                          :null => false
+    t.datetime "updated_at",                                          :null => false
   end
 
   create_table "bills", :force => true do |t|
@@ -117,7 +122,7 @@ ActiveRecord::Schema.define(:version => 20130802130748) do
     t.integer  "application_id"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
-    t.boolean  "sys_type"
+    t.string   "sys_type"
   end
 
   create_table "cargos", :force => true do |t|

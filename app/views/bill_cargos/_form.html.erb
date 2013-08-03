@@ -1,17 +1,148 @@
-<%= form_for(@bill_cargo) do |f| %>
-  <% if @bill_cargo.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@bill_cargo.errors.count, "error") %> prohibited this bill_cargo from being saved:</h2>
-
-      <ul>
-      <% @bill_cargo.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
+<%= render "shared/error_messages", :model => @bill_cargo %>
+<%= form_for @bill_cargo do |f| %>
+  <fieldset>
+    <%= f.hidden_field :bill_id %>
+    <%= f.hidden_field :in_out %>
+    <div class="filed">
+      <label>申请表项号</label>
+      <%= f.text_field :no_in_application, :class => "text-input small-input first-field" %>
+      <br/>
+      <% if @bill.application %>
+        <small>输入申请表项号或名字后有提示</small>
       <% end %>
-      </ul>
     </div>
-  <% end %>
+    <% if @bill.application %>
+      <script type="text/javascript">
+        $(function () {
+          $("#bill_cargo_no_in_application").autocomplete({
+            source: function (request, response) {
+              var result = <%= @bill_cargo.in_out ? @bill.application.application_cargos.in.to_json.html_safe : @bill.application.application_cargos.out.to_json.html_safe %>;
+              response($.map(result, function (item) {
+                item.label = item.no + ":" + item.code + item.name;
+                item.value = item.no;
+                return item;
+              }));
 
-  <div class="actions">
-    <%= f.submit %>
+            },
+            minLength: 1,
+            select: function (event, ui) {
+              $("#bill_cargo_code").val(ui.item.code);
+              $("#bill_cargo_name").val(ui.item.name);
+              $("#bill_cargo_specification").val(ui.item.specification);
+              $("#unit_autocomplete").val(ui.item.unit).blur();
+              $("#unit1_autocomplete").val(ui.item.unit1).blur();
+              $("#quantity_autocomplete").val(ui.item.quantity).blur();
+              $("#quantity1_autocomplete").val(ui.item.quantity1).blur();
+            }
+          });
+        });
+      </script>
+    <% end %>
+    <div class="filed">
+      <label>料号</label>
+      <%= f.text_field :cop_g_no, :class => "text-input small-input " %>
+    </div>
+    <% if @bill_cargo.in_out %>
+      <div class="filed">
+        <label>发货序号</label>
+        <%= f.text_field :no_in_out, :class => "text-input small-input " %>
+        <br/>
+        <small>输入发货序号或名字后有提示</small>
+      </div>
+        <script type="text/javascript">
+          $(function () {
+            $("#bill_cargo_no_in_out").autocomplete({
+              source: function (request, response) {
+                var result = <%= @bill.bill_cargos.out.to_json.html_safe %>
+                        response($.map(result, function (item) {
+                          item.label = item.no + ":" + item.code + item.name;
+                          item.value = item.no;
+                          return item;
+                        }));
+
+              },
+              minLength: 1
+
+            });
+          });
+        </script>
+    <% end %>
+    <div class="filed">
+      <label>商品编码</label>
+      <%= f.text_field :code, :class => "text-input small-input" %>
+      <br/>
+      <small>输入编码或名字后有提示</small>
+    </div>
+    <script>
+      $(function () {
+        $("#bill_cargo_code").autocomplete({
+          source: function (request, response) {
+            var url = "<%= cargos_path %>/search.json?term=" + request.term
+            $.get(url, function (result) {
+              response($.map(result, function (item) {
+                item.label = item.code + item.name;
+                item.value = item.code;
+                return item;
+              }));
+            });
+          },
+          minLength: 1,
+          select: function (event, ui) {
+            $("#bill_cargo_name").val(ui.item.name);
+            $("#bill_cargo_specification").val(ui.item.specification);
+            $("#unit_autocomplete").val(ui.item.unit).blur();
+            $("#unit1_autocomplete").val(ui.item.unit1).blur();
+            $("#bill_cargo_no_in_application").val("");
+          }
+        });
+      });
+    </script>
+    <div class="filed">
+      <label>归并前商品名称</label>
+      <%= f.text_field :before_name, :class => "text-input small-input" %>
+    </div>
+    <div class="filed">
+      <label>归并前规格型号 <a id="specification_helper_link" href="#">辅助器</a></label>
+      <%= f.text_field :before_specification, :class => "text-input small-input" %>
+    </div>
+
+    <div class="filed">
+      <label>商品名称</label>
+      <%= f.text_field :name, :class => "text-input small-input" %>
+    </div>
+    <div class="filed">
+      <label>规格型号 <a id="specification_helper_link" href="#">辅助器</a></label>
+      <%= f.text_field :specification, :class => "text-input small-input" %>
+    </div>
+    <div class="filed">
+      <label>申报数量</label>
+      <%= f.text_field :quantity, :class => "text-input small-input" %>
+    </div>
+    <div class="filed">
+      <label>申报单位</label>
+      <%= render "shared/autocomplete_field", :form => f, :attribute => :unit, :url => dict_units_path, :klass => "text-input small-input" %>
+    </div>
+    <div class="filed">
+      <label>交易单位</label>
+      <%= render "shared/autocomplete_field", :form => f, :attribute => :unit1, :url => dict_units_path, :klass => "text-input small-input" %>
+    </div>
+    <div class="filed">
+      <label>交易数量</label>
+      <%= f.text_field :quantity1, :class => "text-input small-input" %>
+    </div>
+    <div class="filed">
+      <label>序号</label>
+      <%= f.text_field :no, :class => "text-input small-input" %>
+    </div>
+    <div class="filed">
+      <label>备注</label>
+      <%= f.text_field :note, :class => "text-input small-input" %>
+    </div>
+  </fieldset>
+  <div>
+    <%= f.submit :class => "button" %>
   </div>
+  <div class="clear"></div><!-- End .clear -->
 <% end %>
+
+<%= render "shared/specification_helper", :model_name => "bill_cargo" %>

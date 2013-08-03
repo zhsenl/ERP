@@ -3,7 +3,7 @@
     <h3>编辑报关单(<%= @bill.pre_entry_no %>)</h3>
     <div class="operations">
       <%= link_to '查看', @bill %> |
-      <%= link_to '返回列表', bills_path %>
+      <%= link_to '返回列表', bills_path(:sys_type => @sys_type) %>
     </div>
   </div>
   <div class="content-box-content">

@@ -156,10 +156,10 @@
         <a href="#" class="nav-top-item"> 深加工结转收发货单 </a>
         <ul>
           <li>
-            <%= link_to '新增收发货单', new_bill_path(:sys_type => 0), :class => "0_bills_new bills_create" %>
+            <%= link_to '新增收发货单', new_bill_path(:sys_type => "normal"), :class => "normal_bills_new normal_bills_create" %>
           </li>
           <li>
-            <%= link_to '收发货单管理', bills_path(:sys_type => 0), :class => "0_bills bill" %>
+            <%= link_to '收发货单管理', bills_path(:sys_type => "normal"), :class => "normal_bills normal_bill" %>
           </li>
         </ul>
       </li>
@@ -167,10 +167,10 @@
         <a href="#" class="nav-top-item"> 深加工结转退货单 </a>
         <ul>
           <li>
-            <%= link_to '新增退货单', new_bill_path(:sys_type => 1), :class => "1_bills_new bills_create" %>
+            <%= link_to '新增退货单', new_bill_path(:sys_type => "return"), :class => "return_bills_new return_bills_create" %>
           </li>
           <li>
-            <%= link_to '退货单管理', bills_path(:sys_type => 1), :class => "1_bills bill" %>
+            <%= link_to '退货单管理', bills_path(:sys_type => "return"), :class => "return_bills return_bill" %>
           </li>
         </ul>
       </li>

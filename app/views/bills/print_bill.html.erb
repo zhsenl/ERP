@@ -1,0 +1,248 @@
+<style>
+
+  @page {
+    size: landscape;
+  }
+
+  body {
+    font-family: "KaiTi_GB2312";
+    font-size: 14px;
+    /*font-weight: bold;*/
+  }
+
+  .frame {
+    margin: 0 auto;
+    width: 1020px;
+    text-align: left;
+  }
+
+  h1 {
+    font-family: "SimHei",   \9  ed1\4f53, arial, sans-serif;
+    font-size: 20px;
+    font-weight: normal;
+  }
+
+  .table {
+    border: 1px solid;
+  }
+
+  .tr {
+    float: none;
+    height: 24px;
+    width: 100%;
+    border-bottom: 1px solid;
+  }
+
+  .last-tr {
+    border-bottom: none;
+  }
+
+  .td {
+    float: left;
+    text-align: left;
+    height: 24px;
+    border-right: 1px solid;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left: 1px;
+  }
+
+  .last-td {
+    border-right: none;
+  }
+
+  #bill-head-table .tr {
+    height: 34px;
+  }
+
+  #bill-head-table .td {
+    height: 34px;
+    line-height: 34px;
+  }
+
+  #in-bill-body-table .td, #out-bill-body-table .td {
+    line-height: 24px;
+  }
+
+  .content {
+    font-family: "SimSun";
+    font-size: 13px;
+    overflow: hidden;
+    font-weight: normal;
+  }
+
+    /* columns */
+  .first {
+    width: 89px;
+  }
+
+  .second {
+    width: 131px;
+  }
+
+  .third {
+    width: 115px;
+  }
+
+  .fourth {
+    width: 136px;
+  }
+
+</style>
+
+<% @out_groups.each_with_index do |out_group, out_group_index| %>
+  <% in_group = out_group_index < @in_groups.size ? @in_groups[out_group_index] : [] %>
+  <div class="frame">
+    <!--表头-->
+    <div style="height: 10px;"></div>
+    <div style="height: 40px; text-align: center; font-size: 24px;">保税货物/出口加工区货物深加工结转收发货单</div>
+    <div style="height: 35px">
+      <div style="width: 49%;display: inline-block">收发货单海关编号：<span class="content"><%= @bill.bill_no %></span></div>
+      <div style="width: 49%;display: inline-block">发货企业内部编号：<span class="content"><%= @bill.application.cop_app_no %></span>
+      </div>
+      <div style="width: 49%;display: inline-block">电子口岸统一编号：<span class="content"><%= @bill.seq_no %></span></div>
+      <div style="width: 49%;display: inline-block">收货企业内部编号:
+        <span class="content"><%= @bill.application.in_cop_app_no %></span></div>
+    </div>
+    <div class="table" id='bill-head-table'>
+      <div class="tr">
+        <div class="td" style="width:155px">发货企业名称</div>
+        <div class="td" style="width:350px"><span class="content"><%= @bill.application.enterprise.name %></span></div>
+        <div class="td" style="width:155px">收货企业名称</div>
+        <div class="td last-td" style="width:350px">
+          <span class="content"><%= @bill.application.in_enterprise.name %></span></div>
+      </div>
+      <div class="tr">
+        <div class="td" style="width:155px">发货时间</div>
+        <div class="td" style="width:115px">收货时间</div>
+        <div class="td" style="width:116px">运输工具类别</div>
+        <div class="td" style="width:115px">运输工具编号</div>
+        <div class="td" style="width:255px">购销合同号或订单号</div>
+        <div class="td last-td" style="width:250px">条形码/验证码</div>
+      </div>
+      <div class="tr">
+        <div class="td" style="width:155px"><span class="content"><%= @bill.issue_date %></span></div>
+        <div class="td" style="width:115px"><span class="content"><%= @bill.in_issue_date %></span></div>
+        <div class="td" style="width:116px"><span class="content"><%= @bill.convey_type %></span></div>
+        <div class="td" style="width:115px"><span class="content"><%= @bill.convey_no %></span></div>
+        <div class="td" style="width:255px"><span class="content"><%= %></span></div>
+        <div class="td last-td" style="width:250px"><span class="content"><%= %></span></div>
+      </div>
+
+    </div>
+
+    <div class="table" id="out-bill-body-table" style="border-top: none">
+      <!--转出货物表体-->
+      <div class="tr">实际发货情况</div>
+      <div class="tr">
+        <div class="td" style="width:35px">序号</div>
+        <div class="td" style="width:75px">申请表序号</div>
+        <div class="td" style="width:35px">项号</div>
+        <div class="td" style="width:35px">料号</div>
+        <div class="td" style="width:78px">商品编号</div>
+        <div class="td" style="width:140px">商品名称</div>
+        <div class="td" style="width:140px">规格型号</div>
+        <div class="td" style="width:80px">交易数量</div>
+        <div class="td" style="width:60px">交易单位</div>
+        <div class="td" style="width:80px">申报数量</div>
+        <div class="td" style="width:60px">申报单位</div>
+        <div class="td" style="width:70px">发货人签单</div>
+        <div class="td last-td" style="width:105px">转出手册号</div>
+      </div>
+      <% out_group.each do |bill_cargo| %>
+        <div class="tr">
+          <div class="td" style="width:35px"><span class="content"><%= bill_cargo.no %></span></div>
+          <div class="td" style="width:75px"><span class="content"><%= @bill.application.app_no %></span></div>
+          <div class="td" style="width:35px"><span class="content"><%= bill_cargo.no_in_application %></span></div>
+          <div class="td" style="width:35px"><span class="content"><%= bill_cargo.cop_g_no %></span></div>
+          <div class="td" style="width:78px"><span class="content"><%= bill_cargo.code %></span></div>
+          <div class="td" style="width:140px"><span class="content"><%= bill_cargo.name %></span></div>
+          <div class="td" style="width:140px"><span class="content"><%= bill_cargo.specification %></span></div>
+          <div class="td" style="width:80px">
+            <span class="content"><%= sprintf "%0.0f", bill_cargo.quantity rescue '' %></span></div>
+          <div class="td" style="width:60px"><span class="content"><%= dict_name(Dict::Unit, bill_cargo.unit) %></span>
+          </div>
+          <div class="td" style="width:80px"><span class="content"><%= sprintf "%0.0f", bill_cargo.quantity1 %></span>
+          </div>
+          <div class="td" style="width:60px"><span class="content"><%= dict_name(Dict::Unit, bill_cargo.unit1) %></span>
+          </div>
+          <div class="td" style="width:70px"><span class="content"><%= %></span></div>
+          <div class="td last-td" style="width:105px">
+            <span class="content"><%= @bill.application.contract.manual %></span></div>
+        </div>
+      <% end %>
+      <div class='tr'>
+        <div class="td" style="width: 112px">货物状态说明</div>
+        <div class="td last-td"></div>
+      </div>
+    </div>
+    <div class="table" id="in-bill-body-table" style="border-top:none">
+      <!--转入货物表体-->
+      <div class="tr">实际收货情况</div>
+      <div class="tr">
+        <div class="td" style="width:35px">序号</div>
+        <div class="td" style="width:75px">申请表序号</div>
+        <div class="td" style="width:35px">项号</div>
+        <div class="td" style="width:35px">料号</div>
+        <div class="td" style="width:58px">发货序号</div>
+        <div class="td" style="width:78px">商品编号</div>
+        <div class="td" style="width:120px">商品名称</div>
+        <div class="td" style="width:120px">规格型号</div>
+        <div class="td" style="width:80px">交易数量</div>
+        <div class="td" style="width:60px">交易单位</div>
+        <div class="td" style="width:80px">申报数量</div>
+        <div class="td" style="width:60px">申报单位</div>
+        <div class="td" style="width:70px">收货人签单</div>
+        <div class="td last-td" style="width:85px">转入手册号</div>
+      </div>
+      <% in_group.each do |bill_cargo| %>
+        <div class="tr">
+          <div class="td" style="width:35px"><span class="content"><%= bill_cargo.no %></span></div>
+          <div class="td" style="width:75px"><span class="content"><%= @bill.application.app_no %></span></div>
+          <div class="td" style="width:35px"><span class="content"><%= bill_cargo.no_in_application %></span></div>
+          <div class="td" style="width:35px"><span class="content"><%= bill_cargo.cop_g_no %></span></div>
+          <div class="td" style="width:58px"><span class="content"><%= bill_cargo.no_in_out %></span></div>
+          <div class="td" style="width:78px"><span class="content"><%= bill_cargo.code %></span></div>
+          <div class="td" style="width:120px"><span class="content"><%= bill_cargo.name %></span></div>
+          <div class="td" style="width:120px"><span class="content"><%= bill_cargo.specification %></span></div>
+          <div class="td" style="width:80px">
+            <span class="content"><%= sprintf "%0.0f", bill_cargo.quantity rescue '' %></span></div>
+          <div class="td" style="width:60px"><span class="content"><%= dict_name(Dict::Unit, bill_cargo.unit) %></span>
+          </div>
+          <div class="td" style="width:80px"><span class="content"><%= sprintf "%0.0f", bill_cargo.quantity1 %></span>
+          </div>
+          <div class="td" style="width:60px"><span class="content"><%= dict_name(Dict::Unit, bill_cargo.unit1) %></span>
+          </div>
+          <div class="td" style="width:70px"><span class="content"><%= %></span></div>
+          <div class="td last-td" style="width:85px">
+            <span class="content"><%= @bill.application.in_contract.manual %></span></div>
+        </div>
+      <% end %>
+
+      <div class="tr">
+        <div class="td" style="width: 112px">标志显示区</div>
+        <div class="td last-td"></div>
+      </div>
+      <div class="tr">
+        <div class="td" style="width: 35px">备注</div>
+        <div class="td last-td"></div>
+      </div>
+    </div>
+    <div class="tr last-tr"></div>
+    <div>
+      <div style='width:120px;display: inline-block'>发货申报时间：</div>
+      <div style="width:100px;display: inline-block"><span class="content"><%= @bill.is_decla_date %></span></div>
+      <div style='width:100px;display: inline-block'>发货申报人：</div>
+      <div style="width: 100px;display: inline-block"><span class="content"><%= @bill.is_decla_em %></span></div>
+
+      <div style='width:120px;display: inline-block'>收货申报时间：</div>
+      <div style="width:100px;display: inline-block"><span class="content"><%= @bill.in_is_decla_date %></span></div>
+      <div style='width:100px;display: inline-block'>收货申报人：</div>
+      <div style="width:100px;display: inline-block"><span class="content"><%= @bill.in_is_decla_em %></span></div>
+    </div>
+
+  </div>
+  <% if out_group_index != @out_groups.size - 1 %>
+    <div style="page-break-before: always;"></div>
+  <% end %>
+<% end %>

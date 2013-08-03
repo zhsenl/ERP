@@ -1,6 +1,12 @@
-<h1>Editing bill_cargo</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @bill_cargo %> |
-<%= link_to 'Back', bill_cargos_path %>
+<div class="content-box">
+  <div class="content-box-header">
+    <h3>编辑<%= @bill_cargo.in_out  ? "转入" : "转出" %>货物</h3>
+    <div class="operations">
+      <%= link_to '查看', @bill_cargo %> |
+      <%= link_to '返回列表', bill_cargos_path(:bill_id => @bill.id) %>
+    </div>
+  </div>
+  <div class="content-box-content">
+    <%= render 'form' %>
+  </div>
+</div>

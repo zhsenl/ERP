@@ -14,6 +14,7 @@ zh-CN:
       bill: 收发货单
       declaration_cargo: 报关单货物
       application_cargo: 申请表货物
+      bill_cargo: 货物
       declaration_container: 集装箱
       declaration_packing: 装箱明细
       dict/attachment: 随附单证
