@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 ERP::Application.routes.draw do
 
+  resources :app_bill_dispatch_records
+
   resources :bill_cargos
 
   get "bill/print_bill"
@@ -13,6 +15,7 @@ ERP::Application.routes.draw do
 
   resources :applications  do
     get 'print_application', :on => :member
+    get 'declare', :on => :member
   end
 
   namespace :dict do resources :transit_types end

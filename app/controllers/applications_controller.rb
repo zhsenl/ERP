@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 class ApplicationsController < ApplicationController
-  include ApplicationHelper,  PrintHelper
+  include ApplicationHelper, ApplicationsHelper, PrintHelper
 
   before_filter :init
 
@@ -109,6 +109,19 @@ class ApplicationsController < ApplicationController
     end
     @title = '打印申请表'
     render :layout => 'print'
+  end
+
+  # GET /applications/1/declare.json
+  def declare
+    authorize! :declare, @application
+    if generate_application_xml(@application.id)
+      result = {:type => "success", :content => "已经成功生成报文，请稍后再查询申报结果"}
+    else
+      result = {:type => "error", :content => "生成报文失败"}
+    end
+    respond_to do |format|
+      format.json { render json: result }
+    end
   end
 
 end

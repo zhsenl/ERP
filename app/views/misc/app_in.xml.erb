@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="gb2312"?>
+<FPT_DATA version="1.0" sendId="" receiveId="">
+    <FPT_APP_SIGN>
+        <SEQ_NO><%= @application.seq_no %></SEQ_NO>
+        <COP_APP_NO><%= @application.in_cop_app_no %></COP_APP_NO>
+        <TRADE_CODE><%= @application.in_trade_code %></TRADE_CODE>
+        <APP_SORT>1</APP_SORT>
+        <ICCARD_ID>0000000633249</ICCARD_ID>
+        <ICCARD_NAME>加贸平台</ICCARD_NAME>
+        <ICCARD_UNIT_CODE>719385095</ICCARD_UNIT_CODE>
+        <ICCARD_UNIT_NAME>东莞华新电线电缆有限公司</ICCARD_UNIT_NAME>
+        <CERT_SEQ_NO>05c7</CERT_SEQ_NO>
+        <SIGN>kI2vxEYhwLZMqxDpYkTIMPWUuFKLvau/HkalsemNuHN8Gk7y6bjC6ZbgnEIUURzogM9IAiS9TfC6QLoya4Ueab0si/ebPrjiX31gxw/pB8T/oqRxTuBBXz7P3Wn6Jarr+8OPAvlT2WfIbQCUji1Ofap6khy7DbHGu6P6MXeHdyA=</SIGN>
+        <SIGN_DATE>20130614220341</SIGN_DATE>
+        <NOTE><%= @application.in_note %></NOTE>
+    </FPT_APP_SIGN>
+    <FPT_APP_OUT_HEAD>
+        <SEQ_NO><%= @application.seq_no %></SEQ_NO>
+		<TRADE_CODE><%= @application.in_trade_code %></TRADE_CODE>
+        <COP_APP_NO><%= @application.in_cop_app_no %></COP_APP_NO>
+        <MAST_CUST><%= @application.in_mast_cust %></MAST_CUST>
+		<AGENT_CODE><%= @application.in_agent_code %></AGENT_CODE>
+		<AGENT_NAME><%= Enterprise.find_by_code(@application.in_agent_code).name %></AGENT_NAME>
+		<CORP><%= @application.in_corp %></CORP>
+        <DECL><%= @application.in_decl %></DECL>
+		<LICE_NO><%= @application.in_lice_no %></LICE_NO>
+        <D_DATE><%= @application.in_d_date %></D_DATE>
+        <NOTE><%= @application.in_note%></NOTE>
+        <DECLARE_TYPE>1</DECLARE_TYPE>
+        <END_DATE><%= @application.in_end_date %></END_DATE>
+		<% in_ems_no = @application.in_contract.manual %>
+        <IN_EMS_NO><%= in_ems_no %></EMS_NO>
+        </FPT_APP_OUT_HEAD>
+    <FPT_APP_LIST>
+		<% @application.application_cargos.in.each_with_index do |application_cargo, i|%>
+			<FPT_APP_ITEM>
+				<LIST_NO><%= i %></LIST_NO>
+				<IN_OUT_NO><%= application_cargo.in_out_no%></IN_OUT_NO>
+				<IN_EMS_NO><%= in_ems_no %></IN_EMS_NO>
+				<TR_NO><%= application_cargo.no_in_contract%></TR_NO>
+				<CODE_T_S><%= application_cargo.code%></CODE_T_S>
+				<G_NAME><%= application_cargo.name%></G_NAME>
+				<G_MODEL><%= application_cargo.specification%>G_MODEL>
+				<UNIT><%= application_cargo.unit%></UNIT>
+				<UNIT_1><%= application_cargo.unit1%>>
+				<QTY><%= application_cargo.quantity%>>
+				<QTY_1><%= application_cargo.quantity1%></QTY_1>
+				<NOTE><%= application_cargo.note%></NOTE>
+				<BAK_CODE_TS></BAK_CODE_TS>
+				<MODIFY_MARK>3</MODIFY_MARK>
+			</FPT_APP_ITEM>
+		<% end %>	
+    </FPT_APP_LIST>
+</FPT_DATA>

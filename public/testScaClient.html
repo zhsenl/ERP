@@ -1,0 +1,249 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js'></script>
+<SCRIPT LANGUAGE="JavaScript">
+$(function(){
+    alert('test');
+})
+
+//测试算法，包括pem编解码，sha1
+function checkalgthm() {
+    var strpropt;
+    var strTemp1, strTemp2;
+
+    //PEM编解码------------------------------------------------------------------------------------------------------------------
+    //PEM编码
+    SCAClient.strInputData = "Z4419941460P2013000065204C520434500044419941460东莞华新电线电缆有限公司719385095东莞华新电线电缆有限公司44199人工审批201306144419942726科广电子(东莞)有限公司441990.00.01117408190090铜线直径≤6MM0350358.08.03";
+    SCAClient.EncodePEM();
+    if (SCAClient.nResult != 0) {
+        strpropt = "EncodePEM errocode is " + SCAClient.nResult + "errreason is" + SCAClient.strResult;
+        alert(strpropt);
+        return;
+    }
+    strpropt = "EncodePEM Succeed!The Encoded Data is " + SCAClient.strOutputData;
+    alert(strpropt);
+
+
+    //PEM解码-----------------------------------------------------------------------------------------------------------
+    SCAClient.strInputData = SCAClient.strOutputData;
+    SCAClient.DecodePEM();
+    if (SCAClient.nResult != 0) {
+        strpropt = "DecodePEM errocode is " + SCAClient.nResult + "errreason is" + SCAClient.strResult;
+        alert(strpropt);
+        return;
+    }
+    if (SCAClient.strOutputData != "This is Data For Pem") {
+        return;
+    }
+    strpropt = "DecodePEM Succeed!The Encoded Data is " + SCAClient.strOutputData;
+    alert(strpropt);
+
+    //SHA1---------------------------------------------------------------------------------------------------------------
+    SCAClient.strInputData = 'test';
+    SCAClient.SHA1Digest();
+    if (SCAClient.nResult != 0) {
+        strpropt = "SHA1Digest errocode is " + SCAClient.nResult + "errreason is" + SCAClient.strResult;
+        alert(strpropt);
+        return;
+    }
+    strpropt = "SHA1Digest Succeed!The Encoded Data is " + SCAClient.strOutputData;
+    alert(strpropt);
+}
+
+//测试获得设备信息
+function checkgetinfo() {
+    var strpropt;
+    //打开设备
+    SCAClient.InitEnv();
+    if (SCAClient.nResult != 0) {
+        strpropt = "InitEnv errocode is " + SCAClient.nResult + "errreason is" + SCAClient.strResult;
+        alert(strpropt);
+        return;
+    }
+    alert("Init Succeed!");
+
+    //获得卡号
+    SCAClient.GetCardID();
+    if (SCAClient.nResult != 0) {
+        strpropt = "GetCardID errocode is " + SCAClient.nResult + "errreason is" + SCAClient.strResult;
+        alert(strpropt);
+        SCAClient.CloseEnv();
+        return;
+    }
+    strpropt = "GetCardID Succeed " + SCAClient.strOutputData;
+    alert(strpropt);
+    //获得签名证书号
+    SCAClient.GetCertNo();
+    if (SCAClient.nResult != 0) {
+        strpropt = "GetCertNo errocode is " + SCAClient.nResult + "errreason is" + SCAClient.strResult;
+        alert(strpropt);
+        SCAClient.CloseEnv();
+        return;
+    }
+    strpropt = "GetCertNo Succeed  " + SCAClient.strOutputData;
+    alert(strpropt);
+
+    SCAClient.CloseEnv();
+}
+
+
+//测试口令管理
+function checkmanagepin() {
+    var strpropt;
+    //打开设备
+    SCAClient.InitEnv();
+    if (SCAClient.nResult != 0) {
+        strpropt = "InitEnv errocode is " + SCAClient.nResult + "errreason is" + SCAClient.strResult;
+        alert(strpropt);
+        return;
+    }
+    alert("Init Succeed!");
+
+    //验证PIN
+    SCAClient.strPin = "88888888";
+    SCAClient.VerifyPin();
+    if (SCAClient.nResult != 0) {
+        strpropt = "VerifyPin errocode is " + SCAClient.nResult + "errreason is" + SCAClient.strResult;
+        ;
+        alert(strpropt);
+        SCAClient.CloseEnv();
+        return;
+    }
+    alert("VerifyPin Succeed!");
+
+    //修改PIN
+    SCAClient.strPin = "88888888";
+    SCAClient.strNewPin = "12345678"
+    SCAClient.ChangePin();
+    if (SCAClient.nResult != 0) {
+        strpropt = "ChangePin errocode is " + SCAClient.nResult + "errreason is" + SCAClient.strResult;
+        ;
+        alert(strpropt);
+        SCAClient.CloseEnv();
+        return;
+    }
+    alert("ChangPin Succeed!");
+
+
+    //用新PIN验证
+    SCAClient.strPin = "12345678";
+    SCAClient.VerifyPin();
+    if (SCAClient.nResult != 0) {
+        strpropt = "VerifyPin errocode is " + SCAClient.nResult + "errreason is" + SCAClient.strResult;
+        ;
+        alert(strpropt);
+        SCAClient.CloseEnv();
+        return;
+    }
+    alert("VerifyPin Succeed!");
+
+
+    //将PIN修改成默认PIN，方便循环测试
+    SCAClient.strPin = "12345678";
+    SCAClient.strNewPin = "88888888"
+    SCAClient.ChangePin();
+    if (SCAClient.nResult != 0) {
+        strpropt = "ChangePin errocode is " + SCAClient.nResult + "errreason is" + SCAClient.strResult;
+        alert(strpropt);
+        SCAClient.CloseEnv();
+        return;
+    }
+    alert("ChangPin Succeed!");
+
+    SCAClient.CloseEnv();
+}
+
+
+//测试签名数据
+function checksigndata() {
+    //比较数据SHA1Digest, SignHashData和数据直接SignPlainData结果是否相同
+    var strpropt;
+    var strTemp1;
+    var strTemp2;
+
+    SCAClient.strInputData = "Z4419941460P2013000065204C520434500044419941460东莞华新电线电缆有限公司719385095东莞华新电线电缆有限公司44199人工审批201306144419942726科广电子(东莞)有限公司441990.00.01117408190090铜线直径≤6MM0350358.08.03";
+    SCAClient.SHA1Digest();
+    if (SCAClient.nResult != 0) {
+        strpropt = "SHA1Digest errocode is " + SCAClient.nResult + "errreason is" + SCAClient.strResult;
+        alert(strpropt);
+        return;
+    }
+    strpropt = "SHA1Digest Succeed!The Encoded Data is " + SCAClient.strOutputData;
+    alert(strpropt);
+
+
+    //打开设备
+    SCAClient.InitEnv();
+    if (SCAClient.nResult != 0) {
+        strpropt = "InitEnv errocode is " + SCAClient.nResult + "errreason is" + SCAClient.strResult;
+        alert(strpropt);
+        return;
+    }
+    alert("Init Succeed!");
+
+    SCAClient.strPin = "88888888";
+    SCAClient.VerifyPin();
+    if (SCAClient.nResult != 0) {
+        strpropt = "VerifyPin errocode is " + SCAClient.nResult + "errreason is" + SCAClient.strResult;
+        ;
+        alert(strpropt);
+        SCAClient.CloseEnv();
+        return;
+    }
+    alert("VerifyPin Succeed!");
+
+
+    //对hash数据进行签名
+    strTemp1 = SCAClient.strOutputData;
+    SCAClient.strInputData = strTemp1;
+    SCAClient.SignHashData();
+    if (SCAClient.nResult != 0) {
+        strpropt = "SignHashData errocode is " + SCAClient.nResult + "errreason is" + SCAClient.strResult;
+        ;
+        alert(strpropt);
+        SCAClient.CloseEnv();
+        return;
+    }
+    alert("SignHashData Succeed!");
+    strTemp1 = SCAClient.strOutputData;
+
+    //对原文数据进行签名
+    SCAClient.strInputData = "Z4419941460P2013000065204C520434500044419941460东莞华新电线电缆有限公司719385095东莞华新电线电缆有限公司44199人工审批201306144419942726科广电子(东莞)有限公司441990.00.01117408190090铜线直径≤6MM0350358.08.03";
+    SCAClient.SignPlainData();
+    if (SCAClient.nResult != 0) {
+        strpropt = "SignPlainData errocode is " + SCAClient.nResult + "errreason is" + SCAClient.strResult;
+        ;
+        alert(strpropt);
+        SCAClient.CloseEnv();
+        return;
+    }
+    alert("SignPlainData Succeed!");
+    strTemp2 = SCAClient.strOutputData;
+
+    if (strTemp1 != strTemp2) {
+        alert("SignHashData and SignPlainData error!");
+        return;
+    }
+    else {
+        alert("SignPlainData Succeed!");
+        alert(strTemp2);
+    }
+
+}
+</SCRIPT>
+</head>
+
+<BODY leftmargin="0" topmargin="5" text="#000000">
+<div><input type="button" value="测试算法" onclick="checkalgthm();"/>just test it</div>
+<div><input type="button" value="测试口令管理" onclick="checkmanagepin();"/>just test it</div>
+<div><input type="button" value="测试获取设备信息" onclick="checkgetinfo();"/>just test it</div>
+<div><input type="button" value="测试签名" onclick="checksigndata();"/>just test it</div>
+<OBJECT classid="clsid:2737432E-8F80-465A-9BE8-9936DC5CAC30" height=14 id=SCAClient
+        style="LEFT: 0px; TOP: 0px; VISIBILITY: hidden" width=14 border="0">
+    <PARAM NAME="_ExtentX" VALUE="370">
+    <PARAM NAME="_ExtentY" VALUE="370">
+</OBJECT>
+</body>
+</html>

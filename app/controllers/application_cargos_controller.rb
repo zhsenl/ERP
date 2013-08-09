@@ -41,7 +41,6 @@ class ApplicationCargosController < ApplicationController
     application_cargos =  params[:in_out] == '0'? @application.application_cargos.out : @application.application_cargos.in
     @application_cargo = ApplicationCargo.new(:application_id => @application.id,
                                               :in_out => params[:in_out],
-                                              :quantity1 => 0,
                                               :no => application_cargos.size + 1)
 
     if @application_cargo.no > 20

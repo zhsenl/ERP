@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="gb2312"?>
+<FPT_DATA version="1.0" sendId="" receiveId="">
+    <FPT_BILL_SIGN>
+        <SEQ_NO></SEQ_NO>
+        <APP_NO><%= @bill.application.app_no%></APP_NO>
+        <SYS_TYPE>1</SYS_TYPE>
+        <COP_BILL_NO><%= @bill.cop_bill_no%></COP_BILL_NO>
+        <BILL_SORT>1</BILL_SORT>
+        <ICCARD_ID>0000000633249</ICCARD_ID>
+        <ICCARD_NAME>加贸平台</ICCARD_NAME>
+        <ICCARD_UNIT_CODE>719385095</ICCARD_UNIT_CODE>
+        <ICCARD_UNIT_NAME>东莞华新电线电缆有限公司</ICCARD_UNIT_NAME>
+        <CERT_SEQ_NO>05c7</CERT_SEQ_NO>
+        <SIGN>WgYxQZ5WgOV35kTlwW8ruBCI68Y7ZuT/cUr5LncW4eXg+LZYBn5lZ9MdxTk18K+9kHzgcaUZMoMS/8S6e6YQ2J6rPNokiI6wZiY9+XyHdf5in3TLnDgdfqf8lD8Ay8lX9NsIwPfRCc3etcfwcRiLm/Iaqt2B0ThY5G9Z0r6d33I=</SIGN>
+        <SIGN_DATE>20130615090855</SIGN_DATE>
+        <NOTE><%= @bill.note%></NOTE>
+    </FPT_BILL_SIGN>
+    <FPT_BILL_HEAD>
+        <BILL_NO></BILL_NO>
+        <SEQ_NO></SEQ_NO>
+        <APP_NO><%= @bill.application.app_no%></APP_NO>
+        <COP_BILL_NO><%= @bill.cop_bill_no%></COP_BILL_NO>
+        <TRADE_CODE><%= @bill.trade_code%></TRADE_CODE>
+        <TRADE_NAME><%= @bill.enterprise.name %></TRADE_NAME>
+        <ISSUE_DATE><%= @bill.issue_date %></ISSUE_DATE>
+        <IS_DECLA_EM><%= @bill.is_decla_em %></IS_DECLA_EM>
+        <IS_DECLA_DATE><%= @bill.is_decla_date %></IS_DECLA_DATE>
+        <AGENT_CODE><%= @bill.agent_code %></AGENT_CODE>
+        <AGENT_NAME><%= Enterprise.find_by_code(@bill.agent_code).name %></AGENT_NAME>
+        <CONVEY_TYPE><%= @bill.convey_type %></CONVEY_TYPE>
+        <CONVEY_NO><%= @bill.convey_no %></CONVEY_NO>
+        <NOTE><%= @bill.note %></NOTE>
+        <CONTR_NO><%= @bill.contr_no %></CONTR_NO>
+    </FPT_BILL_HEAD>
+	<% in_ems_no = @bill.application.contract.manual %>
+    <FPT_BILL_LIST>
+		<% @bill.bill_cargos.out.each_with_index do |bill_cargo , i| %>
+			<FPT_BILL_ITEM>
+				<LIST_NO><%= i%></LIST_NO>
+				<OUT_NO></OUT_NO>
+				<IN_EMS_NO><%= in_ems_no %></IN_EMS_NO>
+				<COP_G_NO><%= bill_cargo.cop_g_no %></COP_G_NO>
+				<COP_G_NAME><%= bill_cargo.before_name %></COP_G_NAME>
+				<COP_G_MODEL><%= bill_cargo.before_specification %></COP_G_MODEL>
+				<APP_G_NO><%= bill_cargo.no_in_application %></APP_G_NO>
+				<G_NO><%= bill_cargo.no %></G_NO>
+				<CODE_T_S><%= bill_cargo.code %></CODE_T_S>
+				<G_NAME><%= bill_cargo.name %></G_NAME>
+				<G_MODEL><%= bill_cargo.specification %></G_MODEL>
+				<TRADE_UNIT><%= bill_cargo.unit %></TRADE_UNIT>
+				<TRADE_QTY><%= bill_cargo.quantity %></TRADE_QTY>
+				<UNIT><%= bill_cargo.unit1 %></UNIT>
+				<QTY><%= bill_cargo.quantity1 %></QTY>
+				<NOTE><%= bill_cargo.note %></NOTE>
+			</FPT_BILL_ITEM>
+		<% end %>
+	</FPT_BILL_LIST>
+    <FPT_BILL_DICT_LIST>
+		<% @bill.bill_cargos.out.each_with_index do |bill_cargo , i| %>
+			<FPT_BILL_DICT_ITEM>
+				<LIST_NO><%= i%></LIST_NO>
+				<OUT_NO></OUT_NO>
+				<IN_EMS_NO><%= in_ems_no %></IN_EMS_NO>
+				<COP_G_NO><%= bill_cargo.cop_g_no %></COP_G_NO>
+				<COP_G_NAME><%= bill_cargo.before_name %></COP_G_NAME>
+				<COP_G_MODEL><%= bill_cargo.before_specification %></COP_G_MODEL>
+				<APP_G_NO><%= bill_cargo.no_in_application %></APP_G_NO>
+				<G_NO><%= bill_cargo.no %></G_NO>
+				<CODE_T_S><%= bill_cargo.code %></CODE_T_S>
+				<G_NAME><%= bill_cargo.name %></G_NAME>
+				<G_MODEL><%= bill_cargo.specification %></G_MODEL>
+				<TRADE_UNIT><%= bill_cargo.unit %></TRADE_UNIT>
+				<TRADE_QTY><%= bill_cargo.quantity %></TRADE_QTY>
+				<UNIT><%= bill_cargo.unit1 %></UNIT>
+				<QTY><%= bill_cargo.quantity1 %></QTY>
+				<NOTE><%= bill_cargo.note %></NOTE>
+			</FPT_BILL_DICT_ITEM>
+		<% end %>
+    </FPT_BILL_DICT_LIST>
+</FPT_DATA>

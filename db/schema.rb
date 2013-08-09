@@ -11,7 +11,19 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130802130748) do
+ActiveRecord::Schema.define(:version => 20130806035534) do
+
+  create_table "app_bill_dispatch_records", :force => true do |t|
+    t.string   "application_id"
+    t.string   "ret_type"
+    t.string   "sort_flag"
+    t.integer  "ret_no"
+    t.string   "chk_status"
+    t.date     "notice_date"
+    t.integer  "note"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
 
   create_table "application_cargos", :force => true do |t|
     t.integer  "application_id"

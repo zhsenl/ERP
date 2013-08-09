@@ -1,0 +1,17 @@
+<%= form_for(@app_bill_dispatch_record) do |f| %>
+  <% if @app_bill_dispatch_record.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@app_bill_dispatch_record.errors.count, "error") %> prohibited this app_bill_dispatch_record from being saved:</h2>
+
+      <ul>
+      <% @app_bill_dispatch_record.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

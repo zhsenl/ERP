@@ -1,0 +1,21 @@
+<h1>Listing app_bill_dispatch_records</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @app_bill_dispatch_records.each do |app_bill_dispatch_record| %>
+  <tr>
+    <td><%= link_to 'Show', app_bill_dispatch_record %></td>
+    <td><%= link_to 'Edit', edit_app_bill_dispatch_record_path(app_bill_dispatch_record) %></td>
+    <td><%= link_to 'Destroy', app_bill_dispatch_record, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New App bill dispatch record', new_app_bill_dispatch_record_path %>

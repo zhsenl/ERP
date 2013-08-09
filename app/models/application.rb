@@ -5,6 +5,7 @@ class Application < ActiveRecord::Base
   belongs_to :contract
   belongs_to :in_contract, class_name: "Contract"
   has_many :application_cargos, :dependent => :destroy
+  has_many :app_bill_dispatch_records, :dependent => :destroy
 
   validates :pre_entry_no, :presence => true, :uniqueness => true
   validates :enterprise_id, :presence => true, :numericality => true
