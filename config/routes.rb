@@ -16,6 +16,7 @@ ERP::Application.routes.draw do
   resources :applications  do
     get 'print_application', :on => :member
     get 'declare', :on => :member
+    get 'sign', :on => :member
   end
 
   namespace :dict do resources :transit_types end

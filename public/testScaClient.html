@@ -15,7 +15,7 @@ function checkalgthm() {
 
     //PEM编解码------------------------------------------------------------------------------------------------------------------
     //PEM编码
-    SCAClient.strInputData = "Z4419941460P2013000065204C520434500044419941460东莞华新电线电缆有限公司719385095东莞华新电线电缆有限公司44199人工审批201306144419942726科广电子(东莞)有限公司441990.00.01117408190090铜线直径≤6MM0350358.08.03";
+    SCAClient.strInputData = "zhsenl";
     SCAClient.EncodePEM();
     if (SCAClient.nResult != 0) {
         strpropt = "EncodePEM errocode is " + SCAClient.nResult + "errreason is" + SCAClient.strResult;
@@ -163,7 +163,7 @@ function checksigndata() {
     var strTemp1;
     var strTemp2;
 
-    SCAClient.strInputData = "Z4419941460P2013000065204C520434500044419941460东莞华新电线电缆有限公司719385095东莞华新电线电缆有限公司44199人工审批201306144419942726科广电子(东莞)有限公司441990.00.01117408190090铜线直径≤6MM0350358.08.03";
+    SCAClient.strInputData = "zhsenl";
     SCAClient.SHA1Digest();
     if (SCAClient.nResult != 0) {
         strpropt = "SHA1Digest errocode is " + SCAClient.nResult + "errreason is" + SCAClient.strResult;
@@ -210,7 +210,7 @@ function checksigndata() {
     strTemp1 = SCAClient.strOutputData;
 
     //对原文数据进行签名
-    SCAClient.strInputData = "Z4419941460P2013000065204C520434500044419941460东莞华新电线电缆有限公司719385095东莞华新电线电缆有限公司44199人工审批201306144419942726科广电子(东莞)有限公司441990.00.01117408190090铜线直径≤6MM0350358.08.03";
+    SCAClient.strInputData = "zhsenl";
     SCAClient.SignPlainData();
     if (SCAClient.nResult != 0) {
         strpropt = "SignPlainData errocode is " + SCAClient.nResult + "errreason is" + SCAClient.strResult;

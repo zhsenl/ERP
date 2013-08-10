@@ -115,6 +115,19 @@ class ApplicationsController < ApplicationController
   def declare
     authorize! :declare, @application
     if generate_application_xml(@application.id)
+      result = {:xml_content => @xml_content}
+    else
+      result = {}
+    end
+    puts @xml_content
+    respond_to do |format|
+      format.json { render json: result }
+    end
+  end
+
+  def sign
+    puts params[:signed_data]
+    if sign_application_xml(@application.id, params[:signed_data])
       result = {:type => "success", :content => "已经成功生成报文，请稍后再查询申报结果"}
     else
       result = {:type => "error", :content => "生成报文失败"}

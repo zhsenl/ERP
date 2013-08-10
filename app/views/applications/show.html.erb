@@ -11,15 +11,25 @@
   </div>
 </div>
 <script>
-  $("#declare_button").click(function () {
-    if (confirm('确定要申报吗?')) {
-      var url = this.getAttribute("href");
-      $.get(url, function (result) {
-        show_tips(result.type, result.content);
-      });
-    }
-    return false;
-  });
+  $(function(){
+    $("#declare_button").click(function () {
+      if (confirm('确定要申报吗?')) {
+        var url = this.getAttribute("href");
+        $.get(url, function (result) {
+          //签名
+          if(result['xml_content']){
+            var signed_data = sign_data(result['xml_content'].trim());
+            console.log(result['xml_content'].trim());
+            console.log(signed_data);
+            $.get('<%= sign_application_path(@application, :format => :json)%>', {signed_data:signed_data}, function(result){
+              show_tips(result.type, result.content);
+            })
+          }
+        });
+      }
+      return false;
+    });
+  })
 </script>
 <div class="content-box-content">
   <div class="tab-content default-tab">
@@ -158,7 +168,8 @@
   <div class="content-box-header">
     <h3>申报记录</h3>
     <div class="operations">
-      <% if can? :declare, @application %><%= link_to '申报', declare_application_path(@application, :format => :json), :id => "declare_button" %>
+      <% if can? :declare, @application %>
+        <%= link_to '申报', declare_application_path(@application, :format => :json), :id => "declare_button" %>
       <% end %>
     </div>
   </div>
@@ -207,3 +218,8 @@
     </div>
   </div>
 </div>
+<OBJECT classid="clsid:2737432E-8F80-465A-9BE8-9936DC5CAC30" height=14 id=SCAClient
+        style="LEFT: 0px; TOP: 0px; VISIBILITY: hidden" width=14 border="0">
+  <PARAM NAME="_ExtentX" VALUE="370">
+  <PARAM NAME="_ExtentY" VALUE="370">
+</OBJECT>

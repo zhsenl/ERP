@@ -1,18 +1,36 @@
 # -*- encoding : utf-8 -*-
+require "rexml/document"
+
 module ApplicationsHelper
   include  FileUtils, ApplicationHelper
 
   def generate_application_xml(id)
     begin
       application = Application.find(id)
-
       action_view = ActionView::Base.new(Rails.root.join('app', 'views'))
       action_view.class_eval do
         include ApplicationHelper, ApplicationsHelper, PrintHelper
       end
       action_view.assign({:application => application})
+      @xml_content = action_view.render(:template => "misc/test.xml.erb")
+      true
+    rescue
+      logger.error $!
+      false
+    end
+  end
+
+  def sign_application_xml(id, signed_data)
+    begin
+      application = Application.find(id)
+      action_view = ActionView::Base.new(Rails.root.join('app', 'views'))
+      action_view.class_eval do
+        include ApplicationHelper, ApplicationsHelper, PrintHelper
+      end
+      action_view.assign({:application => application, :signed_data => signed_data})
       file = File.new(Settings["dispatch_paths"]["temp"] + "/FTP_APP_OUT_" + application.pre_entry_no + ".xml", 'w')
-      file.puts(action_view.render(:template => "misc/app_out.xml.erb"))
+      @xml_content = action_view.render(:template => "misc/app_out.xml.erb")
+      file.puts(@xml_content)
       file.close
       FileUtils.mv file, Settings["dispatch_paths"]["upload_temp"] + "/FTP_APP_OUT_" + application.pre_entry_no + ".xml"
       app_bill_no_option = Option.find_by_name('app_bill_no')

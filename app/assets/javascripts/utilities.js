@@ -25,3 +25,81 @@ function popOff(popUp, overlay){
     jQuery("#" + overlay).fadeOut(500); // displaying the overlay
     jQuery("#" + popUp).fadeOut(500); //function to redirect the page after few seconds
 }
+
+//签名数据
+function sign_data(xml_content) {
+    //比较数据SHA1Digest, SignHashData和数据直接SignPlainData结果是否相同
+    var strpropt;
+    var strTemp1;
+    var strTemp2;
+
+    SCAClient.strInputData = xml_content;
+    SCAClient.SHA1Digest();
+    if (SCAClient.nResult != 0) {
+        strpropt = "SHA1Digest errocode is " + SCAClient.nResult + "errreason is" + SCAClient.strResult;
+        alert(strpropt);
+        return;
+    }
+    strpropt = "SHA1Digest Succeed!The Encoded Data is " + SCAClient.strOutputData;
+    console.log(strpropt);
+
+
+    //打开设备
+    SCAClient.InitEnv();
+    if (SCAClient.nResult != 0) {
+        strpropt = "InitEnv errocode is " + SCAClient.nResult + "errreason is" + SCAClient.strResult;
+        alert(strpropt);
+        return;
+    }
+    console.log("Init Succeed!");
+
+    SCAClient.strPin = "88888888";
+    SCAClient.VerifyPin();
+    if (SCAClient.nResult != 0) {
+        strpropt = "VerifyPin errocode is " + SCAClient.nResult + "errreason is" + SCAClient.strResult;
+        ;
+        alert(strpropt);
+        SCAClient.CloseEnv();
+        return;
+    }
+    console.log("VerifyPin Succeed!");
+
+
+    //对hash数据进行签名
+    strTemp1 = SCAClient.strOutputData;
+    SCAClient.strInputData = strTemp1;
+    SCAClient.SignHashData();
+    if (SCAClient.nResult != 0) {
+        strpropt = "SignHashData errocode is " + SCAClient.nResult + "errreason is" + SCAClient.strResult;
+        ;
+        alert(strpropt);
+        SCAClient.CloseEnv();
+        return;
+    }
+    console.log("SignHashData Succeed!");
+    strTemp1 = SCAClient.strOutputData;
+
+    //对原文数据进行签名
+//    SCAClient.strInputData = xml_content;
+//    SCAClient.SignPlainData();
+//    if (SCAClient.nResult != 0) {
+//        strpropt = "SignPlainData errocode is " + SCAClient.nResult + "errreason is" + SCAClient.strResult;
+//        ;
+//        alert(strpropt);
+//        SCAClient.CloseEnv();
+//        return;
+//    }
+//    console.log("SignPlainData Succeed!");
+//    strTemp2 = SCAClient.strOutputData;
+//
+//    if (strTemp1 != strTemp2) {
+//        alert("SignHashData and SignPlainData error!");
+//        return;
+//    }
+//    else {
+//        alert("SignPlainData Succeed!");
+//        alert(strTemp2);
+//    }
+
+    return strTemp1;
+}

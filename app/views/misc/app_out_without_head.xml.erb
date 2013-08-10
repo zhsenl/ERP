@@ -3,20 +3,6 @@
 <% now = Time.now %>
 <?xml version="1.0" encoding="UTF-8"?>
 <FPT_DATA version="1.0" sendId="" receiveId="">
-    <FPT_APP_SIGN>
-        <SEQ_NO></SEQ_NO>
-        <COP_APP_NO><%= @application.cop_app_no %></COP_APP_NO>
-        <TRADE_CODE><%= @application.trade_code %></TRADE_CODE>
-        <APP_SORT>0</APP_SORT>
-        <ICCARD_ID><%= custom_option.ic_card_no rescue "" %></ICCARD_ID>
-        <ICCARD_NAME>加贸平台</ICCARD_NAME>
-        <ICCARD_UNIT_CODE><%= enterprise.organization_code %></ICCARD_UNIT_CODE>
-        <ICCARD_UNIT_NAME><%= enterprise.name %></ICCARD_UNIT_NAME>
-        <CERT_SEQ_NO><%= custom_option.certificate_no rescue "" %></CERT_SEQ_NO>
-        <SIGN><%= @signed_data %></SIGN>
-        <SIGN_DATE><%= now.strftime("%Y%m%d%H%M%S") rescue "" %></SIGN_DATE>
-        <NOTE><%= @application.note %></NOTE>
-    </FPT_APP_SIGN>
     <FPT_APP_OUT_HEAD>
         <APP_NO></APP_NO>
         <SEQ_NO></SEQ_NO>
