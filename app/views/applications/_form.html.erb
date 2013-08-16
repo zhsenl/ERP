@@ -1,5 +1,6 @@
 <script type="text/javascript">
   $(function () {
+
     function auto_complete_linkman_telephone(code, id, is_in_corp){
       $.get('/enterprises/'+code+'/show_by_code.json',{}, function(result){
         if (result['linkman'] &&  result['telephone']) {
@@ -45,10 +46,14 @@
       }
     });
     $('#agent_code_autocomplete').blur(function(){
-      auto_complete_linkman_telephone(this.value, 'decl');
+      if(this.value){
+        auto_complete_linkman_telephone(this.value, 'decl');
+      }
     });
     $('#in_agent_code_autocomplete').blur(function(){
-      auto_complete_linkman_telephone(this.value, 'in_decl');
+      if(this.value){
+        auto_complete_linkman_telephone(this.value, 'in_decl');
+      }
     });
     $('#agent_code_autocomplete').blur();
     $('#in_agent_code_autocomplete').blur();
@@ -166,8 +171,7 @@
 
     <% end %>
   </fieldset>
-  <% if !@application.in_enterprise_id.blank? %>
-  <fieldset>
+  <fieldset style="display: <%= @application.in_enterprise_id.blank? ? 'none' : 'block'%>">
     <legend>转入企业信息<span style="color:red">（请先选择转入手册号，其它信息有些会自动调出）</span>：</legend>
     <div class="filed">
       <label>转入企业</label>
@@ -223,7 +227,7 @@
       <%= f.text_field :in_note, :class => "text-input small-input" %>
     </div>
   </fieldset>
-  <% else %>
+  <% if  @application.in_enterprise_id.blank?  %>
     <div style="color:red">填完转出企业信息后再次编辑这份申请表时就可以填转入企业信息了</div>
   <% end %>
   <div>

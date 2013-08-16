@@ -76,13 +76,19 @@
           }
         });
         $('#agent_code_autocomplete').blur(function () {
-          auto_complete_linkman(this.value, 'is_decla_em');
+          if(this.value){
+            auto_complete_linkman(this.value, 'is_decla_em');
+          }
         });
         $('#in_agent_code_autocomplete').blur(function () {
-          auto_complete_linkman(this.value, 'in_is_decla_em');
+          if(this.value){
+            auto_complete_linkman(this.value, 'in_is_decla_em');
+          }
         });
         $('#agent_code_autocomplete').blur();
-        $('#in_agent_code_autocomplete').blur();
+        if(this.value){
+          $('#in_agent_code_autocomplete').blur();
+        }
       })
     </script>
     <div class="filed">
