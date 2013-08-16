@@ -9,6 +9,8 @@ ERP::Application.routes.draw do
 
   resources :bills do
     get 'print_bill', :on => :member
+    get 'declare', :on => :member
+    get 'sign', :on => :member
   end
 
   resources :application_cargos
@@ -148,7 +150,7 @@ ERP::Application.routes.draw do
               :transport_modes,
               :trucks,
               :units,
-               :usages,
+              :usages,
               :transit_types,
               :wrap_types do
       get 'search', :on => :collection

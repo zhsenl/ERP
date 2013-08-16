@@ -1,6 +1,6 @@
 <div class="content-box">
   <div class="content-box-header">
-    <h3>编辑报关单(<%= @bill.pre_entry_no %>)</h3>
+    <h3>编辑<%= @sys_type=='normal'? '收发' : '退' %>货单(<%= @bill.pre_entry_no %>)</h3>
     <div class="operations">
       <%= link_to '查看', @bill %> |
       <%= link_to '返回列表', bills_path(:sys_type => @sys_type) %>

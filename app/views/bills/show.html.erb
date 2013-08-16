@@ -1,3 +1,37 @@
+<script>
+  $(function(){
+    function getURLParameter(url, name) {
+      return (RegExp(name + '=' + '(.+?)(&|$)').exec(url)||[,null])[1];
+    }
+
+    $(".declare_button").click(function () {
+      //申报
+      if (confirm('确定要申报吗?')) {
+        var url = this.getAttribute("href");
+        $.get(url,function (result) {
+          //签名
+          var sort_flag = getURLParameter(url, 'sort_flag');
+          if(result['xml_content']){
+            var signed_data = sign_data(result['xml_content'].trim());
+            console.log(result['xml_content'].trim());
+            console.log(signed_data);
+            $.get('<%= sign_bill_path(@bill, :format => :json)%>', { signed_data: signed_data, sort_flag: sort_flag}, function(result){
+              show_tips(result.type, result.content);
+            })
+          }
+        });
+      }
+      return false;
+    });
+    $("#print_button").click(function(){
+      if('<%= @bill.bill_cargos.size%>' <= 0){
+        alert('没有转出货物，请先添加转出货物');
+        return false;
+      }
+      return true;
+    })
+  })
+</script>
 <div class="content-box">
   <div class="content-box-header">
     <h3>查看<%= @bill.sys_type=='normal'? '收发' : '退' %>货单(<%= @bill.pre_entry_no %>)</h3>
@@ -5,22 +39,12 @@
     <div class="operations">
       <% if can? :update, @bill %><%= link_to '编辑', edit_bill_path(@bill) %> |
       <% end %>
-      <%= link_to '打印', print_bill_bill_path(@bill), :target => "_blank", :class => "print_button" %> |
+      <%= link_to '打印', print_bill_bill_path(@bill), :target => "_blank", :class => "print_button", :id => 'print_button' %> |
       <%= link_to "收发货物" ,bill_cargos_path(:bill_id => @bill.id)%>
       <%= link_to '返回列表', bills_path(:sys_type => @sys_type) %>
     </div>
   </div>
-  <script>
-    $("#declare_button").click(function () {
-      if (confirm('确定要申报吗?')) {
-        var url = this.getAttribute("href");
-        $.get(url, function (result) {
-          show_tips(result.type, result.content);
-        });
-      }
-      return false;
-    });
-  </script>
+
   <div class="content-box-content">
     <div class="tab-content default-tab">
       <fieldset>
@@ -49,7 +73,7 @@
         <legend>发货企业信息</legend>
         <p>
           <b>转出手册号:</b>
-          <%= @bill.application.contract.manual %>
+          <%= @bill.application.ems_no rescue '' %>
         </p>
 
         <p>
@@ -107,7 +131,7 @@
         <legend>收货企业申报信息</legend>
         <p>
           <b>转入手册号:</b>
-          <%= @bill.application.in_contract.manual %>
+          <%= @bill.application.in_ems_no %>
         </p>
 
         <p>
@@ -149,4 +173,98 @@
     </div>
   </div>
 </div>
+<% chk_status = {'1' => '成功生成报文',
+                 '2' => '数据申报成功',
+                 '4' => '成功入数据中心库',
+                 '5' => '入数据中心库失败',
+                 '6' => '成功发往海关',
+                 '8' => '成功入海关库',
+                 '9' => '成功入海关库',
+                 'A' => '成功入海关库(自动审核检查通过)',
+                 'B' => '审批通过（包括收发/退货单撤销失败）',
+                 'C' => '审核退单',
+                 'P' => '撤销成功(加工区转出方已出区撤销发货)',
+                 'Q' => '审核通过(发货待出区审核通过、退货待入区审核通过)',
+                 'S' =>  '撤销成功',
+                 '0' => 'QP接收成功',
+                 'X' => '下载成功',
+                 'Y' => 'QP入库成功',
+                 'Z' => 'QP处理失败'
+}
+%>
+<div style="color:red;margin: 1em">申报前请插入读卡器</div>
+
+<div class="content-box">
+  <div class="content-box-header">
+    <h3>发货申报记录</h3>
+    <div class="operations">
+      <% if can? :declare, @bill %>
+        <%= link_to '申报', declare_bill_path(@bill, :format => :json, :sort_flag => '0', :sys_type => @bill.sys_type), :class => "declare_button" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="content-box-content">
+    <div class="tab-content default-tab">
+      <table>
+        <thead>
+        <tr>
+          <th>时间</th>
+          <th>报文序号</th>
+          <th>状态</th>
+          <th>备注</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @bill.app_bill_dispatch_records.out.each do |record| %>
+          <tr>
+            <td><%= record.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
+            <td><%= record.ret_no %></td>
+            <td><%= chk_status[record.chk_status] %></td>
+            <td><%= record.note %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="content-box">
+  <div class="content-box-header">
+    <h3>收货申报记录</h3>
+    <div class="operations">
+      <% if can? :declare, @bill %>
+        <%= link_to '申报', declare_bill_path(@bill, :format => :json, :sort_flag => '1', :sys_type => @bill.sys_type), :class => "declare_button" %>
+      <% end %>
+    </div>
+  </div>
+  <div class="content-box-content">
+    <div class="tab-content default-tab">
+      <table>
+        <thead>
+        <tr>
+          <th>时间</th>
+          <th>报文序号</th>
+          <th>状态</th>
+          <th>备注</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @bill.app_bill_dispatch_records.in.each do |record| %>
+          <tr>
+            <td><%= record.created_at.strftime('%Y-%m-%d %H:%M:%S') %></td>
+            <td><%= record.ret_no %></td>
+            <td><%= chk_status[record.chk_status] %></td>
+            <td><%= record.note %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<OBJECT classid="clsid:2737432E-8F80-465A-9BE8-9936DC5CAC30" height=14 id=SCAClient
+        style="LEFT: 0px; TOP: 0px; VISIBILITY: hidden" width=14 border="0">
+  <PARAM NAME="_ExtentX" VALUE="370">
+  <PARAM NAME="_ExtentY" VALUE="370">
+</OBJECT>
 

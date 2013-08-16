@@ -43,9 +43,8 @@ class ApplicationsController < ApplicationController
     if current_enterprise
       pre_entry_no = Time.now.strftime('%Y%m%d%H%M%S') + system_serial_no
       @application = Application.new(:enterprise_id => current_enterprise.id,
-                                     :agent_code => "4419980074",
-                                     :in_agent_code => "4419980074" ,
                                      :lice_no => "人工审批" ,
+                                     :in_lice_no => "人工审批" ,
                                      :pre_entry_no =>  pre_entry_no
       )
     else
@@ -63,7 +62,7 @@ class ApplicationsController < ApplicationController
     @application = Application.new(params[:application])
     respond_to do |format|
       if @application.save
-        format.html { redirect_to @application, notice: 'Application was successfully created.' }
+        format.html { redirect_to @application, notice: '申请表创建成功' }
         format.json { render json: @application, status: :created, location: @application }
       else
         format.html { render action: "new" }
@@ -77,7 +76,7 @@ class ApplicationsController < ApplicationController
   def update
     respond_to do |format|
       if @application.update_attributes(params[:application])
-        format.html { redirect_to @application, notice: 'Application was successfully updated.' }
+        format.html { redirect_to @application, notice: '申请表更新成功.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -114,7 +113,7 @@ class ApplicationsController < ApplicationController
   # GET /applications/1/declare.json
   def declare
     authorize! :declare, @application
-    if generate_application_xml(@application.id)
+    if generate_application_xml(@application.id, params[:sort_flag])
       result = {:xml_content => @xml_content}
     else
       result = {}
@@ -127,7 +126,7 @@ class ApplicationsController < ApplicationController
 
   def sign
     puts params[:signed_data]
-    if sign_application_xml(@application.id, params[:signed_data])
+    if sign_application_xml(@application.id, params[:sort_flag], params[:signed_data])
       result = {:type => "success", :content => "已经成功生成报文，请稍后再查询申报结果"}
     else
       result = {:type => "error", :content => "生成报文失败"}

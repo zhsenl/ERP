@@ -1,4 +1,7 @@
-<?xml version="1.0" encoding="gb2312"?>
+锘�<% enterprise = @bill.enterprise %>
+<% custom_option = enterprise.enterprise_custom_option %>
+<% now = Time.now %>
+<?xml version="1.0" encoding="UTF-8"?>
 <FPT_DATA version="1.0" sendId="" receiveId="">
     <FPT_BILL_SIGN>
         <SEQ_NO><%= @bill.seq_no%></SEQ_NO>
@@ -6,13 +9,13 @@
         <SYS_TYPE>0</SYS_TYPE>
         <COP_BILL_NO><%= @bill.in_cop_bill_no%></COP_BILL_NO>
         <BILL_SORT>1</BILL_SORT>
-        <ICCARD_ID>0000000633249</ICCARD_ID>
-        <ICCARD_NAME>加贸平台</ICCARD_NAME>
-        <ICCARD_UNIT_CODE>719385095</ICCARD_UNIT_CODE>
-        <ICCARD_UNIT_NAME>东莞华新电线电缆有限公司</ICCARD_UNIT_NAME>
-        <CERT_SEQ_NO>05c7</CERT_SEQ_NO>
-        <SIGN>WgYxQZ5WgOV35kTlwW8ruBCI68Y7ZuT/cUr5LncW4eXg+LZYBn5lZ9MdxTk18K+9kHzgcaUZMoMS/8S6e6YQ2J6rPNokiI6wZiY9+XyHdf5in3TLnDgdfqf8lD8Ay8lX9NsIwPfRCc3etcfwcRiLm/Iaqt2B0ThY5G9Z0r6d33I=</SIGN>
-        <SIGN_DATE>20130615090855</SIGN_DATE>
+        <ICCARD_ID><%= custom_option.ic_card_no rescue "" %></ICCARD_ID>
+        <ICCARD_NAME>鍔犺锤骞冲彴</ICCARD_NAME>
+        <ICCARD_UNIT_CODE><%= enterprise.organization_code %></ICCARD_UNIT_CODE>
+        <ICCARD_UNIT_NAME><%= enterprise.name %></ICCARD_UNIT_NAME>
+        <CERT_SEQ_NO><%= custom_option.certificate_no rescue "" %></CERT_SEQ_NO>
+        <SIGN><%= @signed_data %></SIGN>
+        <SIGN_DATE><%= now.strftime("%Y%m%d%H%M%S") rescue "" %></SIGN_DATE>
         <NOTE><%= @bill.note%></NOTE>
     </FPT_BILL_SIGN>
     <FPT_BILL_HEAD>
@@ -32,7 +35,7 @@
         <NOTE><%= @bill.in_note %></NOTE>
         <CONTR_NO><%= @bill.contr_no %></CONTR_NO>
     </FPT_BILL_HEAD>
-	<% in_ems_no = @bill.application.in_contract.manual %>
+	<% in_ems_no = @bill.application.in_ems_no %>
     <FPT_BILL_LIST>
 		<% @bill.bill_cargos.in.each_with_index do |bill_cargo , i| %>
 			<FPT_BILL_ITEM>

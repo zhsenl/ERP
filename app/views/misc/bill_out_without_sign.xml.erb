@@ -1,23 +1,5 @@
-﻿<% enterprise = @bill.enterprise %>
-<% custom_option = enterprise.enterprise_custom_option %>
-<% now = Time.now %>
 <?xml version="1.0" encoding="UTF-8"?>
 <FPT_DATA version="1.0" sendId="" receiveId="">
-    <FPT_BILL_SIGN>
-        <SEQ_NO></SEQ_NO>
-        <APP_NO><%= @bill.application.app_no%></APP_NO>
-        <SYS_TYPE>0</SYS_TYPE>
-        <COP_BILL_NO><%= @bill.cop_bill_no%></COP_BILL_NO>
-        <BILL_SORT>0</BILL_SORT>
-        <ICCARD_ID><%= custom_option.ic_card_no rescue "" %></ICCARD_ID>
-        <ICCARD_NAME>加贸平台</ICCARD_NAME>
-        <ICCARD_UNIT_CODE><%= enterprise.organization_code %></ICCARD_UNIT_CODE>
-        <ICCARD_UNIT_NAME><%= enterprise.name %></ICCARD_UNIT_NAME>
-        <CERT_SEQ_NO><%= custom_option.certificate_no rescue "" %></CERT_SEQ_NO>
-        <SIGN><%= @signed_data %></SIGN>
-        <SIGN_DATE><%= now.strftime("%Y%m%d%H%M%S") rescue "" %></SIGN_DATE>
-        <NOTE><%= @bill.note%></NOTE>
-    </FPT_BILL_SIGN>
     <FPT_BILL_HEAD>
         <BILL_NO></BILL_NO>
         <SEQ_NO></SEQ_NO>

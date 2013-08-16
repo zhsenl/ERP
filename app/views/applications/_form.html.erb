@@ -1,3 +1,62 @@
+<script type="text/javascript">
+  $(function () {
+    function auto_complete_linkman_telephone(code, id, is_in_corp){
+      $.get('/enterprises/'+code+'/show_by_code.json',{}, function(result){
+        if (result['linkman'] &&  result['telephone']) {
+          $('#' + id).val(result['linkman']+'/'+result['telephone']);
+        }
+        if(is_in_corp){
+          $('#in_enterprise_id').val(result['id']);
+        }
+      })
+    }
+    $("#contract_id_combobox").change(function () {
+      $.get('<%= contracts_path %>/' + this.value + '.json', null, function (data, textStatus, xhr) {
+        if (data) {
+          $("#trade_code_autocomplete").val(data.operate_enterprise_code).blur();
+          $("#in_trade_code_autocomplete").val(data.foreign_enterprise_code).blur();
+          $("#agent_code_autocomplete").val(data.operate_enterprise_code).blur();
+          $("#in_agent_code_autocomplete").val(data.foreign_enterprise_code).blur();
+          $('#ems_no').val(data.manual);
+          $(this).focus();
+        }
+      });
+    });
+
+    $("#in_contract_id_combobox").change(function () {
+      $.get('<%= contracts_path %>/' + this.value + '.json', null, function (data, textStatus, xhr) {
+        if (data) {
+          $('#in_ems_no').val(data.manual);
+          $(this).focus();
+        }
+      });
+    });
+
+    $("#trade_code_autocomplete").blur(function(){
+      if(this.value){
+        $('#dict_code_autocomplete').val(this.value.substr(0,5)).blur();
+        auto_complete_linkman_telephone(this.value, 'corp');
+      }
+    });
+    $("#in_trade_code_autocomplete").blur(function(){
+      if(this.value){
+        $('#in_dict_code_autocomplete').val(this.value.substr(0,5)).blur();
+        auto_complete_linkman_telephone(this.value, 'in_corp', true);
+      }
+    });
+    $('#agent_code_autocomplete').blur(function(){
+      auto_complete_linkman_telephone(this.value, 'decl');
+    });
+    $('#in_agent_code_autocomplete').blur(function(){
+      auto_complete_linkman_telephone(this.value, 'in_decl');
+    });
+    $('#agent_code_autocomplete').blur();
+    $('#in_agent_code_autocomplete').blur();
+
+    //readonly
+
+  });
+</script>
 <%= render "shared/error_messages", :model => @application %>
 <%= form_for @application do |f| %>
   <fieldset>
@@ -24,109 +83,27 @@
     </div>
     <div class="filed">
       <label>申请表有效期</label>
-      <%= f.date_select :end_date, :class => "text-input small-input" %>
+      <%= f.text_field :end_date, :class => "text-input small-input" %>
     </div>
 
   </fieldset>
   <fieldset>
-    <legend>转出企业填写：</legend>
-    <div class="filed">
-      <label>转出手册号</label>
-      <% contracts_array = current_enterprise.contracts.map { |contract| [contract.manual, contract.id] } %>
-      <% contracts_array = [["请选择", 0]] + contracts_array %>
-      <%= f.select :contract_id, contracts_array, {}, :id => "contract_id_combobox", :class => "text-input small-input" %>
-    </div>
+    <legend>转出企业信息<span style="color:red">（请先选择转出手册号，其它信息有些会自动调出）</span>：</legend>
     <div class="filed">
       <label>转出企业</label>
-      <%= render "shared/autocomplete_field", :form => f, :attribute => :trade_code, :url => enterprises_path, :klass => "text-input small-input first-field" %>
+      <%= render "shared/autocomplete_field", :form => f, :attribute => :trade_code, :url => enterprises_path, :klass => "text-input small-input" %>
     </div>
     <div class="filed">
-      <label>转入企业</label>
-      <%= render "shared/autocomplete_field", :form => f, :attribute => :in_trade_code, :url => enterprises_path, :klass => "text-input small-input" %>
-    </div>
-    <script type="text/javascript">
-      $(function () {
-        function auto_complete_linkman_telephone(code, id, is_in_corp){
-          $.get('/enterprises/'+code+'/show_by_code.json',{}, function(result){
-            if (result['linkman'] &&  result['telephone']) {
-              $('#' + id).val(result['linkman']+'/'+result['telephone']);
-            }
-            if(is_in_corp){
-              $('#in_enterprise_id').val(result['id']);
-            }
-          })
-        }
-        $("#contract_id_combobox").change(function () {
-          $.get('<%= contracts_path %>/' + this.value + '.json', null, function (data, textStatus, xhr) {
-            if (data) {
-              $("#trade_code_autocomplete").val(data.operate_enterprise_code).blur();
-              $("#in_trade_code_autocomplete").val(data.foreign_enterprise_code).blur();
-              $(this).focus();
-            }
-            ;
-          });
-        });
-        $("#trade_code_autocomplete").blur(function(){
-          if(this.value){
-            $('#dict_code_autocomplete').val(this.value.substr(0,5)).blur();
-            auto_complete_linkman_telephone(this.value, 'corp');
-          }
-        });
-        $("#in_trade_code_autocomplete").blur(function(){
-          if(this.value){
-            $('#in_dict_code_autocomplete').val(this.value.substr(0,5)).blur();
-            auto_complete_linkman_telephone(this.value, 'in_corp', true);
-          }
-        });
-        $('#agent_code_autocomplete').blur(function(){
-          auto_complete_linkman_telephone(this.value, 'decl');
-        });
-        $('#in_agent_code_autocomplete').blur(function(){
-          auto_complete_linkman_telephone(this.value, 'in_decl');
-        });
-        $('#agent_code_autocomplete').blur();
-        $('#in_agent_code_autocomplete').blur();
-      });
-    </script>
-    <div class="filed">
-      <label>转出地海关</label>
-      <%= render "shared/autocomplete_field", :form => f, :attribute => :mast_cust, :url => dict_customs_path, :klass => "text-input small-input" %>
-    </div>
-    <div class="filed">
-      <label>转出地</label>
+      <label>转出地(境内货源地)</label>
       <%= render "shared/autocomplete_field", :form => f, :attribute => :dict_code, :url => dict_districts_path, :klass => "text-input small-input" %>
     </div>
     <div class="filed">
-      <label>目的地</label>
-      <%= render "shared/autocomplete_field", :form => f, :attribute => :in_dict_code, :url => dict_districts_path, :klass => "text-input small-input" %>
-    </div>
-    <div class="filed">
-      <label>转出批准证编号</label>
-      <%= f.text_field :lice_no, :class => "text-input small-input" %>
-    </div>
-    <div class="filed">
-      <label>转出企业内部编号</label>
-      <%= f.text_field :cop_app_no, :class => "text-input small-input" %>
-    </div>
-    <div class="filed">
-      <label>企业合同号</label>
-      <%= f.text_field :contr_no, :class => "text-input small-input" %>
-    </div>
-    <div class="filed">
-      <label>申报企业</label>
+      <label>转出申报企业</label>
       <%= render "shared/autocomplete_field", :form => f, :attribute => :agent_code, :url => enterprises_path, :klass => "text-input small-input" %>
     </div>
     <div class="filed">
-      <label>申报日期</label>
-      <%= f.date_select :d_date, :class => "text-input small-input" %>
-    </div>
-    <div class="filed">
-      <label>送货距离（公里）</label>
-      <%= f.text_field :convey_spa, :class => "text-input small-input" %>
-    </div>
-    <div class="filed">
-      <label>预计运输耗时（天）</label>
-      <%= f.text_field :convey_day, :class => "text-input small-input" %>
+      <label>转出地海关</label>
+      <%= render "shared/autocomplete_field", :form => f, :attribute => :mast_cust, :url => dict_customs_path, :klass => "text-input small-input" %>
     </div>
     <div class="filed">
       <label>转出企业法人/联系电话</label>
@@ -137,6 +114,32 @@
       <%= f.text_field :decl, :id => 'decl', :class => "text-input small-input" %>
     </div>
     <div class="filed">
+      <label>转出手册号</label>
+      <% contracts_array = current_enterprise.contracts.map { |contract| [contract.manual, contract.id] } %>
+      <% contracts_array = [["请选择", 0]] + contracts_array %>
+      <%= f.select :contract_id, contracts_array, {}, :id => "contract_id_combobox", :class => "text-input small-input first-field" %>
+    </div>
+    <div class="filed">
+      <label>手工输入转出手册号</label>
+      <%= f.text_field :ems_no,  :id => "ems_no", :class => "text-input small-input" %>
+    </div>
+    <div class="filed">
+      <label>企业合同号</label>
+      <%= f.text_field :contr_no, :class => "text-input small-input" %>
+    </div>
+    <div class="filed">
+      <label>申报日期</label>
+      <%= f.date_select :d_date, :class => "text-input small-input" %>
+    </div>
+    <div class="filed">
+      <label>转出企业内部编号</label>
+      <%= f.text_field :cop_app_no, :class => "text-input small-input" %>
+    </div>
+    <div class="filed">
+      <label>转出批准证编号</label>
+      <%= f.text_field :lice_no, :class => "text-input small-input" %>
+    </div>
+    <div class="filed">
       <label>申请表类型</label>
       <% app_class_array = [['加工贸易企业保税货物的深加工结转', 0], ["加工区的深加工结转", 1]] %>
       <%= f.select :app_class, app_class_array, {}, :id => "app_class_combobox", :class => "text-input small-input" %>
@@ -145,33 +148,42 @@
       <label>备注</label>
       <%= f.text_field :note, :class => "text-input small-input" %>
     </div>
+    <div class="filed">
+      <label>送货距离（公里）</label>
+      <%= f.text_field :convey_spa, :class => "text-input small-input" %>
+    </div>
+    <div class="filed">
+      <label>预计运输耗时（天）</label>
+      <%= f.text_field :convey_day, :class => "text-input small-input" %>
+    </div>
+    <% if @application.in_enterprise_id.blank? %>
+      <div class="filed"></div>
+      <div class="filed"></div>
+      <div class="filed">
+        <label>转入企业</label>
+        <%= render "shared/autocomplete_field", :form => f, :attribute => :in_trade_code, :url => enterprises_path, :klass => "text-input small-input" %>
+      </div>
+
+    <% end %>
   </fieldset>
+  <% if !@application.in_enterprise_id.blank? %>
   <fieldset>
-    <legend>转入企业填写：</legend>
+    <legend>转入企业信息<span style="color:red">（请先选择转入手册号，其它信息有些会自动调出）</span>：</legend>
     <div class="filed">
-      <label>转入手册号</label>
-      <% contracts_array = [] %>
-      <% if @application.in_enterprise_id %>
-        <% contracts_array = Enterprise.find(@application.in_enterprise_id).contracts.map { |contract| [contract.manual, contract.id] } %>
-      <% end %>
-      <% contracts_array = [["请选择", 0]] + contracts_array %>
-      <%= f.select :in_contract_id, contracts_array, {}, :id => "contract_id_combobox", :class => "text-input small-input" %>
+      <label>转入企业</label>
+      <%= render "shared/autocomplete_field", :form => f, :attribute => :in_trade_code, :url => enterprises_path, :klass => "text-input small-input" %>
     </div>
     <div class="filed">
-      <label>转入企业内部编号</label>
-      <%= f.text_field :in_cop_app_no, :class => "text-input small-input" %>
-    </div>
-    <div class="filed">
-      <label>转入地海关</label>
-      <%= render "shared/autocomplete_field", :form => f, :attribute => :in_mast_cust, :url => dict_customs_path, :klass => "text-input small-input" %>
+      <label>转入地(境内目的地)</label>
+      <%= render "shared/autocomplete_field", :form => f, :attribute => :in_dict_code, :url => dict_districts_path, :klass => "text-input small-input" %>
     </div>
     <div class="filed">
       <label>转入申报企业</label>
       <%= render "shared/autocomplete_field", :form => f, :attribute => :in_agent_code, :url => enterprises_path, :klass => "text-input small-input" %>
     </div>
     <div class="filed">
-      <label>转入申报日期</label>
-      <%= f.date_select :in_d_date, :class => "text-input small-input" %>
+      <label>转入地海关</label>
+      <%= render "shared/autocomplete_field", :form => f, :attribute => :in_mast_cust, :url => dict_customs_path, :klass => "text-input small-input" %>
     </div>
     <div class="filed">
       <label>转入企业法人/联系电话</label>
@@ -182,10 +194,38 @@
       <%= f.text_field :in_decl, :id => 'in_decl', :class => "text-input small-input" %>
     </div>
     <div class="filed">
+      <label>转入手册号</label>
+      <% contracts_array = [] %>
+      <% if @application.in_enterprise_id %>
+        <% contracts_array = Enterprise.find(@application.in_enterprise_id).contracts.map { |contract| [contract.manual, contract.id] } %>
+      <% end %>
+      <% contracts_array = [["请选择", 0]] + contracts_array %>
+      <%= f.select :in_contract_id, contracts_array, {}, :id => "in_contract_id_combobox", :class => "text-input small-input" %>
+    </div>
+    <div class="filed">
+      <label>手工输入转入手册号</label>
+      <%= f.text_field :in_ems_no,  :id => "in_ems_no", :class => "text-input small-input" %>
+    </div>
+    <div class="filed">
+      <label>转入企业内部编号</label>
+      <%= f.text_field :in_cop_app_no, :class => "text-input small-input" %>
+    </div>
+    <div class="filed">
+      <label>转出批准证编号</label>
+      <%= f.text_field :in_lice_no, :class => "text-input small-input" %>
+    </div>
+    <div class="filed">
+      <label>转入申报日期</label>
+      <%= f.date_select :in_d_date, :class => "text-input small-input" %>
+    </div>
+    <div class="filed">
       <label>备注</label>
       <%= f.text_field :in_note, :class => "text-input small-input" %>
     </div>
   </fieldset>
+  <% else %>
+    <div style="color:red">填完转出企业信息后再次编辑这份申请表时就可以填转入企业信息了</div>
+  <% end %>
   <div>
     <%= f.submit :class => "button" %>
   </div>

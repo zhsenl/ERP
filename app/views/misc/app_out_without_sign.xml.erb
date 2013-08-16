@@ -9,7 +9,7 @@
         <APP_CLASS><%= @application.app_class ? "H":"Z" %></APP_CLASS>
         <COP_APP_NO><%= @application.cop_app_no %></COP_APP_NO>
         <MAST_CUST><%= @application.mast_cust %></MAST_CUST>
-        <EMS_NO><%= @application.contract.manual %></EMS_NO>
+        <EMS_NO><%= @application.ems_no %></EMS_NO>
         <TRADE_CODE><%= @application.trade_code %></TRADE_CODE>
         <TRADE_NAME><%= @application.enterprise.name %></TRADE_NAME>
         <AGENT_CODE><%= @application.agent_code %></AGENT_CODE>
@@ -19,7 +19,7 @@
         <DIST_CODE><%= @application.dict_code %></DIST_CODE>
         <CONTR_NO><%= @application.contr_no %></CONTR_NO>
         <LICE_NO><%= @application.lice_no %></LICE_NO>
-        <D_DATE><%= @application.d_date.strftime("%Y%m%d") %></D_DATE>
+        <D_DATE><%= @application.d_date.strftime("%Y%m%d") rescue '' %></D_DATE>
         <NOTE><%= @application.in_note%></NOTE>
         <IN_TRADE_CODE><%= @application.in_trade_code %></IN_TRADE_CODE>
         <IN_TRADE_NAME><%= @application.in_enterprise.name %></IN_TRADE_NAME>
@@ -28,7 +28,7 @@
         <CONVEY_SPA><%= @application.convey_spa %></CONVEY_SPA>
         <DECLARE_TYPE>1</DECLARE_TYPE>
         <LW_MARK><%= @application.lw_mark %></LW_MARK>
-        <END_DATE><%= @application.end_date.strftime("%Y%m%d") %></END_DATE>
+        <END_DATE><%= @application.end_date.strftime("%Y%m%d") rescue ''%></END_DATE>
     </FPT_APP_OUT_HEAD>
     <FPT_APP_LIST>
 		<% @application.application_cargos.out.each_with_index do |application_cargo, i|%>

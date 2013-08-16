@@ -1,46 +1,28 @@
-﻿<% enterprise = @bill.enterprise %>
-<% custom_option = enterprise.enterprise_custom_option %>
-<% now = Time.now %>
 <?xml version="1.0" encoding="UTF-8"?>
 <FPT_DATA version="1.0" sendId="" receiveId="">
-    <FPT_BILL_SIGN>
-        <SEQ_NO></SEQ_NO>
-        <APP_NO><%= @bill.application.app_no%></APP_NO>
-        <SYS_TYPE>0</SYS_TYPE>
-        <COP_BILL_NO><%= @bill.cop_bill_no%></COP_BILL_NO>
-        <BILL_SORT>0</BILL_SORT>
-        <ICCARD_ID><%= custom_option.ic_card_no rescue "" %></ICCARD_ID>
-        <ICCARD_NAME>加贸平台</ICCARD_NAME>
-        <ICCARD_UNIT_CODE><%= enterprise.organization_code %></ICCARD_UNIT_CODE>
-        <ICCARD_UNIT_NAME><%= enterprise.name %></ICCARD_UNIT_NAME>
-        <CERT_SEQ_NO><%= custom_option.certificate_no rescue "" %></CERT_SEQ_NO>
-        <SIGN><%= @signed_data %></SIGN>
-        <SIGN_DATE><%= now.strftime("%Y%m%d%H%M%S") rescue "" %></SIGN_DATE>
-        <NOTE><%= @bill.note%></NOTE>
-    </FPT_BILL_SIGN>
     <FPT_BILL_HEAD>
-        <BILL_NO></BILL_NO>
-        <SEQ_NO></SEQ_NO>
+        <BILL_NO><%= @bill.bill_no%></BILL_NO>
+        <SEQ_NO><%= @bill.seq_no%></SEQ_NO>
         <APP_NO><%= @bill.application.app_no%></APP_NO>
-        <COP_BILL_NO><%= @bill.cop_bill_no%></COP_BILL_NO>
-        <TRADE_CODE><%= @bill.trade_code%></TRADE_CODE>
-        <TRADE_NAME><%= @bill.enterprise.name %></TRADE_NAME>
-        <ISSUE_DATE><%= @bill.issue_date %></ISSUE_DATE>
-        <IS_DECLA_EM><%= @bill.is_decla_em %></IS_DECLA_EM>
-        <IS_DECLA_DATE><%= @bill.is_decla_date %></IS_DECLA_DATE>
-        <AGENT_CODE><%= @bill.agent_code %></AGENT_CODE>
-        <AGENT_NAME><%= Enterprise.find_by_code(@bill.agent_code).name %></AGENT_NAME>
+        <COP_BILL_NO><%= @bill.in_cop_bill_no%></COP_BILL_NO>
+        <TRADE_CODE><%= @bill.in_trade_code%></TRADE_CODE>
+        <TRADE_NAME><%= @bill.in_enterprise.name %></TRADE_NAME>
+        <ISSUE_DATE><%= @bill.in_issue_date %></ISSUE_DATE>
+        <IS_DECLA_EM><%= @bill.in_is_decla_em %></IS_DECLA_EM>
+        <IS_DECLA_DATE><%= @bill.in_is_decla_date %></IS_DECLA_DATE>
+        <AGENT_CODE><%= @bill.in_agent_code %></AGENT_CODE>
+        <AGENT_NAME><%= Enterprise.find_by_code(@bill.in_agent_code).name %></AGENT_NAME>
         <CONVEY_TYPE><%= @bill.convey_type %></CONVEY_TYPE>
         <CONVEY_NO><%= @bill.convey_no %></CONVEY_NO>
-        <NOTE><%= @bill.note %></NOTE>
+        <NOTE><%= @bill.in_note %></NOTE>
         <CONTR_NO><%= @bill.contr_no %></CONTR_NO>
     </FPT_BILL_HEAD>
-	<% in_ems_no = @bill.application.ems_no rescue '' %>
+	<% in_ems_no = @bill.application.in_ems_no %>
     <FPT_BILL_LIST>
-		<% @bill.bill_cargos.out.each_with_index do |bill_cargo , i| %>
+		<% @bill.bill_cargos.in.each_with_index do |bill_cargo , i| %>
 			<FPT_BILL_ITEM>
 				<LIST_NO><%= i%></LIST_NO>
-				<OUT_NO></OUT_NO>
+				<OUT_NO><%= bill_cargo.no_in_out %></OUT_NO>
 				<IN_EMS_NO><%= in_ems_no %></IN_EMS_NO>
 				<COP_G_NO><%= bill_cargo.cop_g_no %></COP_G_NO>
 				<COP_G_NAME><%= bill_cargo.before_name %></COP_G_NAME>
@@ -59,10 +41,10 @@
 		<% end %>
 	</FPT_BILL_LIST>
     <FPT_BILL_DICT_LIST>
-		<% @bill.bill_cargos.out.each_with_index do |bill_cargo , i| %>
+		<% @bill.bill_cargos.in.each_with_index do |bill_cargo , i| %>
 			<FPT_BILL_DICT_ITEM>
 				<LIST_NO><%= i%></LIST_NO>
-				<OUT_NO></OUT_NO>
+				<OUT_NO><%= bill_cargo.no_in_out %></OUT_NO>
 				<IN_EMS_NO><%= in_ems_no %></IN_EMS_NO>
 				<COP_G_NO><%= bill_cargo.cop_g_no %></COP_G_NO>
 				<COP_G_NAME><%= bill_cargo.before_name %></COP_G_NAME>

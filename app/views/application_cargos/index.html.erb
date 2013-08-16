@@ -1,9 +1,20 @@
+<script style="javascript">
+   $(function(){
+     $('#add_in_cargo_button').click(function(){
+       if(<%= @application.in_ems_no.blank? %>){
+         alert('请先填写转入企业信息');
+         return false;
+       }
+       return true;
+     })
+   })
+</script>
 <div class="content-box">
   <div class="content-box-header">
     <h3>深加工结转申请表(<%= @application.pre_entry_no %>)货物列表</h3>
     <div class="operations">
       <%= link_to '添加转出货物', new_application_cargo_path(:application_id => @application.id, :in_out => 0) %> |
-      <%= link_to '添加转入货物', new_application_cargo_path(:application_id => @application.id, :in_out => 1) %> |
+      <%= link_to '添加转入货物', new_application_cargo_path(:application_id => @application.id, :in_out => 1), :id => 'add_in_cargo_button' %> |
       <%= link_to '返回表头', @application %>
     </div>
   </div>

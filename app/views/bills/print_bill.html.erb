@@ -168,7 +168,7 @@
           </div>
           <div class="td" style="width:70px"><span class="content"><%= %></span></div>
           <div class="td last-td" style="width:105px">
-            <span class="content"><%= @bill.application.contract.manual %></span></div>
+            <span class="content"><%= @bill.application.ems_no rescue '' %></span></div>
         </div>
       <% end %>
       <div class='tr'>
@@ -215,7 +215,7 @@
           </div>
           <div class="td" style="width:70px"><span class="content"><%= %></span></div>
           <div class="td last-td" style="width:85px">
-            <span class="content"><%= @bill.application.in_contract.manual %></span></div>
+            <span class="content"><%= @bill.application.in_ems_no %></span></div>
         </div>
       <% end %>
 

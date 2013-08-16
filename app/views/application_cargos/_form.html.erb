@@ -7,7 +7,7 @@
       <label>合同序号</label>
       <%= f.text_field :no_in_contract, :class => "text-input small-input first-field" %>
       <br/>
-      <% if @application.contract %>
+      <% if @application_cargo.in_out == false ? @application.contract : @application.in_contract %>
         <small>输入合同序号或名字后有提示</small>
       <% end %>
     </div>

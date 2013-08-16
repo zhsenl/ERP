@@ -126,9 +126,9 @@
        <div class="td third">转出批准证编号</div>
        <div class="td fourth"><span class="content"><%= @application.lice_no %></span></div>
        <div class="td first">转入企业内部编号</div>
-       <div class="td second"><span class="content"><%= @application.in_cop_app_no  %></span></div>
+       <div class="td second"><span class="content"><%= @application.app_no.blank? ? '': @application.in_cop_app_no  %></span></div>
        <div class="td third">转入批准证编号</div>
-       <div class="td fourth last-td"><span class="content"><%= @application.in_lice_no  %></span></div>
+       <div class="td fourth last-td"><span class="content"><%= @application.app_no.blank? ? '': @application.in_lice_no  %></span></div>
      </div>
      <div class="tr">
        <div class="td first">转出企业法人/联系电话</div>
@@ -136,9 +136,9 @@
        <div class="td third">转出申报企业</div>
        <div class="td fourth"><span class="content"><%= Enterprise.find_by_code(@application.agent_code).name rescue '' %></span></div>
        <div class="td first">转入企业法人/联系电话</div>
-       <div class="td second"><span class="content"><%= @application.decl %></span></div>
+       <div class="td second"><span class="content"><%= @application.app_no.blank? ? '': @application.decl %></span></div>
        <div class="td third">转入申报企业</div>
-       <div class="td fourth last-td"><span class="content"><%= Enterprise.find_by_code(@application.in_agent_code).name rescue '' %></span></div>
+       <div class="td fourth last-td"><span class="content"><%= @application.app_no.blank? ? '': Enterprise.find_by_code(@application.in_agent_code).name rescue '' %></span></div>
      </div>
      <div class="tr">
        <div class="td first">申报日期</div>
@@ -146,7 +146,7 @@
        <div class="td third">审批日期</div>
        <div class="td fourth"><span class="content"><%=  %></span></div>
        <div class="td first">申报日期</div>
-       <div class="td second"><span class="content"><%= @application.in_d_date %></span></div>
+       <div class="td second"><span class="content"><%= @application.app_no.blank? ? '': @application.in_d_date %></span></div>
        <div class="td third">审批日期</div>
        <div class="td fourth last-td"><span class="content"><%=  %></span></div>
      </div>
@@ -187,7 +187,7 @@
          <div class="td" style="width:80px"><span class="content"><%= sprintf "%0.0f", application_cargo.quantity rescue '' %></span></div>
          <div class="td" style="width:80px"><span class="content"><%= dict_name(Dict::Unit, application_cargo.unit1) %></span></div>
          <div class="td" style="width:80px"><span class="content"><%= sprintf "%0.0f", application_cargo.quantity1 %></span></div>
-         <div class="td last-td" style="width:174px"><span class="content"><%= @application.contract.manual %></span></div>
+         <div class="td last-td" style="width:174px"><span class="content"><%= @application.ems_no %></span></div>
        </div>
      <% end %>
 
@@ -220,7 +220,7 @@
          <div class="td" style="width:80px"><span class="content"><%= dict_name(Dict::Unit, application_cargo.unit1) %></span></div>
          <div class="td" style="width:80px"><span class="content"><%= sprintf "%0.0f", application_cargo.quantity1 %></span></div>
          <div class="td" style="width:80px"><span class="content"><%= application_cargo.in_out_no %></span></div>
-         <div class="td last-td" style="width:92px"><span class="content"><%= @application.in_contract.manual %></span></div>
+         <div class="td last-td" style="width:92px"><span class="content"><%= @application.in_ems_no %></span></div>
        </div>
      <% end %>
 

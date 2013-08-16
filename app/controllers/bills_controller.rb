@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 class BillsController < ApplicationController
-  include ApplicationHelper,  PrintHelper
+  include ApplicationHelper, BillsHelper, PrintHelper
 
   before_filter :init
 
@@ -48,8 +48,6 @@ class BillsController < ApplicationController
       pre_entry_no = Time.now.strftime('%Y%m%d%H%M%S') + system_serial_no
       @bill = Bill.new(:enterprise_id => current_enterprise.id,
                                      :sys_type => @sys_type,
-                                     :agent_code => "4419980074",
-                                     :in_agent_code => "4419980074" ,
                                      :pre_entry_no =>  pre_entry_no
       )
     else
@@ -67,7 +65,7 @@ class BillsController < ApplicationController
     @bill = Bill.new(params[:bill])
     respond_to do |format|
       if @bill.save
-        format.html { redirect_to @bill, notice: 'Bill was successfully created.' }
+        format.html { redirect_to @bill, notice: '货单创建成功' }
         format.json { render json: @bill, status: :created, location: @bill }
       else
         format.html { render action: "new" }
@@ -81,7 +79,7 @@ class BillsController < ApplicationController
   def update
     respond_to do |format|
       if @bill.update_attributes(params[:bill])
-        format.html { redirect_to @bill, notice: 'Bill was successfully updated.' }
+        format.html { redirect_to @bill, notice: '货单更新成功.' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -113,6 +111,31 @@ class BillsController < ApplicationController
     end
     @title = '打印申请表'
     render :layout => 'print'
+  end
+
+  def declare
+    authorize! :declare, @bill
+    if generate_bill_xml(@bill.id, params[:sort_flag], params[:sys_type] == 'normal' ? '0' : '1')
+      result = {:xml_content => @xml_content}
+    else
+      result = {}
+    end
+    puts @xml_content
+    respond_to do |format|
+      format.json { render json: result }
+    end
+  end
+
+  def sign
+    puts params[:signed_data]
+    if sign_bill_xml(@bill.id, params[:sort_flag], params[:signed_data], params[:sys_type] == 'normal' ? '0' : '1')
+      result = {:type => "success", :content => "已经成功生成报文，请稍后再查询申报结果"}
+    else
+      result = {:type => "error", :content => "生成报文失败"}
+    end
+    respond_to do |format|
+      format.json { render json: result }
+    end
   end
 
 end
