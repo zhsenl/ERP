@@ -43,7 +43,6 @@ class BillCargosController < ApplicationController
     bill_cargos =  params[:in_out] == '0'? @bill.bill_cargos.out : @bill.bill_cargos.in
     @bill_cargo = BillCargo.new(:bill_id => @bill.id,
                                 :in_out => params[:in_out],
-                                              :quantity1 => 0,
                                               :no => bill_cargos.size + 1)
 
     if @bill_cargo.no > 20
