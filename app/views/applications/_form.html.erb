@@ -161,22 +161,14 @@
       <label>预计运输耗时（天）</label>
       <%= f.text_field :convey_day, :class => "text-input small-input" %>
     </div>
-    <% if @application.in_enterprise_id.blank? %>
-      <div class="filed"></div>
-      <div class="filed"></div>
-      <div class="filed">
-        <label>转入企业</label>
-        <%= render "shared/autocomplete_field", :form => f, :attribute => :in_trade_code, :url => enterprises_path, :klass => "text-input small-input" %>
-      </div>
-
-    <% end %>
   </fieldset>
-  <fieldset style="display: <%= @application.in_enterprise_id.blank? ? 'none' : 'block'%>">
-    <legend>转入企业信息<span style="color:red">（请先选择转入手册号，其它信息有些会自动调出）</span>：</legend>
+  <fieldset >
+    <legend>转入企业信息<span style="color:red">（请先选择转入手册号，其它信息有些会自动调出。如果更新了'转入企业'，请先保存，然后再编辑就可以选择转入手册号来调数据）</span>：</legend>
     <div class="filed">
       <label>转入企业</label>
       <%= render "shared/autocomplete_field", :form => f, :attribute => :in_trade_code, :url => enterprises_path, :klass => "text-input small-input" %>
     </div>
+    <div style="display: <%= @application.in_enterprise_id.blank? ? 'none' : 'block'%>">
     <div class="filed">
       <label>转入地(境内目的地)</label>
       <%= render "shared/autocomplete_field", :form => f, :attribute => :in_dict_code, :url => dict_districts_path, :klass => "text-input small-input" %>
@@ -225,6 +217,7 @@
     <div class="filed">
       <label>备注</label>
       <%= f.text_field :in_note, :class => "text-input small-input" %>
+    </div>
     </div>
   </fieldset>
   <% if  @application.in_enterprise_id.blank?  %>
