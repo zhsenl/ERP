@@ -1,6 +1,6 @@
 <div class="content-box">
   <div class="content-box-header">
-    <h3>深加工结转收发货(<%= @bill.pre_entry_no %>)货物列表</h3>
+    <h3>深加工结转<%= @bill.sys_type=='normal'? '收发' : '退' %>(<%= @bill.pre_entry_no %>)货物列表</h3>
     <div class="operations">
       <%= link_to '添加转出货物', new_bill_cargo_path(:bill_id => @bill.id, :in_out => 0) %> |
       <%= link_to '添加转入货物', new_bill_cargo_path(:bill_id => @bill.id, :in_out => 1) %> |

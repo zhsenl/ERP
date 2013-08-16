@@ -1,3 +1,14 @@
+<script>
+   $(function(){
+     $('#add_bill_button').click(function(){
+       console.log( <%=Application.where("app_no <> '' ").size%>)
+       if(<%= Application.where("app_no <> '' ").size <= 0 %> ){
+         alert('没有具备申请表编号的申请表，添加不了货单');
+         return  false
+       }
+     })
+   })
+</script>
 <%= render "shared/enterprise_selector" %>
 
 <div class="content-box">
@@ -5,7 +16,7 @@
     <h3>深加工结转<%= @sys_type=='normal'? '收发' : '退' %>货单列表</h3>
 
     <div class="operations">
-      <%= link_to "添加新#{@sys_type=='normal'? '收发' : '退'}货单", new_bill_path(:sys_type => @sys_type) %>
+      <%= link_to "添加新#{@sys_type=='normal'? '收发' : '退'}货单", new_bill_path(:sys_type => @sys_type), :id => 'add_bill_button' %>
     </div>
   </div>
   <div class="content-box-content">
