@@ -122,6 +122,7 @@ ERP::Application.routes.draw do
   resources :enterprises, :foreign_enterprises do
     get 'search', :on => :collection
     get 'show_by_code', :on => :member
+    get 'contracts_array', :on => :member
   end
   
   match '/dict', :to => 'pages#dict'  

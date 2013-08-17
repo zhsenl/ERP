@@ -111,4 +111,10 @@ class EnterprisesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def contracts_array
+    respond_to do |format|
+      format.json { render json: Enterprise.find(params[:id]).contracts.map { |contract| [contract.manual, contract.id] }}
+    end
+  end
 end
