@@ -34,6 +34,28 @@ class Ability
       end
 
       cannot :destroy, Contract
+      
+      #setting the user permission for application, bill
+      can :manage, Application do |application|
+        user.managing?(application.enterprise) && !application.is_finish
+      end
+
+      can :read, Application do |application|
+        user.managing? application.enterprise
+      end
+
+      cannot :destroy, Application
+
+      can :manage, Bill do |bill|
+        user.managing?(bill.enterprise) && !bill.is_finish
+      end
+
+      can :read, Bill do |bill|
+        user.managing? bill.enterprise
+      end
+
+      cannot :destroy, Bill
+      
     end
 
     if user.is?("enterprise")
@@ -52,6 +74,25 @@ class Ability
       can :manage, Cargo do |cargo|
         user.managing? cargo.enterprise
       end
+
+      #setting the user permission for application, bill
+      can [:manage, :declarate], Application do |application|
+        user.managing?(application.enterprise) && !application.is_finish
+      end
+
+      can :read, Application do |application|
+        user.managing? application.enterprise
+      end
+
+      can [:manage, :declarate], Bill do |bill|
+        user.managing?(bill.enterprise) && !bill.is_finish
+      end
+
+      can :read, Bill do |bill|
+        user.managing? bill.enterprise
+      end
+
+
     end
 
     if user.is? "staff"

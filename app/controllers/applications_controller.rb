@@ -54,12 +54,14 @@ class ApplicationsController < ApplicationController
 
   # GET /applications/1/edit
   def edit
+    authorize! :edit, @application
   end
 
   # POST /applications
   # POST /applications.json
   def create
     @application = Application.new(params[:application])
+    authorize! :create, @application
     respond_to do |format|
       if @application.save
         format.html { redirect_to @application, notice: '申请表创建成功' }
@@ -74,6 +76,7 @@ class ApplicationsController < ApplicationController
   # PUT /applications/1
   # PUT /applications/1.json
   def update
+    authorize! :update, @application
     respond_to do |format|
       if @application.update_attributes(params[:application])
         format.html { redirect_to @application, notice: '申请表更新成功.' }
@@ -88,6 +91,7 @@ class ApplicationsController < ApplicationController
   # DELETE /applications/1
   # DELETE /applications/1.json
   def destroy
+    authorize! :destory, @application
     @application.destroy
     respond_to do |format|
       format.html { redirect_to applications_url }

@@ -57,12 +57,14 @@ class BillsController < ApplicationController
 
   # GET /bills/1/edit
   def edit
+    authorize! :edit, @bill
   end
 
   # POST /bills
   # POST /bills.json
   def create
     @bill = Bill.new(params[:bill])
+    authorize! :create, @bill
     respond_to do |format|
       if @bill.save
         format.html { redirect_to @bill, notice: '货单创建成功' }
@@ -77,6 +79,7 @@ class BillsController < ApplicationController
   # PUT /bills/1
   # PUT /bills/1.json
   def update
+    authorize! :update, @bill
     respond_to do |format|
       if @bill.update_attributes(params[:bill])
         format.html { redirect_to @bill, notice: '货单更新成功.' }
@@ -91,6 +94,7 @@ class BillsController < ApplicationController
   # DELETE /bills/1
   # DELETE /bills/1.json
   def destroy
+    authorize! :destory, @bill
     @bill.destroy
     respond_to do |format|
       format.html { redirect_to bills_url(:sys_type => @sys_type) }

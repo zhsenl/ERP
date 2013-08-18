@@ -118,6 +118,11 @@ namespace :receipt do
           if app_or_bill
             app_or_bill.seq_no = seq_no
             app_or_bill.app_no = custome_no
+            if sort_flag == 0
+              app_or_bill.is_out_finish = true
+            else
+              app_or_bill.is_finish = true
+            end
             app_or_bill.save
           end
 
