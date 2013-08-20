@@ -41,8 +41,8 @@
           <tr>
             <td><%= link_to bill.pre_entry_no, bill %></td>
             <td><%= bill.is_decla_date %></td>
-            <td><%= bill.seq_no != '' ? '是' : '否' %></td>
-            <td><%= bill.bill_no != '' ? '是' : '否' %></td>
+            <td><%= bill.is_out_finish ? '是' : '否' %></td>
+            <td><%= bill.is_finish ? '是' : '否' %></td>
             <td>
               <% if can? :edit, bill %>
                 <%= link_to image_tag("icons/pencil.png", :alt => "Edit"), edit_bill_path(bill) %>

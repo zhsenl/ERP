@@ -1,5 +1,6 @@
 # -*- encoding : utf-8 -*-
 require "rexml/document"
+require "iconv"
 
 include FileUtils
 
@@ -75,20 +76,31 @@ namespace :receipt do
     dir_path = Settings['app_bill_dispatch_paths']['download_temp']
     Dir.new(dir_path).each do |file_name|
       if file_name != '.' and file_name != '..'
-        file = File.new(dir_path + '/' + file_name)
+        #file = File.open(dir_path + '/' + file_name)
+        convert_gb2312_to_utf8(dir_path + '/' + file_name)
+        file = File.open(dir_path + '/tmp.xml','r')
+
         doc = REXML::Document.new(file)
         #先取出xml里的值
-        seq_no = REXML::XPath.first(doc, "//SEQ_NO" ).text
-        custome_no = REXML::XPath.first(doc, "//CUSTOMS_NO" ).text
-        cop_no = REXML::XPath.first(doc, "//COP_NO" ).text
-        trade_code = REXML::XPath.first(doc, "//TRADE_CODE" ).text
-        ret_type = REXML::XPath.first(doc, "//RET_TYPE" ).text
-        sort_flag = REXML::XPath.first(doc, "//SORT_FLAG" ).text
-        ret_no = REXML::XPath.first(doc, "//RET_NO" ).text
-        chk_status = REXML::XPath.first(doc, "//CHK_STATUS" ).text
-        notice_date = REXML::XPath.first(doc, "//NOTICE_DATE" ).text
-        note = REXML::XPath.first(doc, "//NOTE" ).text
-        ret_content = REXML::XPath.first(doc, "//RET_CONTENT" ).text
+        seq_no = REXML::XPath.first(doc, "//SEQ_NO" ).text rescue ''
+        custome_no = REXML::XPath.first(doc, "//CUSTOMS_NO" ).text rescue ''
+        cop_no = REXML::XPath.first(doc, "//COP_NO" ).text rescue ''
+        trade_code = REXML::XPath.first(doc, "//TRADE_CODE" ).text rescue ''
+        ret_type = REXML::XPath.first(doc, "//RET_TYPE" ).text rescue ''
+        sort_flag = REXML::XPath.first(doc, "//SORT_FLAG" ).text rescue ''
+        ret_no = REXML::XPath.first(doc, "//RET_NO" ).text rescue ''
+        chk_status = REXML::XPath.first(doc, "//CHK_STATUS" ).text rescue ''
+        notice_date = REXML::XPath.first(doc, "//NOTICE_DATE" ).text rescue ''
+        note = REXML::XPath.first(doc, "//NOTE" ).text rescue ''
+        ret_content = REXML::XPath.first(doc, "//RET_CONTENT" ).text rescue ''
+
+        if chk_status == '5'
+          puts "入数据中心库失败:#{note}"
+          next
+        elsif chk_status == '9'
+          puts "入海关库失败:#{note}"
+          next
+        end
 
         dispatch_record_generate = AppBillDispatchRecord.where("ret_no = ? ", ret_no).first
         if dispatch_record_generate
@@ -134,6 +146,17 @@ namespace :receipt do
       end
 
     end
+  end
+
+  def convert_gb2312_to_utf8(file)
+    temp_file = File.new(Settings['app_bill_dispatch_paths']['download_temp'] + '/tmp.xml','w')
+    File.readlines(file).each_with_index do |line, index|
+      if index == 0
+        next
+      end
+      temp_file.puts Iconv.iconv('utf-8','gb2312',line)
+    end
+    temp_file.close
   end
 
 end

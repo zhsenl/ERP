@@ -30,8 +30,8 @@
             <tr>
               <td><%= link_to application.pre_entry_no, application %></td>
               <td><%= application.d_date %></td>
-              <td><%= application.seq_no != '' ? '是' : '否' %></td>
-              <td><%= application.app_no != '' ? '是' : '否' %></td>
+              <td><%= application.is_out_finish ? '是' : '否' %></td>
+              <td><%= application.is_finish ? '是' : '否' %></td>
               <td>
                 <% if can? :edit, application %>
                     <%= link_to image_tag("icons/pencil.png", :alt => "Edit"), edit_application_path(application) %>

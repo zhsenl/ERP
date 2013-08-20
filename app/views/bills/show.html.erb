@@ -6,11 +6,17 @@
 
     $(".declare_button").click(function () {
       //申报
+      var url = this.getAttribute("href");
+      var sort_flag = getURLParameter(url, 'sort_flag');
+      if (<%= !@bill.is_out_finish %>  ){
+        if (sort_flag == '1'){
+          alert('要先完成发货申报，才可以申报收货');
+          return false
+        }
+      }
       if (confirm('确定要申报吗?')) {
-        var url = this.getAttribute("href");
         $.get(url,function (result) {
           //签名
-          var sort_flag = getURLParameter(url, 'sort_flag');
           if(result['xml_content']){
             var signed_data = sign_data(result['xml_content'].trim());
             console.log(result['xml_content'].trim());
