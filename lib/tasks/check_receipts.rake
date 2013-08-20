@@ -77,7 +77,7 @@ namespace :receipt do
     Dir.new(dir_path).each do |file_name|
       if file_name != '.' and file_name != '..'
         #file = File.open(dir_path + '/' + file_name)
-        convert_gb2312_to_utf8( 'public/' + file_name)
+        convert_gb2312_to_utf8( dir_path + '/' + file_name)
         file = File.open(dir_path + '/tmp.xml','r')
 
         doc = REXML::Document.new(file)
