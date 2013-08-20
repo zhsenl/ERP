@@ -19,6 +19,9 @@
           //签名
           if(result['xml_content']){
             var signed_data = sign_data(result['xml_content'].trim());
+            if (!signed_data) {
+              return
+            }
             console.log(result['xml_content'].trim());
             console.log(signed_data);
             $.get('<%= sign_bill_path(@bill, :format => :json)%>', { signed_data: signed_data, sort_flag: sort_flag}, function(result){

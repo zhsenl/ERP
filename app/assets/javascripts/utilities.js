@@ -71,7 +71,6 @@ function sign_data(xml_content) {
     SCAClient.SignHashData();
     if (SCAClient.nResult != 0) {
         strpropt = "SignHashData errocode is " + SCAClient.nResult + "errreason is" + SCAClient.strResult;
-        ;
         alert(strpropt);
         SCAClient.CloseEnv();
         return;
@@ -102,4 +101,57 @@ function sign_data(xml_content) {
 //    }
 
     return strTemp1;
+}
+
+//获取设备信息
+function get_card_id()
+{
+    var strpropt;
+    //打开设备
+    SCAClient.InitEnv();
+    if (SCAClient.nResult!= 0)
+    {
+        strpropt = "InitEnv errocode is " + SCAClient.nResult + "errreason is" + SCAClient.strResult;
+        alert(strpropt);
+        return;
+    }
+//    alert("Init Succeed!");
+
+    //获得卡号
+    SCAClient.GetCardID();
+    if (SCAClient.nResult!= 0)
+    {
+        strpropt = "GetCardID errocode is " + SCAClient.nResult + "errreason is" + SCAClient.strResult;
+        alert(strpropt);
+        SCAClient.CloseEnv();
+        return;
+    }
+    strpropt  =  SCAClient.strOutputData;
+    SCAClient.CloseEnv();
+    console.log(strpropt);
+    return strpropt;
+}
+function get_cert_no(){
+    var strpropt;
+    //打开设备
+    SCAClient.InitEnv();
+    if (SCAClient.nResult!= 0)
+    {
+        strpropt = "InitEnv errocode is " + SCAClient.nResult + "errreason is" + SCAClient.strResult;
+        alert(strpropt);
+        return;
+    }
+    //获得签名证书号
+    var cert_no = SCAClient.GetCertNo();
+    if (SCAClient.nResult!= 0)
+    {
+        strpropt = "GetCertNo errocode is " + SCAClient.nResult + "errreason is" + SCAClient.strResult;
+        alert(strpropt);
+        SCAClient.CloseEnv();
+        return;
+    }
+    cert_no = SCAClient.strOutputData
+
+    SCAClient.CloseEnv();
+    return cert_no;
 }

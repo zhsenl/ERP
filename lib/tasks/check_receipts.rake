@@ -77,7 +77,7 @@ namespace :receipt do
     Dir.new(dir_path).each do |file_name|
       if file_name != '.' and file_name != '..'
         #file = File.open(dir_path + '/' + file_name)
-        convert_gb2312_to_utf8(dir_path + '/' + file_name)
+        convert_gb2312_to_utf8( 'public/' + file_name)
         file = File.open(dir_path + '/tmp.xml','r')
 
         doc = REXML::Document.new(file)
@@ -149,7 +149,7 @@ namespace :receipt do
   end
 
   def convert_gb2312_to_utf8(file)
-    temp_file = File.new(Settings['app_bill_dispatch_paths']['download_temp'] + '/tmp.xml','w')
+    temp_file = File.new('public/tmp.xml','w')
     File.readlines(file).each_with_index do |line, index|
       if index == 0
         next

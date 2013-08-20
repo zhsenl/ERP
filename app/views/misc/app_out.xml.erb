@@ -8,11 +8,11 @@
         <COP_APP_NO><%= @application.cop_app_no %></COP_APP_NO>
         <TRADE_CODE><%= @application.trade_code %></TRADE_CODE>
         <APP_SORT>0</APP_SORT>
-        <ICCARD_ID><%= custom_option.ic_card_no rescue "" %></ICCARD_ID>
+        <ICCARD_ID><%= @card_id rescue "" %></ICCARD_ID>
         <ICCARD_NAME>加贸平台</ICCARD_NAME>
         <ICCARD_UNIT_CODE><%= enterprise.organization_code %></ICCARD_UNIT_CODE>
         <ICCARD_UNIT_NAME><%= enterprise.name %></ICCARD_UNIT_NAME>
-        <CERT_SEQ_NO><%= custom_option.certificate_no rescue "" %></CERT_SEQ_NO>
+        <CERT_SEQ_NO><%= @cert_no rescue "" %></CERT_SEQ_NO>
         <SIGN><%= @signed_data %></SIGN>
         <SIGN_DATE><%= now.strftime("%Y%m%d%H%M%S") rescue "" %></SIGN_DATE>
         <NOTE><%= @application.note %></NOTE>
@@ -33,7 +33,7 @@
         <DIST_CODE><%= @application.dict_code %></DIST_CODE>
         <CONTR_NO><%= @application.contr_no %></CONTR_NO>
         <LICE_NO><%= @application.lice_no %></LICE_NO>
-        <D_DATE><%= @application.d_date.strftime("%Y%m%d") %></D_DATE>
+        <D_DATE><%= @application.d_date.strftime("%Y%m%d") rescue ''%></D_DATE>
         <NOTE><%= @application.in_note%></NOTE>
         <IN_TRADE_CODE><%= @application.in_trade_code %></IN_TRADE_CODE>
         <IN_TRADE_NAME><%= @application.in_enterprise.name %></IN_TRADE_NAME>
@@ -42,7 +42,7 @@
         <CONVEY_SPA><%= @application.convey_spa %></CONVEY_SPA>
         <DECLARE_TYPE>1</DECLARE_TYPE>
         <LW_MARK><%= @application.lw_mark %></LW_MARK>
-        <END_DATE><%= @application.end_date.strftime("%Y%m%d") %></END_DATE>
+        <END_DATE><%= @application.end_date.strftime("%Y%m%d") rescue ''%></END_DATE>
     </FPT_APP_OUT_HEAD>
     <FPT_APP_LIST>
 		<% @application.application_cargos.out.each_with_index do |application_cargo, i|%>

@@ -130,7 +130,7 @@ class ApplicationsController < ApplicationController
 
   def sign
     puts params[:signed_data]
-    if sign_application_xml(@application.id, params[:sort_flag], params[:signed_data])
+    if sign_application_xml(@application.id, params[:sort_flag], params[:signed_data], params[:card_id], params[:cert_no])
       result = {:type => "success", :content => "已经成功生成报文，请稍后再查询申报结果"}
     else
       result = {:type => "error", :content => "生成报文失败"}

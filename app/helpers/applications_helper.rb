@@ -24,7 +24,7 @@ module ApplicationsHelper
     end
   end
 
-  def sign_application_xml(id, sort_flag, signed_data)
+  def sign_application_xml(id, sort_flag, signed_data, card_id, cert_no)
     begin
       application = Application.find(id)
       if sort_flag == '0'
@@ -40,7 +40,7 @@ module ApplicationsHelper
       action_view.class_eval do
         include ApplicationHelper, ApplicationsHelper, PrintHelper
       end
-      action_view.assign({:application => application, :signed_data => signed_data})
+      action_view.assign({:application => application, :signed_data => signed_data, :card_id => card_id, :cert_no => cert_no })
       file = File.new(temp, 'w')
       @xml_content = action_view.render(:template => template)
       file.puts(@xml_content)

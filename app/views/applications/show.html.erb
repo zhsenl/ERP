@@ -40,11 +40,19 @@
           //签名
           if(result['xml_content']){
             var signed_data = sign_data(result['xml_content'].trim());
+            if (!signed_data) {
+              return
+            }
+            var card_id = get_card_id();
+            var cert_no = get_cert_no();
             console.log(result['xml_content'].trim());
             console.log(signed_data);
-            $.get('<%= sign_application_path(@application, :format => :json)%>', { signed_data: signed_data, sort_flag: sort_flag}, function(result){
-              show_tips(result.type, result.content);
-            })
+            $.get('<%= sign_application_path(@application, :format => :json)%>', { signed_data: signed_data, sort_flag: sort_flag, card_id: card_id, cert_no: cert_no},
+                    function(result){
+                      show_tips(result.type, result.content);
+                      alert(result.content);
+                    }
+            )
           }
         });
       }
