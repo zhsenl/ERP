@@ -12,7 +12,7 @@
 
   .frame {
     margin: 0 auto;
-    width: 960px;
+    width: 980px;
     text-align: left;
   }
 
@@ -77,7 +77,7 @@
   }
 
   .second {
-    width: 131px;
+    width: 141px;
   }
 
   .third {
@@ -97,24 +97,25 @@
    <div style="height: 10px;"></div>
    <div style="height: 40px; text-align: center; font-size: 24px;">中华人民共和国海关加工贸易保税货物/出口加工区货物深加工结转申请表</div>
    <div style="height: 25px">
-     <div style="width: 30%;display: inline-block">申请表编号：<span class="content"><%= @application.app_no %></span></div>
-     <div style="width: 50%;display: inline-block">电子口岸统一编号：<span class="content"><%= @application.seq_no %></span></div>
+     <div style="width: 20%;display: inline-block">申请表编号：<span class="content"><%= @application.app_no %></span></div>
+     <div style="width: 20%;display: inline-block">合同有效期：<span class="content"><%= @application.contract.export_deadline rescue '' %></span></div>
+     <div style="width: 35%;display: inline-block">电子口岸统一编号：<span class="content"><%= @application.seq_no %></span></div>
      <div style="width: 18%;display: inline-block">打印日期:<%= Time.now.strftime('%Y-%m-%d') %></div>
    </div>
    <div class="table" id='application-head-table'>
      <div class="tr">
-       <div class="td" style="width: 477px;text-align: center">转出地申报</div>
-       <div class="td last-td" style="width: 477px;text-align: center">转入地申报</div>
+       <div class="td" style="width: 487px;text-align: center">转出地申报</div>
+       <div class="td last-td" style="width: 487px;text-align: center">转入地申报</div>
      </div>
      <div class="tr">
        <div class="td first">转出企业</div>
-       <div class="td second"><span class="content"><%= @application.enterprise.name %></span></div>
+       <div class="td second"><span class="content"><%= @application.enterprise.code + @application.enterprise.name rescue '' %></span></div>
        <div class="td" style="width:56px">主管海关</div>
        <div class="td" style="width:57px"><span class="content"><%= dict_name(Dict::Custom, @application.mast_cust) %></span></div>
        <div class="td" style="width:55px">转出地</div>
        <div class="td" style="width:79px"><span class="content"><%= dict_name(Dict::District, @application.dict_code) %></span></div>
        <div class="td first">转入企业</div>
-       <div class="td second"><span class="content"><%= @application.in_enterprise.name rescue '' %></span></div>
+       <div class="td second"><span class="content"><%= @application.in_enterprise.code + @application.in_enterprise.name rescue '' %></span></div>
        <div class="td" style="width:56px">主管海关</div>
        <div class="td" style="width:57px"><span class="content"><%= dict_name(Dict::Custom, @application.in_mast_cust) %></span></div>
        <div class="td" style="width:55px">目的地</div>
