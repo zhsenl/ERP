@@ -98,7 +98,7 @@
    <div style="height: 40px; text-align: center; font-size: 24px;">中华人民共和国海关加工贸易保税货物/出口加工区货物深加工结转申请表</div>
    <div style="height: 25px">
      <div style="width: 20%;display: inline-block">申请表编号：<span class="content"><%= @application.app_no %></span></div>
-     <div style="width: 20%;display: inline-block">合同有效期：<span class="content"><%= @application.contract.export_deadline rescue '' %></span></div>
+     <div style="width: 20%;display: inline-block">申请表有效期：<span class="content"><%= @application.contract.export_deadline rescue '' %></span></div>
      <div style="width: 35%;display: inline-block">电子口岸统一编号：<span class="content"><%= @application.seq_no %></span></div>
      <div style="width: 18%;display: inline-block">打印日期:<%= Time.now.strftime('%Y-%m-%d') %></div>
    </div>
