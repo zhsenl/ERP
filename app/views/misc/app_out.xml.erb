@@ -25,9 +25,9 @@
         <MAST_CUST><%= @application.mast_cust %></MAST_CUST>
         <EMS_NO><%= @application.ems_no %></EMS_NO>
         <TRADE_CODE><%= @application.trade_code %></TRADE_CODE>
-        <TRADE_NAME><%= @application.enterprise.name %></TRADE_NAME>
+        <TRADE_NAME><%= @application.enterprise.name rescue '' %></TRADE_NAME>
         <AGENT_CODE><%= @application.agent_code %></AGENT_CODE>
-        <AGENT_NAME><%= Enterprise.find_by_code(@application.agent_code).name %></AGENT_NAME>
+        <AGENT_NAME><%= Enterprise.find_by_code(@application.agent_code).name   rescue ''%></AGENT_NAME>
         <CORP><%= @application.corp %></CORP>
         <DECL><%= @application.decl %></DECL>
         <DIST_CODE><%= @application.dict_code %></DIST_CODE>
@@ -36,7 +36,7 @@
         <D_DATE><%= @application.d_date.strftime("%Y%m%d") rescue ''%></D_DATE>
         <NOTE><%= @application.in_note%></NOTE>
         <IN_TRADE_CODE><%= @application.in_trade_code %></IN_TRADE_CODE>
-        <IN_TRADE_NAME><%= @application.in_enterprise.name %></IN_TRADE_NAME>
+        <IN_TRADE_NAME><%= @application.in_enterprise.name   rescue ''%></IN_TRADE_NAME>
         <IN_DIST_CODE><%= @application.in_dict_code %></IN_DIST_CODE>
         <CONVEY_DAY><%= @application.convey_day %></CONVEY_DAY>
         <CONVEY_SPA><%= @application.convey_spa %></CONVEY_SPA>
