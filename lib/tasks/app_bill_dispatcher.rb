@@ -9,8 +9,8 @@ Settings = YAML.load_file(rails_root + '/config/settings.yml')
 #发送报文
 puts 'app_bill: start send'
 begin
-  ftp = Net::FTP.new()  
-  ftp.connect(Settings['ftp_info']['host_test'])
+  ftp = Net::FTP.new()
+  ftp.connect(Settings['ftp_info']['host'])
   ftp.login(Settings['ftp_info']['username'], Settings['ftp_info']['password'].to_s) 
   ftp.chdir('/FPT/UploadTemp')
   Dir.new(Settings['app_bill_dispatch_paths']['upload_temp']).each do |file_name|
@@ -44,7 +44,7 @@ puts 'app_bill: end send'
 puts 'app_bill: start receive'
 begin
   ftp = Net::FTP.new()  
-  ftp.connect(Settings['ftp_info']['host_test'])
+  ftp.connect(Settings['ftp_info']['host'])
   ftp.login(Settings['ftp_info']['username'], Settings['ftp_info']['password'].to_s)    
   ftp.nlst('/FPT/Download').each do |file|
     puts 'downloading:' + file
