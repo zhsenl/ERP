@@ -154,8 +154,9 @@
                 tr.append(td().html(ith_result.declaration_type == 'export' ? '出口' : '进口'));
                 tr.append(td().html(operate(review_type, review_type_operate,'review_type',ith_result.id)));
                 tr.append(td().html(ith_result.is_deleted ? operate('是','取消', 'is_deleted', ith_result.id):operate('否','删除', 'is_deleted', ith_result.id)));
-                tr.append(td().html(ith_result.is_paperless ? operate('是','取消', 'is_paperless', ith_result.id):operate('否',"强制为无纸", 'is_paperless', ith_result.id)));
-                tr.append(td().html(ith_result.is_paperless_deleted ? operate('是','取消','is_paperless_deleted', ith_result.id):operate('否',"强制为无纸删单", 'is_paperless_deleted', ith_result.id)));
+//                应陈柱勤要求现在只有“删除”了，其它的都没有
+//                tr.append(td().html(ith_result.is_paperless ? operate('是','取消', 'is_paperless', ith_result.id):operate('否',"强制为无纸", 'is_paperless', ith_result.id)));
+//                tr.append(td().html(ith_result.is_paperless_deleted ? operate('是','取消','is_paperless_deleted', ith_result.id):operate('否',"强制为无纸删单", 'is_paperless_deleted', ith_result.id)));
                 tbody.append(tr);
             }
             operate_listener();
@@ -196,29 +197,42 @@
         }
 
         function operate_listener(){
+          //应陈柱勤要求现在只有“删除”了，其它的都没有
             var classNames = ['is_deleted',"is_paperless",'is_paperless_deleted','review_type'];
             var text = ['删除',"强制为无纸","强制为无纸删单",'强制为已审'];
             var url = '/declarations/toggle.json'
             for(var i = 0; i < classNames.length; i++){
+                //  i = 0, 1, 2, 3 分别对应   '删除',"强制为无纸","强制为无纸删单",'强制为已审' 这几个操作
+                // is_yes 表示 现在的状态 是不是true
                 $('.' + classNames[i]).click(function(i){
                     return function(){
                         var that = $(this);
                         var prev = that.prev();
                         var is_yes;
+                        //已审类型和其他几个不一样
                         if(i == 3){
                             is_yes = !(prev.html() == 0);
                         }else{
                             is_yes = prev.html() =='是';
                         }
                         $.post(url,{is_yes:is_yes, declaration_type:'',id:that.attr('id'), type:classNames[i]},function(){
-                            if(i == 3){
-                                prev.html(is_yes ? 0:3);
-                                that.val(is_yes ? text[i] :'取消已审');
-                            }else{
+                          //已审类型和其他几个不一样
+                           if(i == 3){
+                               prev.html(is_yes ? 0:3);
+                               that.val(is_yes ? text[i] :'取消已审');
+                           }else{
                                 prev.html(is_yes ? '否':'是');
                                 that.val(is_yes ? text[i] :'取消');
-                            }
-                        })
+                           }
+                          //更改 是否删除 时还要把 已审类型 改为0
+                          if(i == 0 && !is_yes){
+                            $.post(url,{is_yes:!is_yes, declaration_type:'',id:that.attr('id'), type:classNames[3]},function(){
+                                var review_type_span = that.parent().parent().prev().children()[0] ;
+                                $(review_type_span).find("span").html('0');
+                                $(review_type_span).find("input").val('强制为已审');
+                            });
+                          }
+                        });
                     }
                 }(i));
             }
@@ -348,8 +362,8 @@
     <td>报关单类型</td>
     <td>已审类型</td>
     <td>是否删除</td>
-    <td>是否为无纸报关</td>
-    <td>是否为无纸删单</td>
+    <!--<td>是否为无纸报关</td>-->
+    <!--<td>是否为无纸删单</td>-->
   </tr>
   </thead>
   <tbody>

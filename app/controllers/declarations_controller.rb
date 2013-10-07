@@ -301,7 +301,8 @@ class DeclarationsController < ApplicationController
         statistic_pro_mat_con[:products].each_with_index { |product, i|
 
           #出口总数量
-          trade_mode = %w[9900 1300 0214 0255 0466 4400 0615 0715 1215 4600 0744 0110 0633 1200 1234 1215 6033 1233 9700 0400 0654]
+          #trade_mode = %w[9900 1300 0214 0255 0466 4400 0615 0715 1215 4600 0744 0110 0633 1200 1234 1215 6033 1233 9700 0400 0654]
+          trade_mode = %w[0214 0255 0615 0654 0715 4400 4600 0110 1200 1215 1233 1234 6033]
           statistic_pro_mat_con[:products][i][:export_sum] = export_declarations.joins(:declaration_cargos)
           .where('declaration_cargos.no_in_contract = ? AND trade_mode IN (?)', product.no ,trade_mode).sum('quantity')
           #深加工结转出口数量
