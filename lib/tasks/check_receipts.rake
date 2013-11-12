@@ -13,11 +13,11 @@ namespace :receipt do
       if file_name != '.' and file_name != '..'
         file = File.new(dir_path + '/' + file_name)
         doc = REXML::Document.new(file)
-        message_type = REXML::XPath.first(doc, "//MessageType" ).text
+        message_type = REXML::XPath.first(doc, "//MessageType" ).text  rescue ''
         if message_type == 'TcsFlow201Response'
-          message_id = REXML::XPath.first(doc, "//MessageId" ).text
-          request_message_id = REXML::XPath.first(doc, "//RequestMessageId" ).text
-          task_id = REXML::XPath.first(doc, "//TaskId" ).text
+          message_id = REXML::XPath.first(doc, "//MessageId" ).text  rescue ''
+          request_message_id = REXML::XPath.first(doc, "//RequestMessageId" ).text   rescue ''
+          task_id = REXML::XPath.first(doc, "//TaskId" ).text    rescue ''
           note = REXML::XPath.first(doc, "//ResponseList//ResultValue" ).text rescue nil
           note = note || (REXML::XPath.first(doc, "//TcsFlow201Response//ResultValue" ).text rescue '')
           dispatch_record_generate = DispatchRecord.where("message_id = ? AND channel = ?", request_message_id, '000').first
@@ -31,9 +31,9 @@ namespace :receipt do
           dispatch_record_new.save
           end
         elsif message_type == 'TcsFlow201'
-          message_id = REXML::XPath.first(doc, "//MessageId" ).text
-          task_id = REXML::XPath.first(doc, "//TaskId" ).text
-          channel = REXML::XPath.first(doc, '//Channel | //CHANNEL' ).text
+          message_id = REXML::XPath.first(doc, "//MessageId" ).text     rescue ''
+          task_id = REXML::XPath.first(doc, "//TaskId" ).text     rescue ''
+          channel = REXML::XPath.first(doc, '//Channel | //CHANNEL' ).text     rescue ''
           note = REXML::XPath.first(doc, "//Note | //NOTE" ).text.to_s rescue ''
           note += (REXML::XPath.first(doc, "//ResultInformation" ).text.to_s rescue '')
           dispatch_record_generate = DispatchRecord.where("task_id = ? AND channel = ?", task_id, '000').first
@@ -45,8 +45,8 @@ namespace :receipt do
               :note => note})
             dispatch_record_new.save
             if channel == '016' or channel == '025'
-              eport_no = REXML::XPath.first(doc, "//EportNo" ).text
-              entry_no = REXML::XPath.first(doc, "//EntryNo" ).text
+              eport_no = REXML::XPath.first(doc, "//EportNo" ).text  rescue ''
+              entry_no = REXML::XPath.first(doc, "//EntryNo" ).text  rescue ''
               declaration = Declaration.find(dispatch_record_generate.declaration_id)
               if declaration
               declaration.eport_no = eport_no
