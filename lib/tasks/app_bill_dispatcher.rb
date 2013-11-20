@@ -7,7 +7,7 @@ rails_root = File.expand_path('../../../', __FILE__)
 Settings = YAML.load_file(rails_root + '/config/settings.yml')
 
 #发送报文
-puts 'app_bill: start send'
+puts 'app_bill: start send' + Time.new.strftime(" %Y-%m-%d, %H:%M:%S")
 begin
   ftp = Net::FTP.new()  
   ftp.connect(Settings['ftp_info']['host_test'])
@@ -41,7 +41,7 @@ puts 'app_bill: end send'
 
 
 #接收报文
-puts 'app_bill: start receive'
+puts 'app_bill: start receive' + Time.new.strftime(" %Y-%m-%d, %H:%M:%S")
 begin
   ftp = Net::FTP.new()  
   ftp.connect(Settings['ftp_info']['host_test'])
