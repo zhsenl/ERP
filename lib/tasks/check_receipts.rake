@@ -8,6 +8,7 @@ namespace :receipt do
 
   desc "process the receipt"
   task :check_receipts => :environment do
+    puts "process the receipt"  + Time.new.strftime(" %Y-%m-%d, %H:%M:%S")
     dir_path = Settings['dispatch_paths']['download_temp']
     Dir.new(dir_path).each do |file_name|
       if file_name != '.' and file_name != '..'
@@ -73,6 +74,7 @@ namespace :receipt do
 
   desc "process the application and bill receipt"
   task :app_bill_check_receipts => :environment do
+    puts "process the application and bill receipt"  + Time.new.strftime(" %Y-%m-%d, %H:%M:%S")
     dir_path = Settings['app_bill_dispatch_paths']['download_temp']
     Dir.new(dir_path).each do |file_name|
       if file_name != '.' and file_name != '..'
