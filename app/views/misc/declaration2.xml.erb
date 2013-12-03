@@ -69,7 +69,7 @@
             <%= raw tcs("TradeCountry", (@declaration.trade_country rescue '')) %>
             <%= raw tcs("DestinationCode", (@declaration.destination rescue '')) %>
             <%= raw tcs("ContractNo", (@declaration.contract_no rescue '')) %>
-            <%= raw tcs("EnrolNo", (@declaration.contract.manual rescue '')) %>
+            <EnrolNo xsi:nil="true" />
             <ApprovalNo xsi:nil="true" />
             <LicenseNo xsi:nil="true" />
             <%= raw tcs("MeansOfTransportName", (@declaration.transport_tool rescue '')) %>
@@ -104,8 +104,8 @@
               <% end %>
               <%= raw tcs('Quantity', (cargo.quantity rescue '')) %>
               <%= raw tcs('QuantityUnit', (cargo.unit rescue '')) %>
-              <%= raw tcs('UnitPrice', (sprintf("%0.4f", cargo.unit_price) rescue '')) %>
-              <%= raw tcs('TotalPrice', (sprintf("%0.4f", cargo.total_price) rescue '')) %>
+              <%= raw tcs('UnitPrice', (sprintf("%0.2f", cargo.unit_price) rescue '')) %>
+              <%= raw tcs('TotalPrice', (sprintf("%0.2f", cargo.total_price) rescue '')) %>
               <%= raw tcs('Currency', (cargo.currency rescue '')) %>
               <%= raw tcs('FirstQuantity', (cargo.quantity1 rescue '')) %>
               <%= raw tcs('FirstUnit', (cargo.unit1 rescue '')) %>
@@ -123,10 +123,12 @@
           </DecList>
           <% if @declaration.attachments.size > 0 %>
           <DecAttachedList>
+ 	          <% @declaration.attachments.each do |key, val| %>
             <DecAttachedInformation>
               <%= raw tcs("DocumentAttachedCode", (key rescue '')) %>
               <%= raw tcs("DocumentAttachedNo", (val rescue '')) %>
             </DecAttachedInformation>
+            <% end %>
           </DecAttachedList>
           <% end %>
 
@@ -138,7 +140,7 @@
           	<%= raw tcs("OperName", (@declaration.declarant rescue '')) %>
           	<%= raw tcs("OrganizationCode", (enterprise.organization_code rescue '')) %>
             <SignInfo>A001</SignInfo>
-            <%= raw tcs("SignDate", (now.strftime('%Y-%m-%dT%H:%M:%S') rescue '')) %>
+            <%= raw tcs("SignDate", (now.strftime('%Y%m%d%H%M%S00') rescue '')) %>
             <%= raw tcs("CertificateNo", (custom_option.certificate_no rescue '')) %>
           </SignInformation>
         </DecDocument>
