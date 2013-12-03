@@ -34,6 +34,7 @@
         </TcsLinkMan>
       </TcsLink>
       <TcsFlow>
+        <MessageId><%= custom_option.platform_id %><%= @serial_no %></MessageId>
         <%= raw tcs("BpNo", (custom_option.process_no rescue '')) %>
         <ActionList>
           <ActionId>a01</ActionId>
