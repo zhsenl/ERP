@@ -77,7 +77,7 @@
             <% end %>
             <%= raw tcs("ApprovalNo", (@declaration.certification rescue '')) %>
             <LicenseNo xsi:nil="true" />
-            <%= raw tcs("MeansOfTransportName", (@declaration.transport_tool rescue '')) %>
+            <MeansOfTransportName xsi:nil="true" />
             <%= raw tcs("BillOfLadingNo", (@declaration.bill_no rescue '')) %>
             <%= raw tcs("PackingType", (@declaration.wrap_type rescue '')) %>
             <%= raw tcs("MeansOfTransportMode", (@declaration.transport_mode rescue '')) %>
