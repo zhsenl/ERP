@@ -94,7 +94,7 @@
             <% @declaration.declaration_cargos.each do |cargo| %>
             <DecListInformation>
               <%= raw tcs("No", (cargo.no rescue '')) %>
-              <%= raw tcs('HsCode', (cargo.no rescue '')) %>
+              <%= raw tcs('HsCode', (cargo.code rescue '')) %>
               <MaterialNo xsi:nil="true" />
               <%= raw tcs('GoodsName', (cargo.name rescue '')) %>
               <%= raw tcs('Model', (cargo.specification rescue '')) %>
