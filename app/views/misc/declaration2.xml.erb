@@ -110,6 +110,13 @@
               <%= raw tcs('Currency', (cargo.currency rescue '')) %>
               <%= raw tcs('FirstQuantity', (cargo.quantity1 rescue '')) %>
               <%= raw tcs('FirstUnit', (cargo.unit1 rescue '')) %>
+              <% if cargo.quantity2 != 0 %>
+                <%= raw tcs("SecondQuantity", (cargo.quantity2 rescue '')) %>
+                <%= raw tcs("SecondUnit", (cargo.unit2 rescue '')) %>
+                <% else %>
+                <SecondQuantity xsi:nil="true" />
+                <SecondUnit xsi:nil="true" />
+                <% end %>
               <%= raw tcs('OriginCode', (cargo.trade_country rescue '')) %>
               <% if @declaration.declaration_type == 'export' %>
               <Use xsi:nil="true" />
@@ -122,6 +129,19 @@
             </DecListInformation>
             <% end %>
           </DecList>
+
+          <% if @declaration.declaration_containers.size > 0 %>
+          <DecContainerList>
+           	<% @declaration.declaration_containers.each do |container| %>
+            <DecContainerInformation>
+              <%= raw tcs("ContainerNo", (container.code rescue '')) %>
+              <%= raw tcs("ContainerSize", (container.container rescue '')) %>
+              <%= raw tcs("ContainerWeight", (Dict::MetalCabinet.find_by_code(container.metal_cabinet).weight rescue '')) %>
+            </DecContainerInformation>
+            <% end %>
+          </DecContainerList>
+          <% end %>
+
           <% if @declaration.attachments.size > 0 %>
           <DecAttachedList>
  	          <% @declaration.attachments.each do |key, val| %>
@@ -133,7 +153,36 @@
           </DecAttachedList>
           <% end %>
 
-          <ContainerGoodsRelation xsi:nil="true" />
+          <% if @declaration.transit_type == '003' %>
+          <% transit_information = @declaration.declaration_transit_information %>
+          <TransitHead>
+          	<%= raw tcs("WaybillNo", ('000' + @declaration.transport_tool[1..-1] rescue '')) %>
+          	<%= raw tcs("MeansOfTransportMode", (transit_information.local_transport_mode rescue '')) %>
+          	<%= raw tcs("MeansOfTransportCode", (transit_information.local_transport_tool_code rescue '')) %>
+          	<%= raw tcs("MeansOfTransportName", (transit_information.local_transport_tool_name rescue '')) %>
+          	<%= raw tcs("MeansOfTransportId", (transit_information.local_transport_tool_voyage_no rescue '')) %>
+          	<% truck = Dict::Truck.find_by_code(@declaration.truck) %>
+          	<%= raw tcs("CorporationName", (truck.corporation_name rescue '')) %>
+          	<%= raw tcs("OrganizationCode", (truck.corporation_code rescue '')) %>
+          </TransitHead>
+          <TransitList>
+          	<%= raw tcs("BillOfLadingNo", (@declaration.bill_no rescue '')) %>
+          	<%= raw tcs("MeansOfTransportCode", (transit_information.transport_tool_code rescue '')) %>
+          	<%= raw tcs("MeansOfTransportName", (transit_information.transport_tool_name rescue '')) %>
+          	<%= raw tcs("MeansOfTransportId", (transit_information.transport_tool_voyage_no rescue '')) %>
+          </TransitList>
+          <TransitContainerList>
+            <% @declaration.declaration_containers.each_with_index do |container, index| %>
+	          <TransitContainerInformation>
+	            <%= raw tcs("ContainerNo", (container.code rescue '')) %>
+	            <%= raw tcs("ContainerNum", index + 1) %>
+	            <%= raw tcs("ContainerSize", (container.container rescue '')) %>
+	            <%= raw tcs("MeansOfTransportName", (transit_information.local_transport_tool_name rescue '')) %>
+	            <%= raw tcs("MeansOfTransportWeight", (Dict::Bracket.find_by_code(container.bracket).weight rescue '')) %>
+            </TransitContainerInformation>
+            <% end %>
+          </TransitContainerList>
+          <% end %>
 
           <SignInformation>
             <OperType>G</OperType>
@@ -144,6 +193,7 @@
             <%= raw tcs("SignDate", (now.strftime('%Y%m%d%H%M%S00') rescue '')) %>
             <%= raw tcs("CertificateNo", (custom_option.certificate_no rescue '')) %>
           </SignInformation>
+
         </DecDocument>
       </TcsData>
     </TcsFlow201>
