@@ -64,8 +64,8 @@
             <%= raw tcs("IEPort", (@declaration.custom rescue '')); %>
             <DeclTrnRel>1</DeclTrnRel>
             <%= raw tcs("DistinatePort", (@declaration.port rescue '')) %>
-            <EdiId>1</EdiId>
-            <EntryType>003</EntryType>
+            <EdiId>5</EdiId>
+            <EntryType>W</EntryType>
             <Type xsi:nil="true" />
             <%= raw tcs("TradeCountry", (@declaration.trade_country rescue '')) %>
             <TaxCorporationType>002</TaxCorporationType>
@@ -110,7 +110,7 @@
             <% else %>
             <%= raw tcs("ImportExportDate", (@declaration.import_export_date.strftime('%Y%m%d') rescue '')) %>
             <% end %>
-            <%= raw tcs("PDate", (now.strftime('%Y-%m-%d') rescue '')) %>
+            <%= raw tcs("PDate", (now.strftime('%Y%m%d') rescue '')) %>
             <%= raw tcs("Note", ('[装卸口岸]' + dict_name(Dict::LoadPort, @declaration.load_port) + ' ' + @declaration.memo rescue '')) %>
             <DeclarantId xsi:nil="true" />
             <%= raw tcs("InputIcCode", (@declaration.ic_card_no rescue '')) %>
@@ -213,7 +213,7 @@
           <% end %>
 
           <SignInformation>
-            <OperType>G</OperType>
+            <OperType>D</OperType>
             <%= raw tcs("IcCardNo", (custom_option.ic_card_no rescue '')) %>
           	<%= raw tcs("OperName", (@declaration.declarant rescue '')) %>
           	<%= raw tcs("OrganizationCode", (enterprise.organization_code rescue '')) %>
