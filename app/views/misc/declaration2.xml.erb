@@ -40,7 +40,7 @@
           <ActionId>a01</ActionId>
         </ActionList>
         <%= raw tcs("TaskId", (custom_option.platform_id + now.strftime('%Y%m%d') + @serial_no rescue '')) %>
-        <TaskNote/>
+        <TaskNote>黄埔-001</TaskNote>
         <CorpTaskId xsi:nil="true" />
         <TaskControl xsi:nil="true" />
       </TcsFlow>
@@ -61,14 +61,16 @@
             <CopCode>744483308</CopCode>
             <CopName>东莞市新泽报关咨询服务有限公司</CopName>
             <%= raw tcs("CustomMaster", (enterprise.enterprise_custom_option.custom_code rescue '')); %>
-            <%= raw tcs("IEPort", (enterprise.enterprise_custom_option.custom_code rescue '')); %>
+            <%= raw tcs("IEPort", (@declaration.custom rescue '')); %>
             <DeclTrnRel>1</DeclTrnRel>
             <%= raw tcs("DistinatePort", (@declaration.port rescue '')) %>
             <EdiId>1</EdiId>
-            <EntryType>0</EntryType>
+            <EntryType>003</EntryType>
             <Type xsi:nil="true" />
             <%= raw tcs("TradeCountry", (@declaration.trade_country rescue '')) %>
+            <TaxCorporationType>002</TaxCorporationType>
             <%= raw tcs("DestinationCode", (@declaration.destination rescue '')) %>
+            <%= raw tcs("CYNo", (@declaration.load_port rescue '')) %>
             <%= raw tcs("ContractNo", (@declaration.contract_no rescue '')) %>
             <% if @declaration.trade_mode == '0110' %>
             <EnrolNo xsi:nil="true" />
@@ -77,19 +79,39 @@
             <% end %>
             <%= raw tcs("ApprovalNo", (@declaration.certification rescue '')) %>
             <LicenseNo xsi:nil="true" />
-            <MeansOfTransportName xsi:nil="true" />
+            <%= raw tcs("MeansOfTransportName", (@declaration.transport_tool rescue '')) %>
             <%= raw tcs("BillOfLadingNo", (@declaration.bill_no rescue '')) %>
             <%= raw tcs("PackingType", (@declaration.wrap_type rescue '')) %>
             <%= raw tcs("MeansOfTransportMode", (@declaration.transport_mode rescue '')) %>
             <%= raw tcs("TransactionMode", (@declaration.deal_mode rescue '')) %>
             <%= raw tcs("TradeMode", (@declaration.trade_mode rescue '')) %>
-            <%= raw tcs("ImportExportFlag", (@declaration.declaration_type == 'export' ? 'E':'I' rescue '')) %>
+            <%= raw tcs("CutMode", (@declaration.tax_kind rescue '')) %>
+            <% if @declaration.declaration_type == 'export' %>
+            <ImportExportFlag>E</ImportExportFlag>
+            <% else %>
+            <ImportExportFlag>I</ImportExportFlag>
+            <% end %>
             <%= raw tcs("Packages", (@declaration.package_amount rescue '')) %>
             <%= raw tcs("NetWeight", (@declaration.net_weight rescue '')) %>
             <%= raw tcs("GrossWeight", (@declaration.gross_weight rescue '')) %>
-            <%= raw tcs("ImportExportDate", (@declaration.import_export_date.strftime('%Y%m%d') if @declaration.import_export_date)) %>
-            <%= raw tcs("PDate", (@declaration.declare_date.strftime('%Y%m%d') if @declaration.declare_date)) %>
-            <Note  xsi:nil="true" />
+            <FreightMark xsi:nil="true" />
+            <FreightRate xsi:nil="true" />
+            <FreightCurrency xsi:nil="true" />
+            <InsuranceMark xsi:nil="true" />
+            <InsuranceRate xsi:nil="true" />
+            <InsuranceCurrency xsi:nil="true" />
+            <ExtrasMark xsi:nil="true" />
+            <ExtrasRate xsi:nil="true" />
+            <ExtrasCurrency xsi:nil="true" />
+            <%= raw tcs("PayMode", (@declaration.pay_way rescue '')) %>
+            <SaleDomesticRatio xsi:nil="true" />
+            <% if @declaration.declaration_type == 'export' %>
+            <ImportExportDate xsi:nil="true" />
+            <% else %>
+            <%= raw tcs("ImportExportDate", (@declaration.import_export_date.strftime('%Y%m%d') rescue '')) %>
+            <% end %>
+            <%= raw tcs("PDate", (now.strftime('%Y-%m-%d') rescue '')) %>
+            <%= raw tcs("Note", ('[装卸口岸]' + dict_name(Dict::LoadPort, @declaration.load_port) + ' ' + @declaration.memo rescue '')) %>
             <DeclarantId xsi:nil="true" />
             <%= raw tcs("InputIcCode", (@declaration.ic_card_no rescue '')) %>
             <%= raw tcs("InputName", (@declaration.declarant rescue '')) %>
@@ -115,20 +137,22 @@
               <%= raw tcs('FirstQuantity', (cargo.quantity1 rescue '')) %>
               <%= raw tcs('FirstUnit', (cargo.unit1 rescue '')) %>
               <% if cargo.quantity2 != 0 %>
-                <%= raw tcs("SecondQuantity", (cargo.quantity2 rescue '')) %>
-                <%= raw tcs("SecondUnit", (cargo.unit2 rescue '')) %>
-                <% else %>
-                <SecondQuantity xsi:nil="true" />
-                <SecondUnit xsi:nil="true" />
-                <% end %>
+              <%= raw tcs("SecondQuantity", (cargo.quantity2 rescue '')) %>
+              <%= raw tcs("SecondUnit", (cargo.unit2 rescue '')) %>
+              <% else %>
+              <SecondQuantity xsi:nil="true" />
+              <SecondUnit xsi:nil="true" />
+              <% end %>
               <%= raw tcs('OriginCode', (cargo.trade_country rescue '')) %>
               <% if @declaration.declaration_type == 'export' %>
               <Use xsi:nil="true" />
               <% else %>
               <%= raw tcs("Use", (@declaration.usage rescue '')) %>
               <% end %>
-              <%= raw tcs("DutyMode", (@declaration.tax_mode rescue '')) %>
-              <GoodsVersion xsi:nil="true" />
+              <%= raw tcs("DutyMode", (cargo.tax_mode rescue '')) %>
+              <ProcessingCharges xsi:nil="true" />
+              <%= raw tcs("GoodsVersion", (cargo.goods_version rescue '')) %>
+              <ClassificationMark xsi:nil="true" />
               <Note xsi:nil="true" />
             </DecListInformation>
             <% end %>
