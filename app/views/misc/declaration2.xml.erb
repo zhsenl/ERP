@@ -113,7 +113,7 @@
             <%= raw tcs("PDate", (now.strftime('%Y%m%d') rescue '')) %>
             <%= raw tcs("Note", ('[装卸口岸]' + dict_name(Dict::LoadPort, @declaration.load_port) + ' ' + @declaration.memo rescue '')) %>
             <DeclarantId xsi:nil="true" />
-            <%= raw tcs("InputIcCode", (@declaration.ic_card_no rescue '')) %>
+            <%= raw tcs("InputIcCode", (custom_option.ic_card_no rescue '')) %>
             <%= raw tcs("InputName", (@declaration.declarant rescue '')) %>
           </DecHead>
           <DecList>
