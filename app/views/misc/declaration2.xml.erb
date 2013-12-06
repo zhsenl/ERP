@@ -29,8 +29,8 @@
           <%= raw tcs("Address", (enterprise.address rescue '')) %>
           <ZipCode>1</ZipCode>
           <Email xsi:nil="true" />
-          <ImCode xsi:nil="true" />
-          <ImType xsi:nil="true" />
+          <ImCode>1</ImCode>
+          <ImType>1</ImType>
         </TcsLinkMan>
       </TcsLink>
       <TcsFlow>
@@ -58,24 +58,28 @@
             <%= raw tcs("OwnerName", (@declaration.enterprise.name rescue '')) %>
             <%= raw tcs("TradeCode", (@declaration.operate_enterprise.code rescue '')) %>
             <%= raw tcs("TradeName", (@declaration.operate_enterprise.name rescue '')) %>
-            <CopCode xsi:nil="true" />
-            <CopName xsi:nil="true" />
+            <CopCode>744483308</CopCode>
+            <CopName>东莞市新泽报关咨询服务有限公司</CopName>
             <%= raw tcs("CustomMaster", (enterprise.enterprise_custom_option.custom_code rescue '')); %>
             <IEPort xsi:nil="true" />
             <DeclTrnRel>0</DeclTrnRel>
             <%= raw tcs("DistinatePort", (@declaration.port rescue '')) %>
             <EdiId xsi:nil="true" />
-            <EntryType xsi:nil="true" />
+            <EntryType>0</EntryType>
             <Type xsi:nil="true" />
             <%= raw tcs("TradeCountry", (@declaration.trade_country rescue '')) %>
             <%= raw tcs("DestinationCode", (@declaration.destination rescue '')) %>
             <%= raw tcs("ContractNo", (@declaration.contract_no rescue '')) %>
+            <% if @declaration.trade_mode == '0110' %>
             <EnrolNo xsi:nil="true" />
-            <ApprovalNo xsi:nil="true" />
+            <% else %>
+            <%= raw tcs("EnrolNo", (@declaration.contract.manual rescue '')) %>
+            <% end %>
+            <%= raw tcs("ApprovalNo", (@declaration.certification rescue '')) %>
             <LicenseNo xsi:nil="true" />
             <%= raw tcs("MeansOfTransportName", (@declaration.transport_tool rescue '')) %>
-            <BillOfLadingNo xsi:nil="true" />
-            <PackingType  xsi:nil="true" />
+            <%= raw tcs("BillOfLadingNo", (@declaration.bill_no rescue '')) %>
+            <%= raw tcs("PackingType", (@declaration.wrap_type rescue '')) %>
             <%= raw tcs("MeansOfTransportMode", (@declaration.transport_mode rescue '')) %>
             <%= raw tcs("TransactionMode", (@declaration.deal_mode rescue '')) %>
             <%= raw tcs("TradeMode", (@declaration.trade_mode rescue '')) %>
@@ -185,7 +189,7 @@
           <% end %>
 
           <SignInformation>
-            <OperType>C</OperType>
+            <OperType>G</OperType>
             <%= raw tcs("IcCardNo", (custom_option.ic_card_no rescue '')) %>
           	<%= raw tcs("OperName", (@declaration.declarant rescue '')) %>
           	<%= raw tcs("OrganizationCode", (enterprise.organization_code rescue '')) %>
