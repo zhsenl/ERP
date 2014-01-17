@@ -100,7 +100,7 @@
                 <span class="content"><%= "%g" % cargo.quantity + dict_name(Dict::Unit, cargo.unit) rescue "" %></span>
               </div>
               <div  class="td" style="width:110px;">
-                <span class="content"><%= sprintf "%0.4f", cargo.unit_price rescue "" %></span>
+                <span class="content"><%= sprintf "%0.4f", cargo.unit_price.round(4) rescue "" %></span>
               </div>
               <div class="td" style="width:128px;">
                 <span class="content"><%= sprintf "%0.2f", cargo.total_price.round(2) rescue "" %></span>
