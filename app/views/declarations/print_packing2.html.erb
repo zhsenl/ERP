@@ -123,10 +123,10 @@ PACKING DETAILS</h1>
 <div class="td editable" style="width: 261px; "><span class="content"><%= packing.name %></span></div>
 <div class="td editable" style="width: 79px;"><span class="content"><%= packing.quantity %><%= dict_name Dict::Unit, packing.unit %></span></div>
 <div class="td editable" style="width: 79px;"><span class="content"><%= packing.package_amount %></span></div>
-<div class="td editable" style="width: 79px;"><span class="content"><%= packing.net_weight %></span></div>
-<div class="td editable" style="width: 79px;"><span class="content"><%= packing.gross_weight %></span></div>
-<div class="td editable" style="width: 60px;"><span class="content"><%= packing.net_weight_per_package %></span></div>
-<div class="td editable last-td" style="width: 59px;"><span class="content"><%= packing.gross_weight_per_package %></span></div>
+<div class="td editable" style="width: 79px;"><span class="content"><%= sprintf "%0.4f",packing.net_weight %></span></div>
+<div class="td editable" style="width: 79px;"><span class="content"><%= sprintf "%0.4f",packing.gross_weight %></span></div>
+<div class="td editable" style="width: 60px;"><span class="content"><%= sprintf "%0.4f",packing.net_weight_per_package %></span></div>
+<div class="td editable last-td" style="width: 59px;"><span class="content"><%= sprintf "%0.4f",packing.gross_weight_per_package %></span></div>
 </div>
 <% end %>
 <% if list_size < 20 %>

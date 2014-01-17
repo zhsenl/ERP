@@ -154,7 +154,7 @@
           <div class="td" style="width: 60px;"></div>
           <div class="td" style="width: 60px;"></div>
           <div class="td" style="width: 90px;"><span class="content">总值(<%= dict_attr Dict::Currency, @declaration_cargos[0].currency, "short_name" %>)</span></div>
-          <div class="td last-td" style="width: 125px;"><span class="content"><%= sprintf "%0.2f", total_price %></span></div>
+          <div class="td last-td" style="width: 125px;"><span class="content"><%= sprintf "%0.2f", total_price.round(2) %></span></div>
         </div>
 
       </div>

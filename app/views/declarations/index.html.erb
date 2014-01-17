@@ -21,6 +21,7 @@
 				<thead>
 					<tr>
 						<th>预录入号</th>
+            <th>报关单号</th>
 						<th>申报日期</th>
 						<th>完成申报</th>
 						<th>操作</th>
@@ -37,6 +38,7 @@
 					<% @declarations.each do |declaration| %>
 					<tr>
 						<td><%= link_to declaration.pre_entry_no, declaration %></td>
+            <td><%= declaration.entry_no %></td>
 						<td><%= declaration.declare_date %></td>
 						<td><%= declaration.is_finish ? '是' : '否' %></td>
 						<td> 

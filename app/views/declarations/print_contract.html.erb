@@ -103,7 +103,7 @@
                 <span class="content"><%= sprintf "%0.4f", cargo.unit_price rescue "" %></span>
               </div>
               <div class="td" style="width:128px;">
-                <span class="content"><%= sprintf "%0.2f", cargo.total_price rescue "" %></span>
+                <span class="content"><%= sprintf "%0.2f", cargo.total_price.round(2) rescue "" %></span>
               </div>
             </div>
         <% end %>

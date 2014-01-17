@@ -28,14 +28,15 @@
   <div class="tab-content default-tab">
     <fieldset>
       <legend>基本信息：</legend>
+
       <p>
-        <b>预录入号:</b>
-        <%= @declaration.pre_entry_no %>
+        <b>报关类型:</b>
+        <span class="autoload" data-url=<%= dict_transit_types_path %>><%= @declaration.transit_type %></span>
       </p>
 
       <p>
-        <b>报关单号:</b>
-        <%= @declaration.entry_no %>
+        <b>预录入号:</b>
+        <%= @declaration.pre_entry_no %>
       </p>
 
       <p>
@@ -44,13 +45,8 @@
       </p>
 
       <p>
-        <b>报关员:</b>
-        <%= @declaration.declarant %>
-      </p>
-
-      <p>
-        <b>申报企业:</b>
-        <span class="autoload" data-url=<%= enterprises_path %>><%= @declaration.declare_enterprise_code %></span>
+        <b>报关单号:</b>
+        <%= @declaration.entry_no %>
       </p>
 
       <p>
@@ -75,10 +71,7 @@
         <% end %>
       </p>
 
-      <p>
-        <b>报关类型:</b>
-        <span class="autoload" data-url=<%= dict_transit_types_path %>><%= @declaration.transit_type %></span>
-      </p>
+
       <% if @declaration_type == "import" %>
           <p>
             <b>进口日期</b>
@@ -106,13 +99,13 @@
       </p>
 
       <p>
-        <b>汽车编号:</b>
-        <span class="autoload" data-url=<%= dict_trucks_path %>><%= @declaration.truck %></span>
+        <b>提运单号:</b>
+        <%= @declaration.bill_no %>
       </p>
 
       <p>
-        <b>提运单号:</b>
-        <%= @declaration.bill_no %>
+        <b>汽车编号:</b>
+        <span class="autoload" data-url=<%= dict_trucks_path %>><%= @declaration.truck %></span>
       </p>
 
       <p>
@@ -201,18 +194,39 @@
             <%= value %>
           </p>
       <% end %>
+
+      <p>
+        <b>报关员:</b>
+        <%= @declaration.declarant %>
+      </p>
+
+      <p>
+        <b>申报企业:</b>
+        <span class="autoload" data-url=<%= enterprises_path %>><%= @declaration.declare_enterprise_code %></span>
+      </p>
+
     </fieldset>
     <% if @declaration.transit_type == "003" %>
         <fieldset>
           <legend>转关信息：</legend>
           <p>
-            <b>承运单位组织机构代码:</b>
-            <%= @declaration.declaration_transit_information.corporation_code %>
+            <b>境内运输方式:</b>
+            <span class="autoload" data-url=<%= dict_transport_modes_path %>><%= @declaration.declaration_transit_information.local_transport_mode %></span>
           </p>
 
           <p>
-            <b>承运单位名称:</b>
-            <%= @declaration.declaration_transit_information.corporation_name %>
+            <b>境内运输工具编号:</b>
+            <span class="autoload" data-url=<%= dict_trucks_path %>><%= @declaration.declaration_transit_information.local_transport_tool_code %></span>
+          </p>
+
+          <p>
+            <b>境内运输工具名称:</b>
+            <%= @declaration.declaration_transit_information.local_transport_tool_name %>
+          </p>
+
+          <p>
+            <b>境内运输工具航次:</b>
+            <%= @declaration.declaration_transit_information.local_transport_tool_voyage_no %>
           </p>
 
           <p>
@@ -236,24 +250,15 @@
           </p>
 
           <p>
-            <b>境内运输方式:</b>
-            <span class="autoload" data-url=<%= dict_transport_modes_path %>><%= @declaration.declaration_transit_information.local_transport_mode %></span>
+            <b>承运单位组织机构代码:</b>
+            <%= @declaration.declaration_transit_information.corporation_code %>
           </p>
 
           <p>
-            <b>境内运输工具编号:</b>
-            <span class="autoload" data-url=<%= dict_trucks_path %>><%= @declaration.declaration_transit_information.local_transport_tool_code %></span>
+            <b>承运单位名称:</b>
+            <%= @declaration.declaration_transit_information.corporation_name %>
           </p>
 
-          <p>
-            <b>境内运输工具名称:</b>
-            <%= @declaration.declaration_transit_information.local_transport_tool_name %>
-          </p>
-
-          <p>
-            <b>境内运输工具航次:</b>
-            <%= @declaration.declaration_transit_information.local_transport_tool_voyage_no %>
-          </p>
         </fieldset>
     <% end %>
   </div>
@@ -270,15 +275,23 @@
       </p>
 
       <p>
+        <%= link_to '报关委托书', print_attorney_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+      </p>
+
+      <p>
+        <%= link_to '发票', print_invoice_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+      </p>
+
+      <p>
+        <%= link_to '凤岗装箱单', print_packing3_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
+      </p>
+
+      <p>
         <%= link_to '合同1', print_contract_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
       </p>
 
       <p>
         <%= link_to '合同2', print_contract2_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
-      </p>
-
-      <p>
-        <%= link_to '发票', print_invoice_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
       </p>
 
       <p>
@@ -289,17 +302,10 @@
         <%= link_to '装箱明细单', print_packing2_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
       </p>
 
-      <p>
-        <%= link_to '凤岗装箱单', print_packing3_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
-      </p>
-
-      <p>
-        <%= link_to '报关委托书', print_attorney_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
-      </p>
-
       <!--<p>-->
         <!--<%= link_to '出入仓单', print_attorney_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>-->
       <!--</p>-->
+
       <% if @declaration_type == "export" %>
           <p>
             <%= link_to '国税发票', print_tax_invoice_declaration_path(@declaration), :target => "_blank", :class => "print_button" %>
