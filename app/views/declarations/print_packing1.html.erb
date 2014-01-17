@@ -121,8 +121,8 @@ PACKING LIST</h1>
 <div class="td" style="width: 381px; "><span class="content"><%= packing.name %></span></div>
 <div class="td" style="width: 79px;"><span class="content"><%= packing.quantity %><%= dict_name Dict::Unit, packing.unit %></span></div>
 <div class="td" style="width: 79px;"><span class="content"><%= packing.package_amount %></span></div>
-<div class="td" style="width: 79px;"><span class="content"><%= sprintf "%0.4f", packing.net_weight.round(4) %></span></div>
-<div class="td last-td" style="width: 79px;"><span class="content"><%= sprintf "%0.4f", packing.gross_weight.round(4) %></span></div>
+<div class="td" style="width: 79px;font-size: 13px"><span class="content"><%= sprintf "%0.4f", packing.net_weight.round(4) %></span></div>
+<div class="td last-td" style="width: 79px;font-size: 13px"><span class="content"><%= sprintf "%0.4f", packing.gross_weight.round(4) %></span></div>
 </div>
 <% end %>
 <% if list_size < 20 %>
@@ -154,8 +154,8 @@ PACKING LIST</h1>
 <div class="td" style="width: 381px;"></div>
 <div class="td" style="width: 79px;"></div>
 <div class="td editable" style="width: 79px;"><span class="content"><%= total_package_amount %></span></div>
-<div class="td editable" style="width: 79px;"><span class="content"><%= sprintf "%0.4f", total_net_weight.round(4) %></span></div>
-<div class="td editable last-td" style="width: 79px;"><span class="content"><%= sprintf "%0.4f", total_gross_weight.round(4) %></span></div>
+<div class="td editable" style="width: 79px;font-size: 13px"><span class="content"><%= sprintf "%0.4f", total_net_weight.round(4) %></span></div>
+<div class="td editable last-td" style="width: 79px;font-size: 13px"><span class="content"><%= sprintf "%0.4f", total_gross_weight.round(4) %></span></div>
 </div>
 
 </div>
