@@ -49,7 +49,7 @@
 <% contract = @declaration.contract %>
 
 <div class="frame">
-  <div class="tr not_print" style="height: 45px; text-align: center; font-size: 35px;">
+  <div class="tr not_print" style="height: 45px; text-align: center; font-size: 30px;">
     合同
   </div>
   <div class="tr">
@@ -68,7 +68,7 @@
       <span class="content"><%= (@declaration.declare_date - 1.month).strftime("%Y年%m月%d日") rescue "" %></span>
     </div>
   </div>
-  <div class="tr" style="height: 10px;"></div>
+  <div class="tr" style="height: 2px;"></div>
   <div class="tr not_print">1.兹买卖双方同意由买方购进下列货物，并按下列条款签定本合同：</div>
 
   <% size = @declaration_cargos.size %>
