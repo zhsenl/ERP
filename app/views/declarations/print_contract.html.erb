@@ -43,6 +43,10 @@
     @page {
         size: portrait;
     }
+
+    @media print {
+        .header, .hide { visibility: hidden }
+    }
 </style>
 
 <% contract = @declaration.contract %>
