@@ -200,8 +200,8 @@
         <div class="td" style="width:210px;"><div class="bg-text not_print">合同协议号</div> <span class="content"><%= @declaration.contract_no %></span></div>
         <div class="td" style="width:133px;"><div class="bg-text not_print">件数</div> <span class="content"><%= @declaration.package_amount %></span></div>
         <div class="td" style="width:121px;"><div class="bg-text not_print">包装种类</div> <span class="content"><%= dict_name Dict::WrapType, @declaration.wrap_type %></span></div>
-        <div class="td" style="width:145px;"><div class="bg-text not_print">毛重</div> <span class="content"><%= "%g" % @declaration.gross_weight %></span></div>
-        <div class="td last-td" style="width:128px;"><div class="bg-text not_print">净重</div> <span class="content"><%= "%g" % @declaration.net_weight %></span></div>
+        <div class="td" style="width:145px;"><div class="bg-text not_print">毛重</div> <span class="content"><%=  sprintf "%0.4f", @declaration.gross_weight.round(4) %></span></div>
+        <div class="td last-td" style="width:128px;"><div class="bg-text not_print">净重</div> <span class="content"><%= sprintf "%0.4f", @declaration.net_weight.round(4) %></span></div>
       </div>
       <div class="tr">
         <%

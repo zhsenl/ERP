@@ -96,7 +96,7 @@
           </li>
         </ul>
       </li>
-      <% if !current_user.is?("operator") %>
+      <% if current_user.is?("admin") %>
         <li>
           <a href="#" class="nav-top-item"> 报关单入库 </a>
           <ul>

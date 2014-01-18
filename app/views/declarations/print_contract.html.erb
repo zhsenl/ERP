@@ -48,7 +48,6 @@
 <% contract = @declaration.contract %>
 
 <div class="frame">
-  <div class="tr" style="height: 50px;"></div>
   <div class="tr not_print" style="height: 80px; text-align: center; font-size: 35px;"><%= @declaration_type == "export" ? "订销" : "购货" %>
     合同
   </div>
@@ -166,7 +165,7 @@
   <div class="tr not_print">13.其它:本合同受国际商会的约束。</div>
   <div class="tr not_print">14.本合同未定的事宜须经买卖双方协商。</div>
   <div class="tr not_print">15.本合同一式两份，买卖双方各持一份，具有同等法律效力。</div>
-  <div class="tr" style="height: 150px;"></div>
+  <div class="tr" style="height: 120px;"></div>
 
   <div class="tr">
     <div class="td" style="width:50%"><%= @declaration_type == "export" ? '买方' : '卖方' rescue "" %>:
