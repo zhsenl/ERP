@@ -48,7 +48,7 @@
 <% contract = @declaration.contract %>
 
 <div class="frame">
-  <div class="tr not_print" style="height: 80px; text-align: center; font-size: 35px;">
+  <div class="tr not_print" style="height: 50px; text-align: center; font-size: 35px;">
     合同
   </div>
   <div class="tr">
@@ -67,7 +67,7 @@
       <span class="content"><%= (@declaration.declare_date - 1.month).strftime("%Y年%m月%d日") rescue "" %></span>
     </div>
   </div>
-  <div class="tr" style="height: 20px;"></div>
+  <div class="tr" style="height: 10px;"></div>
   <div class="tr not_print">1.兹买卖双方同意由买方购进下列货物，并按下列条款签定本合同：</div>
 
   <% size = @declaration_cargos.size %>
@@ -76,7 +76,7 @@
   <% (0..pages - 1).each do |page_count| %>
       <!--每一页的内容-->
       <div class="table">
-        <div class="tr" style="height: 50px; line-height:50px;">
+        <div class="tr" style="height: 24px; line-height:24px;">
           <div class="td not_print" style="width:35px;">序号</div>
           <div class="td not_print" style="width:280px;">商品名称</div>
           <div class="td not_print" style="width:140px;">数量及单位</div>
