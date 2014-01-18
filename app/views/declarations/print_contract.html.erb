@@ -169,7 +169,20 @@
   <div class="tr not_print">14.本合同未定的事宜须经买卖双方协商。</div>
   <div class="tr not_print">15.本合同一式两份，买卖双方各持一份，具有同等法律效力。</div>
   <!--<div class="tr" style="height: 120px;"></div>-->
-
+<% if size < 20 and size > 5 %>
+    <% (1..(20-size)).each do |i| %>
+        <div class="tr">
+          &nbsp;
+        </div>
+    <% end %>
+<% end %>
+<% if size <  5 %>
+    <% (1..(15)).each do |i| %>
+        <div class="tr">
+          &nbsp;
+        </div>
+    <% end %>
+<% end %>
   <div class="tr">
     <div class="td" style="width:50%"><%= @declaration_type == "export" ? '买方' : '卖方' rescue "" %>:
       <span class="content"><%= @declaration.foreign_enterprise.name rescue "" %></span></div>
