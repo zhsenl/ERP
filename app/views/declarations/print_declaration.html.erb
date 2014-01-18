@@ -255,7 +255,7 @@
       <div id="goodlist-items">
         <% group.each_with_index do |cargo, cargo_index| %>
             <div class="tr<% if cargo_index == 4 %> goodlist-last<% end %>">
-              <div class="td goodlist-items-first" style="width:46px;"><span class="content"><%= cargo.no %></span><br/><span class="content"><%= "(" + cargo.no_in_contract.to_s  rescue '' + ")" if @declaration.trade_mode != '0110'%></span></div>
+              <div class="td goodlist-items-first" style="width:46px;"><span class="content"><%= cargo.no %></span><br/><span class="content"><%= "(" +  cargo.no_in_contract.to_s  if !cargo.no_in_contract.nil? + ")" if @declaration.trade_mode != '0110'%></span></div>
               <div class="td" style="width:86px; margin-left: -20px;"><span class="content"><%= cargo.code %></span></div>
               <div class="td" style="width:206px;"><span class="content"><%= cargo.name %><%= "/" + cargo.specification if !cargo.specification.blank? %></span></div>
               <div class="td" style="width:85px; text-align: left;"><span class="content"><%= "%g" % cargo.quantity + dict_name(Dict::Unit, cargo.unit) %></span><br/><span class="content"><%= "%g" % cargo.quantity1 + dict_name(Dict::Unit, cargo.unit1) if cargo.quantity1 != 0 %></span><br/><span class="content"><%= "%g" % cargo.quantity2 + dict_name(Dict::Unit, cargo.unit2) if cargo.quantity2 != 0 %></span></div>
