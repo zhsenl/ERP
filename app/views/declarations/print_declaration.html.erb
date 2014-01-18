@@ -255,6 +255,8 @@
       <div id="goodlist-items">
         <% group.each_with_index do |cargo, cargo_index| %>
             <div class="tr<% if cargo_index == 4 %> goodlist-last<% end %>">
+              <% puts "test" %>
+              <% puts  @declaration.trade_mode != '0110' and !cargo.no_in_contract.nil? %>
               <div class="td goodlist-items-first" style="width:46px;"><span class="content"><%= cargo.no %></span><br/><span class="content"><%= "(" +  cargo.no_in_contract.to_s   + ")" if @declaration.trade_mode != '0110' and !cargo.no_in_contract.nil? %></span></div>
               <div class="td" style="width:86px; margin-left: -20px;"><span class="content"><%= cargo.code %></span></div>
               <div class="td" style="width:206px;"><span class="content"><%= cargo.name %><%= "/" + cargo.specification if !cargo.specification.blank? %></span></div>
