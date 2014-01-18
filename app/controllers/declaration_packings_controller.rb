@@ -76,7 +76,7 @@ class DeclarationPackingsController < ApplicationController
   def update
     respond_to do |format|
       if @declaration_packing.update_attributes(params[:declaration_packing])
-        format.html { redirect_to @declaration_packing, notice: 'Declaration packing was successfully updated.' }
+        format.html { redirect_to @declaration_packing, notice: '修改成功' }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
