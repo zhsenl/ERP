@@ -104,6 +104,7 @@
 		<label>单价</label>
 		<%= f.text_field :unit_price, :class => "text-input small-input" %>
 	</div>
+
 	<div class="filed" >
 		<label>法定单位</label>
 		<%= render "shared/autocomplete_field", :form => f, :attribute => :unit1, :url => dict_units_path, :klass => "text-input small-input" %> 
@@ -146,3 +147,4 @@
 <% end %>
 
 <%= render "shared/specification_helper", :model_name => "declaration_cargo" %>
+
