@@ -71,7 +71,4 @@ class Declaration < ActiveRecord::Base
     ForeignEnterprise.find_by_code(foreign_enterprise_code);
   end
 
-  amoeba do
-    enable
-  end
 end
