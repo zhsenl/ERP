@@ -11,11 +11,12 @@ class DeclarationCargo < ActiveRecord::Base
   validates :quantity1, :numericality => true
   validates :quantity2, :numericality => true
   validates :unit_price, :presence => true, :numericality => true
+  validates :total_price, :presence => true, :numericality => true
   validates :trade_country, :presence => true
   validates :tax_mode, :presence => true
   validates :no, :presence => true, :numericality => true, :uniqueness => { :scope => :declaration_id}
   
-  def total_price
-    unit_price * quantity
-  end
+  #def total_price
+  #  unit_price * quantity
+  #end
 end

@@ -227,7 +227,7 @@ class DeclarationsController < ApplicationController
     @major_cargo_price = 0
     @total_price = 0
     @declaration_cargos.each do |cargo|
-      tem = cargo.unit_price * cargo.quantity
+      tem = cargo.total_price
       @total_price += tem
       if tem > @major_cargo_price
         @major_cargo = cargo
@@ -877,7 +877,7 @@ class DeclarationsController < ApplicationController
             declaration_cargos_hash[:export_sum_price].each do |cargo|
                 if cargo.no_in_contract == product.no
                   result[i][:export_sum] += cargo.quantity
-                  result[i][:export_price] +=  cargo.quantity * cargo.unit_price
+                  result[i][:export_price] +=  cargo.total_price
                 end
             end
 
@@ -889,7 +889,7 @@ class DeclarationsController < ApplicationController
             declaration_cargos_hash[:rework_import_sum].each do |cargo|
               if cargo.no_in_contract == product.no
                 result[i][:rework_import_sum] += cargo.quantity
-                #result[i][:rework_import_sum] +=  cargo.quantity * cargo.unit_price
+                #result[i][:rework_import_sum] +=  cargo.total_price
               end
             end
 
@@ -898,7 +898,7 @@ class DeclarationsController < ApplicationController
             declaration_cargos_hash[:rework_again_sum].each do |cargo|
               if cargo.no_in_contract == product.no
                 result[i][:rework_again_sum] += cargo.quantity
-                #result[i][:rework_import_sum] +=  cargo.quantity * cargo.unit_price
+                #result[i][:rework_import_sum] +=  cargo.total_price
               end
             end
 
@@ -907,7 +907,7 @@ class DeclarationsController < ApplicationController
             declaration_cargos_hash[:transfer_sum].each do |cargo|
               if cargo.no_in_contract == product.no
                 result[i][:transfer_sum] += cargo.quantity
-                #result[i][:rework_import_sum] +=  cargo.quantity * cargo.unit_price
+                #result[i][:rework_import_sum] +=  cargo.total_price
               end
             end
 
