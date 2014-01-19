@@ -74,6 +74,24 @@ $(document).ready(function() {
 					$(this).detach();
 				}				
 			});
+            //单 <---> 总 互相影响
+            var trigger = this.getTrigger();
+            var tr_children = trigger.parent().parent().children();
+            var quantity = $(tr_children[2]).children()[0];
+            var unit_price = $(tr_children[3]).children()[0];
+            var total_price = $(tr_children[4]).children()[0];
+            var total_price_float = parseFloat($(total_price).text());
+            var quantity_float = parseFloat($(quantity).text());
+            var unit_price_float = parseFloat($(unit_price).text());
+            if (total_price_float.toString() != 'NaN' && quantity_float.toString() != 'NaN' && unit_price_float.toString() != 'NaN') {
+                if(trigger.hasClass('total_price')){
+                    $(unit_price).html((total_price_float / quantity_float).toFixed(4));
+                }else if(trigger.hasClass('unit_price')){
+                    $(total_price).html((unit_price_float * quantity_float).toFixed(2));
+                }else if(trigger.hasClass('quantity')){
+                    $(total_price).html((unit_price_float * quantity_float).toFixed(2));
+                }
+            };
 		}
 	}).dynamic({
 		bottom : {
