@@ -3,6 +3,7 @@
   <h3>查看报关单(<%= @declaration.pre_entry_no %>)</h3>
 
   <div class="operations">
+    <%= link_to '复制', copy_declaration_path(@declaration) %> |
     <% if can? :update, @declaration %><%= link_to '编辑', edit_declaration_path(@declaration) %> |
     <% end %>
     <%= link_to '打印', "#print_dialog", :rel => "facebox" %> |
@@ -211,12 +212,12 @@
           <legend>转关信息：</legend>
           <p>
             <b>境内运输方式:</b>
-            <span class="autoload" data-url=<%= dict_transport_modes_path %>><%= @declaration.declaration_transit_information.local_transport_mode %></span>
+            <span class="autoload" data-url=<%= dict_transport_modes_path %>><%= @declaration.declaration_transit_information.local_transport_mode rescue ''%></span>
           </p>
 
           <p>
             <b>境内运输工具编号:</b>
-            <span class="autoload" data-url=<%= dict_trucks_path %>><%= @declaration.declaration_transit_information.local_transport_tool_code %></span>
+            <span class="autoload" data-url=<%= dict_trucks_path %>><%= @declaration.declaration_transit_information.local_transport_tool_code rescue ''%></span>
           </p>
 
           <p>

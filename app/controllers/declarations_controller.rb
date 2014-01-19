@@ -153,6 +153,46 @@ class DeclarationsController < ApplicationController
     end
   end
 
+  def copy
+    pre_entry_no = Time.now.strftime('%Y%m%d%H%M%S') + system_serial_no
+    #@new_declaration = Declaration.new(@declaration.attributes.merge({}))
+    @new_declaration = @declaration.dup
+    @new_declaration.pre_entry_no = pre_entry_no
+    @new_declaration.entry_no = ''
+    @new_declaration.declare_date = Time.now.strftime('%Y-%m-%d')
+    @new_declaration.is_finish = false
+    @new_declaration.declaration_transit_information = DeclarationTransitInformation.new(:local_transport_mode => 4)
+    authorize! :create, @new_declaration
+
+    respond_to do |format|
+      if @new_declaration.save
+        #复制出口成品、进口料件
+        @declaration.declaration_cargos.each do |cargo|
+          new_cargo = cargo.dup
+          new_cargo.declaration_id = @new_declaration.id
+          new_cargo.save
+        end
+        #复制集装箱
+        @declaration.declaration_containers.each do |container|
+          new_container = container.dup
+          new_container.declaration_id = @new_declaration.id
+          new_container.save
+        end
+        #复制装箱单明细
+        @declaration.declaration_packings.each do |packing|
+          new_packing = packing.dup
+          new_packing.declaration_id = @new_declaration.id
+          new_packing.save
+        end
+        format.html { redirect_to  declarations_url(:declaration_type => @declaration_type), :flash => { :success => '成功复制报关单'} }
+        format.json { render json: @new_declaration, status: :created, location: @new_declaration }
+      else
+        format.html { render action: "new", :declaration_type => 1 }
+        format.json { render json: @new_declaration.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # PUT /declarations/1
   # PUT /declarations/1.json
   def update

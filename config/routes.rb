@@ -37,6 +37,7 @@ ERP::Application.routes.draw do
   resources :declarations do 
     get 'search', :on => :collection
     get 'declare', :on => :member
+    get 'copy', :on => :member
     get 'dispatch_record', :on => :member
     get 'driver_paper', :on => :collection
     get 'print_driver_paper_1', :on => :collection
