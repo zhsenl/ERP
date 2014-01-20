@@ -15,6 +15,14 @@ function preview_content() {
     $(".frame .not_print").css('visibility','hidden')
 }
 
+function show_seals(){
+    $(".seal").css('display','inline');
+}
+
+function hide_seals(){
+    $('.seal').css('display','none');
+}
+
 function html_decode(text){
 	return text.replace(/&nbsp;/g, " ");
 }

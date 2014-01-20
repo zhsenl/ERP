@@ -182,13 +182,14 @@
         </div>
     <% end %>
 <% end %>
+
   <div class="tr">
     <div class="td" style="width:50%"><%= @declaration_type == "export" ? '买方' : '卖方' rescue "" %>:
       <span class="content"><%= @declaration.foreign_enterprise.name rescue "" %></span></div>
     <div class="td" style="width:50%"><%= @declaration_type == "import" ? '买方' : '卖方' rescue "" %>:
       <span class="content"><%= @declaration.enterprise.name rescue "" %></span></div>
   </div>
-  <div class="tr">
+  <div class="tr" >
     <div class="td" style="width:50%"><span class="not_print">地址:</span>
       <span class="content"><%= @declaration.foreign_enterprise.address rescue "" %></span></div>
     <div class="td" style="width:50%"><span class="not_print">地址:</span> <span class="content"><%= @declaration.enterprise.address rescue "" %></span>
@@ -200,5 +201,8 @@
     <div class="td" style="width:50%"><span class="not_print">电话:</span>
       <span class="content"><%= @declaration.enterprise.telephone rescue "" %></span></div>
   </div>
-  <div class="tr" style="height: 20px;"></div>
+<%= image_tag("seal1.png", :alt => "印章", :class=>'seal', :id=>'seal_left', :width=>'250px', :style=>"position:relative;bottom:100px;left:80px")  %>
+<%= image_tag("seal2.png", :alt => "印章", :class=>'seal', :id=>'seal_right', :width=>'250px',:style=>"position:relative;bottom:100px;left:150px")  %>
+
+<div class="tr" style="height: 20px;">&nbsp;</div>
 </div>
