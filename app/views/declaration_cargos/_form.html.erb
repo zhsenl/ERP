@@ -157,7 +157,7 @@
         var unit_price = parseFloat($("#unit_price").val());
         var quantity = parseFloat($("#quantity").val());
         if (unit_price.toString() != 'NaN' && quantity.toString() != 'NaN') {
-            $("#total_price").val(unit_price*quantity);
+            $("#total_price").val((unit_price*quantity).toFixed(2));
         };
     }
 
@@ -165,7 +165,7 @@
         var total_price = parseFloat($("#total_price").val());
         var quantity = parseFloat($("#quantity").val());
         if (total_price.toString() != 'NaN' && quantity.toString() != 'NaN') {
-            $("#unit_price").val(total_price/quantity);
+            $("#unit_price").val((total_price/quantity).toFixed(4));
         };
     }
 
