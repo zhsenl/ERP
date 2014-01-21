@@ -32,7 +32,7 @@ function html_encode(text){
 }
 
 $(document).ready(function() {
-    $('.seal').css('display','none');
+    //$('.seal').css('display','none');
 
 	$(".content").each(function() {
 		if($(this).html() == "") {
