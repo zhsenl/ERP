@@ -47,7 +47,7 @@ namespace :receipt do
             dispatch_record_new.save
             if channel == '016' or channel == '025'
               eport_no = REXML::XPath.first(doc, "//EportNo" ).text  rescue ''
-              entry_no = REXML::XPath.first(doc, "//EntryNo" ).text  rescue ''
+              entry_no = REXML::XPath.first(doc, "//EntryId" ).text  rescue ''
               declaration = Declaration.find(dispatch_record_generate.declaration_id)
               if declaration
               declaration.eport_no = eport_no
