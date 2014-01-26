@@ -134,6 +134,13 @@
 			<br />
 			报关类型表 </span></a>
 	</li>
+  <% if current_user.is?("admin") %>
+      <li>
+        <a class="shortcut-button" href="<%= dict_fees_path %>"><span> <%= image_tag("icons/db_48.png", :alt => "icon") %>
+          <br />
+			费用种类 </span></a>
+      </li>
+  <% end %>
 	
 </ul><!-- End .shortcut-buttons-set -->
 <div class="clear"></div>

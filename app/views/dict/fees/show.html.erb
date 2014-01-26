@@ -1,0 +1,39 @@
+<div class="content-box">
+	<div class="content-box-header">
+		<h3>查看<%= @model_name %></h3>
+		<div class="operations">
+			<%= link_to '编辑', edit_dict_fee_path(@item) %> |
+			<%= link_to '返回列表', dict_fees_path %>
+		</div>
+	</div>
+	<div class="content-box-content">
+		<div class="tab-content default-tab">
+			<p>
+				<b>编码</b>：<%= @item.code %>
+			</p>
+			<p>
+				<b>中文名称</b>：<%= @item.name %>
+			</p>
+      <p>
+        <b>英文名称</b>：<%= @item.name_en %>
+      </p>
+      <p>
+        <b>价格</b>：<%= @item.price %>
+      </p>
+      <p>
+        <b>币制</b>：
+        <%= @item.currency_code %>
+        <span class="autoload" data-url=<%= dict_currencies_path %> ><%= @item.currency_code %></span>
+      </p>
+      <p>
+        <b>应收</b>：<%= @item.is_income ? '√': '×'%>
+      </p>
+      <p>
+        <b>应付</b>：<%= @item.is_pay ? '√': '×'%>
+      </p>
+      <p>
+        <b>备注</b>：<%= @item.note %>
+      </p>
+		</div>
+	</div>
+</div>

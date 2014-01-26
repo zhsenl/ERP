@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 ERP::Application.routes.draw do
 
+  namespace :dict do resources :fees end
+
   resources :app_bill_dispatch_records
 
   resources :bill_cargos
@@ -154,7 +156,8 @@ ERP::Application.routes.draw do
               :units,
               :usages,
               :transit_types,
-              :wrap_types do
+              :wrap_types,
+              :fees do
       get 'search', :on => :collection
       get 'show_by_code', :on => :member
     end
