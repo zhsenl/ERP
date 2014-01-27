@@ -1,0 +1,41 @@
+<div class="content-box">
+  <div class="content-box-header">
+    <% fee = Dict::Fee.find_by_code(@enterprise_fee.code) %>
+    <h3><%= @enterprise.name %>的<%= fee.name %></h3>
+    <div class="operations">
+      <%= link_to '编辑 ', edit_enterprise_fee_path(@enterprise_fee) %> |
+      <%= link_to '返回列表', enterprise_fees_path(:enterprise_id => @enterprise.id) %>
+    </div>
+  </div>
+  <div class="content-box-content">
+    <p>
+      <b>装卸口岸编码</b>：<%= @enterprise_fee.load_port %>
+    </p>
+    <p>
+      <b>费用种类编码</b>：<%= fee.code %>
+    </p>
+    <p>
+      <b>中文名称</b>：<%= fee.name %>
+    </p>
+    <p>
+      <b>英文名称</b>：<%= fee.name_en %>
+    </p>
+    <p>
+      <b>价格</b>：<%= fee.price %>
+    </p>
+    <p>
+      <b>币制</b>：
+      <%= fee.currency_code %>
+      <span class="autoload" data-url=<%= dict_currencies_path %> ><%= fee.currency_code %></span>
+    </p>
+    <p>
+      <b>应收</b>：<%= fee.is_income ? '√': '×'%>
+    </p>
+    <p>
+      <b>应付</b>：<%= fee.is_pay ? '√': '×'%>
+    </p>
+    <p>
+      <b>备注</b>：<%= fee.note %>
+    </p>
+  </div>
+</div>

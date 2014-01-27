@@ -1,0 +1,54 @@
+<div class="content-box">
+  <div class="content-box-header">
+    <h3><%= @enterprise.name %>的付费信息</h3>
+    <div class="operations">
+      <%= link_to '返回列表', enterprise_fees_path %> |
+      <%= link_to '新建付费信息', new_enterprise_fee_path(:enterprise_id => @enterprise.id) %>
+    </div>
+  </div>
+  <div class="content-box-content">
+    <div class="tab-content default-tab">
+      <% @groups.each do |group| %>
+      <fieldset>
+        <legend>装卸口岸编码：<%= group[0].load_port %> </legend>
+        <table>
+          <thead>
+          <tr>
+            <th>编号</th>
+            <th>中文名</th>
+            <th>价格</th>
+            <th>应收</th>
+            <th>应付</th>
+            <th>操作</th>
+          </tr>
+          </thead>
+          <tfoot>
+
+          </tfoot>
+          <tbody>
+          <% group.each do |enterprise_fee| %>
+              <% fee = Dict::Fee.find_by_code(enterprise_fee.code) %>
+              <tr>
+                <td><%= link_to enterprise_fee.code, enterprise_fee %></td>
+                <td><%= fee.name %></td>
+                <td><%= fee.price %></td>
+                <td><%= fee.is_income ? '√' : '×' %></td>
+                <td><%= fee.is_pay ? '√' : '×' %></td>
+                <td>
+                  <% if can? :edit, enterprise_fee %>
+                      <%= link_to image_tag("icons/pencil.png", :alt => "Edit"), edit_enterprise_fee_path(enterprise_fee) %>
+                  <% end %>
+                  <% if can? :destroy, enterprise_fee %>
+                      <%= link_to image_tag("icons/cross.png", :alt => "Delete"), enterprise_fee, confirm: '确定删除?', method: :delete %>
+                  <% end %>
+                </td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+      </fieldset>
+      <br />
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -174,7 +174,18 @@
           </li>
         </ul>
       </li>
+      <% if current_user.is?("admin") %>
+          <li>
+            <a href="#" class="nav-top-item"> 财务管理 </a>
+            <ul>
+              <li>
+                <%= link_to '付费信息', enterprise_fees_path, :class => "enterprise_fees" %>
+              </li>
+            </ul>
+          </li>
+      <% end %>
     </ul>
+
   </div>
 </div>
 <!-- End #sidebar -->

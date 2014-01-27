@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 ERP::Application.routes.draw do
 
-  namespace :dict do resources :fees end
+  resources :enterprise_fees
 
   resources :app_bill_dispatch_records
 

@@ -36,7 +36,7 @@ class Dict::DictsController < ApplicationController
     authorize! :show, :dict
     @title = '字典详细'
     @item = model.find(params[:id])
-    
+
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @item }

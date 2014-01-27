@@ -1,0 +1,49 @@
+<%= render "shared/search_form", :model => Enterprise %>
+
+
+<div class="content-box">
+  <div class="content-box-header">
+    <% if params[:action] == "index" %>
+        <h3>企业列表(点击企业名称查看付费信息)</h3>
+        <div class="operations">
+        </div>
+    <% end %>
+    <% if params[:action] == "search" %>
+        <h3>关键字"<%= @term %>"的企业搜索结果:<%= @enterprises.size %>条</h3>
+        <div class="operations">
+          <%= link_to '返回列表', enterprises_path %>
+        </div>
+    <% end %>
+  </div>
+  <div class="content-box-content">
+    <div class="tab-content default-tab">
+      <table>
+        <thead>
+        <tr>
+          <th>海关编码</th>
+          <th>单位名称</th>
+          <th>联系人</th>
+          <th>联系电话</th>
+        </tr>
+        </thead>
+        <tfoot>
+        <% if params[:action] == "index" %>
+            <tr>
+              <td colspan="6"> <%= will_paginate @enterprises %> </td>
+            </tr>
+        <% end %>
+        </tfoot>
+        <tbody>
+        <% @enterprises.each do |enterprise| %>
+            <tr>
+              <td><%= link_to enterprise.code, enterprise_fees_path(:enterprise_id => enterprise.id) %></td>
+              <td><%= link_to enterprise.name, enterprise_fees_path(:enterprise_id => enterprise.id) %></td>
+              <td><%= enterprise.linkman %></td>
+              <td><%= enterprise.telephone %></td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
