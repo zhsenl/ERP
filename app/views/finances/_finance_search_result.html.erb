@@ -1,0 +1,42 @@
+<div class="tab-content default-tab">
+  <table>
+    <thead>
+    <tr>
+      <th>装卸口岸</th>
+      <th>申报日期</th>
+      <th>报关单号</th>
+      <th>企业单位</th>
+      <th>账单状态</th>
+      <th>审核状态</th>
+      <th>操作</th>
+    </tr>
+    </thead>
+    <% if false %>
+    <tfoot>
+    <% if params[:action] == "index" %>
+        <tr>
+          <td colspan="6"> <%= will_paginate @declarations %> </td>
+        </tr>
+    <% end %>
+    </tfoot>
+    <tbody>
+    <% @declarations.each do |declaration| %>
+        <tr>
+          <td><%= link_to declaration.pre_entry_no, declaration %></td>
+          <td><%= declaration.entry_no %></td>
+          <td><%= declaration.declare_date %></td>
+          <td><%= declaration.is_finish ? '是' : '否' %></td>
+          <td>
+            <% if can? :edit, declaration %>
+                <%= link_to image_tag("icons/pencil.png", :alt => "Edit"), edit_declaration_path(declaration) %>
+            <% end %>
+            <% if can? :destroy, declaration %>
+                <%= link_to image_tag("icons/cross.png", :alt => "Delete"), declaration, confirm: '确定删除?', method: :delete %>
+            <% end %>
+          </td>
+        </tr>
+    <% end %>
+    </tbody>
+    <% end %>
+  </table>
+</div>

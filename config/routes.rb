@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-
 ERP::Application.routes.draw do
 
+
+
   resources :enterprise_fees
 
   resources :app_bill_dispatch_records
@@ -161,6 +163,14 @@ ERP::Application.routes.draw do
       get 'search', :on => :collection
       get 'show_by_code', :on => :member
     end
+  end
+
+  resources :checkout_enterprises
+
+  resources :finance_fees
+
+  resources :finances do
+    get 'search', :on => :collection
   end
 
   root :to => 'pages#home'

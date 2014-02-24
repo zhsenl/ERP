@@ -18,6 +18,9 @@ zh-CN:
       declaration_container: 集装箱
       declaration_packing: 装箱明细
       enterprise_fee: 付费信息
+      finance_fee: 付费信息
+      check_enterprise: 结算单位
+      finance: 账单
       dict/attachment: 随附单证
       dict/bracket: 托架
       dict/bring_in_mode: 引进方式

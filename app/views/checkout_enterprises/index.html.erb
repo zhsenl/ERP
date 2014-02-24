@@ -1,0 +1,21 @@
+<h1>Listing checkout_enterprises</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @checkout_enterprises.each do |checkout_enterprise| %>
+  <tr>
+    <td><%= link_to 'Show', checkout_enterprise %></td>
+    <td><%= link_to 'Edit', edit_checkout_enterprise_path(checkout_enterprise) %></td>
+    <td><%= link_to 'Destroy', checkout_enterprise, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Checkout enterprise', new_checkout_enterprise_path %>

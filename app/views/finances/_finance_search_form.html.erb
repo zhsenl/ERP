@@ -1,0 +1,66 @@
+<%= javascript_include_tag "jquery.ui.datepicker.min" %>
+<%= javascript_include_tag "jquery.ui.datepicker-zh-CN" %>
+
+<%= stylesheet_link_tag "jquery.ui.datepicker.min", :media => "all" %>
+<%= stylesheet_link_tag "jquery.ui.theme.min", :media => "all" %>
+
+<script>
+    $(function(){
+        $("#from").datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            changeYear: true,
+            numberOfMonths: 1,
+            onClose: function (selectedDate) {
+                $("#to").datepicker("option", "minDate", selectedDate);
+            }
+        });
+        $("#to").datepicker({
+            defaultDate: "+1w",
+            changeMonth: true,
+            changeYear: true,
+            numberOfMonths: 1,
+            onClose: function (selectedDate) {
+                $("#from").datepicker("option", "maxDate", selectedDate);
+            }
+        });
+    })
+</script>
+<%= form_for  search_finances_path, :method => 'get', :remote => true  do  %>
+    <fieldset>
+      <legend>搜索框：</legend>
+      <div class="field">
+        <label>经营单位</label>
+        <%= render "shared/autocomplete_field_without_form",  :attribute => :operate_enterprise_code, :url => enterprises_path, :klass => "text-input small-input first-field" %>
+      </div>
+      <div class="field">
+        <label>报关单号</label>
+        <%= text_field :entry_no, :class => "text-input small-input" %>
+      </div>
+      <div class="field">
+        <label>装卸口岸</label>
+        <%= render "shared/autocomplete_field_without_form",  :attribute => :load_port, :url => dict_load_ports_path, :min_length => 2, :klass => "text-input small-input" %>
+      </div>
+      <div class="field">
+        <label>开始时间</label>
+        <%= text_field :from, :id => 'from', :class => "text-input small-input"%>
+      </div>
+      <div class="field">
+        <label>结束时间</label>
+        <%= text_field :to, :id => 'to', :class => "text-input small-input" %>
+      </div>
+      <div class='field' style="width:100px">
+        <label>账单状态</label>
+        <%= select_tag :is_made, [['未制作', false], ['已制作', true]] %>
+      </div>
+      <div class='field' style="width:120px">
+        <label>审核状态</label>
+        <%= select_tag :review, [['未审核', 1], ['已审核', 2], ['退审单', 3], ['退审单（留底）', 4]] %>
+      </div>
+      <div class="clear"></div><!-- End .clear -->
+
+      <div style="margin: 0 10px 0 10px">
+        <%= submit_tag  '搜索', class: "button" %>
+      </div>
+    </fieldset>
+<% end %>
