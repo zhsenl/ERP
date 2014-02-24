@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<!--<title><%= @title ? @title + " | " : "" %>新泽公司ERP系统</title> -->
+		<title><%= @title ? @title + " | " : "" %>新泽公司ERP系统</title>
 		<%= csrf_meta_tags %> 
 		<%= javascript_include_tag "print" %>	
 		<%= stylesheet_link_tag "print", :media => "all" %>
@@ -15,8 +15,10 @@
 			<button type="button" onclick="javascript:preview_content();">套打预览</button>
 			<button type="button" onclick="javascript:preview_content();window.print();">套打</button>
       &nbsp;
-      <button type="button" onclick='javascript:show_seals();'>加印章</button>
-      <button type="button" onclick='javascript:hide_seals();'>不加印章</button>
+      <button type="button" onclick='javascript:show_seals();'>显示印章</button>
+      <button type="button" onclick='javascript:hide_seals();'>隐藏印章</button>
+      &nbsp;
+      <input type="file" value='上传印章' id="upload_seal" accept="image/*"/>
 		</div>
 		<div id="top-blank" class="noprint" ></div>
 		<%= yield %>

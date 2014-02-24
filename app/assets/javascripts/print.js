@@ -1,6 +1,7 @@
 
 //= require jquery
 //= require jquery.tools.min
+//= require jquery-ui.min
 
 function preview_all() {
 	$(".frame div").css("border-color", "#000000");
@@ -16,12 +17,35 @@ function preview_content() {
 }
 
 function show_seals(){
-    $(".seal").css('display','inline');
+    $(".seal").show();
+}
+//seal的hide只是隐藏而已
+function hide_seals(){
+    $('.seal').hide();
+}
+//seal-div的hide是删除，要给删除的seal-div加上hideseals的class
+function delete_seal(seal){
+    $(seal).parent().hide().addClass("hideseals");
+}
+function upload_seal(input){
+   if(input.files && input.files[0]){
+       var reader = new FileReader();
+       reader.onload = function(e){
+           //$($('.seal')[0]).attr('src', e.target.result);
+           hideseals = $('.hideseals');
+           if(hideseals.size()){
+               $(hideseals[0]).find('.seal').attr('src', e.target.result);
+               $(hideseals[0]).removeClass('hideseals');
+               $(hideseals[0]).css('display','inline');
+           } else{
+               alert("印章数不能超过"+ $('.seal').size() +"个。请先删除掉不想要的印章。（如果你之前按了隐藏印章，注意要按回显示印章）");
+           }
+       }
+       reader.readAsDataURL(input.files[0]);
+   }
 }
 
-function hide_seals(){
-    $('.seal').css('display','none');
-}
+
 
 function html_decode(text){
 	return text.replace(/&nbsp;/g, " ");
@@ -33,6 +57,21 @@ function html_encode(text){
 
 $(document).ready(function() {
     //$('.seal').css('display','none');
+   // $('.seal').resizable();
+
+    $('.seal-div').draggable();
+    $(".delete_seals").hide();
+    $(".seal-div").hover(function(){
+        $(this).find('.delete_seals').show();
+    },function(){
+        $(this).find('.delete_seals').hide();
+    });
+    $("#upload_seal").change(function(){
+        upload_seal(this);
+    })
+    $(".delete_seals").click(function(){
+        delete_seal(this);
+    })
 
 	$(".content").each(function() {
 		if($(this).html() == "") {
