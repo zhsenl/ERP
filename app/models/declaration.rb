@@ -8,6 +8,7 @@ class Declaration < ActiveRecord::Base
   has_many :declaration_packings, :dependent => :destroy
   has_many :dispatch_records, :dependent => :destroy
   has_many :finances, :dependent => :destroy
+  has_many :checkout_enterprises, :through => :finances
   accepts_nested_attributes_for :declaration_transit_information
   
   scope :export, where(:declaration_type => "export")

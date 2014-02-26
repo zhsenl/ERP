@@ -26,7 +26,7 @@
     <% @finance_declarations.each do |finance_declaration| %>
         <% finance = finance_declaration.finances.first %>
         <tr>
-          <td><%= Dict::LoadPort.find_by_code(finance_declaration.load_port).name %></td>
+          <td><%= Dict::LoadPort.find_by_code(finance_declaration.load_port).name rescue ''%></td>
           <td><%= finance_declaration.declare_date %></td>
           <td><%= finance_declaration.entry_no %></td>
           <td><%= Enterprise.find(finance_declaration.enterprise_id).name %></td>
