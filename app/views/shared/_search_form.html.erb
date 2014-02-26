@@ -1,7 +1,7 @@
 <%= form_tag(eval("search_" + model.table_name + "_path"), :method => "get") do %>
 <p>
 	<label style="display: inline;" >搜索：</label>
-	<input placeholder="输入企业名称搜索" name="term" class="text-input medium-input" />
+	<input name="term" class="text-input medium-input" />
 	&nbsp;&nbsp;
 	<input class="button" type="submit" value="搜索<%= model.model_name.human %>" name="commit">	
 </p>
