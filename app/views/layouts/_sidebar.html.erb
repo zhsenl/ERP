@@ -174,7 +174,7 @@
           </li>
         </ul>
       </li>
-      <% if current_user.is?("admin") %>
+      <% if current_user.is?("admin") or current_user.is?("finance") %>
           <li>
             <a href="#" class="nav-top-item"> 财务管理 </a>
             <ul>

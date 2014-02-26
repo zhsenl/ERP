@@ -1,0 +1,47 @@
+
+<fieldset>
+  <legend>付费信息：</legend>
+  <% enterprise_fees = EnterpriseFee.find_all_by_load_port_and_enterprise_id(@finance.declaration.load_port, @finance.declaration.enterprise_id) %>
+  <% if enterprise_fees.nil?  %>
+      <%=  "无付费信息" %>
+  <% else %>
+      <table>
+        <thead>
+        <tr>
+          <th>编号</th>
+          <th>中文名</th>
+          <th>价格</th>
+          <th>应收</th>
+          <th>应付</th>
+          <th>操作</th>
+        </tr>
+        </thead>
+        <tfoot>
+
+        </tfoot>
+        <tbody>
+        <% enterprise_fees.each do |enterprise_fee| %>
+            <% fee = Dict::Fee.find_by_code(enterprise_fee.code) %>
+            <tr>
+              <td><%= link_to enterprise_fee.code, enterprise_fee %></td>
+              <td><%= fee.name %></td>
+              <td><%= fee.price %></td>
+              <td><%= fee.is_income ? '√' : '×' %></td>
+              <td><%= fee.is_pay ? '√' : '×' %></td>
+              <td>
+                <% if @finance.review == 1 or   @finance.review == 3  %>
+                    <%= link_to "修改", edit_enterprise_fee_path(enterprise_fee, :from => @finance.id) %>
+                    <%= link_to "删除", enterprise_fee_path(enterprise_fee) + "?from=" + @finance.id.to_s, confirm: '确定删除?', method: :delete %>
+                <% else %>
+                    已审核，不能操作
+                <% end %>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+      <p>
+        <%= link_to '新建付费信息', new_enterprise_fee_path(:enterprise_id =>  @finance.declaration.enterprise_id, :from => @finance.id) %>
+      </p>
+  <% end %>
+</fieldset>

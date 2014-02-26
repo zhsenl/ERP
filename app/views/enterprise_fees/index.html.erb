@@ -9,6 +9,7 @@
   <div class="content-box-content">
     <div class="tab-content default-tab">
       <% @groups.each do |group| %>
+      <% next if group.empty? %>
       <fieldset>
         <legend>装卸口岸编码：<%= group[0].load_port %> </legend>
         <table>

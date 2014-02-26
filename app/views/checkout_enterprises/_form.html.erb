@@ -1,17 +1,17 @@
-<%= form_for(@checkout_enterprise) do |f| %>
-  <% if @checkout_enterprise.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@checkout_enterprise.errors.count, "error") %> prohibited this checkout_enterprise from being saved:</h2>
-
-      <ul>
-      <% @checkout_enterprise.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<%= render "shared/error_messages", :model => @checkout_enterprise %>
+<%= form_for @checkout_enterprise do |f| %>
+    <fieldset>
+      <%= f.hidden_field :finance_id %>
+      <input type='hidden' name='from' value=<%= params[:from] %> />
+      <p >
+        <label>结算单位（请输入海关编码）</label>
+        <%= render "shared/autocomplete_field", :form => f, :attribute => :code, :url => enterprises_path, :klass => "text-input small-input first-field" %>
+      </p>
+    </fieldset>
+    <div>
+      <%= f.submit :class => "button" %>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="clear"></div><!-- End .clear -->
 <% end %>
+
+

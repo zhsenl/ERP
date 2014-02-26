@@ -2,14 +2,64 @@
 class FinancesController < ApplicationController
 
   def search
-    #todo check 未制作 、已制作
-    @declaration_finances = Declaration.join(:finances).where(params)
-    render json: @declaration_finances
+    time = (params[:from].present? and params[:from].present?) ? (params[:from]..params[:to]) : ''
+    declaration_condition =  {declare_date: time, enterprise_id: params[:enterprise_id],
+                              entry_no: params[:entry_no],load_port: params[:load_port]}.select { |key,value| value.present? }
+    finance_condition =  {is_made: params[:is_made], review: params[:review]}.select { |key,value| value.present? }
+    session[:declaration_condition] = declaration_condition
+    session[:finance_condition] = finance_condition
+    @finance_declarations = Declaration.joins(:finances).where(declaration_condition, finances:finance_condition).order("declare_date DESC")
+    #@finances = Finance.joins(:declarations).where(finance_condition, declarations:declaration_condition)
+    render :partial =>"finance_search_result"
+  end
+
+  def make
+    @finance = Finance.find(params[:id])
+    respond_to do |format|
+
+      if @finance.update_attributes("is_made"=> true, "maker" => current_user.id)
+        format.html { redirect_to @finance, notice: '成功制作账单' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "show" }
+        format.json { render json: @finance.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def review
+    @finance = Finance.find(params[:id])
+    respond_to do |format|
+
+      if @finance.update_attributes("review" => 2, "reviewer" => current_user.id)
+        format.html { redirect_to @finance, notice: '审核成功' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "show" }
+        format.json { render json: @finance.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  def cancel
+    @finance = Finance.find(params[:id])
+    respond_to do |format|
+      if @finance.update_attributes("review" => 3, "reviewer" => current_user.id)
+        format.html { redirect_to @finance, notice: '退审成功' }
+        format.json { head :no_content }
+      else
+        format.html { render action: "show" }
+        format.json { render json: @finance.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # GET /finances
   # GET /finances.json
   def index
+    if  session[:declaration_condition] or session[:finance_condition]
+      @finance_declarations = Declaration.joins(:finances).where( session[:declaration_condition], finances:session[:finance_condition]).order("declare_date DESC")
+    end
   end
 
   # GET /finances/1

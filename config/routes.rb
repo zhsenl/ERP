@@ -3,7 +3,10 @@ ERP::Application.routes.draw do
 
 
 
-  resources :enterprise_fees
+  resources :enterprise_fees do
+    get 'search', :on => :collection
+  end
+
 
   resources :app_bill_dispatch_records
 
@@ -171,6 +174,9 @@ ERP::Application.routes.draw do
 
   resources :finances do
     get 'search', :on => :collection
+    get 'cancel', :on => :member
+    get 'make', :on => :member
+    get 'review', :on => :member
   end
 
   root :to => 'pages#home'

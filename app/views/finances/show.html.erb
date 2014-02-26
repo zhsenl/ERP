@@ -1,5 +1,42 @@
-<p id="notice"><%= notice %></p>
 
+<div class="content-box">
+  <div class="content-box-header">
+    <h3>查看账单(报关单号：<%= @finance.declaration.entry_no.blank? ? '未完成申报' : @finance.declaration.entry_no %>, 装卸口岸：<%= @finance.declaration.load_port %>)
+      <% if @finance.is_made %>
+          <span style="color:red"><%= "已制作" %></span><%= "(" + User.find(@finance.maker).username + ")" rescue ''%>
+      <% end %>
+      &nbsp;&nbsp;
+      <% if @finance.review == 2 %>
+          <span style="color:red"><%= "已审核 "%></span><%= "(" + User.find(@finance.reviewer).username + ")"  %>
+      <% elsif @finance.review == 3 %>
+          <span style="color:red"><%= "退审单 "%></span><%= "(" + User.find(@finance.reviewer).username + ")"  %>
+      <% end %>
+    </h3>
 
-<%= link_to 'Edit', edit_finance_path(@finance) %> |
-<%= link_to 'Back', finances_path %>
+    <div class="operations">
+      <% if @finance.is_made %>
+          <% if current_user.is?("admin") or current_user.is?("head") %>
+              <% if @finance.review == 1 or @finance.review == 3 %>
+                  <%= link_to "单票审核" , review_finance_path(@finance),   data: { confirm: "确定审核吗?" }, :id=>'review' %>
+              <% elsif @finance.review == 2 %>
+                  <%= link_to "单票退审" , cancel_finance_path(@finance),   data: { confirm: "确定退审吗?" }, :id=>'cancel' %>
+              <%end %>
+          <% end %>
+      <% else %>
+          <%= link_to "生成账单", make_finance_path(@finance),data: { confirm: "确定生成账单吗？"}, :id=>'make' %>
+      <% end %>
+      &nbsp;|&nbsp;
+      <%= link_to '返回列表', finances_path(:finance_type => @finance_type) %>
+    </div>
+  </div>
+  <script>
+
+  </script>
+  <div class="content-box-content">
+    <div class="tab-content default-tab">
+      <%= render "finance_fee" %>
+      <%= render "check_enterprise" %>
+    </div>
+  </div>
+</div>
+

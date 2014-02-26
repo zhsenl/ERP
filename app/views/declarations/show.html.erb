@@ -322,7 +322,7 @@
 <div class="content-box">
   <div class="content-box-header">
     <h3>申报记录</h3>
-    <div class="operations"> 
+    <div class="operations">
     <% if can? :declare, @declaration %><%= link_to '申报', declare_declaration_path(@declaration, :format => :json), :id => "declare_button" %>
     <% end %>
   </div>

@@ -56,6 +56,7 @@ class EnterpriseFeesController < ApplicationController
   def edit
     @enterprise_fee = EnterpriseFee.find(params[:id])
     @enterprise = Enterprise.find(@enterprise_fee.enterprise_id)
+
   end
 
   # POST /enterprise_fees
@@ -65,7 +66,13 @@ class EnterpriseFeesController < ApplicationController
 
     respond_to do |format|
       if @enterprise_fee.save
-        format.html { redirect_to @enterprise_fee, notice: '付费信息创建成功' }
+        format.html {
+          if params[:from]
+            redirect_to  finance_path(params[:from])
+          else
+            redirect_to @enterprise_fee, notice: '付费信息创建成功'
+          end
+        }
         format.json { render json: @enterprise_fee, status: :created, location: @enterprise_fee }
       else
         format.html { render action: "new" }
@@ -81,7 +88,13 @@ class EnterpriseFeesController < ApplicationController
 
     respond_to do |format|
       if @enterprise_fee.update_attributes(params[:enterprise_fee])
-        format.html { redirect_to @enterprise_fee, notice: '付费信息更新 成功 .' }
+        format.html {
+          if params[:from]
+            redirect_to  finance_path(params[:from])
+          else
+            redirect_to @enterprise_fee, notice: '付费信息更新成功 .'
+          end
+        }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -98,8 +111,29 @@ class EnterpriseFeesController < ApplicationController
     @enterprise_fee.destroy
 
     respond_to do |format|
-      format.html { redirect_to enterprise_fees_url(:enterprise_id => enterprise_id) }
+      format.html {
+        if params[:from]
+          redirect_to  finance_path(params[:from])
+        else
+          redirect_to enterprise_fees_url(:enterprise_id => enterprise_id)
+        end
+      }
       format.json { head :no_content }
     end
   end
+
+  def search
+    @term = params[:term]
+    if @term.blank?
+      @enterprises = []
+    else
+      @enterprises = Enterprise.where("code like ? or name like ?", '%' + @term + '%', '%' + @term +'%')
+    end
+
+    respond_to do |format|
+      format.html { render 'enterprise_fees/enterprises' }
+      format.json { render json: @enterprises }
+    end
+  end
+
 end

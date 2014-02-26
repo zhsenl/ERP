@@ -11,28 +11,29 @@
       <th>操作</th>
     </tr>
     </thead>
-    <% if false %>
+    <% if !@finance_declarations.blank? %>
     <tfoot>
+    <% if false %> <%#todo 先用这种办法去掉分页功能，以后要再加 %>
     <% if params[:action] == "index" %>
         <tr>
-          <td colspan="6"> <%= will_paginate @declarations %> </td>
+          <td colspan="6"> <%= will_paginate @finance_declarations %> </td>
         </tr>
+    <% end %>
     <% end %>
     </tfoot>
     <tbody>
-    <% @declarations.each do |declaration| %>
+    <% review = {1 => '未审核', 2 => '已审核', 3 => '退审单', 4 => '退审单（留底）' } %>
+    <% @finance_declarations.each do |finance_declaration| %>
+        <% finance = finance_declaration.finances.first %>
         <tr>
-          <td><%= link_to declaration.pre_entry_no, declaration %></td>
-          <td><%= declaration.entry_no %></td>
-          <td><%= declaration.declare_date %></td>
-          <td><%= declaration.is_finish ? '是' : '否' %></td>
+          <td><%= Dict::LoadPort.find_by_code(finance_declaration.load_port).name %></td>
+          <td><%= finance_declaration.declare_date %></td>
+          <td><%= finance_declaration.entry_no %></td>
+          <td><%= Enterprise.find(finance_declaration.enterprise_id).name %></td>
+          <td><%= finance.is_made ? "已制作" : "未制作" %></td>
+          <td><%= review[finance.review] %></td>
           <td>
-            <% if can? :edit, declaration %>
-                <%= link_to image_tag("icons/pencil.png", :alt => "Edit"), edit_declaration_path(declaration) %>
-            <% end %>
-            <% if can? :destroy, declaration %>
-                <%= link_to image_tag("icons/cross.png", :alt => "Delete"), declaration, confirm: '确定删除?', method: :delete %>
-            <% end %>
+            <%= link_to  "查看", finance_path(finance) %>
           </td>
         </tr>
     <% end %>

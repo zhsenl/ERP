@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 class CheckoutEnterprisesController < ApplicationController
   # GET /checkout_enterprises
   # GET /checkout_enterprises.json
@@ -24,7 +25,7 @@ class CheckoutEnterprisesController < ApplicationController
   # GET /checkout_enterprises/new
   # GET /checkout_enterprises/new.json
   def new
-    @checkout_enterprise = CheckoutEnterprise.new
+    @checkout_enterprise = CheckoutEnterprise.new(:finance_id => params[:finance_id])
 
     respond_to do |format|
       format.html # new.html.erb
@@ -44,7 +45,13 @@ class CheckoutEnterprisesController < ApplicationController
 
     respond_to do |format|
       if @checkout_enterprise.save
-        format.html { redirect_to @checkout_enterprise, notice: 'Checkout enterprise was successfully created.' }
+        format.html {
+          if params[:from]
+            redirect_to  finance_path(params[:from])
+          else
+            redirect_to @checkout_enterprise, notice: '结算单位创建成功.'
+          end
+        }
         format.json { render json: @checkout_enterprise, status: :created, location: @checkout_enterprise }
       else
         format.html { render action: "new" }
@@ -60,7 +67,13 @@ class CheckoutEnterprisesController < ApplicationController
 
     respond_to do |format|
       if @checkout_enterprise.update_attributes(params[:checkout_enterprise])
-        format.html { redirect_to @checkout_enterprise, notice: 'Checkout enterprise was successfully updated.' }
+        format.html {
+          if params[:from]
+            redirect_to  finance_path(params[:from])
+          else
+            redirect_to @checkout_enterprise, notice: 'Checkout enterprise was successfully updated.'
+          end
+        }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -76,7 +89,13 @@ class CheckoutEnterprisesController < ApplicationController
     @checkout_enterprise.destroy
 
     respond_to do |format|
-      format.html { redirect_to checkout_enterprises_url }
+      format.html {
+        if params[:from]
+          redirect_to  finance_path(params[:from])
+        else
+          redirect_to checkout_enterprises_url
+        end
+      }
       format.json { head :no_content }
     end
   end

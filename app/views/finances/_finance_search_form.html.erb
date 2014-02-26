@@ -24,38 +24,48 @@
                 $("#from").datepicker("option", "maxDate", selectedDate);
             }
         });
+        $("#search").on("ajax:success", function(e, data, status, xhr){
+            if( xhr.responseText){
+                $('#finance_search_result_div').empty().append( xhr.responseText)
+                $('tbody tr:even').not(".alt-row").addClass("alt-row"); // Add class "alt-row" to even table rows
+            }else{
+                alert("没有对应账单");
+            }
+        });
+
     })
 </script>
-<%= form_for  search_finances_path, :method => 'get', :remote => true  do  %>
+<%= form_tag  search_finances_path, :id => 'search' ,:method => 'get', :remote => true  do |f| %>
     <fieldset>
       <legend>搜索框：</legend>
       <div class="field">
         <label>经营单位</label>
-        <%= render "shared/autocomplete_field_without_form",  :attribute => :operate_enterprise_code, :url => enterprises_path, :klass => "text-input small-input first-field" %>
+        <%= select_tag "enterprise_id", options_from_collection_for_select(current_user.enterprises, "id", "name"), include_blank: true %>
       </div>
       <div class="field">
         <label>报关单号</label>
-        <%= text_field :entry_no, :class => "text-input small-input" %>
+        <%= text_field_tag "entry_no",nil, :class => "text-input small-input" %>
       </div>
       <div class="field">
         <label>装卸口岸</label>
-        <%= render "shared/autocomplete_field_without_form",  :attribute => :load_port, :url => dict_load_ports_path, :min_length => 2, :klass => "text-input small-input" %>
+        <%= text_field_tag "load_port", nil, :class => "text-input small-input"%>
       </div>
       <div class="field">
         <label>开始时间</label>
-        <%= text_field :from, :id => 'from', :class => "text-input small-input"%>
+        <%= text_field_tag "from", nil,  :class => "text-input small-input"%>
       </div>
       <div class="field">
         <label>结束时间</label>
-        <%= text_field :to, :id => 'to', :class => "text-input small-input" %>
+        <%= text_field_tag "to",  nil,  :class => "text-input small-input" %>
       </div>
       <div class='field' style="width:100px">
         <label>账单状态</label>
-        <%= select_tag :is_made, [['未制作', false], ['已制作', true]] %>
+        <%= select_tag "is_made", options_for_select([['', ''], ['未制作', false], ['已制作', true]]) %>
       </div>
       <div class='field' style="width:120px">
         <label>审核状态</label>
-        <%= select_tag :review, [['未审核', 1], ['已审核', 2], ['退审单', 3], ['退审单（留底）', 4]] %>
+        <!--[['未审核', 1], ['已审核', 2], ['退审单', 3], ['退审单（留底）', 4]] -->
+        <%= select_tag "review", options_for_select([['', ''],['未审核', 1], ['已审核', 2], ['退审单', 3]]) %>
       </div>
       <div class="clear"></div><!-- End .clear -->
 

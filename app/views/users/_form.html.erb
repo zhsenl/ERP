@@ -40,6 +40,10 @@
 	企业管理员&nbsp;&nbsp;
 	<%= check_box_tag "user[roles][]", "operator", @user.roles.include?("operator") %>
 	企业操作员&nbsp;&nbsp;
+  <%= check_box_tag "user[roles][]", "finance", @user.roles.include?("finance") %>
+  财务人员&nbsp;&nbsp;
+  <%= check_box_tag "user[roles][]", "head", @user.roles.include?("head") %>
+  主管&nbsp;&nbsp;
 </p>
 <p>
 	<%= f.submit :class => "button" %>

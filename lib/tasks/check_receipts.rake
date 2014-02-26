@@ -55,6 +55,10 @@ namespace :receipt do
               declaration.is_finish = true
               declaration.review_type = 1
               declaration.save
+              Finance.create!(:declaration_id => declaration.id,
+                              :is_made => false,
+                              :review => 1,
+              )
               Message.new({:subject => '报关单申报成功', :body => '报关单<a href="' + Settings['ERP_path'] + '/declarations/' + declaration.id.to_s + '" >' + declaration.pre_entry_no + '</a>申报成功！'}
                           ).send_message(:system, declaration.created_by)
               end
