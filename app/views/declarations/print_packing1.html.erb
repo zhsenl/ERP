@@ -119,7 +119,7 @@ PACKING LIST</h1>
 <div class="tr">
 <div class="td" style="width: 35px; "><span class="content"><%= packing.no %></span></div>
 <div class="td" style="width: 381px; "><span class="content"><%= packing.name %></span></div>
-<div class="td" style="width: 79px;"><span class="content"><%= packing.quantity %><%= dict_name Dict::Unit, packing.unit %></span></div>
+<div class="td" style="width: 79px;font-size: 13px"><span class="content"><%= packing.quantity %><%= dict_name Dict::Unit, packing.unit %></span></div>
 <div class="td" style="width: 79px;"><span class="content"><%= packing.package_amount %></span></div>
 <div class="td" style="width: 79px;font-size: 13px"><span class="content"><%= sprintf "%0.4f", packing.net_weight.round(4) %></span></div>
 <div class="td last-td" style="width: 79px;font-size: 13px"><span class="content"><%= sprintf "%0.4f", packing.gross_weight.round(4) %></span></div>
