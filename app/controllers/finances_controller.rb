@@ -19,7 +19,10 @@ class FinancesController < ApplicationController
   end
 
   def print
-
+    if  session[:checkout_enterprise_condition] and session[:check_declaration_condition]
+      @finance_declarations = Declaration.joins( :checkout_enterprises).where(session[:check_declaration_condition]).where(checkout_enterprises:session[:checkout_enterprise_condition]).order("declare_date DESC")
+      render :layout => 'print'
+    end
   end
 
   #财务结算的搜索
