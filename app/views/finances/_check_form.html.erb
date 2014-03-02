@@ -24,13 +24,16 @@
                 $("#from").datepicker("option", "maxDate", selectedDate);
             }
         });
-        $("#search").on("ajax:success", function(e, data, status, xhr){
+        $("#search").ajaxStart(function(){
+            $("#finance_search_status").empty().append("正在加载中...").css('color','red');
+        }).on("ajax:success", function(e, data, status, xhr){
+            $("#finance_search_status").empty().append("加载成功").css('color','green');
             if( xhr.responseText){
-                $('#check_result_div').empty().append( xhr.responseText)
-                $('tbody tr:even').not(".alt-row").addClass("alt-row"); // Add class "alt-row" to even table rows
-            }else{
+               $('#check_result_div').empty().append( xhr.responseText)
+               $('tbody tr:even').not(".alt-row").addClass("alt-row"); // Add class "alt-row" to even table rows
+             }else{
                 alert("没有对应账单");
-            }
+             }
         });
 
     })

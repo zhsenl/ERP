@@ -1,15 +1,20 @@
-<div class="tab-content default-tab">
-  <table>
-    <thead>
-    <tr>
-      <th>报关单号</th>
-      <th>进出/口</th>
-      <th>日期</th>
-      <th>成交方式</th>
-      <th>费用合计</th>
-    </tr>
-    </thead>
-    <% if !@finance_declarations.blank? %>
+<% if !@finance_declarations.blank? %>
+    <div class="tab-content default-tab">
+      <table>
+        <thead>
+        <tr>
+          <th>报关单号</th>
+          <th>进出/口</th>
+          <th>日期</th>
+          <th>成交方式</th>
+          <th>费用合计</th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+          <td colspan="6"> <%= will_paginate @finance_declarations %> </td>
+        </tr>
+        </tfoot>
         <tbody>
         <% @finance_declarations.each do |finance_declaration| %>
             <% enterprise_fees = finance_declaration.enterprise.enterprise_fees %>
@@ -23,10 +28,9 @@
               <td><%= finance_declaration.declare_date %></td>
               <td><%= Dict::DealMode.find_by_code(finance_declaration.deal_mode).name %></td>
               <td><%= total_fee %></td>
-
             </tr>
         <% end %>
         </tbody>
-    <% end %>
-  </table>
-</div>
+      </table>
+    </div>
+<% end %>

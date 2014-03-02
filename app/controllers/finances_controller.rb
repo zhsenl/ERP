@@ -3,7 +3,7 @@ class FinancesController < ApplicationController
 
   def check
     if  session[:checkout_enterprise_condition] and session[:check_declaration_condition]
-      @finance_declarations = Declaration.joins( :checkout_enterprises).where(session[:check_declaration_condition]).where(checkout_enterprises:session[:checkout_enterprise_condition]).order("declare_date DESC")
+      @finance_declarations = Declaration.joins( :checkout_enterprises).where(session[:check_declaration_condition]).where(checkout_enterprises:session[:checkout_enterprise_condition]).page(params[:page]).order("declare_date DESC")
     end
   end
 
@@ -12,7 +12,7 @@ class FinancesController < ApplicationController
     time = (params[:from].present? and params[:from].present?) ? (params[:from]..params[:to]) : ''
     checkout_enterprise_condition = {code: Enterprise.find(params[:enterprise_id]).code}.select { |key,value| value.present? }
     declaration_condition = {declare_date: time, load_port: params[:load_port]}.select { |key,value| value.present? }
-    @finance_declarations = Declaration.joins( :checkout_enterprises).where(declaration_condition).where(checkout_enterprises:checkout_enterprise_condition).order("declare_date DESC")
+    @finance_declarations = Declaration.joins( :checkout_enterprises).where(declaration_condition).where(checkout_enterprises:checkout_enterprise_condition).page(params[:page]).order("declare_date DESC")
     session[:checkout_enterprise_condition] = checkout_enterprise_condition
     session[:check_declaration_condition] = declaration_condition
     render :partial =>"check_result"
@@ -33,7 +33,7 @@ class FinancesController < ApplicationController
     finance_condition =  {is_made: params[:is_made], review: params[:review]}.select { |key,value| value.present? }
     session[:declaration_condition] = declaration_condition
     session[:finance_condition] = finance_condition
-    @finance_declarations = Declaration.joins(:finances).where(declaration_condition).where( finances:finance_condition).order("declare_date DESC")
+    @finance_declarations = Declaration.joins(:finances).where(declaration_condition).where( finances:finance_condition).page(params[:page]).order("declare_date DESC")
     #@finances = Finance.joins(:declarations).where(finance_condition, declarations:declaration_condition)
     render :partial =>"finance_search_result"
   end
@@ -83,7 +83,7 @@ class FinancesController < ApplicationController
   # GET /finances.json
   def index
     if  session[:declaration_condition] and session[:finance_condition]
-      @finance_declarations = Declaration.joins(:finances).where( session[:declaration_condition]).where( finances:session[:finance_condition]).order("declare_date DESC")
+      @finance_declarations = Declaration.joins(:finances).where( session[:declaration_condition]).where( finances:session[:finance_condition]).page(params[:page]).order("declare_date DESC")
     end
   end
 

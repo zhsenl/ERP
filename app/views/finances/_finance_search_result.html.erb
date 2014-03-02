@@ -1,43 +1,39 @@
-<div class="tab-content default-tab">
-  <table>
-    <thead>
-    <tr>
-      <th>装卸口岸</th>
-      <th>申报日期</th>
-      <th>报关单号</th>
-      <th>企业单位</th>
-      <th>账单状态</th>
-      <th>审核状态</th>
-      <th>操作</th>
-    </tr>
-    </thead>
-    <% if !@finance_declarations.blank? %>
-    <tfoot>
-    <% if false %> <%#todo 先用这种办法去掉分页功能，以后要再加 %>
-    <% if params[:action] == "index" %>
+<% if !@finance_declarations.blank? %>
+    <div class="tab-content default-tab">
+      <table>
+        <thead>
+        <tr>
+          <th>装卸口岸</th>
+          <th>申报日期</th>
+          <th>报关单号</th>
+          <th>企业单位</th>
+          <th>账单状态</th>
+          <th>审核状态</th>
+          <th>操作</th>
+        </tr>
+        </thead>
+        <tfoot>
         <tr>
           <td colspan="6"> <%= will_paginate @finance_declarations %> </td>
         </tr>
-    <% end %>
-    <% end %>
-    </tfoot>
-    <tbody>
-    <% review = {1 => '未审核', 2 => '已审核', 3 => '退审单', 4 => '退审单（留底）' } %>
-    <% @finance_declarations.each do |finance_declaration| %>
-        <% finance = finance_declaration.finances.first %>
-        <tr>
-          <td><%= Dict::LoadPort.find_by_code(finance_declaration.load_port).name rescue ''%></td>
-          <td><%= finance_declaration.declare_date %></td>
-          <td><%= finance_declaration.entry_no %></td>
-          <td><%= Enterprise.find(finance_declaration.enterprise_id).name %></td>
-          <td><%= finance.is_made ? "已制作" : "未制作" %></td>
-          <td><%= review[finance.review] %></td>
-          <td>
-            <%= link_to  "查看", finance_path(finance) %>
-          </td>
-        </tr>
-    <% end %>
-    </tbody>
-    <% end %>
-  </table>
-</div>
+        </tfoot>
+        <tbody>
+        <% review = {1 => '未审核', 2 => '已审核', 3 => '退审单', 4 => '退审单（留底）' } %>
+        <% @finance_declarations.each do |finance_declaration| %>
+            <% finance = finance_declaration.finances.first %>
+            <tr>
+              <td><%= Dict::LoadPort.find_by_code(finance_declaration.load_port).name rescue ''%></td>
+              <td><%= finance_declaration.declare_date %></td>
+              <td><%= finance_declaration.entry_no %></td>
+              <td><%= Enterprise.find(finance_declaration.enterprise_id).name %></td>
+              <td><%= finance.is_made ? "已制作" : "未制作" %></td>
+              <td><%= review[finance.review] %></td>
+              <td>
+                <%= link_to  "查看", finance_path(finance) %>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+<% end %>
