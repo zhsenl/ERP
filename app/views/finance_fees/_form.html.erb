@@ -1,17 +1,23 @@
-<%= form_for(@finance_fee) do |f| %>
-  <% if @finance_fee.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@finance_fee.errors.count, "error") %> prohibited this finance_fee from being saved:</h2>
-
-      <ul>
-      <% @finance_fee.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
+<%= render "shared/error_messages", :model => @finance_fee %>
+<%= form_for @finance_fee do |f| %>
+    <fieldset>
+      <%= f.hidden_field :finance_id %>
+      <input type='hidden' name='from' value=<%= params[:from] %> />
+      <p  >
+        <label>装卸口岸</label>
+        <%= render "shared/autocomplete_field", :form => f, :attribute => :load_port, :url => dict_load_ports_path, :min_length => 2, :klass => "text-input small-input" %>
+        <br />
+      </p>
+      <p>
+        <label>费用种类代码</label>
+        <%= render "shared/autocomplete_field", :form => f, :attribute => :code, :url => dict_fees_path, :min_length => 2, :klass => "text-input small-input" %>
+        <br />
+      </p>
+    </fieldset>
+    <div>
+      <%= f.submit :class => "button" %>
     </div>
-  <% end %>
-
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <div class="clear"></div><!-- End .clear -->
 <% end %>
+
+

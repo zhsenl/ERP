@@ -1,6 +1,11 @@
-<h1>Editing finance_fee</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Show', @finance_fee %> |
-<%= link_to 'Back', finance_fees_path %>
+<div class="content-box">
+  <div class="content-box-header">
+    <h3>修改报关号为<%= @finance.declaration.entry_no %>的账号的付费信息</h3>
+    <div class="operations">
+      <%= link_to '返回账单', finance_path(@finance) %>
+    </div>
+  </div>
+  <div class="content-box-content">
+    <%= render 'form' %>
+  </div>
+</div>

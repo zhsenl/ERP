@@ -1,10 +1,11 @@
 
 <fieldset>
   <legend>付费信息：</legend>
-  <% enterprise_fees = EnterpriseFee.find_all_by_load_port_and_enterprise_id(@finance.declaration.load_port, @finance.declaration.enterprise_id) %>
-  <% if enterprise_fees.nil?  %>
-      <%=  "无付费信息" %>
-  <% else %>
+  <% finance_fees = @finance.finance_fees %>
+  <% is_empty  = finance_fees.empty? %>
+  <% if is_empty  %>
+      <% finance_fees =  EnterpriseFee.find_all_by_load_port_and_enterprise_id(@finance.declaration.load_port, @finance.declaration.enterprise_id) %>
+  <% end %>
       <table>
         <thead>
         <tr>
@@ -20,18 +21,23 @@
 
         </tfoot>
         <tbody>
-        <% enterprise_fees.each do |enterprise_fee| %>
-            <% fee = Dict::Fee.find_by_code(enterprise_fee.code) %>
+        <% finance_fees.each do |finance_fee| %>
+            <% if is_empty
+                 new_finance_fee = FinanceFee.new(finance_fee.attributes.except!('enterprise_id'))
+                 new_finance_fee.finance_id = @finance.id
+                 new_finance_fee.save
+            end %>
+            <% fee = Dict::Fee.find_by_code(finance_fee.code) %>
             <tr>
-              <td><%= link_to enterprise_fee.code, enterprise_fee %></td>
+              <td><%= link_to finance_fee.code, finance_fee %></td>
               <td><%= fee.name %></td>
               <td><%= fee.price %></td>
               <td><%= fee.is_income ? '√' : '×' %></td>
               <td><%= fee.is_pay ? '√' : '×' %></td>
               <td>
                 <% if @finance.review == 1 or   @finance.review == 3  %>
-                    <%= link_to "修改", edit_enterprise_fee_path(enterprise_fee, :from => @finance.id) %>
-                    <%= link_to "删除", enterprise_fee_path(enterprise_fee) + "?from=" + @finance.id.to_s, confirm: '确定删除?', method: :delete %>
+                    <%= link_to "修改", edit_finance_fee_path(finance_fee, :from => @finance.id) %>
+                    <%= link_to "删除", finance_fee_path(finance_fee) + "?from=" + @finance.id.to_s, confirm: '确定删除?', method: :delete %>
                 <% else %>
                     已审核，不能操作
                 <% end %>
@@ -41,7 +47,6 @@
         </tbody>
       </table>
       <p>
-        <%= link_to '新建付费信息', new_enterprise_fee_path(:enterprise_id =>  @finance.declaration.enterprise_id, :from => @finance.id) %>
+        <%= link_to '新建付费信息', new_finance_fee_path(:finance_id =>  @finance.id, :from => @finance.id) %>
       </p>
-  <% end %>
 </fieldset>

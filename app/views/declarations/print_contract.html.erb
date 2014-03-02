@@ -201,11 +201,11 @@
     <div class="td" style="width:50%"><span class="not_print">电话:</span>
       <span class="content"><%= @declaration.enterprise.telephone rescue "" %></span></div>
   </div>
-<div class='seal-div hideseals' style="display: inline" title="拖动图片移动位置">
+<div class='seal-div hideseals' style="display: none" title="拖动图片移动位置">
   <%= image_tag("seal1.png",  :alt => "印章", :class=>"seal", :id=>'seal_left', :width=>'150px', :style=>"z-index:100;cursor:move")  %>
   <span class='delete_seals' title='删除图片' style="position: relative; left:-20px; z-index: 100; cursor: pointer;"><%= image_tag("icons/cross.png") %></span>
 </div>
-<div class='seal-div hideseals' style="display: inline" title="拖动图片移动位置">
+<div class='seal-div hideseals' style="display: none" title="拖动图片移动位置">
   <%= image_tag("seal1.png",  :alt => "印章", :class=>"seal", :id=>'seal_left', :width=>'150px', :style=>"z-index:100;cursor:move")  %>
   <span class='delete_seals' title='删除图片' style="position: relative; left:-20px; z-index: 100; cursor: pointer;"><%= image_tag("icons/cross.png") %></span>
 </div>

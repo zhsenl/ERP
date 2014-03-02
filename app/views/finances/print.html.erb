@@ -1,0 +1,90 @@
+<style type="text/css">
+    @page {
+        size:landscape;
+    }
+</style>
+
+<div class="frame">
+  <div class="tr" style="text-align: center; height: 95px;">
+    <h2>
+      <b>东莞市泽盛物流有限公司</b>
+    </h2>
+    <h5>
+      <b>东莞市沙田镇港口大道保税物流中心保税大厦6楼</b><br/>
+      TEL:0769-88861732&nbsp;&nbsp;FAX:0769-8880422<br/>
+    </h5>
+  </div>
+
+  <div class="tr" style="height: 18px; margin-top: 10px;">
+    <div class="td" style="height: 18px; width: 65px;"><span class="bgText">户  名：</span></div>
+    <div class="td" style="height: 18px; width: 354px; border-bottom: 1px solid;"><span class="content"><%=  %></span></div>
+    <div class="td" style="height: 18px; width: 22px;"></div>
+  </div>
+
+  <div class="tr" style="height: 18px; margin-top: 10px;">
+    <div class="td" style="height: 18px; width: 65px;"><span class="bgText">开户行：</span></div>
+    <div class="td" style="height: 18px; width: 354px; border-bottom: 1px solid;"><span class="content"><%=  %></span></div>
+    <div class="td" style="height: 18px; width: 22px;"></div>
+  </div>
+
+  <div class="tr" style="height: 18px; margin-top: 10px;">
+    <div class="td" style="height: 18px; width: 65px;"><span class="bgText"><%=   %> 卡  号：</span></div>
+    <div class="td" style="height: 18px; width: 354px; border-bottom: 1px solid;"><span class="content"><%= %></span></div>
+    <div class="td" style="height: 18px; width: 22px;"></div>
+  </div>
+  <div class="clear"></div>
+  <% if @finance_declarations.empty?
+     return
+  end %>
+
+  <div class="table" style=" margin-top: 10px; ">
+    <div class="tr header" style="border-bottom: 1px solid;">
+      <div class="td header" style="width: 35px;"><span class="bgText">序号</span></div>
+      <div class="td header" style="width: 300px;"><span class="bgText">客户</span></div>
+      <div class="td header" style="width: 70px;"><span class="bgText">报关单日期</span></div>
+      <div class="td header" style="width: 60px;"><span class="bgText">进/出口</span></div>
+      <div class="td header" style="width: 90px;"><span class="bgText">报关单号</span></div>
+      <% @finance_declarations[0].enterprise.enterprise_fees.each do |fee| %>
+         <div class="td header" style="width: 90px;"><span><%= fee.name %></span></div>
+      <% end %>
+      <div class="td header last-td" style="width: 125px;"><span class="bgText">金额(RMB)</span></div>
+    </div>
+    <div class="tr last-tr" style="height: 650px;">
+      <div class="td last-td" style="height: 650px; ">
+        <% %>
+        <%  %>
+            <div class="tr">
+              <div class="td" style="width: 35px;"><span class="content"><%=  %></span></div>
+              <div class="td" style="width: 388px; overflow:hidden;"><span class="content"><%=  %></span></div>
+              <div class="td" style="width: 60px;"><span class="content"><%=  %></span></div>
+              <div class="td" style="width: 60px;"><span class="content"><%=  %></span></div>
+              <div class="td" style="width: 90px;"><span class="content"><%=  %></span></div>
+              <div class="td last-td" style="width: 125px;"><span class="content"><%=  %></span></div>
+            </div>
+        <%  %>
+
+        <%  %>
+            <%  %>
+                <div class="tr">
+                  <div class="td" style="width: 35px;"></div>
+                  <div class="td" style="width: 388px;"></div>
+                  <div class="td" style="width: 60px;"></div>
+                  <div class="td" style="width: 60px;"></div>
+                  <div class="td" style="width: 90px;"></div>
+                  <div class="td last-td" style="width: 125px;"></div>
+                </div>
+            <%  %>
+        <%  %>
+
+
+
+      </div>
+    </div>
+
+  </div>
+  <div class='seal-div hideseals' style="display: none" title="拖动图片移动位置">
+    <%= image_tag("seal1.png",  :alt => "印章", :class=>"seal", :id=>'seal_left', :width=>'150px', :style=>"z-index:100;cursor:move")  %>
+    <span class='delete_seals' title='删除图片' style="position: relative; left:-20px; z-index: 100; cursor: pointer;"><%= image_tag("icons/cross.png") %></span>
+  </div>
+  <div style="width: 100%; height: 20px;"></div>
+</div>
