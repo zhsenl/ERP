@@ -67,7 +67,7 @@ class EnterpriseFeesController < ApplicationController
     respond_to do |format|
       if @enterprise_fee.save
         format.html {
-          if params[:from]
+          if !params[:from].blank?
             redirect_to  finance_path(params[:from])
           else
             redirect_to @enterprise_fee, notice: '付费信息创建成功'
@@ -89,7 +89,7 @@ class EnterpriseFeesController < ApplicationController
     respond_to do |format|
       if @enterprise_fee.update_attributes(params[:enterprise_fee])
         format.html {
-          if params[:from]
+          if !params[:from].blank?
             redirect_to  finance_path(params[:from])
           else
             redirect_to @enterprise_fee, notice: '付费信息更新成功 .'
@@ -112,7 +112,7 @@ class EnterpriseFeesController < ApplicationController
 
     respond_to do |format|
       format.html {
-        if params[:from]
+        if !params[:from].blank?
           redirect_to  finance_path(params[:from])
         else
           redirect_to enterprise_fees_url(:enterprise_id => enterprise_id)

@@ -7,7 +7,7 @@
           <th>进出/口</th>
           <th>日期</th>
           <th>成交方式</th>
-          <th>费用合计</th>
+          <!--<th>费用合计</th>-->
         </tr>
         </thead>
         <tfoot>
@@ -17,17 +17,17 @@
         </tfoot>
         <tbody>
         <% @finance_declarations.each do |finance_declaration| %>
-            <% enterprise_fees = finance_declaration.enterprise.enterprise_fees %>
-            <% total_fee = 0 %>
-            <% enterprise_fees.each do |enterprise_fee| %>
-                <% total_fee = total_fee + Dict::Fee.find_by_code(enterprise_fee.code).price %>
-            <%end%>
+            <% finance_fees = finance_declaration.finances[0].finance_fees %>
+            <%# total_fee = 0 %>
+            <%# finance_fees.each do |finance_fee|
+                 total_fee = total_fee + Dict::Fee.find_by_code(finance_fee.code).price
+            end%>
             <tr>
               <td><%= finance_declaration.entry_no %></td>
               <td><%= finance_declaration.declaration_type == 'export' ? "出口":"进口" %></td>
               <td><%= finance_declaration.declare_date %></td>
               <td><%= Dict::DealMode.find_by_code(finance_declaration.deal_mode).name %></td>
-              <td><%= total_fee %></td>
+              <td><%# total_fee %></td>
             </tr>
         <% end %>
         </tbody>
