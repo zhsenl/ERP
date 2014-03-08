@@ -104,7 +104,7 @@
       <div class="td header last-td" style="width: 59px;line-height:18px;"><span class="bgText">每箱毛重(kg)</span></div>
     </div>
     <div class="tr last-tr" >
-      <div class="td last-td" >
+        <div class="td last-td" >
         <% list_size = @declaration_packings.size > 20 ? 20 : @declaration_packings.size %>
         <% @declaration_packings[0..list_size-1].each do |packing| %>
             <div class="tr">
