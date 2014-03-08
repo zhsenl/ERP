@@ -2,12 +2,24 @@
     @page {
         size:landscape;
     }
+    .frame {
+        position:relative;
+        top: 0px;
+        left: 0px;
+    }
+
+    #theSeals{
+        position:absolute;
+        top:0px;
+        left:0px;
+    }
 
     td{
         padding: 0 0.5em;
     }
     .clear{
         page-break-after: always;
+        clear: both;
     }
 
     .outer-center {
@@ -20,11 +32,9 @@
         right: -50%;
         position: relative;
     }
-    .clear {
-        clear: both;
-    }
+
 </style>
-<div>
+<div >
   <div class="outer-center">
     <div class="inner-center">
       <h2>
@@ -34,7 +44,7 @@
         <b>东莞市沙田镇港口大道保税物流中心保税大厦6楼</b><br/>
         TEL:0769-88861732&nbsp;&nbsp;FAX:0769-8880422<br/>
       </h5>
-      <table>
+      <table class="frame">
         <tr>
           <td>户名：</td><td class="content"></td>
         </tr>
@@ -44,6 +54,12 @@
         <tr>
           <td>卡号：</td><td class="content"></td>
         </tr>
+        <div id="theSeals">
+          <div class='seal-div hideseals' style="display: none" title="拖动图片移动位置">
+            <%= image_tag("seal1.png",  :alt => "印章", :class=>"seal", :id=>'seal_left', :width=>'150px', :style=>"z-index:100;cursor:move")  %>
+            <span class='delete_seals' title='删除图片' style="position: relative; left:-20px; z-index: 100; cursor: pointer;"><%= image_tag("icons/cross.png") %></span>
+          </div>
+        </div>
       </table>
       <table  border=1 style="border-collapse:collapse;">
         <thead style="font-weight: bold">
@@ -93,9 +109,9 @@
         <% page_size  = 23 %>
         <% (page_size - @finance_declarations.size%page_size - 1).times do  %>
             <tr>
-            <% (6 + enterprise_fee_codes.size).times do %>
-              <td>&nbsp;</td>
-            <% end %>
+              <% (6 + enterprise_fee_codes.size).times do %>
+                  <td>&nbsp;</td>
+              <% end %>
             </tr>
         <% end %>
         <tr>
@@ -105,7 +121,7 @@
           <td></td>
           <td></td>
           <% v_total_prices.each do |v_total_price| %>
-            <td><%= v_total_price %></td>
+              <td><%= v_total_price %></td>
           <% end %>
         </tr>
         </tbody>
@@ -113,11 +129,7 @@
     </div>
   </div>
 
-  <div class="clear"></div>
-  <div class='seal-div hideseals' style="display: none" title="拖动图片移动位置">
-    <%= image_tag("seal1.png",  :alt => "印章", :class=>"seal", :id=>'seal_left', :width=>'150px', :style=>"z-index:100;cursor:move")  %>
-    <span class='delete_seals' title='删除图片' style="position: relative; left:-20px; z-index: 100; cursor: pointer;"><%= image_tag("icons/cross.png") %></span>
-  </div>
+
 </div>
 
 

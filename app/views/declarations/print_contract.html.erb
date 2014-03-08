@@ -8,6 +8,14 @@
         margin: 0 auto;
         width: 700px;
         text-align: left;
+        position:relative;
+        top: 0px;
+        left: 0px;
+    }
+    #theSeals{
+        position:absolute;
+        top:50px;
+        left:120px;
     }
 
     .tr {
@@ -44,10 +52,12 @@
         size: portrait;
     }
 
+    .after-table {
+        float: left;
+    }
 
 </style>
 
-<% contract = @declaration.contract %>
 
 <div class="frame">
   <div class="tr not_print" style="height: 45px; text-align: center; font-size: 30px;">
@@ -108,10 +118,10 @@
               </div>
             </div>
         <% end %>
-       <% if page_count < pages - 1 %>
+        <% if page_count < pages - 1 %>
             </div>
             <div class="tr" style="height: 30px"></div>
-      <% end %>
+        <% end %>
   <% end %>
 
   <% if size < 5 %>
@@ -142,8 +152,9 @@
     <div class="td" style="width:128px;"><span class="content"><%= sprintf "%0.2f", total_price rescue "" %></span>
     </div>
   </div>
-  </div>
+</div>
 
+<div class="after-table">
   <div class="tr"><span class="not_print">2.
     装运日期：</span><span class="content"><%= (@declaration.declare_date + 60.days).strftime("%Y年%m月%d日") + '前' rescue "" %></span>
   </div>
@@ -161,27 +172,28 @@
     :</span><span class="content"><%= dict_name Dict::Country, @declaration_cargos.first.trade_country rescue "" %></span>
   </div>
   <div class="tr"><span class="not_print">10.结汇方式:</span><span class="content"><%= @declaration_type == "export" ? "先出后结" : "T/T" %></span></div>
-  <div class="tr not_print">11.检验和索赔:货卸目的地后买方有权进行检验,检验结果与合同约定的不符,买方有权根据本国检验<!--<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->检疫部门出具的检验证书提出索赔,索赔有效期限为货卸目的地后三十天。
+</div>
+
+<div class="tr not_print">11.检验和索赔:货卸目的地后买方有权进行检验,检验结果与合同约定的不符,买方有权根据本国检验<!--<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->检疫部门出具的检验证书提出索赔,索赔有效期限为货卸目的地后三十天。
   </div>
   <div class="tr not_print">12.仲裁:一切因执行本合同或本合同有关的争议最终由中国国际经济贸易仲裁委员会按其规则进行仲<!--<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;-->裁.仲裁费用由败方负担。</div>
   <div class="tr not_print">13.其它:本合同受国际商会的约束。</div>
   <div class="tr not_print">14.本合同未定的事宜须经买卖双方协商。</div>
   <div class="tr not_print">15.本合同一式两份，买卖双方各持一份，具有同等法律效力。</div>
-  <!--<div class="tr" style="height: 120px;"></div>-->
-<% if size < 20 and size > 5 %>
-    <% (1..(20-size)).each do |i| %>
-        <div class="tr">
-          &nbsp;
-        </div>
-    <% end %>
-<% end %>
-<% if size <  5 %>
-    <% (1..(15)).each do |i| %>
-        <div class="tr">
-          &nbsp;
-        </div>
-    <% end %>
-<% end %>
+  <% if size < 20 and size > 5 %>
+      <% (1..(20-size)).each do |i| %>
+          <div class="tr">
+            &nbsp;
+          </div>
+      <% end %>
+  <% end %>
+  <% if size <  5 %>
+      <% (1..(15)).each do |i| %>
+          <div class="tr">
+            &nbsp;
+          </div>
+      <% end %>
+  <% end %>
 
   <div class="tr">
     <div class="td" style="width:50%"><%= @declaration_type == "export" ? '买方' : '卖方' rescue "" %>:
@@ -201,13 +213,16 @@
     <div class="td" style="width:50%"><span class="not_print">电话:</span>
       <span class="content"><%= @declaration.enterprise.telephone rescue "" %></span></div>
   </div>
-<div class='seal-div hideseals' style="display: none" title="拖动图片移动位置">
-  <%= image_tag("seal1.png",  :alt => "印章", :class=>"seal", :id=>'seal_left', :width=>'150px', :style=>"z-index:100;cursor:move")  %>
-  <span class='delete_seals' title='删除图片' style="position: relative; left:-20px; z-index: 100; cursor: pointer;"><%= image_tag("icons/cross.png") %></span>
-</div>
-<div class='seal-div hideseals' style="display: none" title="拖动图片移动位置">
-  <%= image_tag("seal1.png",  :alt => "印章", :class=>"seal", :id=>'seal_left', :width=>'150px', :style=>"z-index:100;cursor:move")  %>
-  <span class='delete_seals' title='删除图片' style="position: relative; left:-20px; z-index: 100; cursor: pointer;"><%= image_tag("icons/cross.png") %></span>
-</div>
-<div class="tr" style="height: 20px;">&nbsp;</div>
+
+  <div id="theSeals">
+    <div class='seal-div hideseals' style="display: none" title="拖动图片移动位置">
+      <%= image_tag("seal1.png",  :alt => "印章", :class=>"seal", :id=>'seal_left', :width=>'150px', :style=>"z-index:100;cursor:move")  %>
+      <span class='delete_seals' title='删除图片' style="position: relative; left:-20px; z-index: 100; cursor: pointer;"><%= image_tag("icons/cross.png") %></span>
+    </div>
+    <div class='seal-div hideseals' style="display: none" title="拖动图片移动位置">
+      <%= image_tag("seal1.png",  :alt => "印章", :class=>"seal", :id=>'seal_left', :width=>'150px', :style=>"z-index:100;cursor:move")  %>
+      <span class='delete_seals' title='删除图片' style="position: relative; left:-20px; z-index: 100; cursor: pointer;"><%= image_tag("icons/cross.png") %></span>
+    </div>
+  </div>
+
 </div>
