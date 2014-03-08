@@ -57,9 +57,9 @@ function html_encode(text){
 
 $(document).ready(function() {
     //$('.seal').css('display','none');
-//    $('.seal').resizable();
 
     $('.seal-div').draggable();
+
     $(".delete_seals").hide();
     $(".seal-div").hover(function(){
         $(this).find('.delete_seals').show();
