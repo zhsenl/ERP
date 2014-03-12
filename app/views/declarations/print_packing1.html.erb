@@ -9,8 +9,16 @@
 
     .frame {
         margin: 0 auto;
-        width: 748px;
+        width: 750px;
         text-align: left;
+        position:relative;
+        top: 0px;
+        left: 0px;
+    }
+    #theSeals{
+        position:absolute;
+        top:50px;
+        left:120px;
     }
 
     h1 {
@@ -93,7 +101,8 @@
   </div>
   <div class="clear"></div>
 
-  <div class="table" style=" margin-top: 10px; border-left: none; border-right: none;border-bottom: none; ">
+  <!--<div class="table" style=" margin-top: 10px; border-left: none; border-right: none;border-bottom: none; ">-->
+  <div class="table" style=" margin-top: 10px; ">
     <div class="tr header" style="border-bottom: 1px solid;">
       <div class="td header" style="width: 35px;"><span class="bgText">序号</span></div>
       <div class="td header" style="width: 381px;"><span class="bgText">商　　　品　　　名　　　称</span></div>
@@ -102,8 +111,7 @@
       <div class="td header" style="width: 79px;"><span class="bgText">总净重(kg)</span></div>
       <div class="td header last-td" style="width: 79px;"><span class="bgText">总毛重(kg)</span></div>
     </div>
-    <div class="tr last-tr" >
-      <div class="td last-td" >
+    <div>
         <% list_size = @declaration_packings.size > 20 ? 20 : @declaration_packings.size %>
         <% @declaration_packings[0..list_size-1].each do |packing| %>
             <div class="tr">
@@ -148,10 +156,11 @@
           <div class="td editable last-td" style="width: 79px;font-size: 12px"><span class="content"><%= sprintf "%0.4f", total_gross_weight.round(4) %></span></div>
         </div>
       </div>
-    </div>
   </div>
-  <div class='seal-div hideseals ' style="display: none" title="拖动图片移动位置">
-    <%= image_tag("seal1.png",  :alt => "印章", :class=>"seal", :id=>'seal_left',  :style=>"z-index:100;cursor:move")  %>
-    <span class='delete_seals' title='删除图片' style="position: relative; left:-20px; z-index: 100; cursor: pointer;"><%= image_tag("icons/cross.png") %></span>
+  <div id="theSeals">
+    <div class='seal-div hideseals ' style="display: none" title="拖动图片移动位置">
+      <%= image_tag("seal1.png",  :alt => "印章", :class=>"seal", :id=>'seal_left',  :style=>"z-index:100;cursor:move")  %>
+      <span class='delete_seals' title='删除图片' style="position: relative; left:-20px; z-index: 100; cursor: pointer;"><%= image_tag("icons/cross.png") %></span>
+    </div>
   </div>
 </div>

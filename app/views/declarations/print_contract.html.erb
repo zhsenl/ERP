@@ -107,13 +107,13 @@
               <div class="td" style="width:280px;font-size:12px;">
                 <span class="content"><%= cargo.name %></span>
               </div>
-              <div class="td" style="width:140px;">
+              <div class="td" style="width:140px;font-size: 12px">
                 <span class="content quantity"><%= "%g" % cargo.quantity + dict_name(Dict::Unit, cargo.unit) rescue "" %></span>
               </div>
-              <div  class="td" style="width:110px;">
+              <div  class="td" style="width:110px;font-size: 12px">
                 <span class="content unit_price"><%= sprintf "%0.4f", cargo.unit_price.round(4) rescue "" %></span>
               </div>
-              <div class="td" style="width:128px;">
+              <div class="td" style="width:128px;font-size: 12px">
                 <span class="content total_price"><%= sprintf "%0.2f", cargo.total_price.round(2) rescue "" %></span>
               </div>
             </div>
@@ -149,7 +149,7 @@
          total_price += cargo.total_price
        end
     %>
-    <div class="td" style="width:128px;"><span class="content"><%= sprintf "%0.2f", total_price rescue "" %></span>
+    <div class="td" style="width:128px;font-size: 12px"><span class="content"><%= sprintf "%0.2f", total_price rescue "" %></span>
     </div>
   </div>
 </div>

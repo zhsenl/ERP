@@ -10,7 +10,7 @@
 
     .frame {
         margin: 0 auto;
-        width: 765px;
+        width: 785px;
         text-align: left;
         position:relative;
         top: 0px;
@@ -105,7 +105,7 @@
     <div class="tr header" style="border-bottom: 1px solid;">
       <div class="td header" style="width: 35px;"><span class="bgText">序号</span></div>
       <div class="td header" style="width: 388px;"><span class="bgText">商　　　品　　　名　　　称</span></div>
-      <div class="td header" style="width: 60px;"><span class="bgText">数量</span></div>
+      <div class="td header" style="width: 80px;"><span class="bgText">数量</span></div>
       <div class="td header" style="width: 60px;"><span class="bgText">单位</span></div>
       <div class="td header" style="width: 90px;"><span class="bgText">单价</span></div>
       <div class="td header last-td" style="width: 125px;"><span class="bgText">总价</span></div>
@@ -117,10 +117,10 @@
             <div class="tr">
               <div class="td" style="width: 35px;"><span class="content"><%= cargo.no %></span></div>
               <div class="td" style="width: 388px; overflow:hidden;"><span class="content"><%= cargo.name %></span></div>
-              <div class="td" style="width: 60px;"><span class="content"><%= cargo.quantity %></span></div>
+              <div class="td" style="width: 80px;font-size: 12px"><span class="content"><%= cargo.quantity %></span></div>
               <div class="td" style="width: 60px;"><span class="content"><%= dict_name Dict::Unit, cargo.unit %></span></div>
-              <div class="td" style="width: 90px;"><span class="content"><%= sprintf "%0.4f", cargo.unit_price %></span></div>
-              <div class="td last-td" style="width: 125px;"><span class="content"><%= sprintf "%0.2f", cargo.total_price %></span></div>
+              <div class="td" style="width: 90px;font-size: 12px"><span class="content"><%= sprintf "%0.4f", cargo.unit_price %></span></div>
+              <div class="td last-td" style="width: 125px;font-size: 12px"><span class="content"><%= sprintf "%0.2f", cargo.total_price %></span></div>
             </div>
         <% end %>
 
@@ -129,7 +129,7 @@
                 <div class="tr">
                   <div class="td" style="width: 35px;"></div>
                   <div class="td" style="width: 388px;"></div>
-                  <div class="td" style="width: 60px;"></div>
+                  <div class="td" style="width: 80px;"></div>
                   <div class="td" style="width: 60px;"></div>
                   <div class="td" style="width: 90px;"></div>
                   <div class="td last-td" style="width: 125px;"></div>
@@ -148,10 +148,10 @@
         <div class="tr">
           <div class="td" style="width: 35px;"></div>
           <div class="td" style="width: 388px;">成交方式：<span class="content"><%= dict_name Dict::DealMode, @declaration.deal_mode %> <%= dict_name Dict::District, @declaration.destination %></span></div>
-          <div class="td" style="width: 60px;"></div>
+          <div class="td" style="width: 80px;"></div>
           <div class="td" style="width: 60px;"></div>
           <div class="td" style="width: 90px;"><span class="content">总值(<%= dict_attr Dict::Currency, @declaration_cargos[0].currency, "short_name" %>)</span></div>
-          <div class="td last-td" style="width: 125px;"><span class="content"><%= sprintf "%0.2f", total_price.round(2) %></span></div>
+          <div class="td last-td" style="width: 125px;font-size: 12px"><span class="content"><%= sprintf "%0.2f", total_price.round(2) %></span></div>
         </div>
 
       </div>
