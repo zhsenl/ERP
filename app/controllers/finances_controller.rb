@@ -13,8 +13,10 @@ class FinancesController < ApplicationController
     checkout_enterprise_condition = {code: Enterprise.find(params[:enterprise_id]).code}.select { |key,value| value.present? }
     declaration_condition = {declare_date: time, load_port: params[:load_port]}.select { |key,value| value.present? }
     @finance_declarations = Declaration.joins( :checkout_enterprises).joins(:finances).where(finances:{review: 2}).where(declaration_condition).where(checkout_enterprises:checkout_enterprise_condition).page(params[:page]).order("declare_date DESC")
-    session[:checkout_enterprise_condition] = checkout_enterprise_condition
-    session[:check_declaration_condition] = declaration_condition
+    if @finance_declarations.size != 0
+      session[:checkout_enterprise_condition] = checkout_enterprise_condition
+      session[:check_declaration_condition] = declaration_condition
+    end
     render :partial =>"check_result"
   end
 
@@ -31,10 +33,13 @@ class FinancesController < ApplicationController
     declaration_condition =  {declare_date: time, enterprise_id: params[:enterprise_id],
                               entry_no: params[:entry_no],load_port: params[:load_port]}.select { |key,value| value.present? }
     finance_condition =  {is_made: params[:is_made], review: params[:review]}.select { |key,value| value.present? }
-    session[:declaration_condition] = declaration_condition
-    session[:finance_condition] = finance_condition
+
     @finance_declarations = Declaration.joins(:finances).where(declaration_condition).where( finances:finance_condition).page(params[:page]).order("declare_date DESC")
     #@finances = Finance.joins(:declarations).where(finance_condition, declarations:declaration_condition)
+    if @finance_declarations.size != 0
+      session[:declaration_condition] = declaration_condition
+      session[:finance_condition] = finance_condition
+    end
     render :partial =>"finance_search_result"
   end
 

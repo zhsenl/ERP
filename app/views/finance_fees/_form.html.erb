@@ -13,6 +13,17 @@
         <%= render "shared/autocomplete_field", :form => f, :attribute => :code, :url => dict_fees_path, :min_length => 2, :klass => "text-input small-input" %>
         <br />
       </p>
+      <% if params[:from] %>
+          <% checkout_enterprises = Finance.find(params[:from]).checkout_enterprises
+             checkout_enterprises.each_with_index do |checkout_enterprise, i|
+                 checkout_enterprises[i]["name"] = Enterprise.find_by_code(checkout_enterprise.code).name
+             end
+          %>
+          <p>
+            <label>结算单位</label>
+            <%= f.select :checkout_enterprise_id ,options_from_collection_for_select(checkout_enterprises, "id", "name"), include_blank: true %>
+          </p>
+      <% end %>
     </fieldset>
     <div>
       <%= f.submit :class => "button" %>

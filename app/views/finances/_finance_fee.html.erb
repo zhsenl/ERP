@@ -11,6 +11,7 @@
     <tr>
       <th>编号</th>
       <th>中文名</th>
+      <th>结算单位</th>
       <th>价格</th>
       <th>应收</th>
       <th>应付</th>
@@ -31,6 +32,7 @@
         <tr>
           <td><%= link_to finance_fee.code, finance_fee %></td>
           <td><%= fee.name %></td>
+          <td><%= Enterprise.find_by_code(finance_fee.checkout_enterprise.code).name rescue '' %></td>
           <td><%= fee.price %></td>
           <td><%= fee.is_income ? '√' : '×' %></td>
           <td><%= fee.is_pay ? '√' : '×' %></td>
@@ -38,7 +40,8 @@
             <% if @finance.review == 1 or   @finance.review == 3  %>
                 <%= link_to "修改", edit_finance_fee_path(finance_fee, :from => @finance.id) %>
                 <%= link_to "删除", finance_fee_path(finance_fee) + "?from=" + @finance.id.to_s, confirm: '确定删除?', method: :delete %>
-            <% else %>
+                <%= link_to "选择结算单位", edit_finance_fee_path(finance_fee, :from => @finance.id) %>
+          <% else %>
                 已审核，不能操作
             <% end %>
           </td>
