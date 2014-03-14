@@ -32,7 +32,15 @@
         <tr>
           <td><%= link_to finance_fee.code, finance_fee %></td>
           <td><%= fee.name %></td>
-          <td><%= Enterprise.find_by_code(finance_fee.checkout_enterprise.code).name rescue '' %></td>
+          <% if finance_fee.checkout_enterprise %>
+              <td><%= Enterprise.find_by_code(finance_fee.checkout_enterprise.code).name rescue '' %></td>
+          <% else %>
+              <% if @finance.review == 1 or   @finance.review == 3  %>
+                  <td class="no_checkout_enterprise"><%= link_to "选择结算单位", edit_finance_fee_path(finance_fee, :from => @finance.id) %></td>
+              <% else %>
+                  已审核，不能操作
+              <% end %>
+          <% end %>
           <td><%= fee.price %></td>
           <td><%= fee.is_income ? '√' : '×' %></td>
           <td><%= fee.is_pay ? '√' : '×' %></td>
@@ -40,8 +48,7 @@
             <% if @finance.review == 1 or   @finance.review == 3  %>
                 <%= link_to "修改", edit_finance_fee_path(finance_fee, :from => @finance.id) %>
                 <%= link_to "删除", finance_fee_path(finance_fee) + "?from=" + @finance.id.to_s, confirm: '确定删除?', method: :delete %>
-                <%= link_to "选择结算单位", edit_finance_fee_path(finance_fee, :from => @finance.id) %>
-          <% else %>
+            <% else %>
                 已审核，不能操作
             <% end %>
           </td>
