@@ -36,6 +36,7 @@
                     $(this).attr("href","finances?page=" + (i+2));
                 })
             }else{
+                $('#finance_search_result_div').empty()
                 alert("没有对应账单");
             }
         });

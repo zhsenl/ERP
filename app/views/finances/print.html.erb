@@ -97,7 +97,11 @@
                   <td><%= finance_declaration.entry_no %></td>
                   <% i = 0 %>
                   <% row_total_price = 0 %>
-                  <% checkout_enterprise_fees = checkout_enterprise.finance_fees %>
+                  <% if checkout_enterprises.size == 1 %>
+                      <% checkout_enterprise_fees = finance.finance_fees %>
+                <% else %>
+                      <% checkout_enterprise_fees = checkout_enterprise.finance_fees %>
+                  <% end %>
                   <% finance_fee_codes.each_with_index do |finance_fee_code,vi| %>
                       <% if i < checkout_enterprise_fees.size and finance_fee_code == checkout_enterprise_fees[i].code %>
                           <td><%= price =  Dict::Fee.find_by_code(finance_fee_code).price %></td>

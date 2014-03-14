@@ -13,6 +13,7 @@
         <%= render "shared/autocomplete_field", :form => f, :attribute => :code, :url => dict_fees_path, :min_length => 2, :klass => "text-input small-input" %>
         <br />
       </p>
+
       <% if params[:from] %>
           <% checkout_enterprises = Finance.find(params[:from]).checkout_enterprises
              checkout_enterprises.each_with_index do |checkout_enterprise, i|
