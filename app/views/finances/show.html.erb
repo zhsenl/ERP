@@ -1,4 +1,18 @@
-
+<script>
+$(function(){
+    $("#make").click(function(event){
+        if($(".no_checkout_enterprise").size() > 0){
+            if(!confirm("有付费信息没分配结算单位，确定生成账单？")){
+                event.preventDefault();
+            }
+        }else{
+            if(!confirm("确定生成账单？")){
+                event.preventDefault();
+            }
+        }
+    })
+})
+</script>
 <div class="content-box">
   <div class="content-box-header">
     <h3>查看账单(报关单号：<%= @finance.declaration.entry_no.blank? ? '未完成申报' : @finance.declaration.entry_no %>, 装卸口岸：<%= @finance.declaration.load_port %>)
@@ -23,7 +37,8 @@
               <%end %>
           <% end %>
       <% else %>
-          <%= link_to "生成账单", make_finance_path(@finance),data: { confirm: "确定生成账单吗？"}, :id=>'make' %>
+          <%# link_to "生成账单", make_finance_path(@finance),data: { confirm: "确定生成账单吗？"}, :id=>'make' %>
+          <%= link_to "生成账单", make_finance_path(@finance), :id=>'make' %>
       <% end %>
       &nbsp;|&nbsp;
       <%= link_to '返回列表', finances_path(:finance_type => @finance_type) %>

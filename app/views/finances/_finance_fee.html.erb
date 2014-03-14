@@ -38,7 +38,7 @@
               <% if @finance.review == 1 or   @finance.review == 3  %>
                   <td class="no_checkout_enterprise"><%= link_to "选择结算单位", edit_finance_fee_path(finance_fee, :from => @finance.id) %></td>
               <% else %>
-                  已审核，不能操作
+                  <td>已审核，不能操作</td>
               <% end %>
           <% end %>
           <td><%= fee.price %></td>
