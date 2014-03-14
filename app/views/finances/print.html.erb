@@ -94,8 +94,8 @@
             <% checkout_enterprises.each do |checkout_enterprise| %>
                 <tr>
                   <td><%= no = no + 1 %></td>
-                  <td><%= Enterprise.find_by_code(checkout_enterprise.code).name %></td>
-                  <td><%= finance_declaration.declare_date %></td>
+                  <td style="font-size: 10px"><%= Enterprise.find_by_code(checkout_enterprise.code).name %></td>
+                  <td style="font-size: 10px"><%= finance_declaration.declare_date %></td>
                   <td><%= Dict::DealMode.find_by_code(finance_declaration.deal_mode).name rescue '' %></td>
                   <td><%= finance_declaration.entry_no %></td>
                   <% i = 0 %>
@@ -142,8 +142,6 @@
       </table>
     </div>
   </div>
-
-
 </div>
 
 
