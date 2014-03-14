@@ -46,7 +46,7 @@
     <fieldset>
       <legend>搜索框：</legend>
       <div class="field">
-        <label>结算单位</label>
+        <label>经营单位</label>
         <%= select_tag "enterprise_id", options_from_collection_for_select(current_user.enterprises, "id", "name"), include_blank: true %>
       </div>
       <div class="field">
