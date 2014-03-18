@@ -18,13 +18,21 @@ class FinancesController < ApplicationController
     if @finance_declarations.size != 0
       #session[:checkout_enterprise_condition] = checkout_enterprise_condition
       session[:check_declaration_condition] = declaration_condition
+      session[:enterprise_id] = params[:enterprise_id]
+      session[:from] = params[:from]
+      session[:to] = params[:to]
     end
     render :partial =>"check_result"
   end
 
   def print
-    if   session[:check_declaration_condition]  #and  session[:checkout_enterprise_condition]
+    if session[:check_declaration_condition]  #and  session[:checkout_enterprise_condition]
       @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(session[:check_declaration_condition]).order("declare_date DESC")
+      @group_size = 16
+      @groups = Array.new((@finance_declarations.size - 1) / @group_size + 1) { Array.new }
+      @finance_declarations.each_with_index do |finance_declaration, index|
+        @groups[index / @group_size][index % @group_size] = finance_declaration
+      end
       render :layout => 'print'
     end
   end
