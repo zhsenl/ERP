@@ -23,8 +23,8 @@ class FinancesController < ApplicationController
   end
 
   def print
-    if  session[:checkout_enterprise_condition] and session[:check_declaration_condition]
-      @finance_declarations = Declaration.joins( :checkout_enterprises).joins(:finances).where(finances:{review: 2}).where(session[:check_declaration_condition]).where(checkout_enterprises:session[:checkout_enterprise_condition]).order("declare_date DESC")
+    if   session[:check_declaration_condition]  #and  session[:checkout_enterprise_condition]
+      @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(session[:check_declaration_condition]).order("declare_date DESC")
       render :layout => 'print'
     end
   end

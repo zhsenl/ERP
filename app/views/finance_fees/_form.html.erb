@@ -3,21 +3,60 @@
     <fieldset>
       <%= f.hidden_field :finance_id %>
       <input type='hidden' name='from' value=<%= params[:from] %> />
-      <p  >
-        <label>装卸口岸</label>
-        <%= render "shared/autocomplete_field", :form => f, :attribute => :load_port, :url => dict_load_ports_path, :min_length => 2, :klass => "text-input small-input" %>
-        <br />
-      </p>
-      <p>
-        <label>费用种类代码</label>
-        <%= render "shared/autocomplete_field", :form => f, :attribute => :code, :url => dict_fees_path, :min_length => 2, :klass => "text-input small-input" %>
-        <br />
-      </p>
+      <!--<p  >-->
+      <!--<label>装卸口岸</label>-->
+      <!--<%# render "shared/autocomplete_field", :form => f, :attribute => :load_port, :url => dict_load_ports_path, :min_length => 2, :klass => "text-input small-input" %>-->
+      <!--<br />-->
+      <!--</p>-->
 
-      <% if params[:from] %>
+      <!--<p>-->
+      <!--<label>费用种类代码</label>-->
+      <!--<%# render "shared/autocomplete_field", :form => f, :attribute => :code, :url => dict_fees_path, :min_length => 2, :klass => "text-input small-input" %>-->
+      <!--<br />-->
+      <!--</p>-->
+      <% if !params[:is_checkout] %>
+          <p>
+            <label>编码</label>
+            <%= f.text_field :code, :class => "text-input small-input first-field" %>
+            <br />
+          </p>
+          <p>
+            <label>中文名称</label>
+            <%= f.text_field :name, :class => "text-input small-input" %>
+            <br />
+          </p>
+          <p>
+            <label>英文名称</label>
+            <%= f.text_field :name_en, :class => "text-input small-input" %>
+            <br />
+          </p>
+          <p>
+            <label>价格</label>
+            <%= f.text_field :price, :class => "text-input small-input" %>
+            <br />
+          </p>
+          <p >
+            <label>币制</label>
+            <%= render "shared/autocomplete_field", :form => f, :attribute => :currency_code, :url => dict_currencies_path, :klass => "text-input small-input" %>
+          </p>
+          <p>
+            <label>应收<%= f.check_box :is_income %></label>
+          </p>
+          <p>
+            <label>应付<%= f.check_box :is_pay %></label>
+          </p>
+          <p>
+            <label>备注</label>
+            <%= f.text_field :note, :class=>"text-input small-input" %>
+            <br/>
+          </p>
+      <% end %>
+
+
+      <% if params[:is_checkout] %>
           <% checkout_enterprises = Finance.find(params[:from]).checkout_enterprises
              checkout_enterprises.each_with_index do |checkout_enterprise, i|
-                 checkout_enterprises[i]["name"] = Enterprise.find_by_code(checkout_enterprise.code).name
+               checkout_enterprises[i]["name"] = Enterprise.find_by_code(checkout_enterprise.code).name
              end
           %>
           <p>

@@ -37,6 +37,7 @@
     }
 
 </style>
+
 <div >
   <div class="outer-center">
     <div class="inner-center">
@@ -69,15 +70,15 @@
         <tr >
           <td>序号</td>
           <td>客户</td>
-          <td>报关单日期</td>
+          <td>报关日期</td>
           <td>进/出口</td>
           <td>报关单号</td>
           <% finance_fee_codes = [] %>
           <% @finance_declarations.each do |finance_declaration| %>
               <% finance_declaration.finances[0].finance_fees.each do |finance_fee| %>
-                  <% fee = Dict::Fee.find_by_code(finance_fee.code) %>
-                  <% if !finance_fee_codes.include?(finance_fee.code) and !fee.name.blank? %>
-                      <td><%= fee.name %></td>
+                  <%# fee = Dict::Fee.find_by_code(finance_fee.code) %>
+                  <% if !finance_fee_codes.include?(finance_fee.code) and !finance_fee.name.blank? %>
+                      <td><%= finance_fee.name %></td>
                       <% finance_fee_codes.append(finance_fee.code) %>
                   <% end %>
               <% end %>
@@ -107,7 +108,7 @@
                   <% end %>
                   <% finance_fee_codes.each_with_index do |finance_fee_code,vi| %>
                       <% if i < checkout_enterprise_fees.size and finance_fee_code == checkout_enterprise_fees[i].code %>
-                          <td><%= price =  Dict::Fee.find_by_code(finance_fee_code).price %></td>
+                          <td><%= price =  FinanceFee.find_by_code(finance_fee_code).price %></td>
                           <% i = i + 1 %>
                           <% row_total_price = row_total_price + price %>
                           <% col_total_prices[vi] = col_total_prices[vi] + price %>
@@ -142,7 +143,9 @@
       </table>
     </div>
   </div>
+  <div style="width:100%;height:20px;"></div>
 </div>
 
+<div style="page-break-before: always;"></div>
 
 

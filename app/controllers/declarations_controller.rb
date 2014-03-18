@@ -1,4 +1,4 @@
-                     # -*- encoding : utf-8 -*-
+# -*- encoding : utf-8 -*-
 class DeclarationsController < ApplicationController
   include ApplicationHelper, DeclarationsHelper, PrintHelper
   before_filter :init
@@ -36,7 +36,7 @@ class DeclarationsController < ApplicationController
       format.html # show.html.erb
       format.json { render json: @declaration }
     end
-  end  
+  end
 
   def print_declaration
     authorize! :show, @declaration
@@ -117,14 +117,14 @@ class DeclarationsController < ApplicationController
     if current_enterprise
       pre_entry_no = Time.now.strftime('%Y%m%d%H%M%S') + system_serial_no
       @declaration = Declaration.new(:enterprise_id => current_enterprise.id,
-                                      :declaration_type => @declaration_type,
-                                      :pre_entry_no => pre_entry_no,
-                                      :pay_way => "7",
-                                      :deal_mode => @declaration_type == "export" ? "3" : "1",
-                                      :declare_enterprise_code => "4419980074",
-                                      :transit_type => "001",
-                                      :declaration_mode => "003",
-                                      :created_by => current_user.username)
+                                     :declaration_type => @declaration_type,
+                                     :pre_entry_no => pre_entry_no,
+                                     :pay_way => "7",
+                                     :deal_mode => @declaration_type == "export" ? "3" : "1",
+                                     :declare_enterprise_code => "4419980074",
+                                     :transit_type => "001",
+                                     :declaration_mode => "003",
+                                     :created_by => current_user.username)
       @declaration.declaration_transit_information = DeclarationTransitInformation.new(:local_transport_mode => 4)
     else
       redirect_to declarations_path(:declaration_type => @declaration_type), notice: '请选择要操作的企业'
@@ -144,6 +144,10 @@ class DeclarationsController < ApplicationController
 
     respond_to do |format|
       if @declaration.save
+        Finance.create!(:declaration_id => @declaration.id,
+                        :is_made => false,
+                        :review => 1,
+        )
         format.html { redirect_to @declaration, :flash => { :success => '成功保存报关单'} }
         format.json { render json: @declaration, status: :created, location: @declaration }
       else
@@ -165,7 +169,12 @@ class DeclarationsController < ApplicationController
     authorize! :create, @new_declaration
 
     respond_to do |format|
+
       if @new_declaration.save
+        Finance.create!(:declaration_id =>  @new_declaration.id,
+                        :is_made => false,
+                        :review => 1,
+        )
         #复制出口成品、进口料件
         @declaration.declaration_cargos.each do |cargo|
           new_cargo = cargo.dup
@@ -853,7 +862,7 @@ class DeclarationsController < ApplicationController
           trade_modes = %w[4400 4600]
           trade_modes.each do |trade_mode|
             declaration_hash[:rework_again_sum].concat export_declarations.select('id')
-                                                        .where('trade_mode = ?', trade_mode)
+                                                       .where('trade_mode = ?', trade_mode)
           end
           declaration_hash[:rework_again_sum].each do |declaration|
             declaration_cargos_hash[:rework_again_sum].concat  DeclarationCargo.find_all_by_declaration_id(declaration.id)
@@ -864,7 +873,7 @@ class DeclarationsController < ApplicationController
           trade_modes = %w[0255 0654]
           trade_modes.each do |trade_mode|
             declaration_hash[:transfer_sum].concat export_declarations.select('id')
-                                                       .where('trade_mode = ?', trade_mode)
+                                                   .where('trade_mode = ?', trade_mode)
           end
           declaration_hash[:transfer_sum].each do |declaration|
             declaration_cargos_hash[:transfer_sum].concat  DeclarationCargo.find_all_by_declaration_id(declaration.id)
@@ -875,10 +884,10 @@ class DeclarationsController < ApplicationController
             result[i][:export_sum] = 0
             result[i][:export_price] = 0
             declaration_cargos_hash[:export_sum_price].each do |cargo|
-                if cargo.no_in_contract == product.no
-                  result[i][:export_sum] += cargo.quantity
-                  result[i][:export_price] +=  cargo.total_price
-                end
+              if cargo.no_in_contract == product.no
+                result[i][:export_sum] += cargo.quantity
+                result[i][:export_price] +=  cargo.total_price
+              end
             end
 
             #可出口数量
@@ -1056,9 +1065,9 @@ class DeclarationsController < ApplicationController
     @sources = Rails.cache.read(params[:cache_name])
     render :layout => 'print'
   end
-  
 
-  
+
+
 
   def driver_paper
 
@@ -1111,12 +1120,12 @@ class DeclarationsController < ApplicationController
     end
 
     @total_price = 0
-    @declaration_cargos.each do |declaration_cargo| 
+    @declaration_cargos.each do |declaration_cargo|
       @total_price += declaration_cargo.total_price
     end
 
     @declaration_container = @declaration.declaration_containers.first
-    
+
   end
 
 
