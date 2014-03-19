@@ -2,7 +2,7 @@
 class FinancesController < ApplicationController
 
   def check
-    if session[:check_declaration_condition] #and  session[:checkout_enterprise_condition]
+    if session[:check_declaration_condition] and params[:page] #and  session[:checkout_enterprise_condition]
         @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(session[:check_declaration_condition]).page(params[:page]).order("declare_date DESC")
     end
   end
