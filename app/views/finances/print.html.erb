@@ -61,7 +61,7 @@
             </tr>
             <tr>
               <td>开户行：</td><td class="content" style="width:200px"></td>
-              <td>经营企业：</td><td><%= Enterprise.find(session[:enterprise_id]).name rescue '' %></td>
+              <td>客户：</td><td><%= Enterprise.find(session[:enterprise_id]).name rescue '' %></td>
             </tr>
             <tr>
               <td>卡号：</td><td class="content" style="width:200px"><%=  %></td>
