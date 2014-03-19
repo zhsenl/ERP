@@ -17,7 +17,7 @@
         <% checkout_enterprises.each do |checkout_enterprise| %>
             <tr>
               <td><%= checkout_enterprise.code %></td>
-              <td><%= Enterprise.find_by_code(checkout_enterprise.code).name %></td>
+              <td><%= Enterprise.find_by_code(checkout_enterprise.code).name rescue '' %></td>
               <td>
                 <% if @finance.review == 1 or  @finance.review == 3  %>
                     <%= link_to "修改", edit_checkout_enterprise_path(checkout_enterprise, :from => @finance.id) %>
