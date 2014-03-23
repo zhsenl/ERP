@@ -1,3 +1,4 @@
+
 <% if !@finance_declarations.blank? %>
     <div class="tab-content default-tab">
       <table>
@@ -7,12 +8,12 @@
           <th>进出/口</th>
           <th>日期</th>
           <th>成交方式</th>
-          <!--<th>费用合计</th>-->
+          <th><input type="submit" value="合  并" class="button" id="combine_btn" onclick="javascript:combine();">   <input type="submit" value="取消合并" class="button" id="uncombine_btn" onclick="javascript:uncombine();"></th>
         </tr>
         </thead>
         <tfoot>
         <tr>
-          <td colspan="6"> <%= will_paginate @finance_declarations %> </td>
+          <td colspan="6"> <%# will_paginate @finance_declarations %> </td>
         </tr>
         </tfoot>
         <tbody>
@@ -23,11 +24,12 @@
                  total_fee = total_fee + Dict::Fee.find_by_code(finance_fee.code).price
             end%>
             <tr>
+              <td style="display: none"><%= finance_declaration.id %></td>
               <td><%= finance_declaration.entry_no %></td>
               <td><%= finance_declaration.declaration_type == 'export' ? "出口":"进口" %></td>
               <td><%= finance_declaration.declare_date %></td>
               <td><%= Dict::DealMode.find_by_code(finance_declaration.deal_mode).name %></td>
-              <td><%# total_fee %></td>
+              <td style="color:green"><input type="checkbox" ><%= "合并号为:" + finance_declaration.finances[0].combine_no.to_s if !finance_declaration.finances[0].combine_no.blank? and !finance_declaration.finances[0].combine_no != 0  %></td>
             </tr>
         <% end %>
         </tbody>

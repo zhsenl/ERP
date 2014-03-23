@@ -175,6 +175,8 @@ ERP::Application.routes.draw do
   resources :finances do
     get 'search', :on => :collection
     get 'search2', :on => :collection
+    post 'combine', :on => :collection
+    post 'uncombine', :on => :collection
     get 'print', :on => :collection
     get 'check', :on => :collection
     get 'cancel', :on => :member

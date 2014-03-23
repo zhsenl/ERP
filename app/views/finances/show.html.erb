@@ -40,7 +40,7 @@ $(function(){
           <%# link_to "生成账单", make_finance_path(@finance),data: { confirm: "确定生成账单吗？"}, :id=>'make' %>
           <%= link_to "生成账单", make_finance_path(@finance), :id=>'make' %>
       <% end %>
-      &nbsp;|&nbsp;
+      &nbsp;&nbsp; &nbsp;
       <%= link_to '返回列表', finances_path(:finance_type => @finance_type) %>
     </div>
   </div>

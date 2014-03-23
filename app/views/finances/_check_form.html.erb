@@ -5,6 +5,40 @@
 <%= stylesheet_link_tag "jquery.ui.theme.min", :media => "all" %>
 
 <script>
+    function combine(){
+        var combines = $("input[type=checkbox]:checked");
+        var no = $($(combines[0]).parent().parent().children()[0]).text();
+        combines.each(function(i){
+            var url = "/finances/combine.json";
+            var id = $($(this).parent().parent().children()[0]).text();
+            $.post(url, {id:id, no:no}).success(function(){
+                if(i == combines.size() - 1) {
+                    alert("合并成功");
+                    location.reload();
+                }
+            }).error(function(){
+                        if(i == combines.size() - 1)  alert("合并失败");
+                    })
+        })
+    }
+
+    function uncombine(){
+        var combines = $("input[type=checkbox]:checked");
+        var no = $($(combines[0]).parent().parent().children()[0]).text();
+        combines.each(function(i){
+            var url = "/finances/uncombine.json";
+            var id = $($(this).parent().parent().children()[0]).text();
+            $.post(url, {id:id, no:no}).success(function(){
+                if(i == combines.size() - 1) {
+                    alert("取消合并成功");
+                    location.reload();
+                }
+            }).error(function(){
+                        if(i == combines.size() - 1)  alert("取消合并失败");
+                    })
+        })
+    }
+
     $(function(){
         $("#from").datepicker({
             defaultDate: "+1w",
@@ -40,6 +74,8 @@
                 alert("没有对应账单");
             }
         });
+
+
 
     })
 </script>

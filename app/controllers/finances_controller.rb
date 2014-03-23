@@ -1,9 +1,24 @@
 # -*- encoding : utf-8 -*-
 class FinancesController < ApplicationController
 
+  def combine
+    Declaration.find(params[:id]).finances.first.update_attribute(:combine_no, params[:no])
+    respond_to do |format|
+      format.json { render json: {} }
+    end
+  end
+
+  def uncombine
+    Declaration.find(params[:id]).finances.first.update_attribute(:combine_no, "")
+    respond_to do |format|
+      format.json { render json: {} }
+    end
+  end
+
   def check
-    if session[:check_declaration_condition] and params[:page] #and  session[:checkout_enterprise_condition]
-        @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(session[:check_declaration_condition]).page(params[:page]).order("declare_date DESC")
+    if session[:check_declaration_condition] #and params[:page] #and  session[:checkout_enterprise_condition]
+        #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(session[:check_declaration_condition]).page(params[:page]).order("declare_date asc")
+        @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(session[:check_declaration_condition]).order("declare_date asc")
     end
   end
 
@@ -14,7 +29,8 @@ class FinancesController < ApplicationController
     #declaration_condition = {declare_date: time, load_port: params[:load_port]}.select { |key,value| value.present? }
     #@finance_declarations = Declaration.joins( :checkout_enterprises).joins(:finances).where(finances:{review: 2}).where(declaration_condition).where(checkout_enterprises:checkout_enterprise_condition).page(params[:page]).order("declare_date DESC")
     declaration_condition = {declare_date: time, load_port: params[:load_port], enterprise_id: params[:enterprise_id]}.select { |key,value| value.present? }
-    @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(declaration_condition).page(params[:page]).order("declare_date DESC")
+    #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(declaration_condition).page(params[:page]).order("declare_date asc")
+    @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(declaration_condition).order("declare_date asc")
     if @finance_declarations.size != 0
       #session[:checkout_enterprise_condition] = checkout_enterprise_condition
       session[:check_declaration_condition] = declaration_condition
@@ -27,11 +43,35 @@ class FinancesController < ApplicationController
 
   def print
     if session[:check_declaration_condition]  #and  session[:checkout_enterprise_condition]
-      @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(session[:check_declaration_condition]).order("declare_date DESC")
-      @group_size = 16
-      @groups = Array.new((@finance_declarations.size - 1) / @group_size + 1) { Array.new }
+      #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(session[:check_declaration_condition]).order("declare_date asc")
+      @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(session[:check_declaration_condition]).order("declare_date asc, finances.combine_no")
+      @page_size = 16
+      @pages = Array.new((@finance_declarations.size - 1) / @page_size + 1 + 10) { Array.new }    # 最后的 + 10是预留的
+      #@finance_declarations.each_with_index do |finance_declaration, index|
+      #  @pages[index / @page_size][index % @page_size] = []
+      #end
+      page_item_count = 0
+      pages_index = 0
+      each_page_index = 0
       @finance_declarations.each_with_index do |finance_declaration, index|
-        @groups[index / @group_size][index % @group_size] = finance_declaration
+        combine_no = finance_declaration.finances.first.combine_no
+        finance_declaration_combined = []
+        if !combine_no.blank?
+          finance_declaration_combined = Declaration.joins(:finances).where(finances:{review: 2,combine_no: combine_no}).where(session[:check_declaration_condition]).order("declare_date asc")
+        else
+          finance_declaration_combined << finance_declaration
+        end
+        finance_declaration_combined_size = finance_declaration_combined.size
+        if page_item_count + finance_declaration_combined_size <= @page_size + 1 #每页允许可能多一个
+          page_item_count = page_item_count + finance_declaration_combined_size
+          @pages[pages_index][each_page_index] = finance_declaration_combined
+          each_page_index = each_page_index + 1
+        else
+          pages_index = pages_index + 1
+          each_page_index = 0
+          page_item_count = finance_declaration_combined_size
+          @pages[pages_index][each_page_index] = finance_declaration_combined
+        end
       end
       render :layout => 'print'
     end
@@ -44,7 +84,7 @@ class FinancesController < ApplicationController
                               entry_no: params[:entry_no],load_port: params[:load_port]}.select { |key,value| value.present? }
     finance_condition =  {is_made: params[:is_made], review: params[:review]}.select { |key,value| value.present? }
 
-    @finance_declarations = Declaration.joins(:finances).where(declaration_condition).where( finances:finance_condition).page(params[:page]).order("declare_date DESC")
+    @finance_declarations = Declaration.joins(:finances).where(declaration_condition).where( finances:finance_condition).page(params[:page]).order("declare_date asc")
     #@finances = Finance.joins(:declarations).where(finance_condition, declarations:declaration_condition)
     if @finance_declarations.size != 0
       session[:declaration_condition] = declaration_condition
@@ -98,7 +138,7 @@ class FinancesController < ApplicationController
   # GET /finances.json
   def index
     if  session[:declaration_condition] and session[:finance_condition]
-      @finance_declarations = Declaration.joins(:finances).where( session[:declaration_condition]).where( finances:session[:finance_condition]).page(params[:page]).order("declare_date DESC")
+      @finance_declarations = Declaration.joins(:finances).where( session[:declaration_condition]).where( finances:session[:finance_condition]).page(params[:page]).order("declare_date asc")
     end
   end
 
