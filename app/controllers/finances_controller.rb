@@ -73,6 +73,7 @@ class FinancesController < ApplicationController
           @pages[pages_index][each_page_index] = finance_declaration_combined
         end
       end
+      @pages_size = pages_index + 1
       render :layout => 'print'
     end
   end
