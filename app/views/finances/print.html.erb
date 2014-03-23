@@ -142,7 +142,7 @@
                     </table>
                   </td>
 
-                  <% i = 0 %>
+                  <% checkout_enterprise_fees_i =  Array.new(10, 0) %>
                   <% row_total_price = Array.new(10, 0) %>
                   <% finance_fee_codes.each_with_index do |finance_fee_code,vi| %>
                       <td>
@@ -157,10 +157,10 @@
                                   <% else %>
                                       <% checkout_enterprise_fees = checkout_enterprise.finance_fees %>
                                   <% end %>
-                                  <% if i < checkout_enterprise_fees.size and finance_fee_code == checkout_enterprise_fees[i].code %>
+                                  <% if checkout_enterprise_fees_i[row_i] < checkout_enterprise_fees.size and finance_fee_code == checkout_enterprise_fees[checkout_enterprise_fees_i[row_i]].code %>
                                       <tr><td><%= price =  FinanceFee.find_by_code(finance_fee_code).price %></td></tr>
                                       <% col_total_prices[vi] = col_total_prices[vi] + price %>
-                                      <% i = i + 1 %>
+                                      <% checkout_enterprise_fees_i[row_i] = checkout_enterprise_fees_i[row_i] + 1 %>
                                       <% row_total_price[row_i] = row_total_price[row_i] + price %>
                                       <% row_i = row_i + 1 %>
                                   <% else %>
