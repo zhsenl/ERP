@@ -53,11 +53,17 @@ class FinancesController < ApplicationController
       page_item_count = 0
       pages_index = 0
       each_page_index = 0
+      combine_size = 0
       @finance_declarations.each_with_index do |finance_declaration, index|
+        if combine_size > 0
+          combine_size = combine_size - 1
+          next
+        end
         combine_no = finance_declaration.finances.first.combine_no
         finance_declaration_combined = []
         if !combine_no.blank?
           finance_declaration_combined = Declaration.joins(:finances).where(finances:{review: 2,combine_no: combine_no}).where(session[:check_declaration_condition]).order("declare_date asc")
+          combine_size = finance_declaration_combined.size - 1
         else
           finance_declaration_combined << finance_declaration
         end
