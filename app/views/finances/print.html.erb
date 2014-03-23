@@ -48,7 +48,9 @@
 <% col_total_prices = nil %>
 <% no = 0 %>
 <% @pages.each_with_index do |page, page_index| %>
-
+    <% if page.empty?
+       next
+       end %>
     <div >
       <div class="outer-center">
         <div class="inner-center">
