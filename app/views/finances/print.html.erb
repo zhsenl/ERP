@@ -19,9 +19,7 @@
 
 
 
-    td{
-        /*padding: 0 0.5em;*/
-    }
+
         /*.clear{*/
         /*page-break-after: always;*/
         /*clear: both;*/
@@ -91,13 +89,13 @@
             <tr >
               <td>序号</td>
               <td>报关日期</td>
-              <td>进/出口</td>
+              <td></td>
               <td>客户</td>
               <td>报关单号</td>
               <% finance_fee_names.each do |finance_fee_name| %>
                   <td><%= finance_fee_name  %></td>
               <% end %>
-              <td>金额(RMB)</td>
+              <td>金额</td>
             </tr>
             </thead>
             <tbody>
@@ -106,8 +104,8 @@
                 <tr>
                   <td><%= no = no + 1 %></td>
                   <td style="font-size: 10px"><%= finance_declaration_array[0].declare_date %></td>
-                  <td>
-                    <table style=" width: 100%;">
+                  <td style="padding: 0">
+                    <table rules=rows style=" width: 100%;">
                       <% finance_declaration_array.each do |finance_declaration| %>
                           <% finance = finance_declaration.finances.first %>
                           <% checkout_enterprises = finance.checkout_enterprises %>
@@ -118,8 +116,8 @@
                     </table>
                   </td>
 
-                  <td>
-                    <table style=" width: 100%;">
+                  <td style="padding: 0">
+                    <table rules=rows style=" width: 100%;">
                       <% finance_declaration_array.each do |finance_declaration| %>
                           <% finance = finance_declaration.finances.first %>
                           <% checkout_enterprises = finance.checkout_enterprises %>
@@ -130,8 +128,8 @@
                     </table>
                   </td>
 
-                  <td>
-                    <table style=" width: 100%;">
+                  <td style="padding: 0">
+                    <table rules=rows style=" width: 100%;">
                       <% finance_declaration_array.each do |finance_declaration| %>
                           <% finance = finance_declaration.finances.first %>
                           <% checkout_enterprises = finance.checkout_enterprises %>
@@ -145,8 +143,8 @@
                   <% checkout_enterprise_fees_i =  Array.new(10, 0) %>
                   <% row_total_price = Array.new(10, 0) %>
                   <% finance_fee_codes.each_with_index do |finance_fee_code,vi| %>
-                      <td>
-                        <table style=" width: 100%;">
+                      <td style="padding: 0">
+                        <table rules=rows style=" width: 100%;">
                           <% row_i = 0 %>
                           <% finance_declaration_array.each do |finance_declaration| %>
                               <% finance = finance_declaration.finances.first %>
@@ -173,8 +171,8 @@
                         </table>
                       </td>
                   <% end %>
-                  <td>
-                    <table style=" width: 100%;">
+                  <td style="padding: 0">
+                    <table rules=rows style=" width: 100%;">
                       <% row_i = 0 %>
                       <% finance_declaration_array.each do |finance_declaration| %>
                           <% finance = finance_declaration.finances.first %>
