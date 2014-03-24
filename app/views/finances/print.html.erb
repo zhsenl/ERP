@@ -67,14 +67,14 @@
           </h5>
           <table class="frame">
             <tr>
-              <td >户名：</td><td class="content" style="width:200px"></td>
+              <td >户名：</td><td style="width:200px">东莞市泽盛物流有限公司</td>
             </tr>
             <tr>
-              <td>开户行：</td><td class="content" style="width:200px"></td>
+              <td>开户行：</td><td  style="width:200px">招商银行东莞虎门港支行</td>
               <td>客户：</td><td><%= Enterprise.find(session[:enterprise_id]).name rescue '' %></td>
             </tr>
             <tr>
-              <td>卡号：</td><td class="content" style="width:200px"><%=  %></td>
+              <td>卡号：</td><td  style="width:200px">769902090110488</td>
               <td>时间：</td><td><%= session[:from] + "至" + session[:to] rescue '' %></td>
             </tr>
             <div id="theSeals">
