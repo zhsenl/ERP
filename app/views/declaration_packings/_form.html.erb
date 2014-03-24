@@ -1,95 +1,115 @@
 <%= render "shared/error_messages", :model => @declaration_packing %>
 <%= form_for @declaration_packing do |f| %>
-<%= f.hidden_field :declaration_id %>
-<fieldset>
-	<div class="filed" >
-		<label><%= @declaration_type == 'export' ? '出口成品' : '进口原料' %></label>
-		<% cargos_array = @declaration.declaration_cargos.map { |cargo| [cargo.no.to_s + cargo.name, cargo.id] } %>
-		<% cargos_array = [["请选择" , 0]] + cargos_array %>
-		<%= select_tag :cargo, options_for_select(cargos_array, 0), { :class => "small-input first-field" } %>
-		<br />
-		<script>
-			$(document).ready(function() {
-				$("#cargo").combobox();
-				$("#cargo").change(function() {
-					$.get("/declaration_cargos/" + $("#cargo").val() + ".json", null, function(result) {
-						$("#declaration_packing_name").val(result.name);
-						$("#unit_autocomplete").val(result.unit).blur();
-					});				
-				});
-			});
-	
-		</script>
-	</div>
-	<div class="filed" >
-		<label>每箱毛重</label>
-		<%= f.text_field :gross_weight_per_package, :class => "text-input small-input gross_weight_cal" %>
-	</div>
-	<div class="filed" >
-		<label>每箱净重</label>
-		<%= f.text_field :net_weight_per_package, :class => "text-input small-input net_weight_cal" %>
-	</div>
-	<div class="filed" >
-		<label>箱(件)数</label>
-		<%= f.text_field :package_amount, :class => "text-input small-input gross_weight_cal net_weight_cal" %>
-	</div>
-	<div class="filed" >
-		<label>总毛重</label>
-		<%= f.text_field :gross_weight, :class => "text-input small-input" %>
-	</div>
-	<div class="filed" >
-		<label>总净重</label>
-		<%= f.text_field :net_weight, :class => "text-input small-input" %>
-	</div>
-	<div class="filed" >
-		<label>包装数量</label>
-		<%= f.text_field :quantity, :class => "text-input small-input" %>
-	</div>
-	<div class="filed" >
-		<label>托序号</label>
-		<%= f.text_field :no, :class => "text-input small-input" %>
-	</div>
-	<div class="filed" >
-		<label>商品名称</label>
-		<%= f.text_field :name, :class => "text-input small-input" %>
-	</div>
-	
-	<div class="filed" >
-		<label>申报单位</label>
-		<%= render "shared/autocomplete_field", :form => f, :attribute => :unit, :url => dict_units_path, :klass => "text-input small-input" %> 
-	</div>
-	
-</fieldset>
-<div>
-	<%= f.submit :class => "button" %>
-</div>
-<div class="clear"></div><!-- End .clear -->
-<% end %> 
+    <%= f.hidden_field :declaration_id %>
+    <fieldset>
+      <div class="filed" >
+        <label><%= @declaration_type == 'export' ? '出口成品' : '进口原料' %></label>
+        <% cargos_array = @declaration.declaration_cargos.map { |cargo| [cargo.no.to_s + cargo.name, cargo.id] } %>
+        <% cargos_array = [["请选择" , 0]] + cargos_array %>
+        <%= select_tag :cargo, options_for_select(cargos_array, 0), { :class => "small-input first-field" } %>
+        <br />
+        <script>
+            $(document).ready(function() {
+                $("#cargo").combobox();
+                $("#cargo").change(function() {
+                    $.get("/declaration_cargos/" + $("#cargo").val() + ".json", null, function(result) {
+                        $("#declaration_packing_name").val(result.name);
+                        $("#unit_autocomplete").val(result.unit).blur();
+                    });
+                });
+            });
+
+        </script>
+      </div>
+      <div class="filed" >
+        <label>每箱毛重</label>
+        <%= f.text_field :gross_weight_per_package, :class => "text-input small-input gross_weight_cal" %>
+      </div>
+      <div class="filed" >
+        <label>每箱净重</label>
+        <%= f.text_field :net_weight_per_package, :class => "text-input small-input net_weight_cal" %>
+      </div>
+      <div class="filed" >
+        <label>箱(件)数</label>
+        <%= f.text_field :package_amount, :class => "text-input small-input gross_weight_cal net_weight_cal" %>
+      </div>
+      <div class="filed" >
+        <label>总毛重</label>
+        <%= f.text_field :gross_weight, :class => "text-input small-input gross_weight_per_package_cal" %>
+      </div>
+      <div class="filed" >
+        <label>总净重</label>
+        <%= f.text_field :net_weight, :class => "text-input small-input net_weight_per_package_cal" %>
+      </div>
+      <div class="filed" >
+        <label>包装数量</label>
+        <%= f.text_field :quantity, :class => "text-input small-input" %>
+      </div>
+      <div class="filed" >
+        <label>托序号</label>
+        <%= f.text_field :no, :class => "text-input small-input" %>
+      </div>
+      <div class="filed" >
+        <label>商品名称</label>
+        <%= f.text_field :name, :class => "text-input small-input" %>
+      </div>
+
+      <div class="filed" >
+        <label>申报单位</label>
+        <%= render "shared/autocomplete_field", :form => f, :attribute => :unit, :url => dict_units_path, :klass => "text-input small-input" %>
+      </div>
+
+    </fieldset>
+    <div>
+      <%= f.submit :class => "button" %>
+    </div>
+    <div class="clear"></div><!-- End .clear -->
+<% end %>
 
 
 <script type="text/javascript">
-	function gross_weight_calculate() {
-		var weight_per_package = parseFloat($("#declaration_packing_gross_weight_per_package").val());
-		var package_amount = parseFloat($("#declaration_packing_package_amount").val());
-		if (weight_per_package.toString() != 'NaN' && package_amount.toString() != 'NaN') {
-			$("#declaration_packing_gross_weight").val(weight_per_package*package_amount);
-		};		
-	}
-	function net_weight_calculate() {
-		var net_weight_per_package = parseFloat($("#declaration_packing_net_weight_per_package").val());
-		var package_amount = parseFloat($("#declaration_packing_package_amount").val());
-		if (net_weight_per_package.toString() != 'NaN' && package_amount.toString() != 'NaN') {
-			$("#declaration_packing_net_weight").val(net_weight_per_package*package_amount);
-		};	
-	}
+    function gross_weight_calculate() {
+        var weight_per_package = parseFloat($("#declaration_packing_gross_weight_per_package").val());
+        var package_amount = parseFloat($("#declaration_packing_package_amount").val());
+        if (weight_per_package.toString() != 'NaN' && package_amount.toString() != 'NaN') {
+            $("#declaration_packing_gross_weight").val(weight_per_package*package_amount);
+        };
+    }
+    function net_weight_calculate() {
+        var net_weight_per_package = parseFloat($("#declaration_packing_net_weight_per_package").val());
+        var package_amount = parseFloat($("#declaration_packing_package_amount").val());
+        if (net_weight_per_package.toString() != 'NaN' && package_amount.toString() != 'NaN') {
+            $("#declaration_packing_net_weight").val(net_weight_per_package*package_amount);
+        };
+    }
+    function gross_weight_per_package_calculate() {
+        var gross_weight = parseFloat($("#declaration_packing_gross_weight").val());
+        var package_amount = parseFloat($("#declaration_packing_package_amount").val());
+        if (gross_weight.toString() != 'NaN' && package_amount.toString() != 'NaN') {
+            $("#declaration_packing_gross_weight_per_package").val(gross_weight/package_amount);
+        };
+    }
+    function net_weight_per_package_calculate() {
+        var net_weight = parseFloat($("#declaration_packing_net_weight").val());
+        var package_amount = parseFloat($("#declaration_packing_package_amount").val());
+        if (net_weight.toString() != 'NaN' && package_amount.toString() != 'NaN') {
+            $("#declaration_packing_net_weight_per_package").val(net_weight/package_amount);
+        };
+    }
 
-	$(function() {
-		$(".gross_weight_cal").blur(function(){
-			gross_weight_calculate();
-		});
-		$(".net_weight_cal").blur(function(){
-			net_weight_calculate();
-		});
-	});
+    $(function() {
+        $(".gross_weight_cal").blur(function(){
+            gross_weight_calculate();
+        });
+        $(".net_weight_cal").blur(function(){
+            net_weight_calculate();
+        });
+        $(".gross_weight_per_package_cal").blur(function(){
+            gross_weight_per_package_calculate();
+        });
+        $(".net_weight_per_package_cal").blur(function(){
+            net_weight_per_package_calculate();
+        });
+    });
 
 </script>
