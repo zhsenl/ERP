@@ -72,28 +72,28 @@
         var weight_per_package = parseFloat($("#declaration_packing_gross_weight_per_package").val());
         var package_amount = parseFloat($("#declaration_packing_package_amount").val());
         if (weight_per_package.toString() != 'NaN' && package_amount.toString() != 'NaN') {
-            $("#declaration_packing_gross_weight").val(weight_per_package*package_amount);
+            $("#declaration_packing_gross_weight").val((weight_per_package*package_amount).toFixed(2));
         };
     }
     function net_weight_calculate() {
         var net_weight_per_package = parseFloat($("#declaration_packing_net_weight_per_package").val());
         var package_amount = parseFloat($("#declaration_packing_package_amount").val());
         if (net_weight_per_package.toString() != 'NaN' && package_amount.toString() != 'NaN') {
-            $("#declaration_packing_net_weight").val(net_weight_per_package*package_amount);
+            $("#declaration_packing_net_weight").val((net_weight_per_package*package_amount).toFixed(2));
         };
     }
     function gross_weight_per_package_calculate() {
         var gross_weight = parseFloat($("#declaration_packing_gross_weight").val());
         var package_amount = parseFloat($("#declaration_packing_package_amount").val());
         if (gross_weight.toString() != 'NaN' && package_amount.toString() != 'NaN') {
-            $("#declaration_packing_gross_weight_per_package").val(gross_weight/package_amount);
+            $("#declaration_packing_gross_weight_per_package").val((gross_weight/package_amount).toFixed(2));
         };
     }
     function net_weight_per_package_calculate() {
         var net_weight = parseFloat($("#declaration_packing_net_weight").val());
         var package_amount = parseFloat($("#declaration_packing_package_amount").val());
         if (net_weight.toString() != 'NaN' && package_amount.toString() != 'NaN') {
-            $("#declaration_packing_net_weight_per_package").val(net_weight/package_amount);
+            $("#declaration_packing_net_weight_per_package").val((net_weight/package_amount).toFixed(2));
         };
     }
 
