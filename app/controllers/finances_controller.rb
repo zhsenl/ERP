@@ -16,9 +16,9 @@ class FinancesController < ApplicationController
   end
 
   def check
-    if session[:check_declaration_condition] #and params[:page] #and  session[:checkout_enterprise_condition]
-        #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(session[:check_declaration_condition]).page(params[:page]).order("declare_date asc")
-        @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(session[:check_declaration_condition]).order("declare_date asc")
+    if cookies[:check_declaration_condition] #and params[:page] #and  cookies[:checkout_enterprise_condition]
+                                             #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(cookies[:check_declaration_condition]).page(params[:page]).order("declare_date asc")
+      @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(eval(cookies[:check_declaration_condition])).order("declare_date asc")
     end
   end
 
@@ -32,24 +32,24 @@ class FinancesController < ApplicationController
     #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(declaration_condition).page(params[:page]).order("declare_date asc")
     @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(declaration_condition).order("declare_date asc")
     if @finance_declarations.size != 0
-      #session[:checkout_enterprise_condition] = checkout_enterprise_condition
-      session[:check_declaration_condition] = declaration_condition
-      session[:enterprise_id] = params[:enterprise_id]
-      session[:from] = params[:from]
-      session[:to] = params[:to]
+      #cookies[:checkout_enterprise_condition] = checkout_enterprise_condition
+      cookies[:check_declaration_condition] = {value: declaration_condition, expires: 1.day.from_now}
+      cookies[:enterprise_id] = {value: params[:enterprise_id], expires: 1.day.from_now}
+      cookies[:from] = {value: params[:from], expires: 1.day.from_now}
+      cookies[:to] = {value: params[:to], expires: 1.day.from_now}
     end
     render :partial =>"check_result"
   end
 
   def print
-    if session[:check_declaration_condition]  #and  session[:checkout_enterprise_condition]
-      #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(session[:check_declaration_condition]).order("declare_date asc")
-      @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(session[:check_declaration_condition]).order("declare_date asc, finances.combine_no")
+    if cookies[:check_declaration_condition]  #and  cookies[:checkout_enterprise_condition]
+                                              #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(cookies[:check_declaration_condition]).order("declare_date asc")
+      @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(eval(cookies[:check_declaration_condition])).order("declare_date asc, finances.combine_no")
       @page_size = 16
       @pages = Array.new((@finance_declarations.size - 1) / @page_size + 1 + 10) { Array.new }    # 最后的 + 10是预留的
-      #@finance_declarations.each_with_index do |finance_declaration, index|
-      #  @pages[index / @page_size][index % @page_size] = []
-      #end
+                                                                                                  #@finance_declarations.each_with_index do |finance_declaration, index|
+                                                                                                  #  @pages[index / @page_size][index % @page_size] = []
+                                                                                                  #end
       page_item_count = 0
       pages_index = 0
       each_page_index = 0
@@ -62,7 +62,7 @@ class FinancesController < ApplicationController
         combine_no = finance_declaration.finances.first.combine_no
         finance_declaration_combined = []
         if !combine_no.blank?
-          finance_declaration_combined = Declaration.joins(:finances).where(finances:{review: 2,combine_no: combine_no}).where(session[:check_declaration_condition]).order("declare_date asc")
+          finance_declaration_combined = Declaration.joins(:finances).where(finances:{review: 2,combine_no: combine_no}).where(eval(cookies[:check_declaration_condition])).order("declare_date asc")
           combine_size = finance_declaration_combined.size - 1
         else
           finance_declaration_combined << finance_declaration
@@ -94,8 +94,8 @@ class FinancesController < ApplicationController
     @finance_declarations = Declaration.joins(:finances).where(declaration_condition).where( finances:finance_condition).page(params[:page]).order("declare_date asc")
     #@finances = Finance.joins(:declarations).where(finance_condition, declarations:declaration_condition)
     if @finance_declarations.size != 0
-      session[:declaration_condition] = declaration_condition
-      session[:finance_condition] = finance_condition
+      cookies[:declaration_condition] = {value: declaration_condition, expires: 1.day.from_now}
+      cookies[:finance_condition] = {value: finance_condition, expires: 1.day.from_now}
     end
     render :partial =>"finance_search_result"
   end
@@ -144,8 +144,8 @@ class FinancesController < ApplicationController
   # GET /finances
   # GET /finances.json
   def index
-    if  session[:declaration_condition] and session[:finance_condition]
-      @finance_declarations = Declaration.joins(:finances).where( session[:declaration_condition]).where( finances:session[:finance_condition]).page(params[:page]).order("declare_date asc")
+    if  cookies[:declaration_condition] and cookies[:finance_condition]
+      @finance_declarations = Declaration.joins(:finances).where(eval(cookies[:declaration_condition])).where( finances:eval(cookies[:finance_condition])).page(params[:page]).order("declare_date asc")
     end
   end
 
