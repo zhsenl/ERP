@@ -71,11 +71,11 @@
             </tr>
             <tr>
               <td>开户行：</td><td  style="width:200px">招商银行东莞虎门港支行</td>
-              <td>客户：</td><td><%= Enterprise.find(session[:enterprise_id]).name rescue '' %></td>
+              <td>客户：</td><td><%= Enterprise.find(cookies[:enterprise_id]).name rescue '' %></td>
             </tr>
             <tr>
               <td>卡号：</td><td  style="width:200px">769902090110488</td>
-              <td>时间：</td><td><%= session[:from] + "至" + session[:to] rescue '' %></td>
+              <td>时间：</td><td><%= cookies[:from] + "至" + cookies[:to] rescue '' %></td>
             </tr>
             <div id="theSeals">
               <div class='seal-div hideseals' style="display: none" title="拖动图片移动位置">
