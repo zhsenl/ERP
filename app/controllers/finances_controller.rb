@@ -27,7 +27,7 @@ class FinancesController < ApplicationController
     if cookies[:income_declaration_condition] #and params[:page] #and  cookies[:income_enterprise_condition]
                                                  #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(cookies[:income_declaration_condition]).page(params[:page]).order("declare_date asc")
       @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2, is_paid: true}).where(eval(cookies[:income_declaration_condition])).order("declare_date asc")
-      statistics
+      statistics(cookies[:income_declaration_condition])
     end
   end
   #营业统计的打印
@@ -49,10 +49,10 @@ class FinancesController < ApplicationController
     if @finance_declarations.size != 0
       #cookies[:income_enterprise_condition] = income_enterprise_condition
       cookies[:income_declaration_condition] = {value: declaration_condition, expires: 1.day.from_now}
-      cookies[:enterprise_id] = {value: params[:enterprise_id], expires: 1.day.from_now}
+      #cookies[:enterprise_id] = {value: params[:enterprise_id], expires: 1.day.from_now}
       cookies[:from] = {value: params[:from], expires: 1.day.from_now}
       cookies[:to] = {value: params[:to], expires: 1.day.from_now}
-      statistics
+      statistics(declaration_condition.to_s)
     end
     render :partial =>"income_result"
   end
@@ -99,7 +99,7 @@ class FinancesController < ApplicationController
     if cookies[:check_declaration_condition]  #and  cookies[:checkout_enterprise_condition]
                                               #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(cookies[:check_declaration_condition]).order("declare_date asc")
       @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(eval(cookies[:check_declaration_condition])).order("declare_date asc, finances.combine_no")
-      statistics
+      statistics(cookies[:check_declaration_condition])
       render :layout => 'print'
     end
   end
@@ -240,7 +240,7 @@ class FinancesController < ApplicationController
     end
   end
 
-  def statistics
+  def statistics(declaration_condition)
     @page_size = 16
     @pages = Array.new((@finance_declarations.size - 1) / @page_size + 1 + 10) { Array.new }    # 最后的 + 10是预留的
                                                                                                 #@finance_declarations.each_with_index do |finance_declaration, index|
@@ -258,7 +258,7 @@ class FinancesController < ApplicationController
       combine_no = finance_declaration.finances.first.combine_no
       finance_declaration_combined = []
       if !combine_no.blank?
-        finance_declaration_combined = Declaration.joins(:finances).where(finances:{review: 2,combine_no: combine_no}).where(eval(cookies[:check_declaration_condition])).order("declare_date asc")
+        finance_declaration_combined = Declaration.joins(:finances).where(finances:{review: 2,combine_no: combine_no}).where(eval(declaration_condition)).order("declare_date asc")
         combine_size = finance_declaration_combined.size - 1
       else
         finance_declaration_combined << finance_declaration
