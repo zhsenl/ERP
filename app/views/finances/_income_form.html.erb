@@ -84,15 +84,15 @@
       <legend>搜索框：</legend>
       <div class="field">
         <label>装卸口岸</label>
-        <%= text_field_tag "load_port", nil, :class => "text-input small-input"%>
+        <%= text_field_tag "load_port", nil, :class => "text-input small-input", :value => cookies[:load_port]%>
       </div>
       <div class="field">
         <label>开始时间</label>
-        <%= text_field_tag "from", nil,  :class => "text-input small-input"%>
+        <%= text_field_tag "from", nil,  :class => "text-input small-input", :value=> cookies[:from]%>
       </div>
       <div class="field">
         <label>结束时间</label>
-        <%= text_field_tag "to",  nil,  :class => "text-input small-input" %>
+        <%= text_field_tag "to",  nil,  :class => "text-input small-input", :value=> cookies[:to] %>
       </div>
       <div class="clear"></div><!-- End .clear -->
 

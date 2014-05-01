@@ -20,6 +20,7 @@ zh-CN:
       enterprise_fee: 付费信息
       finance_fee: 付费信息
       checkout_enterprise: 结算单位
+      check_method: 结算方式
       finance: 账单
       dict/attachment: 随附单证
       dict/bracket: 托架

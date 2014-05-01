@@ -1,0 +1,182 @@
+<% finance_fee_codes = []
+   finance_fee_names = []
+   @finance_declarations.each do |finance_declaration|
+     finance_declaration.finances[0].finance_fees.each do |finance_fee|
+       if !finance_fee_codes.include?(finance_fee.code) and !finance_fee.name.blank?
+         finance_fee_codes.append(finance_fee.code)
+         finance_fee_names.append(finance_fee.name)
+       end
+     end
+   end
+   col_total_prices = Array.new(finance_fee_codes.size + 1, 0)
+   no = 0 %>
+<% @pages.each_with_index do |page, page_index| %>
+    <% if page.empty?
+         next
+       end %>
+    <fieldset>
+      <legend>付费信息：</legend><!--财务统计信息-->
+      <div>
+        <div class="outer-center">
+          <div class="inner-center">
+            <table border=1 style="border-collapse:collapse;">
+              <thead style="font-weight: bold">
+              <tr>
+                <td>序号</td>
+                <td>报关日期</td>
+                <td></td>
+                <td>客户</td>
+                <td>报关单号</td>
+                <% cookies[:finance_fee_names] = {value: finance_fee_names, expires: 1.day.from_now} %>
+                <% finance_fee_names.each do |finance_fee_name| %>
+                    <td><%= finance_fee_name %></td>
+                <% end %>
+                <td>金额</td>
+              </tr>
+              </thead>
+              <tbody>
+              <% page.each do |finance_declaration_array| %>
+                  <%# finance = finance_declaration_array[0].finances[0] %>
+                  <tr>
+                    <td><%= no = no + 1 %></td>
+                    <td style="font-size: 10px"><%= finance_declaration_array[0].declare_date %></td>
+                    <td style="padding: 0">
+                      <table rules=rows style=" width: 100%;">
+                        <% finance_declaration_array.each do |finance_declaration| %>
+                            <% finance = finance_declaration.finances.first %>
+                            <% checkout_enterprises = finance.checkout_enterprises %>
+                            <% checkout_enterprises.each do |checkout_enterprise| %>
+                                <tr>
+                                  <td><%= Dict::DealMode.find_by_code(finance_declaration.deal_mode).name rescue '' %></td>
+                                </tr>
+                            <% end %>
+                        <% end %>
+                      </table>
+                    </td>
+
+                    <td style="padding: 0">
+                      <table rules=rows style=" width: 100%;">
+                        <% finance_declaration_array.each do |finance_declaration| %>
+                            <% finance = finance_declaration.finances.first %>
+                            <% checkout_enterprises = finance.checkout_enterprises %>
+                            <% checkout_enterprises.each do |checkout_enterprise| %>
+                                <tr>
+                                  <td><%= Enterprise.find_by_code(checkout_enterprise.code).name rescue '' %></td>
+                                </tr>
+                            <% end %>
+                        <% end %>
+                      </table>
+                    </td>
+
+                    <td style="padding: 0">
+                      <table rules=rows style=" width: 100%;">
+                        <% finance_declaration_array.each do |finance_declaration| %>
+                            <% finance = finance_declaration.finances.first %>
+                            <% checkout_enterprises = finance.checkout_enterprises %>
+                            <% checkout_enterprises.each do |checkout_enterprise| %>
+                                <tr>
+                                  <td><%= finance_declaration.entry_no %></td>
+                                </tr>
+                            <% end %>
+                        <% end %>
+                      </table>
+                    </td>
+
+                    <% checkout_enterprise_fees_i = Array.new(10, 0) %>
+                    <% row_total_price = Array.new(10, 0) %>
+                    <% finance_fee_codes.each_with_index do |finance_fee_code, vi| %>
+                        <td style="padding: 0">
+                          <table rules=rows style=" width: 100%;">
+                            <% row_i = 0 %>
+                            <% finance_declaration_array.each do |finance_declaration| %>
+                                <% finance = finance_declaration.finances.first %>
+                                <% checkout_enterprises = finance.checkout_enterprises %>
+                                <% checkout_enterprises.each do |checkout_enterprise| %>
+                                    <% if checkout_enterprises.size == 1 %>
+                                        <% checkout_enterprise_fees = finance.finance_fees %>
+                                    <% else %>
+                                        <% checkout_enterprise_fees = checkout_enterprise.finance_fees %>
+                                    <% end %>
+                                    <% if checkout_enterprise_fees_i[row_i] < checkout_enterprise_fees.size and finance_fee_code == checkout_enterprise_fees[checkout_enterprise_fees_i[row_i]].code %>
+                                        <tr>
+                                          <td><%= price = FinanceFee.find_by_code(finance_fee_code).price %></td>
+                                        </tr>
+                                        <% col_total_prices[vi] = col_total_prices[vi] + price %>
+                                        <% checkout_enterprise_fees_i[row_i] = checkout_enterprise_fees_i[row_i] + 1 %>
+                                        <% row_total_price[row_i] = row_total_price[row_i] + price %>
+                                        <% row_i = row_i + 1 %>
+                                    <% else %>
+                                        <tr>
+                                          <td> 0</td>
+                                        </tr>
+                                        <% row_i = row_i + 1 %>
+                                    <% end %>
+
+                                <% end %>
+                            <% end %>
+                          </table>
+                        </td>
+                    <% end %>
+                    <td style="padding: 0">
+                      <table rules=rows style=" width: 100%;">
+                        <% row_i = 0 %>
+                        <% finance_declaration_array.each do |finance_declaration| %>
+                            <% finance = finance_declaration.finances.first %>
+                            <% checkout_enterprises = finance.checkout_enterprises %>
+                            <% checkout_enterprises.each do |checkout_enterprise| %>
+                                <tr>
+                                  <td><%= row_total_price[row_i] %></td>
+                                </tr>
+                                <% row_i = row_i + 1 %>
+                            <% end %>
+                        <% end %>
+                      </table>
+                    </td>
+                    <% col_total_prices[col_total_prices.size - 1] = col_total_prices[col_total_prices.size - 1] + row_total_price.inject { |sum, x| sum + x } %>
+                  </tr>
+
+              <% end %>
+              <% if false #comment start   %>
+                  <% page_size = 23 %>
+                  <% (page_size - @finance_declarations.size%page_size - 1).times do %>
+                      <tr>
+                        <% (6 + finance_fee_codes.size).times do %>
+                            <td>&nbsp;</td>
+                        <% end %>
+                      </tr>
+                  <% end %>
+              <% end #comment end   %>
+              <% if page_index == @pages_size - 1 %>
+                  <% if false #comment start  %>
+                      <% (@page_size - page.size%@page_size - 1 - 1).times do %>
+                          <tr>
+                            <% (6 + finance_fee_codes.size).times do %>
+                                <td>&nbsp;</td>
+                            <% end %>
+                          </tr>
+                      <% end %>
+                  <% end %>
+                  <tr>
+                    <td></td>
+                    <td>合计</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <% cookies[:col_total_prices] = {value: col_total_prices, expires: 1.day.from_now} %>
+                    <% col_total_prices.each do |col_total_price| %>
+                        <td><%= col_total_price %></td>
+                    <% end %>
+                  </tr>
+              <% end %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div style="width:100%;height:20px;"></div>
+      </div>
+
+      <% if page_index != @pages_size - 1 %>
+          <div style="page-break-before: always;"></div>
+      <% end %>
+      </fieldset>
+<% end %>

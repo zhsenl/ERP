@@ -3,6 +3,8 @@ ERP::Application.routes.draw do
 
 
 
+  resources :check_methods
+
   resources :enterprise_fees do
     get 'search', :on => :collection
   end
@@ -167,6 +169,7 @@ ERP::Application.routes.draw do
       get 'show_by_code', :on => :member
     end
   end
+
 
   resources :checkout_enterprises
 

@@ -1,0 +1,32 @@
+
+<fieldset>
+  <legend>结算方式：</legend>
+  <% if !@check_methods.nil? %>
+      <table>
+        <thead>
+        <tr>
+          <th>结算方式</th>
+          <th>费用</th>
+          <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% @check_methods.each do |check_method| %>
+            <tr>
+              <td><%= check_method.method %></td>
+              <td><%= check_method.price %></td>
+              <td>
+                 <%= link_to "修改", edit_check_method_path(check_method) %>
+                 <%= link_to "删除", check_method_path(check_method),confirm: '确定删除?', method: :delete %>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+  <% end %>
+
+      <p>
+        <%= link_to '添加结算方式', new_check_method_path() %>
+      </p>
+
+</fieldset>

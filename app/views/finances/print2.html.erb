@@ -1,2 +1,124 @@
-<%= cookies[:finance_fee_names] %>
-<%= cookies[:col_total_prices]  %>
+<% finance_fee_names = cookies[:finance_fee_names].split("&") %>
+<% col_total_prices = cookies[:col_total_prices].split("&") %>
+
+<style type="text/css">
+    @page {
+        size: landscape;
+    }
+
+    body {
+        font-size: 14px;
+    }
+
+    .frame {
+        position: relative;
+        top: 0px;
+        left: 0px;
+    }
+
+    #theSeals {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+    }
+
+    .outer-center {
+        float: right;
+        right: 50%;
+        position: relative;
+    }
+
+    .inner-center {
+        float: right;
+        right: -50%;
+        position: relative;
+    }
+
+    #main_table td{
+        min-width: 400px;
+
+    }
+
+</style>
+
+<div>
+  <div class="outer-center">
+    <div class="inner-center">
+      <h2>
+        营业收入月报表
+      </h2>
+      <div style="font-size: 12px">
+        日期：
+       <%= cookies[:from] %>至<%= cookies[:to] %>
+      </div>
+      <table class='frame'>
+        <div id="theSeals">
+          <div class='seal-div hideseals' style="display: none" title="拖动图片移动位置">
+            <%= image_tag("seal1.png",  :alt => "印章", :class=>"seal", :id=>'seal_left',  :style=>"z-index:100;cursor:move")  %>
+            <span class='delete_seals' title='删除图片' style="position: relative; left:-20px; z-index: 100; cursor: pointer;"><%= image_tag("icons/cross.png") %></span>
+          </div>
+        </div>
+      </table>
+      <table border=1 style="border-collapse:collapse;" id='main_table'>
+        <thead style="font-weight: bold">
+
+        </thead>
+        <tbody>
+        <tr>
+          <td><b>货币种类</b></td>
+          <td>人民币</td>
+        </tr>
+        <% total = 0 %>
+        <% finance_fee_names.each_with_index do |name, index| %>
+            <tr>
+              <td><%= name %></td>
+              <td><%= col_total_prices[index] %></td>
+              <% total = total + col_total_prices[index].to_f %>
+            </tr>
+        <% end %>
+        <tr>
+          <td>应收总额</td>
+          <td><%= total %></td>
+        </tr>
+        <tr>
+          &nbsp;
+        </tr>
+        <tr>
+          <td><b>结算方式</b></td>
+          <td>&nbsp;</td>
+        </tr>
+        <% total_pay = 0 %>
+        <% @check_methods.each do |check_method| %>
+          <tr>
+            <td><%= check_method.method %></td>
+            <td><%= check_method.price %></td>
+            <% total_pay = total_pay + check_method.price %>
+          </tr>
+        <% end %>
+        <tr>
+          <td>
+            实收金额
+          </td>
+          <td>
+            <%= total_pay %>
+          </td>
+        </tr>
+        </tbody>
+        <tfoot>
+
+        </tfoot>
+      </table>
+      <table style="float: right;margin-top: 1em">
+        <tr>
+          <td> 打印时间 </td>
+          <td> <%= Time.new.strftime("%Y-%m-%d") %></td>
+          <td>打印人</td>
+          <td>
+            <span class="content">经理</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div style="width:100%;height:20px;"></div>
+</div>

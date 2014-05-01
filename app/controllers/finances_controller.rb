@@ -27,6 +27,7 @@ class FinancesController < ApplicationController
     if cookies[:income_declaration_condition] #and params[:page] #and  cookies[:income_enterprise_condition]
                                                  #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(cookies[:income_declaration_condition]).page(params[:page]).order("declare_date asc")
       @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2, is_paid: true}).where(eval(cookies[:income_declaration_condition])).order("declare_date asc")
+      @check_methods = CheckMethod.where({from: cookies[:from], to: cookies[:to]})
       statistics(cookies[:income_declaration_condition])
     end
   end
@@ -34,24 +35,21 @@ class FinancesController < ApplicationController
   def print2
     if cookies[:finance_fee_names] and cookies[:col_total_prices] #and params[:page] #and  cookies[:income_enterprise_condition]
                                               #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(cookies[:income_declaration_condition]).page(params[:page]).order("declare_date asc")
+      @check_methods = CheckMethod.where({from: cookies[:from], to: cookies[:to]})
       render :layout => 'print'
     end
   end
   #营业统计的搜索
   def search3
     time = (params[:from].present? and params[:from].present?) ? (params[:from]..params[:to]) : ''
-    #income_enterprise_condition = {code: Enterprise.find(params[:enterprise_id]).code}.select { |key,value| value.present? }
-    #declaration_condition = {declare_date: time, load_port: params[:load_port]}.select { |key,value| value.present? }
-    #@finance_declarations = Declaration.joins( :income_enterprises).joins(:finances).where(finances:{review: 2}).where(declaration_condition).where(income_enterprises:income_enterprise_condition).page(params[:page]).order("declare_date DESC")
-    declaration_condition = {declare_date: time, load_port: params[:load_port], enterprise_id: params[:enterprise_id]}.select { |key,value| value.present? }
-    #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(declaration_condition).page(params[:page]).order("declare_date asc")
+    declaration_condition = {declare_date: time, load_port: params[:load_port]}.select { |key,value| value.present? }
     @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2, is_paid: true}).where(declaration_condition).order("declare_date asc")
+    @check_methods = CheckMethod.where({from: params[:from], to: params[:to]})
     if @finance_declarations.size != 0
-      #cookies[:income_enterprise_condition] = income_enterprise_condition
       cookies[:income_declaration_condition] = {value: declaration_condition, expires: 1.day.from_now}
-      #cookies[:enterprise_id] = {value: params[:enterprise_id], expires: 1.day.from_now}
       cookies[:from] = {value: params[:from], expires: 1.day.from_now}
       cookies[:to] = {value: params[:to], expires: 1.day.from_now}
+      cookies[:load_port] = {value: params[:load_port], expirres: 1.day.from_now}
       statistics(declaration_condition.to_s)
     end
     render :partial =>"income_result"
