@@ -114,7 +114,7 @@
           <td> <%= Time.new.strftime("%Y-%m-%d") %></td>
           <td>打印人</td>
           <td>
-            <span class="content">经理</span>
+            <span class="content"><%= current_user.username %></span>
           </td>
         </tr>
       </table>
