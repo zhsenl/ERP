@@ -9,6 +9,7 @@
           <th>企业单位</th>
           <th>账单状态</th>
           <th>审核状态</th>
+          <th>结算状态</th>
           <th>操作</th>
         </tr>
         </thead>
@@ -28,6 +29,7 @@
               <td><%= Enterprise.find(finance_declaration.enterprise_id).name %></td>
               <td><%= finance.is_made ? "已制作" : "未制作" %></td>
               <td><%= review[finance.review] %></td>
+              <td><%= finance.is_paid ? "已结算" : "未结算" %></td>
               <td>
                 <%= link_to  "查看", finance_path(finance) %>
               </td>

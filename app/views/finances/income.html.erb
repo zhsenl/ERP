@@ -1,0 +1,17 @@
+
+<div class="content-box">
+  <div class="content-box-header">
+    <h3>营业统计(只搜索 结算 后的账单)</h3>
+
+    <div class="operations">
+      <%= link_to '打印', print2_finances_path, :target => "_blank"%>
+    </div>
+  </div>
+  <div class="content-box-content">
+    <%= render "income_form", :model => Finance %>
+    <div id='finance_search_status' style="padding: 10px 10px 10px 10px"></div>
+    <div id="income_result_div">
+      <%= render "income_result", :model => Finance %>
+    </div>
+  </div>
+</div>

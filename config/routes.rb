@@ -173,12 +173,16 @@ ERP::Application.routes.draw do
   resources :finance_fees
 
   resources :finances do
+    get 'pay', :on => :collection
     get 'search', :on => :collection
     get 'search2', :on => :collection
+    get 'search3', :on => :collection
     post 'combine', :on => :collection
     post 'uncombine', :on => :collection
     get 'print', :on => :collection
+    get 'print2', :on => :collection
     get 'check', :on => :collection
+    get 'income', :on => :collection
     get 'cancel', :on => :member
     get 'make', :on => :member
     get 'review', :on => :member

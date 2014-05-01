@@ -22,6 +22,60 @@ class FinancesController < ApplicationController
     end
   end
 
+  #营业统计
+  def income
+    if cookies[:income_declaration_condition] #and params[:page] #and  cookies[:income_enterprise_condition]
+                                                 #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(cookies[:income_declaration_condition]).page(params[:page]).order("declare_date asc")
+      @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2, is_paid: true}).where(eval(cookies[:income_declaration_condition])).order("declare_date asc")
+      statistics
+    end
+  end
+  #营业统计的打印
+  def print2
+    if cookies[:finance_fee_names] and cookies[:col_total_prices] #and params[:page] #and  cookies[:income_enterprise_condition]
+                                              #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(cookies[:income_declaration_condition]).page(params[:page]).order("declare_date asc")
+      render :layout => 'print'
+    end
+  end
+  #营业统计的搜索
+  def search3
+    time = (params[:from].present? and params[:from].present?) ? (params[:from]..params[:to]) : ''
+    #income_enterprise_condition = {code: Enterprise.find(params[:enterprise_id]).code}.select { |key,value| value.present? }
+    #declaration_condition = {declare_date: time, load_port: params[:load_port]}.select { |key,value| value.present? }
+    #@finance_declarations = Declaration.joins( :income_enterprises).joins(:finances).where(finances:{review: 2}).where(declaration_condition).where(income_enterprises:income_enterprise_condition).page(params[:page]).order("declare_date DESC")
+    declaration_condition = {declare_date: time, load_port: params[:load_port], enterprise_id: params[:enterprise_id]}.select { |key,value| value.present? }
+    #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(declaration_condition).page(params[:page]).order("declare_date asc")
+    @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2, is_paid: true}).where(declaration_condition).order("declare_date asc")
+    if @finance_declarations.size != 0
+      #cookies[:income_enterprise_condition] = income_enterprise_condition
+      cookies[:income_declaration_condition] = {value: declaration_condition, expires: 1.day.from_now}
+      cookies[:enterprise_id] = {value: params[:enterprise_id], expires: 1.day.from_now}
+      cookies[:from] = {value: params[:from], expires: 1.day.from_now}
+      cookies[:to] = {value: params[:to], expires: 1.day.from_now}
+      statistics
+    end
+    render :partial =>"income_result"
+  end
+
+  def pay
+    time = (params[:from].present? and params[:from].present?) ? (params[:from]..params[:to]) : ''
+    declaration_condition =  {declare_date: time, enterprise_id: params[:enterprise_id],
+                              entry_no: params[:entry_no],load_port: params[:load_port]}.select { |key,value| value.present? }
+    finance_condition =  {is_made: params[:is_made], review: params[:review]}.select { |key,value| value.present? }
+
+    @finance_declarations = Declaration.joins(:finances).where(declaration_condition).where( finances:finance_condition).page(params[:page]).order("declare_date asc")
+    #@finances = Finance.joins(:declarations).where(finance_condition, declarations:declaration_condition)
+    if @finance_declarations.size != 0
+      cookies[:declaration_condition] = {value: declaration_condition, expires: 1.day.from_now}
+      cookies[:finance_condition] = {value: finance_condition, expires: 1.day.from_now}
+      # 将is_paid 字段设为true
+      @finance_declarations.each do |finance_declaration|
+         finance_declaration.finances.first.update_attribute(:is_paid, true)
+      end
+    end
+    render :partial =>"finance_search_result"
+  end
+
   #财务统计的搜索
   def search2
     time = (params[:from].present? and params[:from].present?) ? (params[:from]..params[:to]) : ''
@@ -45,41 +99,7 @@ class FinancesController < ApplicationController
     if cookies[:check_declaration_condition]  #and  cookies[:checkout_enterprise_condition]
                                               #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(cookies[:check_declaration_condition]).order("declare_date asc")
       @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(eval(cookies[:check_declaration_condition])).order("declare_date asc, finances.combine_no")
-      @page_size = 16
-      @pages = Array.new((@finance_declarations.size - 1) / @page_size + 1 + 10) { Array.new }    # 最后的 + 10是预留的
-                                                                                                  #@finance_declarations.each_with_index do |finance_declaration, index|
-                                                                                                  #  @pages[index / @page_size][index % @page_size] = []
-                                                                                                  #end
-      page_item_count = 0
-      pages_index = 0
-      each_page_index = 0
-      combine_size = 0
-      @finance_declarations.each_with_index do |finance_declaration, index|
-        if combine_size > 0
-          combine_size = combine_size - 1
-          next
-        end
-        combine_no = finance_declaration.finances.first.combine_no
-        finance_declaration_combined = []
-        if !combine_no.blank?
-          finance_declaration_combined = Declaration.joins(:finances).where(finances:{review: 2,combine_no: combine_no}).where(eval(cookies[:check_declaration_condition])).order("declare_date asc")
-          combine_size = finance_declaration_combined.size - 1
-        else
-          finance_declaration_combined << finance_declaration
-        end
-        finance_declaration_combined_size = finance_declaration_combined.size
-        if page_item_count + finance_declaration_combined_size <= @page_size + 1 #每页允许可能多一个
-          page_item_count = page_item_count + finance_declaration_combined_size
-          @pages[pages_index][each_page_index] = finance_declaration_combined
-          each_page_index = each_page_index + 1
-        else
-          pages_index = pages_index + 1
-          each_page_index = 0
-          page_item_count = finance_declaration_combined_size
-          @pages[pages_index][each_page_index] = finance_declaration_combined
-        end
-      end
-      @pages_size = pages_index + 1
+      statistics
       render :layout => 'print'
     end
   end
@@ -218,5 +238,44 @@ class FinancesController < ApplicationController
       format.html { redirect_to finances_url }
       format.json { head :no_content }
     end
+  end
+
+  def statistics
+    @page_size = 16
+    @pages = Array.new((@finance_declarations.size - 1) / @page_size + 1 + 10) { Array.new }    # 最后的 + 10是预留的
+                                                                                                #@finance_declarations.each_with_index do |finance_declaration, index|
+                                                                                                #  @pages[index / @page_size][index % @page_size] = []
+                                                                                                #end
+    page_item_count = 0
+    pages_index = 0
+    each_page_index = 0
+    combine_size = 0
+    @finance_declarations.each_with_index do |finance_declaration, index|
+      if combine_size > 0
+        combine_size = combine_size - 1
+        next
+      end
+      combine_no = finance_declaration.finances.first.combine_no
+      finance_declaration_combined = []
+      if !combine_no.blank?
+        finance_declaration_combined = Declaration.joins(:finances).where(finances:{review: 2,combine_no: combine_no}).where(eval(cookies[:check_declaration_condition])).order("declare_date asc")
+        combine_size = finance_declaration_combined.size - 1
+      else
+        finance_declaration_combined << finance_declaration
+      end
+      finance_declaration_combined_size = finance_declaration_combined.size
+      if page_item_count + finance_declaration_combined_size <= @page_size + 1 #每页允许可能多一个
+        page_item_count = page_item_count + finance_declaration_combined_size
+        @pages[pages_index][each_page_index] = finance_declaration_combined
+        each_page_index = each_page_index + 1
+      else
+        pages_index = pages_index + 1
+        each_page_index = 0
+        page_item_count = finance_declaration_combined_size
+        @pages[pages_index][each_page_index] = finance_declaration_combined
+      end
+    end
+    @pages_size = pages_index + 1
+
   end
 end
