@@ -80,7 +80,7 @@ class FinancesController < ApplicationController
     #checkout_enterprise_condition = {code: Enterprise.find(params[:enterprise_id]).code}.select { |key,value| value.present? }
     #declaration_condition = {declare_date: time, load_port: params[:load_port]}.select { |key,value| value.present? }
     #@finance_declarations = Declaration.joins( :checkout_enterprises).joins(:finances).where(finances:{review: 2}).where(declaration_condition).where(checkout_enterprises:checkout_enterprise_condition).page(params[:page]).order("declare_date DESC")
-    enterprise_id = Enterprise.find_by_code(params[:enterprise_id]).id rescue ""
+    enterprise_id = Enterprise.find_by_code(params[:enterprise_id]).id rescue params[:enterprise_id]
     declaration_condition = {declare_date: time, load_port: params[:load_port], enterprise_id: enterprise_id}.select { |key,value| value.present? }
     #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(declaration_condition).page(params[:page]).order("declare_date asc")
     @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(declaration_condition).order("declare_date asc")
@@ -106,7 +106,7 @@ class FinancesController < ApplicationController
   #财务结算的搜索
   def search
     time = (params[:from].present? and params[:from].present?) ? (params[:from]..params[:to]) : ''
-    enterprise_id = Enterprise.find_by_code(params[:enterprise_id]).id rescue ""
+    enterprise_id = Enterprise.find_by_code(params[:enterprise_id]).id rescue params[:enterprise_id]
     declaration_condition =  {declare_date: time, enterprise_id: enterprise_id,
                               entry_no: params[:entry_no],load_port: params[:load_port]}.select { |key,value| value.present? }
     finance_condition =  {is_made: params[:is_made], review: params[:review]}.select { |key,value| value.present? }
