@@ -34,7 +34,7 @@
                       <tr>
                         <td><%= link_to enterprise_fee.code, enterprise_fee %></td>
                         <td><%= fee.name %></td>
-                        <td><%= fee.price %></td>
+                        <td><%= enterprise_fee.price.blank? ? fee.price : enterprise_fee.price   %></td>
                         <td><%= fee.is_income ? '√' : '×' %></td>
                         <td><%= fee.is_pay ? '√' : '×' %></td>
                         <td>

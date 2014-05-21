@@ -13,6 +13,12 @@
       <%= render "shared/autocomplete_field", :form => f, :attribute => :code, :url => dict_fees_path, :min_length => 2, :klass => "text-input small-input" %>
       <br />
     </p>
+    <p>
+      <label>价格</label>
+      <%= f.text_field :price, :class => "text-input small-input" %>
+      <br />
+    </p>
+
   </fieldset>
   <div>
     <%= f.submit :class => "button" %>

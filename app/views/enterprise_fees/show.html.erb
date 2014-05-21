@@ -21,7 +21,7 @@
       <b>英文名称</b>：<%= fee.name_en %>
     </p>
     <p>
-      <b>价格</b>：<%= fee.price %>
+      <b>价格</b>：<%= @enterprise_fee.price.blank? ? fee.price : @enterprise_fee.price   %>
     </p>
     <p>
       <b>币制</b>：

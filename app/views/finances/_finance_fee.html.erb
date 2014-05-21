@@ -26,6 +26,9 @@
         <% if is_empty
              #new_finance_fee = FinanceFee.new(finance_fee.attributes.except!('enterprise_id'))
              new_finance_fee = FinanceFee.new(Dict::Fee.find_by_code(finance_fee.code).attributes)
+             if !finance_fee.price.blank?
+                new_finance_fee.price = finance_fee.price
+             end
              new_finance_fee.finance_id = @finance.id
              new_finance_fee.save
              finance_fee = new_finance_fee
