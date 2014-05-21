@@ -62,7 +62,11 @@
       <legend>搜索框：</legend>
       <div class="field">
         <label>企业单位</label>
-        <%= select_tag "enterprise_id", options_from_collection_for_select(current_user.enterprises, "id", "name"), include_blank: true %>
+        <input id="enterprise_autocomplete" name="enterprise_id" class="text-input small-input first-field" type="text" data-url="<%= enterprises_path %>" data-minLength="2" >
+        &nbsp;&nbsp;
+        <br />
+        <small id="enterprise_autocomplete_label">输入组织机构代码或名字</small>
+        <%# select_tag "enterprise_id", options_from_collection_for_select(current_user.enterprises, "id", "name"), include_blank: true %>
       </div>
       <div class="field">
         <label>报关单号</label>
