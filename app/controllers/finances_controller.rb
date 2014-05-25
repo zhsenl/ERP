@@ -77,15 +77,16 @@ class FinancesController < ApplicationController
   #财务统计的搜索
   def search2
     time = (params[:from].present? and params[:from].present?) ? (params[:from]..params[:to]) : ''
-    #checkout_enterprise_condition = {code: Enterprise.find(params[:enterprise_id]).code}.select { |key,value| value.present? }
+    checkout_enterprise_condition = {code: params[:enterprise_id]}.select { |key,value| value.present? }
     #declaration_condition = {declare_date: time, load_port: params[:load_port]}.select { |key,value| value.present? }
-    #@finance_declarations = Declaration.joins( :checkout_enterprises).joins(:finances).where(finances:{review: 2}).where(declaration_condition).where(checkout_enterprises:checkout_enterprise_condition).page(params[:page]).order("declare_date DESC")
-    enterprise_id = Enterprise.find_by_code(params[:enterprise_id]).id rescue params[:enterprise_id]
-    declaration_condition = {declare_date: time, load_port: params[:load_port], enterprise_id: enterprise_id}.select { |key,value| value.present? }
+    #enterprise_id = Enterprise.find_by_code(params[:enterprise_id]).id rescue params[:enterprise_id]
+    #declaration_condition = {declare_date: time, load_port: params[:load_port], enterprise_id: enterprise_id}.select { |key,value| value.present? }
+    declaration_condition = {declare_date: time, load_port: params[:load_port]}.select { |key,value| value.present? }
     #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(declaration_condition).page(params[:page]).order("declare_date asc")
-    @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(declaration_condition).order("declare_date asc")
+    @finance_declarations = Declaration.joins( :checkout_enterprises).joins(:finances).where(finances:{review: 2}).where(declaration_condition).where(checkout_enterprises:checkout_enterprise_condition).order("declare_date DESC")
+   # @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(declaration_condition).order("declare_date asc")
     if @finance_declarations.size != 0
-      #cookies[:checkout_enterprise_condition] = checkout_enterprise_condition
+      cookies[:checkout_enterprise_condition] =  {value: checkout_enterprise_condition, expires: 1.day.from_now}
       cookies[:check_declaration_condition] = {value: declaration_condition, expires: 1.day.from_now}
       cookies[:enterprise_id] = {value: params[:enterprise_id], expires: 1.day.from_now}
       cookies[:from] = {value: params[:from], expires: 1.day.from_now}
@@ -95,9 +96,9 @@ class FinancesController < ApplicationController
   end
 
   def print
-    if cookies[:check_declaration_condition]  #and  cookies[:checkout_enterprise_condition]
-                                              #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(cookies[:check_declaration_condition]).order("declare_date asc")
-      @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(eval(cookies[:check_declaration_condition])).order("declare_date asc, finances.combine_no")
+    if cookies[:check_declaration_condition]  and  cookies[:checkout_enterprise_condition]
+      #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(eval(cookies[:check_declaration_condition])).order("declare_date asc, finances.combine_no")
+      @finance_declarations = Declaration.joins( :checkout_enterprises).joins(:finances).where(finances:{review: 2}).where(eval(cookies[:check_declaration_condition])).where(checkout_enterprises:eval(cookies[:checkout_enterprise_condition])).order("declare_date DESC")
       statistics(cookies[:check_declaration_condition])
       render :layout => 'print'
     end
@@ -258,7 +259,8 @@ class FinancesController < ApplicationController
       combine_no = finance_declaration.finances.first.combine_no
       finance_declaration_combined = []
       if !combine_no.blank?
-        finance_declaration_combined = Declaration.joins(:finances).where(finances:{review: 2,combine_no: combine_no}).where(eval(declaration_condition)).order("declare_date asc")
+        #finance_declaration_combined = Declaration.joins(:finances).where(finances:{review: 2,combine_no: combine_no}).where(eval(declaration_condition)).order("declare_date asc")
+        finance_declaration_combined = Declaration.joins( :checkout_enterprises).joins(:finances).where(finances:{review: 2,combine_no: combine_no}).where(eval(cookies[:check_declaration_condition])).where(checkout_enterprises:eval(cookies[:checkout_enterprise_condition])).order("declare_date DESC")
         combine_size = finance_declaration_combined.size - 1
       else
         finance_declaration_combined << finance_declaration
