@@ -31,7 +31,7 @@
         </tbody>
       </table>
   <% end %>
-  <% if @finance.review == 1 or  @finance.review == 3  %>
+  <% if (@finance.review == 1 or  @finance.review == 3 ) and checkout_enterprises.size < 1 %>
 
       <p>
         <%= link_to '添加结算单位', new_checkout_enterprise_path(:finance_id =>  @finance.id, :from => @finance.id) %>
