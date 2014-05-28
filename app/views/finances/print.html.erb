@@ -71,7 +71,7 @@
             </tr>
             <tr>
               <td>开户行：</td><td  style="width:200px">招商银行东莞虎门港支行</td>
-              <td>客户：</td><td><%= Enterprise.find(cookies[:enterprise_id]).name rescue '' %></td>
+              <td>客户：</td><td><%= Enterprise.find_by_code(cookies[:enterprise_id]).name rescue '' %></td>
             </tr>
             <tr>
               <td>卡号：</td><td  style="width:200px">769902090110488</td>
@@ -119,11 +119,14 @@
                   <td style="padding: 0">
                     <table rules=rows style=" width: 100%;">
                       <% finance_declaration_array.each do |finance_declaration| %>
-                          <% finance = finance_declaration.finances.first %>
-                          <% checkout_enterprises = finance.checkout_enterprises %>
-                          <% checkout_enterprises.each do |checkout_enterprise| %>
-                              <tr><td><%= Enterprise.find_by_code(checkout_enterprise.code).name rescue ''%></td></tr>
-                          <% end %>
+                          <% if false %> <%# comment start 表单客户为 结算单位 %>
+                              <% finance = finance_declaration.finances.first %>
+                              <% checkout_enterprises = finance.checkout_enterprises %>
+                              <% checkout_enterprises.each do |checkout_enterprise| %>
+                                  <tr><td><%= Enterprise.find_by_code(checkout_enterprise.code).name rescue ''%></td></tr>
+                              <% end %>
+                          <% end %>  <%# comment end %>
+                          <tr><td><%= finance_declaration.enterprise.name rescue '' %></td></tr>
                       <% end %>
                     </table>
                   </td>
