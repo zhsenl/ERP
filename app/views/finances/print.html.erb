@@ -159,7 +159,7 @@
                                       <% checkout_enterprise_fees = checkout_enterprise.finance_fees %>
                                   <% end %>
                                   <% if checkout_enterprise_fees_i[row_i] < checkout_enterprise_fees.size and finance_fee_code == checkout_enterprise_fees[checkout_enterprise_fees_i[row_i]].code %>
-                                      <tr><td><%= price =  FinanceFee.find_by_code(finance_fee_code).price %></td></tr>
+                                      <tr><td><%=price = finance.finance_fees.find_by_code(finance_fee_code).price %></td></tr>
                                       <% col_total_prices[vi] = col_total_prices[vi] + price %>
                                       <% checkout_enterprise_fees_i[row_i] = checkout_enterprise_fees_i[row_i] + 1 %>
                                       <% row_total_price[row_i] = row_total_price[row_i] + price %>
