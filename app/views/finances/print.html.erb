@@ -45,9 +45,13 @@
      finance_declaration.finances[0].finance_fees.each do |finance_fee|
        if !finance_fee_codes.include?(finance_fee.code) and !finance_fee.name.blank?
          finance_fee_codes.append(finance_fee.code)
-         finance_fee_names.append(finance_fee.name)
+         #finance_fee_names.append(finance_fee.name)
        end
      end
+   end
+   finance_fee_codes.sort!
+   finance_fee_codes.each do |code|
+     finance_fee_names.append(FinanceFee.find_by_code(code).name)
    end
    col_total_prices = Array.new(finance_fee_codes.size + 1, 0)
    no = 0 %>
@@ -92,8 +96,8 @@
               <td></td>
               <td>客户</td>
               <td>报关单号</td>
-              <% finance_fee_names.each do |finance_fee_name| %>
-                  <td><%= finance_fee_name  %></td>
+              <% finance_fee_names.each_with_index do |finance_fee_name,i| %>
+                  <td><%#  finance_fee_codes[i] %><%= finance_fee_name  %></td>
               <% end %>
               <td>金额</td>
             </tr>

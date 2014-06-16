@@ -83,7 +83,7 @@ class FinancesController < ApplicationController
     #declaration_condition = {declare_date: time, load_port: params[:load_port], enterprise_id: enterprise_id}.select { |key,value| value.present? }
     declaration_condition = {declare_date: time, load_port: params[:load_port]}.select { |key,value| value.present? }
     #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(declaration_condition).page(params[:page]).order("declare_date asc")
-    @finance_declarations = Declaration.joins( :checkout_enterprises).joins(:finances).where(finances:{review: 2}).where(declaration_condition).where(checkout_enterprises:checkout_enterprise_condition).order("declare_date DESC")
+    @finance_declarations = Declaration.joins( :checkout_enterprises).joins(:finances).where(finances:{review: 2}).where(declaration_condition).where(checkout_enterprises:checkout_enterprise_condition).order("declare_date asc")
    # @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(declaration_condition).order("declare_date asc")
     if @finance_declarations.size != 0
       cookies[:checkout_enterprise_condition] =  {value: checkout_enterprise_condition, expires: 1.day.from_now}
@@ -98,7 +98,7 @@ class FinancesController < ApplicationController
   def print
     if cookies[:check_declaration_condition]  and  cookies[:checkout_enterprise_condition]
       #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(eval(cookies[:check_declaration_condition])).order("declare_date asc, finances.combine_no")
-      @finance_declarations = Declaration.joins( :checkout_enterprises).joins(:finances).where(finances:{review: 2}).where(eval(cookies[:check_declaration_condition])).where(checkout_enterprises:eval(cookies[:checkout_enterprise_condition])).order("declare_date DESC")
+      @finance_declarations = Declaration.joins( :checkout_enterprises).joins(:finances).where(finances:{review: 2}).where(eval(cookies[:check_declaration_condition])).where(checkout_enterprises:eval(cookies[:checkout_enterprise_condition])).order("declare_date asc")
       statistics(cookies[:check_declaration_condition])
       render :layout => 'print'
     end
@@ -260,7 +260,7 @@ class FinancesController < ApplicationController
       finance_declaration_combined = []
       if !combine_no.blank?
         #finance_declaration_combined = Declaration.joins(:finances).where(finances:{review: 2,combine_no: combine_no}).where(eval(declaration_condition)).order("declare_date asc")
-        finance_declaration_combined = Declaration.joins( :checkout_enterprises).joins(:finances).where(finances:{review: 2,combine_no: combine_no}).where(eval(cookies[:check_declaration_condition])).where(checkout_enterprises:eval(cookies[:checkout_enterprise_condition])).order("declare_date DESC")
+        finance_declaration_combined = Declaration.joins( :checkout_enterprises).joins(:finances).where(finances:{review: 2,combine_no: combine_no}).where(eval(cookies[:check_declaration_condition])).where(checkout_enterprises:eval(cookies[:checkout_enterprise_condition])).order(" deal_mode desc")
         combine_size = finance_declaration_combined.size - 1
       else
         finance_declaration_combined << finance_declaration
