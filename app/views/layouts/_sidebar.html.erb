@@ -27,7 +27,8 @@
           </li>
         </ul>
       </li>
-      <% if current_user.is?("admin") || current_user.is?("staff") %>
+
+      <% if ( current_user.is?("admin") || current_user.is?("staff"))  %>
         <li>
           <a href="#" class="nav-top-item"> 系统管理 </a>
           <ul>
@@ -51,6 +52,7 @@
           </ul>
         </li>
       <% end %>
+
       <li>
         <a href="#" class="nav-top-item"> 报关编码库</a>
         <ul>
@@ -62,6 +64,7 @@
           </li>
         </ul>
       </li>
+
       <li>
         <a href="#" class="nav-top-item"> 合同录入 </a>
         <ul>
@@ -76,6 +79,7 @@
           </li>
         </ul>
       </li>
+
       <li>
         <a href="#" class="nav-top-item"> 进出口录入 </a>
         <ul>
@@ -96,7 +100,8 @@
           </li>
         </ul>
       </li>
-      <% if current_user.is?("admin") %>
+
+      <% if current_user.is?("admin") or current_user.is?("finance")  %>
         <li>
           <a href="#" class="nav-top-item"> 报关单入库 </a>
           <ul>
@@ -106,6 +111,7 @@
           </ul>
         </li>
       <% end %>
+
       <li>
         <a href="#" class="nav-top-item"> 报关统计表 </a>
         <ul>
@@ -174,6 +180,7 @@
           </li>
         </ul>
       </li>
+
       <% if current_user.is?("admin") or current_user.is?("finance") %>
           <li>
             <a href="#" class="nav-top-item"> 财务管理 </a>
