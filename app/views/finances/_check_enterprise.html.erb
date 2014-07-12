@@ -1,9 +1,8 @@
-
 <fieldset>
   <legend>结算单位：</legend>
   <% checkout_enterprises = @finance.checkout_enterprises %>
-  <% if checkout_enterprises.nil?  %>
-      <%=  "无结算单位" %>
+  <% if checkout_enterprises.nil? %>
+      <%= "无结算单位" %>
   <% else %>
       <table>
         <thead>
@@ -19,9 +18,9 @@
               <td><%= checkout_enterprise.code %></td>
               <td><%= Enterprise.find_by_code(checkout_enterprise.code).name rescue '' %></td>
               <td>
-                <% if @finance.review == 1 or  @finance.review == 3  %>
+                <% if @finance.review == 1 or @finance.review == 3 %>
                     <%= link_to "修改", edit_checkout_enterprise_path(checkout_enterprise, :from => @finance.id) %>
-                    <%= link_to "删除", checkout_enterprise_path(checkout_enterprise)  + "?from=" + @finance.id.to_s, confirm: '确定删除?', method: :delete %>
+                    <%= link_to "删除", checkout_enterprise_path(checkout_enterprise) + "?from=" + @finance.id.to_s, confirm: '确定删除?', method: :delete %>
                 <% else %>
                     已审核，不能操作
                 <% end %>
@@ -31,10 +30,10 @@
         </tbody>
       </table>
   <% end %>
-  <% if (@finance.review == 1 or  @finance.review == 3 ) and checkout_enterprises.size < 1 %>
-
+  <%# if (@finance.review == 1 or  @finance.review == 3 ) and checkout_enterprises.size < 1 %>
+  <% if (@finance.review == 1 or @finance.review == 3) %>
       <p>
-        <%= link_to '添加结算单位', new_checkout_enterprise_path(:finance_id =>  @finance.id, :from => @finance.id) %>
+        <%= link_to '添加结算单位', new_checkout_enterprise_path(:finance_id => @finance.id, :from => @finance.id) %>
       </p>
   <% end %>
 

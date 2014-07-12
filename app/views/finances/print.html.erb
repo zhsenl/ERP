@@ -53,7 +53,8 @@
      finance_fee_names.append(FinanceFee.find_by_code(code).name)
    end
    col_total_prices = Array.new(finance_fee_codes.size + 1, 0)
-   no = 0 %>
+   no = 0
+%>
 <%# 每一页  %>
 <% @pages.each_with_index do |page, page_index| %>
     <% if page.empty?
@@ -101,6 +102,9 @@
               <td></td>
               <td>客户</td>
               <td>报关单号</td>
+              <td>商品名称</td>
+              <td>合同协议</td>
+              <td>车牌</td>
               <% finance_fee_names.each_with_index do |finance_fee_name, i| %>
                   <td><%#  finance_fee_codes[i] %><%= finance_fee_name %></td>
               <% end %>
@@ -117,13 +121,12 @@
                   <td style="padding: 0">
                     <table rules=rows style=" width: 100%;">
                       <% finance_declaration_array.each do |finance_declaration| %>
-                          <% finance = finance_declaration.finances.first %>
-                          <% checkout_enterprises = finance.checkout_enterprises %>
-                          <% checkout_enterprises.each do |checkout_enterprise| %>
+                          <%# checkout_enterprises = finance.checkout_enterprises %>
+                          <%# checkout_enterprises.each do |checkout_enterprise| %>
                               <tr>
                                 <td><%= Dict::DealMode.find_by_code(finance_declaration.deal_mode).name rescue '' %></td>
                               </tr>
-                          <% end %>
+                          <%# end %>
                       <% end %>
                     </table>
                   </td>
@@ -132,13 +135,12 @@
                     <table rules=rows style=" width: 100%;">
                       <% finance_declaration_array.each do |finance_declaration| %>
                           <% if false %> <%# comment start 表单客户为 结算单位 %>
-                              <% finance = finance_declaration.finances.first %>
-                              <% checkout_enterprises = finance.checkout_enterprises %>
-                              <% checkout_enterprises.each do |checkout_enterprise| %>
+                              <%# checkout_enterprises = finance.checkout_enterprises %>
+                              <%# checkout_enterprises.each do |checkout_enterprise| %>
                                   <tr>
                                     <td><%= Enterprise.find_by_code(checkout_enterprise.code).name rescue '' %></td>
                                   </tr>
-                              <% end %>
+                              <%# end %>
                           <% end %>  <%# comment end %>
                           <tr>
                             <td><%= finance_declaration.enterprise.name rescue '' %></td>
@@ -147,16 +149,58 @@
                     </table>
                   </td>
 
+                  <%# 报关单号 %>
                   <td style="padding: 0">
                     <table rules=rows style=" width: 100%;">
                       <% finance_declaration_array.each do |finance_declaration| %>
-                          <% finance = finance_declaration.finances.first %>
-                          <% checkout_enterprises = finance.checkout_enterprises %>
-                          <% checkout_enterprises.each do |checkout_enterprise| %>
+                          <%# checkout_enterprises = finance.checkout_enterprises %>
+                          <%# checkout_enterprises.each do |checkout_enterprise| %>
                               <tr>
                                 <td><%= finance_declaration.entry_no %></td>
                               </tr>
-                          <% end %>
+                          <%# end %>
+                      <% end %>
+                    </table>
+                  </td>
+
+                  <%# 商品名称 %>
+                  <td style="padding: 0">
+                    <table rules=rows style=" width: 100%;">
+                      <% finance_declaration_array.each do |finance_declaration| %>
+                          <%# checkout_enterprises = finance.checkout_enterprises %>
+                          <%# checkout_enterprises.each do |checkout_enterprise| %>
+                          <tr>
+                            <td><%= finance_declaration.declaration_cargos.first.name %></td>
+                          </tr>
+                          <%# end %>
+                      <% end %>
+                    </table>
+                  </td>
+
+                  <%# 合同协议 %>
+                  <td style="padding: 0">
+                    <table rules=rows style=" width: 100%;">
+                      <% finance_declaration_array.each do |finance_declaration| %>
+                          <%# checkout_enterprises = finance.checkout_enterprises %>
+                          <%# checkout_enterprises.each do |checkout_enterprise| %>
+                          <tr>
+                            <td><%= finance_declaration.contract_no %></td>
+                          </tr>
+                          <%# end %>
+                      <% end %>
+                    </table>
+                  </td>
+
+                  <%# 车牌 %>
+                  <td style="padding: 0">
+                    <table rules=rows style=" width: 100%;">
+                      <% finance_declaration_array.each do |finance_declaration| %>
+                          <%# checkout_enterprises = finance.checkout_enterprises %>
+                          <%# checkout_enterprises.each do |checkout_enterprise| %>
+                          <tr>
+                            <td><%= finance_declaration.bill_no %></td>
+                          </tr>
+                          <%# end %>
                       <% end %>
                     </table>
                   </td>
@@ -169,9 +213,9 @@
                           <% row_i = 0 %> <%# 每一个row_id表示被合并的报关单里的一个报关单 %>
                           <% finance_declaration_array.each do |finance_declaration| %>   <%# finance_declaration_array表示一组被合并的报关单 %>
                               <% finance = finance_declaration.finances.first %>        <%#  finane 表示报关单对应的账单 %>
-                              <% checkout_enterprises = finance.checkout_enterprises %>   <%# 账单对应的结算单位 %>
+                              <% checkout_enterprises = finance.checkout_enterprises.where(code: Enterprise.find_by_code(cookies[:enterprise_id]).code) %>   <%# 账单对应的结算单位,改为按结算单位搜索后应该只有一个，即搜索条件里输入的结算单位。而如果不考虑搜索条件的话，账单是可以有多个结算单位的 %>
                               <% checkout_enterprises.each do |checkout_enterprise| %>
-                                  <% if checkout_enterprises.size == 1 %>
+                                  <% if finance.checkout_enterprises.size == 1 %>
                                       <% checkout_enterprise_fees = finance.finance_fees.order("code") %>
                                   <% else %>
                                       <% checkout_enterprise_fees = checkout_enterprise.finance_fees.order("code") %>
@@ -200,7 +244,7 @@
                       <% row_i = 0 %>
                       <% finance_declaration_array.each do |finance_declaration| %>
                           <% finance = finance_declaration.finances.first %>
-                          <% checkout_enterprises = finance.checkout_enterprises %>
+                          <% checkout_enterprises = finance.checkout_enterprises.where(code: Enterprise.find_by_code(cookies[:enterprise_id]).code) %>
                           <% checkout_enterprises.each do |checkout_enterprise| %>
                               <tr>
                                 <td><%= row_total_price[row_i] %></td>
@@ -237,6 +281,9 @@
                 <tr>
                   <td></td>
                   <td>合计</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                   <td></td>
                   <td></td>
                   <td></td>
