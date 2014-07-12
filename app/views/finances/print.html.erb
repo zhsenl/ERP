@@ -176,9 +176,7 @@
                                   <% else %>
                                       <% checkout_enterprise_fees = checkout_enterprise.finance_fees.order("code") %>
                                   <% end %>
-                                  <%= checkout_enterprise_fees[0].code %>
-                                  <%= checkout_enterprise_fees[1].code %>
-                                  <%= checkout_enterprise_fees[2].code %>
+
                                   <% if checkout_enterprise_fees_i[row_i] < checkout_enterprise_fees.size and finance_fee_code == checkout_enterprise_fees[checkout_enterprise_fees_i[row_i]].code %>
                                       <tr>
                                         <td><%= price = finance.finance_fees.find_by_code(finance_fee_code).price %></td>
