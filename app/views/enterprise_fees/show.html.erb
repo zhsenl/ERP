@@ -9,6 +9,9 @@
   </div>
   <div class="content-box-content">
     <p>
+      <b>结算单位</b>：<%= Enterprise.find_by_code(@enterprise_fee.checkout_enterprise_code).name %>
+    </p>
+    <p>
       <b>装卸口岸编码</b>：<%= @enterprise_fee.load_port %>
     </p>
     <p>

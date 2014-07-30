@@ -20,6 +20,7 @@
                 <th>价格</th>
                 <th>应收</th>
                 <th>应付</th>
+                <th>结算单位</th>
                 <th>操作</th>
               </tr>
               </thead>
@@ -37,6 +38,7 @@
                         <td><%= enterprise_fee.price.blank? ? fee.price : enterprise_fee.price   %></td>
                         <td><%= fee.is_income ? '√' : '×' %></td>
                         <td><%= fee.is_pay ? '√' : '×' %></td>
+                        <td><%= Enterprise.find_by_code(enterprise_fee.checkout_enterprise_code).name rescue '' %></td>
                         <td>
                           <% if can? :edit, enterprise_fee %>
                               <%= link_to image_tag("icons/pencil.png", :alt => "Edit"), edit_enterprise_fee_path(enterprise_fee) %>

@@ -1,10 +1,11 @@
 
 <fieldset>
   <legend>付费信息：</legend>
-  <% finance_fees = @finance.finance_fees %>
+  <% finance_fees = @finance.finance_fees.order("code") %>
   <% is_empty  = finance_fees.empty? %>
   <% if is_empty  %>
-      <% finance_fees =  EnterpriseFee.find_all_by_load_port_and_enterprise_id(@finance.declaration.load_port, @finance.declaration.enterprise_id) %>
+      <% finance_fees =  EnterpriseFee.find_all_by_load_port_and_enterprise_id(@finance.declaration.load_port, @finance.declaration.enterprise_id)%>
+      <% finance_fees.sort_by!{ |finance_fee| finance_fee.checkout_enterprise_code } %>
   <% end %>
   <table>
     <thead>
@@ -24,28 +25,34 @@
     <tbody>
     <% finance_fees.each do |finance_fee| %>
         <% if is_empty
+             #创建 finance 的费用
              #new_finance_fee = FinanceFee.new(finance_fee.attributes.except!('enterprise_id'))
              new_finance_fee = FinanceFee.new(Dict::Fee.find_by_code(finance_fee.code).attributes)
              if !finance_fee.price.blank?
                 new_finance_fee.price = finance_fee.price
              end
              new_finance_fee.finance_id = @finance.id
+             #创建 账单的 checkout_enterprise
+
+             checkout_enterprise = CheckoutEnterprise.find_by_code_and_finance_id(finance_fee.checkout_enterprise_code, @finance.id)
+             if checkout_enterprise.nil? and !finance_fee.checkout_enterprise_code.nil?
+               checkout_enterprise = CheckoutEnterprise.new(:finance_id=>@finance.id, :code=>finance_fee.checkout_enterprise_code)
+               checkout_enterprise.save
+             end
+
+
+             #设置 finance 费用的结算单位
+             new_finance_fee.checkout_enterprise_id = CheckoutEnterprise.find_by_code_and_finance_id(finance_fee.checkout_enterprise_code, @finance.id).id
              new_finance_fee.save
              finance_fee = new_finance_fee
+
            end %>
         <tr>
           <td><%= link_to finance_fee.code, finance_fee %></td>
           <td><%= finance_fee.name %></td>
-          <% if finance_fee.checkout_enterprise %>
-              <td><%= Enterprise.find_by_code(finance_fee.checkout_enterprise.code).name rescue '' %></td>
-          <% else %>
-              <% if @finance.review == 1 or   @finance.review == 3  %>
-                  <td class="no_checkout_enterprise">&nbsp; <%# link_to "选择结算单位", edit_finance_fee_path(finance_fee, :from => @finance.id) %></td>
-              <% else %>
-                  <!--<td>已审核，不能操作</td>-->
-                  <td>&nbsp;</td>
-              <% end %>
-          <% end %>
+          <td><%= Enterprise.find_by_code(finance_fee.checkout_enterprise.code).name rescue '' %></td>
+          <%# Enterprise.find_by_code(finance_fee.checkout_enterprise_code).name rescue ''  %>
+
           <td><%= finance_fee.price %></td>
           <td><%= finance_fee.is_income ? '√' : '×' %></td>
           <td><%= finance_fee.is_pay ? '√' : '×' %></td>

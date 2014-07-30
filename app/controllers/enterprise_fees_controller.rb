@@ -5,7 +5,7 @@ class EnterpriseFeesController < ApplicationController
   def index
     if(!params[:enterprise_id].blank?)
       @enterprise = Enterprise.find(params[:enterprise_id])
-      @enterprise_fees = @enterprise.enterprise_fees.order('load_port')
+      @enterprise_fees = @enterprise.enterprise_fees.order('load_port , checkout_enterprise_code')
       @groups = Array.new
       count = 0
       index = 0
@@ -55,7 +55,7 @@ class EnterpriseFeesController < ApplicationController
   # GET /enterprise_fees/1/edit
   def edit
     @enterprise_fee = EnterpriseFee.find(params[:id])
-    @enterprise = Enterprise.find(@enterprise_fee.enterprise_id)
+    @enterprise     = Enterprise.find(@enterprise_fee.enterprise_id)
 
   end
 
@@ -63,7 +63,7 @@ class EnterpriseFeesController < ApplicationController
   # POST /enterprise_fees.json
   def create
     @enterprise_fee = EnterpriseFee.new(params[:enterprise_fee])
-
+    #@enterprise_fee.checkout_enterprise_id = Enterprise.find_by_code(params[:checkout_enterprise_code]).id
     respond_to do |format|
       if @enterprise_fee.save
         format.html {
