@@ -45,6 +45,7 @@ class CheckoutEnterprisesController < ApplicationController
 
     respond_to do |format|
       if @checkout_enterprise.save
+        create_finance_fee   #创建在付费信息里填写的结算单位对应的账单信息
         format.html {
           if params[:from]
             redirect_to  finance_path(params[:from])
@@ -99,4 +100,20 @@ class CheckoutEnterprisesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def create_finance_fee
+    finance = Finance.find(@checkout_enterprise.finance_id)
+    enterprise_fees =  EnterpriseFee.find_all_by_load_port_and_enterprise_id_and_checkout_enterprise_code(finance.declaration.load_port, finance.declaration.enterprise_id,@checkout_enterprise.code)
+    enterprise_fees.each do |enterprise_fee|
+      #创建 finance 的费用
+      new_finance_fee = FinanceFee.new(Dict::Fee.find_by_code(enterprise_fee.code).attributes)
+      if !enterprise_fee.price.blank?
+        new_finance_fee.price = enterprise_fee.price
+      end
+      new_finance_fee.finance_id = finance.id
+      new_finance_fee.checkout_enterprise_id = @checkout_enterprise.id
+      new_finance_fee.save
+    end
+  end
+
 end

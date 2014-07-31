@@ -2,8 +2,11 @@
 <fieldset>
   <legend>付费信息：</legend>
   <% finance_fees = @finance.finance_fees.order("code") %>
-  <% is_empty  = finance_fees.empty? %>
-  <% if is_empty  %>
+  <% checkout_enterprises = @finance.checkout_enterprises %>
+  <% if finance_fees.empty?
+       return
+     end %>
+  <% if finance_fees.empty?  %>
       <% finance_fees =  EnterpriseFee.find_all_by_load_port_and_enterprise_id(@finance.declaration.load_port, @finance.declaration.enterprise_id)%>
       <% finance_fees.sort_by!{ |finance_fee| finance_fee.checkout_enterprise_code } %>
   <% end %>
@@ -24,7 +27,7 @@
     </tfoot>
     <tbody>
     <% finance_fees.each do |finance_fee| %>
-        <% if is_empty
+        <% if finance_fees.empty?
              #创建 finance 的费用
              #new_finance_fee = FinanceFee.new(finance_fee.attributes.except!('enterprise_id'))
              new_finance_fee = FinanceFee.new(Dict::Fee.find_by_code(finance_fee.code).attributes)

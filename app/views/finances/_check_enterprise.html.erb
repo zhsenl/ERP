@@ -1,9 +1,7 @@
+<% checkout_enterprises = @finance.checkout_enterprises %>
 <fieldset>
   <legend>结算单位：</legend>
-  <% checkout_enterprises = @finance.checkout_enterprises %>
-  <% if checkout_enterprises.nil? %>
-      <%= "无结算单位" %>
-  <% else %>
+  <% if !checkout_enterprises.empty? %>
       <table>
         <thead>
         <tr>
@@ -36,5 +34,4 @@
         <%= link_to '添加结算单位', new_checkout_enterprise_path(:finance_id => @finance.id, :from => @finance.id) %>
       </p>
   <% end %>
-
 </fieldset>
