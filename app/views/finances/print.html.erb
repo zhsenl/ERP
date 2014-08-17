@@ -50,7 +50,7 @@
    end
    finance_fee_codes.sort!
    finance_fee_codes.each do |code|
-     finance_fee_names.append(FinanceFee.find_by_code(code).name)
+     finance_fee_names.append(Dict::Fee.find_by_code(code).name)
    end
    col_total_prices = Array.new(finance_fee_codes.size + 1, 0)
    no = 0
