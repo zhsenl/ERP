@@ -62,7 +62,7 @@ class DeclarationPackingsController < ApplicationController
 
     respond_to do |format|
       if @declaration_packing.save
-        format.html { redirect_to new_declaration_packing_url(:declaration_id => @declaration_packing.declaration_id), notice: 'Declaration packing was successfully created.' }
+        format.html { redirect_to new_declaration_packing_url(:declaration_id => @declaration_packing.declaration_id), notice: '装箱明细创建成功' }
         format.json { render json: @declaration_packing, status: :created, location: @declaration_packing }
       else
         format.html { render action: "new" }
