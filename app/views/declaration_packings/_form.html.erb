@@ -3,6 +3,10 @@
     <%= f.hidden_field :declaration_id %>
     <fieldset>
       <div class="filed" >
+        <label>包装顺序号/托/箱号</label>
+        <%= f.text_field :no, :class => "text-input small-input" %>
+      </div>
+      <div class="filed" >
         <label><%= @declaration_type == 'export' ? '出口成品' : '进口原料' %></label>
         <% cargos_array = @declaration.declaration_cargos.map { |cargo| [cargo.no.to_s + cargo.name, cargo.id] } %>
         <% cargos_array = [["请选择" , 0]] + cargos_array %>
@@ -22,38 +26,33 @@
         </script>
       </div>
       <div class="filed" >
-        <label>每箱毛重</label>
-        <%= f.text_field :gross_weight_per_package, :class => "text-input small-input gross_weight_cal" %>
-      </div>
-      <div class="filed" >
-        <label>每箱净重</label>
-        <%= f.text_field :net_weight_per_package, :class => "text-input small-input net_weight_cal" %>
-      </div>
-      <div class="filed" >
-        <label>箱(件)数</label>
+        <label>包装/箱/件/数量</label>
         <%= f.text_field :package_amount, :class => "text-input small-input gross_weight_cal net_weight_cal" %>
-      </div>
-      <div class="filed" >
-        <label>总毛重</label>
-        <%= f.text_field :gross_weight, :class => "text-input small-input gross_weight_per_package_cal" %>
-      </div>
-      <div class="filed" >
-        <label>总净重</label>
-        <%= f.text_field :net_weight, :class => "text-input small-input net_weight_per_package_cal" %>
       </div>
       <div class="filed" >
         <label>包装数量</label>
         <%= f.text_field :quantity, :class => "text-input small-input" %>
       </div>
       <div class="filed" >
-        <label>托序号</label>
-        <%= f.text_field :no, :class => "text-input small-input" %>
+        <label>总毛重KG</label>
+        <%= f.text_field :gross_weight, :class => "text-input small-input gross_weight_per_package_cal" %>
       </div>
       <div class="filed" >
-        <label>商品名称</label>
+        <label>总净重KG</label>
+        <%= f.text_field :net_weight, :class => "text-input small-input net_weight_per_package_cal" %>
+      </div>
+      <div class="filed" >
+        <label>包装/每箱(件)毛重KG</label>
+        <%= f.text_field :gross_weight_per_package, :class => "text-input small-input gross_weight_cal" %>
+      </div>
+      <div class="filed" >
+        <label>包装/每箱(件)净重KG</label>
+        <%= f.text_field :net_weight_per_package, :class => "text-input small-input net_weight_cal" %>
+      </div>
+      <div class="filed" >
+        <label><%= @declaration_type == 'export' ? '出口' : '进口' %>商品名称</label>
         <%= f.text_field :name, :class => "text-input small-input" %>
       </div>
-
       <div class="filed" >
         <label>申报单位</label>
         <%= render "shared/autocomplete_field", :form => f, :attribute => :unit, :url => dict_units_path, :klass => "text-input small-input" %>

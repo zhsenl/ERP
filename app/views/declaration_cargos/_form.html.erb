@@ -3,7 +3,7 @@
 <fieldset>
 	<%= f.hidden_field :declaration_id %>
 	<div class="filed" >
-		<label>合同<%= @declaration_type == "export" ? "成品" : "料件"  %>序号</label>
+		<label><%= @declaration_type == "export" ? "成品" : "料件"  %>栏序号</label>
 		<%= f.text_field :no_in_contract, :class => "text-input small-input first-field" %>
 		<br/>
 		<% if @declaration.contract %>
@@ -41,99 +41,92 @@
 		});
 	</script>
 	<% end %>
-	<div class="filed" >
-		<label>征免方式</label>
-		<%= render "shared/autocomplete_field", :form => f, :attribute => :tax_mode, :url => dict_tax_modes_path, :klass => "text-input small-input" %> 
-	</div>
-	<div class="filed" >
-		<label><%= @declaration_type == "export" ? "目的国" : "原产国" %></label>
-		<%= render "shared/autocomplete_field", :form => f, :attribute => :trade_country, :url => dict_countries_path, :klass => "text-input small-input" %> 
-	</div>
-
-
-	<div class="filed" >
-		<label>商品编码</label>
-		<%= f.text_field :code, :class => "text-input small-input" %>
-		<br />
-		<small>输入编码或名字后有提示</small>
-	</div>
-	<script>
-		$(function() {
-			$("#declaration_cargo_code").autocomplete({
-				source : function(request, response) {
-					var url = "<%= cargos_path %>/search.json?term="+request.term
-					$.get( url, function(result){
-						response($.map(result, function(item) {
-							item.label = item.code + item.name;
-							item.value = item.code;
-							return item;
-						}));
-				  	});
-				},
-				minLength : 1,
-				select: function( event, ui ) {
-					$("#declaration_cargo_name").val(ui.item.name);
-					$("#declaration_cargo_specification").val(ui.item.specification);
-					$("#unit_autocomplete").val(ui.item.unit).blur();
-					$("#unit1_autocomplete").val(ui.item.unit1).blur();
-					$("#unit2_autocomplete").val(ui.item.unit2).blur();
-					$("#trade_country_autocomplete").val(ui.item.trade_country).blur();
-					$("#declaration_cargo_no_in_contract").val("");
-				}
-			});
-		});
-	</script>
-	<div class="filed" >
-		<label>商品名称</label>
-		<%= f.text_field :name, :class => "text-input small-input" %>
-	</div>
-	<div class="filed" >
-		<label>规格型号 <a id="specification_helper_link" href="#" >辅助器</a></label>
-		<%= f.text_field :specification, :class => "text-input small-input" %>
-	</div>
-	
-	<div class="filed" >
-		<label>申报数量</label>
-		<%= f.text_field :quantity, :class => "text-input small-input unit_cal total_cal", :id=>'quantity' %>
-	</div>
-
-	<div class="filed" >
-		<label>单价</label>
-		<%= f.text_field :unit_price, :class => "text-input small-input total_cal", :id=>"unit_price" %>
-	</div>
 
   <div class="filed" >
-    <label>总价</label>
-    <%= f.text_field :total_price, :class => "text-input small-input unit_cal", :id=>"total_price" %>
+    <label>商品编码</label>
+    <%= f.text_field :code, :class => "text-input small-input" %>
+    <br />
+    <small>输入编码或名字后有提示</small>
   </div>
-
+  <script>
+      $(function() {
+          $("#declaration_cargo_code").autocomplete({
+              source : function(request, response) {
+                  var url = "<%= cargos_path %>/search.json?term="+request.term
+                  $.get( url, function(result){
+                      response($.map(result, function(item) {
+                          item.label = item.code + item.name;
+                          item.value = item.code;
+                          return item;
+                      }));
+                  });
+              },
+              minLength : 1,
+              select: function( event, ui ) {
+                  $("#declaration_cargo_name").val(ui.item.name);
+                  $("#declaration_cargo_specification").val(ui.item.specification);
+                  $("#unit_autocomplete").val(ui.item.unit).blur();
+                  $("#unit1_autocomplete").val(ui.item.unit1).blur();
+                  $("#unit2_autocomplete").val(ui.item.unit2).blur();
+                  $("#trade_country_autocomplete").val(ui.item.trade_country).blur();
+                  $("#declaration_cargo_no_in_contract").val("");
+              }
+          });
+      });
+  </script>
+  <div class="filed" >
+    <label>商品名称</label>
+    <%= f.text_field :name, :class => "text-input small-input" %>
+  </div>
+  <div class="filed" >
+    <label>规格型号 <a id="specification_helper_link" href="#" >辅助器</a></label>
+    <%= f.text_field :specification, :class => "text-input small-input" %>
+  </div>
   <div class="filed" >
     <label>申报单位</label>
     <%= render "shared/autocomplete_field", :form => f, :attribute => :unit, :url => dict_units_path, :klass => "text-input small-input" %>
   </div>
-
+  <div class="filed" >
+    <label>申报数量</label>
+    <%= f.text_field :quantity, :class => "text-input small-input unit_cal total_cal", :id=>'quantity' %>
+  </div>
+  <div class="filed" >
+    <label>单价</label>
+    <%= f.text_field :unit_price, :class => "text-input small-input total_cal", :id=>"unit_price" %>
+  </div>
+  <div class="filed" >
+    <label>总价</label>
+    <%= f.text_field :total_price, :class => "text-input small-input unit_cal", :id=>"total_price" %>
+  </div>
+  <div class="filed" >
+    <label>法定单位</label>
+    <%= render "shared/autocomplete_field", :form => f, :attribute => :unit1, :url => dict_units_path, :klass => "text-input small-input" %>
+  </div>
+  <div class="filed" >
+    <label>法定数量</label>
+    <%= f.text_field :quantity1, :class => "text-input small-input" %>
+  </div>
+  <div class="filed" >
+    <label>币制</label>
+    <%= render "shared/autocomplete_field", :form => f, :attribute => :currency, :url => dict_currencies_path, :klass => "text-input small-input" %>
+  </div>
 	<div class="filed" >
-		<label>法定单位</label>
-		<%= render "shared/autocomplete_field", :form => f, :attribute => :unit1, :url => dict_units_path, :klass => "text-input small-input" %> 
-	</div>
-	<div class="filed" >
-		<label>法定数量</label>
-		<%= f.text_field :quantity1, :class => "text-input small-input" %>
-	</div>
-	<div class="filed" >
-		<label>币制</label>
-		<%= render "shared/autocomplete_field", :form => f, :attribute => :currency, :url => dict_currencies_path, :klass => "text-input small-input" %> 
-	</div>
-
-	<div class="filed" >
-		<label>第二数量</label>
-		<%= f.text_field :quantity2, :class => "text-input small-input" %>
+		<label>征免方式</label>
+		<%= render "shared/autocomplete_field", :form => f, :attribute => :tax_mode, :url => dict_tax_modes_path, :klass => "text-input small-input" %> 
 	</div>
   <div class="filed" >
     <label>第二单位</label>
     <%= render "shared/autocomplete_field", :form => f, :attribute => :unit2, :url => dict_units_path, :klass => "text-input small-input" %>
   </div>
-		
+  <div class="filed" >
+    <label>第二数量</label>
+    <%= f.text_field :quantity2, :class => "text-input small-input" %>
+  </div>
+	<div class="filed" >
+		<label><%= @declaration_type == "export" ? "最终目的国" : "原产国" %></label>
+		<%= render "shared/autocomplete_field", :form => f, :attribute => :trade_country, :url => dict_countries_path, :klass => "text-input small-input" %> 
+	</div>
+
 	<div class="filed" >
 		<label>版本号</label>
 		<%= f.text_field :goods_version, :class => "text-input small-input" %>

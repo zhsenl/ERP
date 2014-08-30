@@ -11,5 +11,5 @@ class DeclarationPacking < ActiveRecord::Base
   validates :net_weight, :presence => true, :numericality => true
   validates :gross_weight_per_package, :presence => true, :numericality => true
   validates :net_weight_per_package, :presence => true, :numericality => true
-  validates :no, :presence => true, :numericality => true, :uniqueness => { :scope => :declaration_id}
+  validates :no, :presence => true, :numericality => true#, :uniqueness => { :scope => :declaration_id}
 end
