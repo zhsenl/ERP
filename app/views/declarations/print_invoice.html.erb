@@ -105,22 +105,23 @@
           INVOICE</h1>
       </div>
       <div class="tr" style="height: 20px;">
-        <div class="td" style="height: 20px; width: 45%"></div>
-        <div class="td" style="height: 20px; width: 10%;"><span class="bgText">发 票 号 码：</span></div>
+        <div class="td" style="height: 20px; width: 104px"></div>
+        <div class="td" style="height: 20px; width: 35%"></div>
+        <div class="td" style="height: 20px; width: 104px;"><span class="bgText">发 票 号 码：</span></div>
         <div class="td" style="height: 20px; width: 30%; border-bottom: 1px solid;"><span class="content"><%= @declaration.pre_entry_no.to_s[8,18] %></span></div>
       </div>
       <div class="tr" style="height: 20px; margin-top: 10px;">
-        <div class="td" style="height: 20px; width: 10%"><span class="bgText">商　　　号：</span></div>
+        <div class="td" style="height: 20px; width: 104px"><span class="bgText">商　　　 号：</span></div>
         <div class="td" style="height: 20px; width: 30%; border-bottom: 1px solid;"><span class="content"><%= @declaration.foreign_enterprise.name rescue "" %></span></div>
         <div class="td" style="height: 20px; width: 5%;"></div>
-        <div class="td" style="height: 20px; width: 10%;"><span class="bgText">合 同 号 码：</span></div>
+        <div class="td" style="height: 20px; width: 104px;"><span class="bgText">合 同 号 码：</span></div>
         <div class="td" style="height: 20px; width: 30%; border-bottom: 1px solid;"><span class="content"><%= @declaration.contract_no %></span></div>
       </div>
       <div class="tr" style="height: 20px; margin-top: 10px;">
-        <div class="td" style="height: 20px; width: 10%"><span class="bgText"><%= @declaration_type == "export" ? "发 货" : "收 货"  %> 单 位：</span></div>
+        <div class="td" style="height: 20px; width: 104px"><span class="bgText"><%= @declaration_type == "export" ? "发 货" : "收 货"  %> 单 位：</span></div>
         <div class="td" style="height: 20px; width: 30%; border-bottom: 1px solid;"><span class="content"><%= @declaration.enterprise.name %></span></div>
         <div class="td" style="height: 20px; width: 5%;"></div>
-        <div class="td" style="height: 20px; width: 10%"><span class="bgText">日　　  期：</span></div>
+        <div class="td" style="height: 20px; width: 104px"><span class="bgText">日　　  期：</span></div>
         <div class="td" style="height: 20px; width: 30%; border-bottom: 1px solid;"><span class="content"><%= @declaration.declare_date.strftime('%Y年%m月%d日') %></span></div>
       </div>
       <div class="clear"></div>
@@ -128,8 +129,8 @@
         <thead style="font-weight: bold;border-bottom: 1px solid;">
         <tr >
           <td ><span class="bgText">序号</span></td>
-          <td ><span class="bgText">商　　　品　　　名　　　称</span></td>
-          <td ><span class="bgText">规　　　格　　　型　　　号</span></td>
+          <td ><span class="bgText">商　品　名　称</span></td>
+          <td ><span class="bgText">规　格　型　号</span></td>
           <td ><span class="bgText">数量</span></td>
           <td ><span class="bgText">单位</span></td>
           <td ><span class="bgText">单价</span></td>
