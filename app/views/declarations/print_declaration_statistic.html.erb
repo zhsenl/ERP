@@ -81,7 +81,8 @@
       </div>
 
       <div class="tr">
-        <div class="td" style="width:50%;"><span class="bord">统计时间：</span>截止<span class="content"><%= @to.nil? || @to == '' ? Time.new.strftime("%Y-%m-%d") : @to %></span></div>
+        <div class="td" style="width:50%;"><span class="bord">统计时间：</span><span class="content"><%=  @from %></span> 到 <span class="content"><%=  @to %></span>
+        </div>
         <div class="td" style="width:48%;"><span class="bord">合计：</span><span class="content"><%= statistic_declarations_size  %></span>份&nbsp;&nbsp;&nbsp;&nbsp;报关单<span class="content"><%= total_declaration_size  %></span>页</div>
       </div>
 

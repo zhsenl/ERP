@@ -24,8 +24,9 @@ class Declaration < ActiveRecord::Base
   validates :load_port, :presence => true
   validates :declare_date, :presence => true
   validates :package_amount, :presence => true, :numericality => true
-  validates :gross_weight, :presence => true, :numericality => true
   validates :net_weight, :presence => true, :numericality => true
+  validates :gross_weight, :presence => true, :numericality => true
+  validates_numericality_of :gross_weight, :greater_than => :net_weight
   validates :transit_type, :presence => true
   #validates :transport_tool, :presence => true, :length => { :maximum => 14 }
   validates :transport_tool,  :length => { :maximum => 14 }

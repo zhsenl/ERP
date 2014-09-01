@@ -69,7 +69,13 @@
       </div>
 
       <div class="tr">
-        <div class="td" style="width:50%;"><span class="bord">统计时间：</span>截止<span class="content"><%= @to.nil? || @to == '' ? Time.new.strftime("%Y-%m-%d") : @to %></span></div>
+        <div class="td" style="width:50%;"><span class="bord">统计时间：</span>
+          <% if false %><%# @to.blank? %>
+              截止<span class="content"><%= @to.blank?  ? Time.new.strftime("%Y-%m-%d") : @to %></span>
+          <% else %>
+             <span class="content"><%=  @from %></span>到 <span class="content"><%=  @to %></span>
+          <%end %>
+        </div>
         <div class="td" style="width:48%;"><span class="bord">合计：</span><span class="content"><%= pages  %></span>份</div>
       </div>
 

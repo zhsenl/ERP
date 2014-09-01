@@ -77,6 +77,13 @@ class DeclarationsController < ApplicationController
     render :layout => 'print'
   end
 
+  def print_normal
+    authorize! :show, @declaration
+    @declaration_cargos = @declaration.declaration_cargos.order("no")
+    @title = '打印规范发票'
+    render :layout => 'print'
+  end
+
   def print_packing1
     authorize! :show, @declaration
     @declaration_packings = @declaration.declaration_packings.order("no")

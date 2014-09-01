@@ -41,8 +41,7 @@ class DeclarationPackingsController < ApplicationController
   # GET /declaration_packings/new
   # GET /declaration_packings/new.json
   def new
-    @declaration_packing = DeclarationPacking.new(:declaration_id => @declaration.id,
-                                                  :no => @declaration.declaration_packings.size + 1)
+    @declaration_packing = DeclarationPacking.new(:declaration_id => @declaration.id )#,:no => @declaration.declaration_packings.size + 1)
 
     respond_to do |format|
       format.html # new.html.erb

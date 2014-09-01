@@ -16,17 +16,21 @@
       <label>申报日期</label>
       <%= f.date_select :declare_date, :class => "text-input small-input" %>
     </div>
-    <%# if @declaration_type == "import" %>
+    <% if @declaration_type == "import" %>
     <div class="filed">
-      <label><%= @declaration_type == "export" ? "出口" : "进口" %>日期</label>
+      <label>进口日期</label>
       <%= f.date_select :import_export_date, :class => "text-input small-input" %>
     </div>
-<%# end %>
+    <% else %>
+        <div class="filed">
+          <label></label>
+        </div>
+    <% end %>
     <div class="filed">
       <label>备案号</label>
       <% contracts_array = current_enterprise.contracts.map { |contract| [contract.manual, contract.id] } %>
       <% contracts_array = [["请选择", 0]] + contracts_array %>
-      <%= f.select :contract_id, contracts_array, {}, :id => "contract_id_combobox", :class => "text-input small-input" %>
+      <%= f.select :contract_id, contracts_array, {}, :id => "contract_id_combobox", :width=>"170px", :class => "text-input" %>
     </div>
     <script type="text/javascript">
         $(function () {
@@ -35,9 +39,10 @@
                     if (data) {
                         $("#operate_enterprise_code_autocomplete").val(data.operate_enterprise_code).blur();
                         $("#foreign_enterprise_code_autocomplete").val(data.foreign_enterprise_code).blur();
+                        $("#trade_mode_autocomplete").val(data.trade_mode).blur();
+                        $("#tax_kind_autocomplete").val(data.tax_kind).blur();
                         $(this).focus();
                     }
-                    ;
                 });
             });
         });
@@ -105,7 +110,7 @@
     <% end %>
     <div class="filed">
       <label>运输方式</label>
-      <%= render "shared/combobox_field", :form => f, :attribute => :transport_mode, :model => Dict::TransportMode, :klass => "text-input small-input" %>
+      <%= render "shared/combobox_field", :form => f, :attribute => :transport_mode, :model => Dict::TransportMode, :width=>"170px", :klass => "text-input" %>
     </div>
     <div class="filed">
       <label>运输工具名称</label>
@@ -179,7 +184,7 @@
     <%# end %>
     <div class="filed">
       <label>报关类型</label>
-      <%= render "shared/combobox_field", :form => f, :attribute => :transit_type, :model => Dict::TransitType, :klass => "text-input small-input" %>
+      <%= render "shared/combobox_field", :form => f, :attribute => :transit_type, :model => Dict::TransitType, :width=>"170px", :klass => "text-input" %>
     </div>
     <script>
         $(document).ready(function () {
@@ -198,7 +203,7 @@
 
     <div class="filed">
       <label>报关型式</label>
-      <%= render "shared/combobox_field", :form => f, :attribute => :declaration_mode, :model => Dict::DeclareMode, :klass => "text-input small-input" %>
+      <%= render "shared/combobox_field", :form => f, :attribute => :declaration_mode, :model => Dict::DeclareMode, :width=>"170px" ,:klass => "text-input " %>
     </div>
 
     <div class="filed">

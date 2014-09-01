@@ -20,9 +20,13 @@
 			<table>
 				<thead>
 					<tr>
-						<th>预录入号</th>
+            <th>序号</th>
+            <th>申报日期</th>
+            <th>预录入号</th>
             <th>报关单号</th>
-						<th>申报日期</th>
+            <th>合同号</th>
+            <th>装卸口岸</th>
+            <th>提运单号</th>
 						<th>完成申报</th>
 						<th>操作</th>
 					</tr>
@@ -35,11 +39,15 @@
 					<% end %>
 				</tfoot>
 				<tbody>
-					<% @declarations.each do |declaration| %>
+					<% @declarations.each_with_index do |declaration, index| %>
 					<tr>
-						<td><%= link_to declaration.pre_entry_no, declaration %></td>
+            <td><%= (params[:page].nil? ? 0 : params[:page].to_i  - 1) * 10 + index + 1%></td>
+            <td><%= declaration.declare_date %></td>
+            <td><%= link_to declaration.pre_entry_no, declaration %></td>
             <td><%= declaration.entry_no %></td>
-						<td><%= declaration.declare_date %></td>
+            <td><%= declaration.contract_no %></td>
+            <td><%= declaration.load_port %></td>
+            <td><%= declaration.bill_no %></td>
 						<td><%= declaration.is_finish ? '是' : '否' %></td>
 						<td> 
 						<% if can? :edit, declaration %>

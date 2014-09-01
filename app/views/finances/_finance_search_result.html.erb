@@ -3,6 +3,7 @@
       <table>
         <thead>
         <tr>
+          <th>序号</th>
           <th>装卸口岸</th>
           <th>申报日期</th>
           <th>报关单号</th>
@@ -20,9 +21,10 @@
         </tfoot>
         <tbody>
         <% review = {1 => '未审核', 2 => '已审核', 3 => '退审单', 4 => '退审单（留底）' } %>
-        <% @finance_declarations.each do |finance_declaration| %>
+        <% @finance_declarations.each_with_index do |finance_declaration, index| %>
             <% finance = finance_declaration.finances.first %>
             <tr>
+              <td><%= (params[:page].nil? ? 0 : params[:page].to_i  - 1) * 10 + index + 1%></td>
               <td><%= Dict::LoadPort.find_by_code(finance_declaration.load_port).name rescue ''%></td>
               <td><%= finance_declaration.declare_date %></td>
               <td><%= finance_declaration.entry_no %></td>
