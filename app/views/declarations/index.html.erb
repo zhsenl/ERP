@@ -20,7 +20,7 @@
 			<table>
 				<thead>
 					<tr>
-            <th>序号</th>
+            <!--<th>序号</th>-->
             <th>申报日期</th>
             <th>预录入号</th>
             <th>报关单号</th>
@@ -41,7 +41,7 @@
 				<tbody>
 					<% @declarations.each_with_index do |declaration, index| %>
 					<tr>
-            <td><%= (params[:page].nil? ? 0 : params[:page].to_i  - 1) * 10 + index + 1%></td>
+            <!--<td><%# (params[:page].nil? ? 0 : params[:page].to_i  - 1) * 10 + index + 1%></td>-->
             <td><%= declaration.declare_date %></td>
             <td><%= link_to declaration.pre_entry_no, declaration %></td>
             <td><%= declaration.entry_no %></td>
