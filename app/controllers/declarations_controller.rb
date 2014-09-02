@@ -127,6 +127,7 @@ class DeclarationsController < ApplicationController
                                      :declaration_type => @declaration_type,
                                      :pre_entry_no => pre_entry_no,
                                      :pay_way => "7",
+                                     :destination => "44199",
                                      :deal_mode => @declaration_type == "export" ? "3" : "1",
                                      :declare_enterprise_code => "4419980074",
                                      :transit_type => "001",

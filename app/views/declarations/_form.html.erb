@@ -141,7 +141,7 @@
     </div>
     <div class="filed">
       <label><%= @declaration_type == "export" ? "境内货源地" : "境内目的地" %></label>
-      <%= render "shared/autocomplete_field", :form => f, :attribute => :destination, :url => dict_districts_path, :klass => "text-input small-input" %>
+      <%= render "shared/autocomplete_field", :form => f,  :attribute => :destination, :url => dict_districts_path, :klass => "text-input small-input" %>
     </div>
     <div class="filed">
       <label>件数</label>
