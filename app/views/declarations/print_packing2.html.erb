@@ -113,9 +113,10 @@
     </div>
     <div >
         <% list_size = @declaration_packings.size > 20 ? 20 : @declaration_packings.size %>
+        <% no_pre = -1 %>
         <% @declaration_packings[0..list_size-1].each do |packing| %>
             <div class="tr">
-              <div class="td editable" style="width: 35px; "><span class="content"><%= packing.no %></span></div>
+              <div class="td editable" style="width: 35px; "><span class="content"><%= no_pre == packing.no ? '' : packing.no %><% no_pre = no_pre == packing.no ? no_pre : packing.no %></span></div>
               <div class="td editable" style="width: 261px; "><span class="content"><%= packing.name %></span></div>
               <div class="td editable" style="width: 90px;font-size: 12px"><span class="content"><%= packing.quantity %><%= dict_name Dict::Unit, packing.unit %></span></div>
               <div class="td editable" style="width: 79px;font-size: 12px"><span class="content"><%= packing.package_amount %></span></div>

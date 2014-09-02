@@ -26,7 +26,8 @@ class Declaration < ActiveRecord::Base
   validates :package_amount, :presence => true, :numericality => true
   validates :net_weight, :presence => true, :numericality => true
   validates :gross_weight, :presence => true, :numericality => true
-  validates_numericality_of :gross_weight, :greater_than => :net_weight
+  validates_numericality_of :gross_weight, :greater_than_or_equal_to => :net_weight
+  validates_numericality_of :net_weight, :less_than_or_equal_to => :gross_weight
   validates :transit_type, :presence => true
   #validates :transport_tool, :presence => true, :length => { :maximum => 14 }
   validates :transport_tool,  :length => { :maximum => 14 }

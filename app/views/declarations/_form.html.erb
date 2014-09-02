@@ -33,7 +33,9 @@
       <%= f.select :contract_id, contracts_array, {}, :id => "contract_id_combobox", :width=>"170px", :class => "text-input" %>
     </div>
     <script type="text/javascript">
+
         $(function () {
+            var declaration_type = '<%=@declaration_type %>' ;
             $("#contract_id_combobox").change(function () {
                 $.get('<%= contracts_path %>/' + this.value + '.json', null, function (data, textStatus, xhr) {
                     if (data) {
@@ -41,6 +43,7 @@
                         $("#foreign_enterprise_code_autocomplete").val(data.foreign_enterprise_code).blur();
                         $("#trade_mode_autocomplete").val(data.trade_mode).blur();
                         $("#tax_kind_autocomplete").val(data.tax_kind).blur();
+                        $("#declaration_contract_no").val(declaration_type == "import" ? data.import_contract : data.export_contract).blur();
                         $(this).focus();
                     }
                 });
@@ -60,7 +63,7 @@
       <%= render "shared/autocomplete_field", :form => f, :attribute => :tax_kind, :url => dict_tax_kinds_path, :klass => "text-input small-input" %>
     </div>
     <div class="filed">
-      <label>合同协议号</label>
+      <label>合同号</label>
       <%= f.text_field :contract_no, :class => "text-input small-input" %>
     </div>
     <div class="filed">
