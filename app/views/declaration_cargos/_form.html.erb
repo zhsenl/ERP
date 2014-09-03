@@ -114,14 +114,15 @@
     <label>币制</label>
     <%= render "shared/autocomplete_field", :form => f, :attribute => :currency, :url => dict_currencies_path, :klass => "text-input small-input" %>
   </div>
-  <div class="filed" >
-    <label>第二数量</label>
-    <%= f.text_field :quantity2, :class => "text-input small-input" %>
-  </div>
+
 	<div class="filed" >
 		<label>征免方式</label>
 		<%= render "shared/autocomplete_field", :form => f, :attribute => :tax_mode, :url => dict_tax_modes_path, :klass => "text-input small-input" %> 
 	</div>
+  <div class="filed" >
+    <label>第二数量</label>
+    <%= f.text_field :quantity2, :class => "text-input small-input" %>
+  </div>
   <div class="filed" >
     <label>第二单位</label>
     <%= render "shared/autocomplete_field", :form => f, :attribute => :unit2, :url => dict_units_path, :klass => "text-input small-input" %>
