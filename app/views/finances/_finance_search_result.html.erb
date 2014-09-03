@@ -25,8 +25,7 @@
         <% @finance_declarations.each_with_index do |finance_declaration, index| %>
             <% finance = finance_declaration.finances.first %>
             <tr>
-              <td><%= index + 1 %></td>
-              <!--<td><%# (params[:page].nil? ? 0 : params[:page].to_i  - 1) * 10 + index + 1%></td>-->
+              <td><%= (params[:page].nil? ? 0 : params[:page].to_i  - 1) * Declaration.per_page + index + 1%></td>
               <td><%= finance_declaration.declaration_type == "import" ? "进口" :"出口" %></td>
               <td><%= finance_declaration.load_port rescue ''%></td>
               <td><%= finance_declaration.declare_date %></td>

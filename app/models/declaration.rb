@@ -1,5 +1,8 @@
 # -*- encoding : utf-8 -*-
 class Declaration < ActiveRecord::Base
+
+  self.per_page = 30
+
   belongs_to :enterprise
   belongs_to :contract
   has_one :declaration_transit_information, :dependent => :destroy
