@@ -43,7 +43,9 @@
                         $("#foreign_enterprise_code_autocomplete").val(data.foreign_enterprise_code).blur();
                         $("#trade_mode_autocomplete").val(data.trade_mode).blur();
                         $("#tax_kind_autocomplete").val(data.tax_kind).blur();
-                        $("#declaration_contract_no").val(declaration_type == "import" ? data.import_contract : data.export_contract).blur();
+                        if(data.trade_mode != '0110'){
+                            $("#declaration_contract_no").val(declaration_type == "import" ? data.import_contract : data.export_contract).blur();
+                        };
                         $(this).focus();
                     }
                 });

@@ -11,7 +11,7 @@
 			<table>
 				<thead>
 					<tr>
-            <!--<th>序号</th>-->
+            <th>序号</th>
 						<th>商品名称</th>
 						<th>包装/箱(件)</th>
 						<th>数量/单位</th>
@@ -29,6 +29,7 @@
 					<% @declaration_packings.each_with_index do |declaration_packing, index| %>
 					<tr>
             <!--<td><%# (params[:page].nil? ? 0 : params[:page].to_i  - 1) * 10 + index + 1%></td>-->
+            <td><%= declaration_packing.no %></td>
             <td><%= link_to declaration_packing.name, declaration_packing %></td>
 						<td><%= declaration_packing.package_amount %></td>
 						<td><%= declaration_packing.quantity %> <%= dict_name(Dict::Unit,  declaration_packing.unit) %></td>

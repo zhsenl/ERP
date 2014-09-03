@@ -29,6 +29,13 @@
       <br />
     </p>
 
+    <p>
+      <label>进出口</label>
+      <% declaration_type_array = [["", ""],["进口","import"],["出口","export"]] %>
+      <%= f.select :declaration_type, declaration_type_array, {}, :class => "" %>
+      <br />
+    </p>
+
   </fieldset>
   <div>
     <%= f.submit :class => "button" %>

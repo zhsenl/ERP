@@ -9,8 +9,8 @@
     <%= link_to '打印', "#print_dialog", :rel => "facebox" %> |
     <%= link_to @declaration_type == "export" ? "出口成品" : "进口料件", declaration_cargos_path(:declaration_id => @declaration.id) %>
     |
-    <%= link_to "集装箱", declaration_containers_path(:declaration_id => @declaration.id) %> |
     <%= link_to "装箱明细", declaration_packings_path(:declaration_id => @declaration.id) %> |
+    <%= link_to "集装箱号", declaration_containers_path(:declaration_id => @declaration.id) %> |
     <%= link_to '返回列表', declarations_path(:declaration_type => @declaration_type) %>
   </div>
 </div>

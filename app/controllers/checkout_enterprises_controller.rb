@@ -104,8 +104,12 @@ class CheckoutEnterprisesController < ApplicationController
   def create_finance_fee
     finance = Finance.find(@checkout_enterprise.finance_id)
     enterprise_fees =  EnterpriseFee.find_all_by_load_port_and_enterprise_id_and_checkout_enterprise_code(finance.declaration.load_port, finance.declaration.enterprise_id,@checkout_enterprise.code)
+    filter_type = finance.declaration.declaration_type == "import" ? "export" : "import"
     enterprise_fees.each do |enterprise_fee|
       #创建 finance 的费用
+      if enterprise_fee.declaration_type == filter_type
+        next
+      end
       new_finance_fee = FinanceFee.new(Dict::Fee.find_by_code(enterprise_fee.code).attributes)
       if !enterprise_fee.price.blank?
         new_finance_fee.price = enterprise_fee.price
@@ -116,4 +120,7 @@ class CheckoutEnterprisesController < ApplicationController
     end
   end
 
-end
+  def destroy_finance_fee
+  end
+
+  end

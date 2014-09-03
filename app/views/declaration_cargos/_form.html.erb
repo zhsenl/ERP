@@ -13,6 +13,7 @@
 	<% if @declaration.contract %>
 	<script type="text/javascript">
 		$(function() {
+      var trade_mode = "<%=@declaration.trade_mode %>";
 			$("#declaration_cargo_no_in_contract").autocomplete({
 				source : function(request, response) {
 					var url = "<%= @declaration_type == "export" ? contract_products_path : contract_materials_path %>/search.json?contract_id=<%= @declaration.contract.id %>&term="+request.term
@@ -36,7 +37,9 @@
 					$("#declaration_cargo_no_in_contract").val(ui.item.no);
 					$("#declaration_cargo_unit_price").val(ui.item.unit_price);
 					$("#tax_mode_autocomplete").val(ui.item.tax_mode).blur();
-					$("#unit_price").val(ui.item.unit_price).blur();
+          if(trade_mode != '0110') {
+              $("#unit_price").val(ui.item.unit_price).blur();
+          };
 				}
 			});
 		});

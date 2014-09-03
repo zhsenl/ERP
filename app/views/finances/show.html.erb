@@ -15,7 +15,7 @@ $(function(){
 </script>
 <div class="content-box">
   <div class="content-box-header">
-    <h3>查看账单(报关单号：<%= @finance.declaration.entry_no.blank? ? '未完成申报' : @finance.declaration.entry_no %>, 装卸口岸：<%= @finance.declaration.load_port %>)
+    <h3>查看账单(<%= @finance.declaration.declaration_type == 'export' ? '出口' : "进口" %>报关单号：<%= @finance.declaration.entry_no.blank? ? '未完成申报' : @finance.declaration.entry_no %>, 装卸口岸：<%= @finance.declaration.load_port %>)
       <% if @finance.is_made %>
           <span style="color:red"><%= "已制作" %></span><%= "(" + User.find(@finance.maker).username + ")" rescue ''%>
       <% end %>
