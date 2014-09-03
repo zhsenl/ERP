@@ -1,6 +1,6 @@
 <%= render "shared/error_messages", :model => @declaration_cargo %>
 <%= form_for @declaration_cargo do |f| %>
-<fieldset>
+<fieldset style="width:1010px">
 	<%= f.hidden_field :declaration_id %>
 	<div class="filed" >
 		<label><%= @declaration_type == "export" ? "成品" : "料件"  %>栏序号</label>

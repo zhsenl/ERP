@@ -1,7 +1,7 @@
 <%= render "shared/error_messages", :model => @declaration_packing %>
 <%= form_for @declaration_packing do |f| %>
     <%= f.hidden_field :declaration_id %>
-    <fieldset>
+    <fieldset style="width:1010px">
 
       <div class="filed" >
         <label><%= @declaration_type == 'export' ? '出口成品' : '进口原料' %></label>
