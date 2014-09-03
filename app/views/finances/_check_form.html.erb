@@ -82,16 +82,26 @@
 <%= form_tag  search2_finances_path, :id => 'search' ,:method => 'get', :remote => true  do |f| %>
     <fieldset>
       <legend>搜索框：</legend>
+
+      <% if false %>
       <div class="field">
-        <!--<label>经营单位</label>  -->
-        <label>结算单位</label>
-        <input id="enterprise_autocomplete" name="enterprise_id" class="text-input small-input first-field" type="text" data-url="<%= enterprises_path %>" data-minLength="2" >
+        <label>企业单位</label>
+        <input id="enterprise_autocomplete" name="enterprise_code" class="text-input small-input first-field" type="text" data-url="<%= enterprises_path %>" data-minLength="2" >
         &nbsp;&nbsp;
         <br />
         <small id="enterprise_autocomplete_label">输入组织机构代码或名字</small>
-
-        <%# select_tag "enterprise_id", options_from_collection_for_select(current_user.enterprises, "id", "name"), include_blank: true %>
       </div>
+      <% end %>
+
+      <div class="field">
+        <!--<label>经营单位</label>  -->
+        <label>结算单位</label>
+        <input id="checkout_enterprise_autocomplete" name="checkout_enterprise_code" class="text-input small-input first-field" type="text" data-url="<%= enterprises_path %>" data-minLength="2" >
+        &nbsp;&nbsp;
+        <br />
+        <small id="checkout_enterprise_autocomplete_label">输入组织机构代码或名字</small>
+      </div>
+
       <div class="field">
         <label>装卸口岸</label>
         <%= text_field_tag "load_port", nil, :class => "text-input small-input"%>

@@ -77,18 +77,18 @@ class FinancesController < ApplicationController
   #财务统计的搜索
   def search2
     time = (params[:from].present? and params[:from].present?) ? (params[:from]..params[:to]) : ''
-    checkout_enterprise_condition = {code: params[:enterprise_id]}.select { |key,value| value.present? }
+    checkout_enterprise_condition = {code: params[:checkout_enterprise_code]}.select { |key,value| value.present? }
     #declaration_condition = {declare_date: time, load_port: params[:load_port]}.select { |key,value| value.present? }
-    #enterprise_id = Enterprise.find_by_code(params[:enterprise_id]).id rescue params[:enterprise_id]
-    #declaration_condition = {declare_date: time, load_port: params[:load_port], enterprise_id: enterprise_id}.select { |key,value| value.present? }
-    declaration_condition = {declare_date: time, load_port: params[:load_port]}.select { |key,value| value.present? }
+    enterprise_id = Enterprise.find_by_code(params[:enterprise_code]).id rescue params[:enterprise_code]
+    declaration_condition = {declare_date: time, load_port: params[:load_port], enterprise_id: enterprise_id}.select { |key,value| value.present? }
+    #declaration_condition = {declare_date: time, load_port: params[:load_port]}.select { |key,value| value.present? }
     #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(declaration_condition).page(params[:page]).order("declare_date asc")
     @finance_declarations = Declaration.joins( :checkout_enterprises).joins(:finances).where(finances:{review: 2}).where(declaration_condition).where(checkout_enterprises:checkout_enterprise_condition).order("declare_date asc")
    # @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(declaration_condition).order("declare_date asc")
     if @finance_declarations.size != 0
       cookies[:checkout_enterprise_condition] =  {value: checkout_enterprise_condition, expires: 1.day.from_now}
       cookies[:check_declaration_condition] = {value: declaration_condition, expires: 1.day.from_now}
-      cookies[:enterprise_id] = {value: params[:enterprise_id], expires: 1.day.from_now}
+      cookies[:checkout_enterprise_code] = {value: params[:checkout_enterprise_code], expires: 1.day.from_now}
       cookies[:from] = {value: params[:from], expires: 1.day.from_now}
       cookies[:to] = {value: params[:to], expires: 1.day.from_now}
     end
