@@ -322,14 +322,14 @@
       <p>请先去添加<%= @declaration_type == "export" ? "出口成品" : "进口料件" %></p>
   <% end %>
 </div>
-
+<% if current_user.is?("admin") or current_user.is?("declarant")  %>
 <div class="content-box">
   <div class="content-box-header">
     <h3>申报记录</h3>
-    <div class="operations">
-    <% if can? :declare, @declaration %><%= link_to '申报', declare_declaration_path(@declaration, :format => :json), :id => "declare_button" %>
-    <% end %>
-  </div>
+      <div class="operations">
+        <% if can? :declare, @declaration %><%= link_to '申报', declare_declaration_path(@declaration, :format => :json), :id => "declare_button" %>
+        <% end %>
+      </div>
   </div>
   <div class="content-box-content">
     <div class="tab-content default-tab">
@@ -356,3 +356,4 @@
     </div>
   </div>
 </div>
+<% end %>

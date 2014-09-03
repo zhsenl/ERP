@@ -1,9 +1,10 @@
 <%= render "shared/error_messages", :model => @user %>
 <ul style="float:right">
-  <li>超级管理员是什么权限都可以</li>
-  <li>工作人员不能操作 系统管理、财务管理</li>
-  <li>财务人员不能操作 系统管理、审核账单</li>
-  <li>主管是不能操作 系统管理，可以审核账单</li>
+  <li>超级管理员 什么权限都可以</li>
+  <li>工作人员 不能操作系统管理、财务管理</li>
+  <!--<li>报关员不能操作 系统管理、财务管理，可以申报报关单</li>-->
+  <li>财务人员 不能操作系统管理、审核账单</li>
+  <li>主管 不能操作系统管理，可以审核账单</li>
 </ul>
 <%= form_for @user do |f| %>
 <p>
@@ -42,14 +43,16 @@
 	超级管理员&nbsp;&nbsp;
 	<%= check_box_tag "user[roles][]", "staff", @user.roles.include?("staff") %>
 	工作人员&nbsp;&nbsp;
-	<%= check_box_tag "user[roles][]", "enterprise", @user.roles.include?("enterprise") %>
-	企业管理员&nbsp;&nbsp;
 	<%= check_box_tag "user[roles][]", "operator", @user.roles.include?("operator") %>
 	企业操作员&nbsp;&nbsp;
   <%= check_box_tag "user[roles][]", "finance", @user.roles.include?("finance") %>
   财务人员&nbsp;&nbsp;
   <%= check_box_tag "user[roles][]", "head", @user.roles.include?("head") %>
   主管&nbsp;&nbsp;
+</p>
+<p>
+  <%= check_box_tag "user[roles][]", "declarant", @user.roles.include?("declarant") %>
+  申报报关单功能&nbsp;&nbsp;
 </p>
 <p>
 	<%= f.submit :class => "button" %>

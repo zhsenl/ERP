@@ -24,8 +24,8 @@ class User < ActiveRecord::Base
   before_save :encrypt_password
   
   #Roles start 
-  ROLES = %w[admin staff enterprise operator finance head]
-  ROLES_ZH = {'admin' => '超级管理员', 'staff' => '公司员工', 'enterprise' => '企业管理员', 'operator' => '企业操作员', 'finance' => '财务人员', 'head'  => '主管'}
+  ROLES = %w[admin staff declarant operator finance head]
+  ROLES_ZH = {'admin' => '超级管理员', 'staff' => '公司员工', 'declarant' => '报关员', 'operator' => '企业操作员', 'finance' => '财务人员', 'head'  => '主管'}
   
   def roles=(roles)
     self.roles_mask = (roles & ROLES).map { |r| 2**ROLES.index(r) }.sum
