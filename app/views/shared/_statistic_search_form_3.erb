@@ -50,6 +50,7 @@
   <div id="enterprise_selector_form" class="left">
     <label style="display: inline;">收发货单位</label>
     <select name="current_enterprise_id" id="current_enterprise_id" class="medium-input ">
+      <option value="">所有企业</option>
       <option value="044199">东莞所有企业</option>
       <% current_user.enterprises.each do |enterprise| %>
           <option value="<%= enterprise.id %>">
