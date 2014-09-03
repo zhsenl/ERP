@@ -55,9 +55,27 @@ class FinancesController < ApplicationController
     render :partial =>"income_result"
   end
 
+  #财务结算的搜索
+  def search
+    time = (params[:from].present? and params[:from].present?) ? (params[:from]..params[:to]) : ''
+    enterprise_id = Enterprise.find_by_code(params[:enterprise_id]).id rescue params[:enterprise_id]
+    declaration_condition =  {declare_date: time, enterprise_id: enterprise_id,
+                              entry_no: params[:entry_no],load_port: params[:load_port]}.select { |key,value| value.present? }
+    finance_condition =  {is_made: params[:is_made], review: params[:review]}.select { |key,value| value.present? }
+
+    @finance_declarations = Declaration.joins(:finances).where(declaration_condition).where( finances:finance_condition).page(params[:page]).order("declare_date asc")
+    #@finances = Finance.joins(:declarations).where(finance_condition, declarations:declaration_condition)
+    if @finance_declarations.size != 0
+      cookies[:declaration_condition] = {value: declaration_condition, expires: 1.day.from_now}
+      cookies[:finance_condition] = {value: finance_condition, expires: 1.day.from_now}
+    end
+    render :partial =>"finance_search_result"
+  end
+
   def pay
     time = (params[:from].present? and params[:from].present?) ? (params[:from]..params[:to]) : ''
-    declaration_condition =  {declare_date: time, enterprise_id: params[:enterprise_id],
+    enterprise_id = Enterprise.find_by_code(params[:enterprise_id]).id rescue params[:enterprise_id]
+    declaration_condition =  {declare_date: time, enterprise_id: enterprise_id,
                               entry_no: params[:entry_no],load_port: params[:load_port]}.select { |key,value| value.present? }
     finance_condition =  {is_made: params[:is_made], review: params[:review]}.select { |key,value| value.present? }
 
@@ -102,22 +120,7 @@ class FinancesController < ApplicationController
     end
   end
 
-  #财务结算的搜索
-  def search
-    time = (params[:from].present? and params[:from].present?) ? (params[:from]..params[:to]) : ''
-    enterprise_id = Enterprise.find_by_code(params[:enterprise_id]).id rescue params[:enterprise_id]
-    declaration_condition =  {declare_date: time, enterprise_id: enterprise_id,
-                              entry_no: params[:entry_no],load_port: params[:load_port]}.select { |key,value| value.present? }
-    finance_condition =  {is_made: params[:is_made], review: params[:review]}.select { |key,value| value.present? }
 
-    @finance_declarations = Declaration.joins(:finances).where(declaration_condition).where( finances:finance_condition).page(params[:page]).order("declare_date asc")
-    #@finances = Finance.joins(:declarations).where(finance_condition, declarations:declaration_condition)
-    if @finance_declarations.size != 0
-      cookies[:declaration_condition] = {value: declaration_condition, expires: 1.day.from_now}
-      cookies[:finance_condition] = {value: finance_condition, expires: 1.day.from_now}
-    end
-    render :partial =>"finance_search_result"
-  end
 
   def make
     @finance = Finance.find(params[:id])
