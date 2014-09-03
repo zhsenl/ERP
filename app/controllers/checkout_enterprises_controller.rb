@@ -87,17 +87,21 @@ class CheckoutEnterprisesController < ApplicationController
   # DELETE /checkout_enterprises/1.json
   def destroy
     @checkout_enterprise = CheckoutEnterprise.find(params[:id])
-    @checkout_enterprise.destroy
-
+    destroy_finance_fee   #删除在结算单位对应的付费信息
     respond_to do |format|
-      format.html {
-        if params[:from]
-          redirect_to  finance_path(params[:from])
-        else
-          redirect_to checkout_enterprises_url
-        end
-      }
-      format.json { head :no_content }
+      if @checkout_enterprise.destroy
+        format.html {
+          if params[:from]
+            redirect_to  finance_path(params[:from])
+          else
+            redirect_to checkout_enterprises_url
+          end
+        }
+        format.json { head :no_content }
+      else
+        format.html { render action: "edit" }
+        format.json { render json: @checkout_enterprise.errors, status: :unprocessable_entity }
+      end
     end
   end
 
@@ -121,6 +125,10 @@ class CheckoutEnterprisesController < ApplicationController
   end
 
   def destroy_finance_fee
+    finance_fees = FinanceFee.find_all_by_finance_id_and_checkout_enterprise_id(@checkout_enterprise.finance_id, @checkout_enterprise.id)
+    finance_fees.each do|finance_fee|
+      finance_fee.destroy
+    end
   end
 
   end

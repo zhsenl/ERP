@@ -6,7 +6,7 @@
 
    <p>
      <label>结算单位</label>
-     <input id="enterprise_autocomplete" name="enterprise_fee[checkout_enterprise_code]" class="text-input small-input first-field" type="text" data-url="<%= enterprises_path %>" data-minLength="2" >
+     <input value="<%= @enterprise_fee.checkout_enterprise_code %>" id="enterprise_autocomplete" name="enterprise_fee[checkout_enterprise_code]" class="text-input small-input first-field" type="text" data-url="<%= enterprises_path %>" data-minLength="2" >
      &nbsp;&nbsp;
      <br />
      <small id="enterprise_autocomplete_label">输入组织机构代码或名字</small>
