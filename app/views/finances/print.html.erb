@@ -293,13 +293,14 @@
         <% end %>
     <% end #comment end   %>
 
+    <% recipient_enterprise = Enterprise.find_by_code(cookies[:recipient_enterprise_code]) %>
     <table style="margin: 0.5em 0 0.5em 0">
       <tr>
-        <td><b>收款单位：</b>东莞市泽盛物流有限公司</td>
-        <td><b>收款账号：</b>769902090110488</td>
-        <td><b>开户银行：</b>招商银行东莞虎门港支行</td>
-        <td><b>联系人：</b>陈柱勤</td>
-        <td><b>电话：</b>22827332</td>
+        <td><b>收款单位：</b><%= recipient_enterprise.name %></td>
+        <td><b>收款账号：</b><%= recipient_enterprise.bank_account %></td>
+        <td><b>开户银行：</b><%= recipient_enterprise.bank %></td>
+        <td><b>联系人：</b><%= recipient_enterprise.linkman %></td>
+        <td><b>电话：</b><%= recipient_enterprise.telephone %></td>
       </tr>
 
     </table>

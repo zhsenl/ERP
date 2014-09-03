@@ -83,15 +83,13 @@
     <fieldset>
       <legend>搜索框：</legend>
 
-      <% if false %>
       <div class="field">
-        <label>企业单位</label>
-        <input id="enterprise_autocomplete" name="enterprise_code" class="text-input small-input first-field" type="text" data-url="<%= enterprises_path %>" data-minLength="2" >
+        <label>企业收款人</label>
+        <input id="recipient_enterprise_autocomplete" name="recipient_enterprise_code" class="text-input small-input first-field" type="text" data-url="<%= enterprises_path %>" data-minLength="2" >
         &nbsp;&nbsp;
         <br />
-        <small id="enterprise_autocomplete_label">输入组织机构代码或名字</small>
+        <small id="recipient_enterprise_autocomplete_label">输入组织机构代码或名字</small>
       </div>
-      <% end %>
 
       <div class="field">
         <!--<label>经营单位</label>  -->
