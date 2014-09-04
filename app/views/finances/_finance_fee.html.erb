@@ -52,7 +52,7 @@
            end %>
         <tr>
           <td><%= link_to finance_fee.code, finance_fee %></td>
-          <td><%= Dict::Fee.find_by_code(finance_fee.code).name %></td>
+          <td><%= Dict::Fee.find_by_code(finance_fee.code).name rescue '' %></td>
           <td><%= Enterprise.find_by_code(finance_fee.checkout_enterprise.code).name rescue '' %></td>
           <%# Enterprise.find_by_code(finance_fee.checkout_enterprise_code).name rescue ''  %>
 
