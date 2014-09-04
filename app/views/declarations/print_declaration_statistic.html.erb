@@ -94,7 +94,7 @@
           <div class="td" style="width:100px;">申报日期</div>
           <div class="td" style="width:152px;">海关编号</div>
           <div class="td" style="width:150px;">预录入号</div>
-          <div class="td" style="width:250px;">装卸口岸</div>
+          <div class="td" style="width:250px;">收发货单位</div>
           <div class="td" style="width:80px;">提运单号</div>
           <div class="td" style="width:80px;">报关单数</div>
         </div>
@@ -116,7 +116,7 @@
                 <span >&nbsp;<%= statistic_declaration.pre_entry_no %>&nbsp;</span>
               </div>
               <div class="td" style="width:250px;">
-                <span >&nbsp;<%= dict_name Dict::LoadPort, statistic_declaration.load_port %>&nbsp;</span>
+                <span >&nbsp;<%# dict_name Dict::LoadPort, statistic_declaration.load_port %><%= statistic_declaration.enterprise.name %>&nbsp;</span>
               </div>
               <div class="td" style="width:80px;">
                 <span >&nbsp;<%= statistic_declaration.bill_no %>&nbsp;</span>

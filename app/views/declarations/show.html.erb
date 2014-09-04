@@ -222,42 +222,42 @@
 
           <p>
             <b>境内运输工具名称:</b>
-            <%= @declaration.declaration_transit_information.local_transport_tool_name %>
+            <%= @declaration.declaration_transit_information.local_transport_tool_name rescue '' %>
           </p>
 
           <p>
             <b>境内运输工具航次:</b>
-            <%= @declaration.declaration_transit_information.local_transport_tool_voyage_no %>
+            <%= @declaration.declaration_transit_information.local_transport_tool_voyage_no rescue '' %>
           </p>
 
           <p>
             <b>进出境运输工具编号:</b>
-            <span class="autoload" data-url=<%= dict_trucks_path %>><%= @declaration.declaration_transit_information.transport_tool_code %></span>
+            <span class="autoload" data-url=<%= dict_trucks_path %>><%= @declaration.declaration_transit_information.transport_tool_code rescue '' %></span>
           </p>
 
           <p>
             <b>进出境运输工具名称:</b>
-            <%= @declaration.declaration_transit_information.transport_tool_name %>
+            <%= @declaration.declaration_transit_information.transport_tool_name rescue ''%>
           </p>
 
           <p>
             <b>进出境运输工具航次:</b>
-            <%= @declaration.declaration_transit_information.transport_tool_voyage_no %>
+            <%= @declaration.declaration_transit_information.transport_tool_voyage_no rescue ''%>
           </p>
 
           <p>
             <b>进出境提运单号:</b>
-            <%= @declaration.declaration_transit_information.bill_no %>
+            <%= @declaration.declaration_transit_information.bill_no rescue ''%>
           </p>
 
           <p>
             <b>承运单位组织机构代码:</b>
-            <%= @declaration.declaration_transit_information.corporation_code %>
+            <%= @declaration.declaration_transit_information.corporation_code rescue ''%>
           </p>
 
           <p>
             <b>承运单位名称:</b>
-            <%= @declaration.declaration_transit_information.corporation_name %>
+            <%= @declaration.declaration_transit_information.corporation_name rescue ''%>
           </p>
 
         </fieldset>
