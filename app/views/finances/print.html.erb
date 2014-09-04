@@ -294,21 +294,21 @@
     <% recipient_enterprise = Enterprise.find_by_code(cookies[:recipient_enterprise_code]) %>
     <table style="margin: 0.5em 0 0.5em 0;text-align: left">
       <tr>
-        <td><b>收款单位：</b><%= recipient_enterprise.name %></td>
-        <td><b>收款账号：</b><%= recipient_enterprise.bank_account %></td>
-        <td><b>开户银行：</b><%= recipient_enterprise.bank %></td>
+        <td><b>收款单位：</b><%= recipient_enterprise.name  rescue ''%></td>
+        <td><b>收款账号：</b><%= recipient_enterprise.bank_account rescue ''%></td>
+        <td><b>开户银行：</b><%= recipient_enterprise.bank rescue '' %></td>
 
       </tr>
       <tr>
-        <td><b>联系人：</b><%= recipient_enterprise.linkman %></td>
-        <td><b>电话：</b><%= recipient_enterprise.telephone %></td>
-        <td><b>地址：</b><%= recipient_enterprise.address %></td>
+        <td><b>联系人：</b><%= recipient_enterprise.linkman rescue ''%></td>
+        <td><b>电话：</b><%= recipient_enterprise.telephone rescue ''%></td>
+        <td><b>地址：</b><%= recipient_enterprise.address rescue ''%></td>
       </tr>
 
     </table>
 
     <div style="text-align: right;padding-right: 100px;margin-top: 2em;">
-      <b>制单人：</b><%= current_user.name %>
+      <b>制单人：</b><%= current_user.name rescue ''%>
       <b>复核：</b>
     </div>
 
