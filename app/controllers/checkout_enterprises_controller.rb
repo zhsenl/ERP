@@ -114,6 +114,9 @@ class CheckoutEnterprisesController < ApplicationController
       if enterprise_fee.declaration_type == filter_type
         next
       end
+      if Dict::Fee.find_by_code(enterprise_fee.code).blank?
+        next
+      end
       new_finance_fee = FinanceFee.new(Dict::Fee.find_by_code(enterprise_fee.code).attributes)
       if !enterprise_fee.price.blank?
         new_finance_fee.price = enterprise_fee.price
