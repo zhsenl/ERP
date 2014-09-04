@@ -42,7 +42,7 @@
    finance_fee_names = []
    @finance_declarations.each do |finance_declaration|
      finance_declaration.finances[0].finance_fees.each do |finance_fee|
-       if !finance_fee_codes.include?(finance_fee.code) and !finance_fee.name.blank?
+       if !finance_fee_codes.include?(finance_fee.code) and !finance_fee.name.blank? and ! Dict::Fee.find_by_code(finance_fee.code).blank?
          finance_fee_codes.append(finance_fee.code)
          #finance_fee_names.append(finance_fee.name)
        end
@@ -157,7 +157,7 @@
                     <%# checkout_enterprises = finance.checkout_enterprises %>
                     <%# checkout_enterprises.each do |checkout_enterprise| %>
                     <tr>
-                      <td><%= finance_declaration.declaration_cargos.first.name %></td>
+                      <td><%= finance_declaration.declaration_cargos.first.name rescue ''%></td>
                     </tr>
                     <%# end %>
                 <% end %>
