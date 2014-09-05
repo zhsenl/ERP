@@ -43,7 +43,6 @@ class CheckoutEnterprisesController < ApplicationController
   def create
     @checkout_enterprise = CheckoutEnterprise.new(params[:checkout_enterprise])
     @checkout_enterprise.save
-    create_finance_fee   #创建在付费信息里填写的结算单位对应的账单信息
     respond_to do |format|
       if @checkout_enterprise.save
         create_finance_fee   #创建在付费信息里填写的结算单位对应的账单信息
