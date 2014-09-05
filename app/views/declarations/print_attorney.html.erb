@@ -76,7 +76,7 @@
   </div>
   <div class="tr not_print">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我单位保证遵守《海关法》和国家有关法规，保证所提供的情况真实、完整、单货相符。否则，愿承担相关法律责任。
   </div>
-  <% d = Time.now %>
+  <% d = @declaration.declare_date  %>
   <div class="tr"><span class="not_print">    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本委托书有效期自签字之日起至</span>
     <span class="content"><%=d.year()%></span><span class="not_print">&nbsp;&nbsp;年</span>
 <span class="content"><%=d.mon()+1%></span><span class="not_print">&nbsp;&nbsp;月</span><span class="content"><%=d.mday()%></span><span class="not_print">&nbsp;&nbsp;日止。</span>
