@@ -66,7 +66,7 @@
       </li>
 
       <li>
-        <a href="#" class="nav-top-item"> 合同录入 </a>
+        <a href="#" class="nav-top-item"> 录入合同数据</a>
         <ul>
           <li>
             <%= link_to '导入合同', import_contracts_path, :class => "contracts_import" %>
@@ -81,7 +81,7 @@
       </li>
 
       <li>
-        <a href="#" class="nav-top-item"> 进出口录入 </a>
+        <a href="#" class="nav-top-item"> 录入进出口数据</a>
         <ul>
           <li>
             <%= link_to '新增出口报关单', new_declaration_path(:declaration_type => 'export'), :class => "export_declarations_new export_declarations_create" %>
@@ -112,6 +112,7 @@
         </li>
       <% end %>
 
+      <% if !current_user.is?("operator")   %>
       <li>
         <a href="#" class="nav-top-item"> 报关统计表 </a>
         <ul>
@@ -147,6 +148,7 @@
           </li>
         </ul>
       </li>
+      <% end %>
       <li class='nodisplay'>
         <a href="#" class="nav-top-item"> 深加工结转申请表 </a>
         <ul>

@@ -34,27 +34,30 @@ class Ability
       end
 
       cannot :destroy, Contract
+
+      #2014-09-16 todo --> 以后加上外商权限的时候再改吧
+      can :manage, ForeignEnterprise
       
       #setting the user permission for application, bill
-      can :manage, Application do |application|
-        user.managing?(application.enterprise) && !application.is_finish
-      end
-
-      can :read, Application do |application|
-        user.managing? application.enterprise
-      end
-
-      cannot :destroy, Application
-
-      can :manage, Bill do |bill|
-        user.managing?(bill.enterprise) && !bill.is_finish
-      end
-
-      can :read, Bill do |bill|
-        user.managing? bill.enterprise
-      end
-
-      cannot :destroy, Bill
+      #can :manage, Application do |application|
+      #  user.managing?(application.enterprise) && !application.is_finish
+      #end
+      #
+      #can :read, Application do |application|
+      #  user.managing? application.enterprise
+      #end
+      #
+      #cannot :destroy, Application
+      #
+      #can :manage, Bill do |bill|
+      #  user.managing?(bill.enterprise) && !bill.is_finish
+      #end
+      #
+      #can :read, Bill do |bill|
+      #  user.managing? bill.enterprise
+      #end
+      #
+      #cannot :destroy, Bill
       
     end
 
@@ -76,21 +79,21 @@ class Ability
       end
 
       #setting the user permission for application, bill
-      can [:manage, :declarate], Application do |application|
-        user.managing?(application.enterprise) && !application.is_finish
-      end
-
-      can :read, Application do |application|
-        user.managing? application.enterprise
-      end
-
-      can [:manage, :declarate], Bill do |bill|
-        user.managing?(bill.enterprise) && !bill.is_finish
-      end
-
-      can :read, Bill do |bill|
-        user.managing? bill.enterprise
-      end
+      #can [:manage, :declarate], Application do |application|
+      #  user.managing?(application.enterprise) && !application.is_finish
+      #end
+      #
+      #can :read, Application do |application|
+      #  user.managing? application.enterprise
+      #end
+      #
+      #can [:manage, :declarate], Bill do |bill|
+      #  user.managing?(bill.enterprise) && !bill.is_finish
+      #end
+      #
+      #can :read, Bill do |bill|
+      #  user.managing? bill.enterprise
+      #end
 
 
     end
