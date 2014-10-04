@@ -107,6 +107,7 @@ class FinancesController < ApplicationController
       cookies[:recipient_enterprise_code] = {value: params[:recipient_enterprise_code], expires: 1.day.from_now}
       cookies[:from] = {value: params[:from], expires: 1.day.from_now}
       cookies[:to] = {value: params[:to], expires: 1.day.from_now}
+      cookies[:load_port] =    {value: params[:load_port], expires: 1.day.from_now}
     end
     render :partial =>"check_result"
   end
@@ -243,16 +244,14 @@ class FinancesController < ApplicationController
   end
 
   def statistics(declaration_condition)
-    @page_size = 16
+    @page_size = 20
     @pages = Array.new((@finance_declarations.size - 1) / @page_size + 1 + 10) { Array.new }    # 最后的 + 10是预留的
-                                                                                                #@finance_declarations.each_with_index do |finance_declaration, index|
-                                                                                                #  @pages[index / @page_size][index % @page_size] = []
-                                                                                                #end
+
     page_item_count = 0
     pages_index = 0
     each_page_index = 0
     combine_size = 0
-    @finance_declarations.each_with_index do |finance_declaration, index|
+    @finance_declarations.each do |finance_declaration|
       if combine_size > 0
         combine_size = combine_size - 1
         next
@@ -267,7 +266,7 @@ class FinancesController < ApplicationController
         finance_declaration_combined << finance_declaration
       end
       finance_declaration_combined_size = finance_declaration_combined.size
-      if page_item_count + finance_declaration_combined_size <= @page_size + 1 #每页允许可能多一个
+      if page_item_count + finance_declaration_combined_size <= @page_size + 2 #每页允许可能多两个
         page_item_count = page_item_count + finance_declaration_combined_size
         @pages[pages_index][each_page_index] = finance_declaration_combined
         each_page_index = each_page_index + 1

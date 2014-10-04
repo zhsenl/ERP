@@ -19,11 +19,6 @@
         left: 0px;
     }
 
-        /*.clear{*/
-        /*page-break-after: always;*/
-        /*clear: both;*/
-        /*}*/
-
     .outer-center {
         float: right;
         right: 50%;
@@ -34,10 +29,6 @@
         float: right;
         right: -50%;
         position: relative;
-    }
-
-    table tr td{
-        /*padding: 0 5px 0 5px;*/
     }
 
 
@@ -79,9 +70,10 @@
     </div>
     <div style="margin-bottom: 0.5em; text-align: left;" >
       <div>
-        <div style="width: 43%;display: inline-block"><b>客户：</b><%= Enterprise.find_by_code(cookies[:checkout_enterprise_code]).name rescue '' %></div>
-        <div style="width: 43%;display: inline-block"><b>时间：</b><%= cookies[:from] + "至" + cookies[:to] rescue '' %></div>
-        <div style="width: 12%;display: inline-block"><b>币制：</b><span class="content">人民币</span></div>
+        <div style="width: 33%;display: inline-block"><b>客户：</b><%= Enterprise.find_by_code(cookies[:checkout_enterprise_code]).name rescue '' %></div>
+        <div style="width: 30%;display: inline-block"><b>时间：</b><%= cookies[:from] + "至" + cookies[:to] rescue '' %></div>
+        <div style="width: 15%;display: inline-block"><b>装卸口岸：</b><%= cookies[:load_port] rescue '' %></div>
+        <div style="width: 15%;display: inline-block"><b>币制：</b><span class="content">人民币</span></div>
       </div>
     </div>
     <table border=1 style="border-collapse:collapse;">
@@ -105,36 +97,32 @@
       <tbody>
       <%# 每一页里的所有被合并的报关单 %>
       <% page.each do |finance_declaration_array| %>
-          <%# finance = finance_declaration_array[0].finances[0] %>
+
+          <%# 序号 %>
           <tr>
             <td><%= no = no + 1 %></td>
             <td style="font-size: 10px"><%= finance_declaration_array[0].declare_date %></td>
             <td style="padding: 0">
               <table rules=rows style=" width: 100%;">
                 <% finance_declaration_array.each do |finance_declaration| %>
-                    <%# checkout_enterprises = finance.checkout_enterprises %>
-                    <%# checkout_enterprises.each do |checkout_enterprise| %>
                     <tr>
                       <td><%= Dict::DealMode.find_by_code(finance_declaration.deal_mode).name rescue '' %></td>
                     </tr>
-                    <%# end %>
                 <% end %>
               </table>
             </td>
 
+            <%# 公司名称 %>
             <td style="padding: 0">
               <table rules=rows style=" width: 100%;">
                 <% finance_declaration_array.each do |finance_declaration| %>
                     <% if false %> <%# comment start 表单客户为 结算单位 %>
-                        <%# checkout_enterprises = finance.checkout_enterprises %>
-                        <%# checkout_enterprises.each do |checkout_enterprise| %>
                         <tr>
-                          <td><%= Enterprise.find_by_code(checkout_enterprise.code).name rescue '' %></td>
+                          <td><%= Enterprise.find_by_code(checkout_enterprise.code).name[0..15] rescue '' %></td>
                         </tr>
-                        <%# end %>
                     <% end %>  <%# comment end %>
                     <tr>
-                      <td><%= finance_declaration.enterprise.name rescue '' %></td>
+                      <td><%= finance_declaration.enterprise.name[0..-5] rescue '' %></td>
                     </tr>
                 <% end %>
               </table>
@@ -144,12 +132,9 @@
             <td style="padding: 0">
               <table rules=rows style=" width: 100%;">
                 <% finance_declaration_array.each do |finance_declaration| %>
-                    <%# checkout_enterprises = finance.checkout_enterprises %>
-                    <%# checkout_enterprises.each do |checkout_enterprise| %>
                     <tr>
-                      <td><%= finance_declaration.entry_no %></td>
+                      <td>&nbsp;<%= finance_declaration.entry_no[-10..-1] %>&nbsp;</td>
                     </tr>
-                    <%# end %>
                 <% end %>
               </table>
             </td>
@@ -158,12 +143,9 @@
             <td style="padding: 0">
               <table rules=rows style=" width: 100%;">
                 <% finance_declaration_array.each do |finance_declaration| %>
-                    <%# checkout_enterprises = finance.checkout_enterprises %>
-                    <%# checkout_enterprises.each do |checkout_enterprise| %>
                     <tr>
-                      <td><%= finance_declaration.declaration_cargos.first.name rescue ''%></td>
+                      <td><%= finance_declaration.declaration_cargos.first.name[0..5] rescue ''%></td>
                     </tr>
-                    <%# end %>
                 <% end %>
               </table>
             </td>
@@ -172,12 +154,9 @@
             <td style="padding: 0">
               <table rules=rows style=" width: 100%;">
                 <% finance_declaration_array.each do |finance_declaration| %>
-                    <%# checkout_enterprises = finance.checkout_enterprises %>
-                    <%# checkout_enterprises.each do |checkout_enterprise| %>
                     <tr>
-                      <td><%= finance_declaration.contract_no %></td>
+                      <td><%= finance_declaration.contract_no %>&nbsp;</td>
                     </tr>
-                    <%# end %>
                 <% end %>
               </table>
             </td>
@@ -186,12 +165,9 @@
             <td style="padding: 0">
               <table rules=rows style=" width: 100%;">
                 <% finance_declaration_array.each do |finance_declaration| %>
-                    <%# checkout_enterprises = finance.checkout_enterprises %>
-                    <%# checkout_enterprises.each do |checkout_enterprise| %>
                     <tr>
-                      <td><%= finance_declaration.bill_no %></td>
+                      <td><%= finance_declaration.bill_no %>&nbsp;</td>
                     </tr>
-                    <%# end %>
                 <% end %>
               </table>
             </td>
