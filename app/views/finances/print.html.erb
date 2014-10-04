@@ -89,7 +89,7 @@
         <td>合同协议</td>
         <td>车牌</td>
         <% finance_fee_names.each_with_index do |finance_fee_name, i| %>
-            <td><%#  finance_fee_codes[i] %><%= finance_fee_name %></td>
+            <td><%#  finance_fee_codes[i] %><%= finance_fee_name[0..-2] %></td>
         <% end %>
         <td>金额</td>
       </tr>
@@ -98,10 +98,15 @@
       <%# 每一页里的所有被合并的报关单 %>
       <% page.each do |finance_declaration_array| %>
 
-          <%# 序号 %>
           <tr>
+
+            <%# 序号 %>
             <td><%= no = no + 1 %></td>
-            <td style="font-size: 10px"><%= finance_declaration_array[0].declare_date %></td>
+
+            <%# 日期 %>
+            <td style="font-size: 10px"><% d = finance_declaration_array[0].declare_date.to_s%><%= d[0..3] + d[5..6] + d[8..9]  %></td>
+
+            <%# FOB CIF %>
             <td style="padding: 0">
               <table rules=rows style=" width: 100%;">
                 <% finance_declaration_array.each do |finance_declaration| %>
