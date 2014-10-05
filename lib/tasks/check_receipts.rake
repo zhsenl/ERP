@@ -110,7 +110,7 @@ namespace :receipt do
           next
         end
 
-        dispatch_record_generate = AppBillDispatchRecord.where("ret_no = ? ", ret_no).first
+        dispatch_record_generate = AppBillDispatchRecord.where("ret_no = ? ", ret_no).last
         if dispatch_record_generate
           #生成新的record
           record_hash = {:ret_type => ret_type,
