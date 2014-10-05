@@ -114,10 +114,16 @@ class FinancesController < ApplicationController
 
   def print
     if cookies[:check_declaration_condition]  and  cookies[:checkout_enterprise_condition]
-      #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(eval(cookies[:check_declaration_condition])).order("declare_date asc, finances.combine_no")
       @finance_declarations = Declaration.joins( :checkout_enterprises).joins(:finances).where(finances:{review: 2}).where(eval(cookies[:check_declaration_condition])).where(checkout_enterprises:eval(cookies[:checkout_enterprise_condition])).order("declare_date asc")
       statistics(cookies[:check_declaration_condition])
-      render :layout => 'print'
+      @download = false
+      respond_to do |format|
+        format.html {render :layout => 'print'}
+        format.xls{
+          @download = true
+          send_data(render_to_string(:template => "finances/print.html.erb") , :filename =>  Enterprise.find_by_code(cookies[:checkout_enterprise_code]).name + Time.now.strftime('%Y%m%d') + '.xls', :type => "application/xls")
+        }
+      end
     end
   end
 
@@ -242,6 +248,7 @@ class FinancesController < ApplicationController
       format.json { head :no_content }
     end
   end
+
 
   def statistics(declaration_condition)
     @page_size = 20
