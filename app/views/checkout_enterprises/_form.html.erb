@@ -4,7 +4,7 @@
       <%= f.hidden_field :finance_id %>
       <input type='hidden' name='from' value=<%= params[:from] %> />
       <p >
-        <label>付费企业（请输入海关编码）</label>
+        <label>付费企业（默认为进出口收发货单位）</label>
         <%= render "shared/autocomplete_field", :form => f, :attribute => :code, :url => enterprises_path, :klass => "text-input small-input first-field" %>
       </p>
     </fieldset>
