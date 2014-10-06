@@ -8,8 +8,9 @@
           <th>装卸口岸</th>
           <th>申报日期</th>
           <th>报关单号</th>
-          <th>企业单位</th>
-          <th>账单状态</th>
+          <th>进出口收发货单位</th>
+          <th>付款单位</th>
+          <th>账单</th>
           <th>审核状态</th>
           <th>结算状态</th>
           <th>操作</th>
@@ -31,6 +32,17 @@
               <td><%= finance_declaration.declare_date %></td>
               <td><%= finance_declaration.entry_no %></td>
               <td><%= Enterprise.find(finance_declaration.enterprise_id).name %></td>
+              <%
+                 checkout_enterprise_names = ""
+                 finance.checkout_enterprises.each_with_index do |enterprise, index|
+                   if index == finance.checkout_enterprises.size - 1
+                     checkout_enterprise_names += Enterprise.find_by_code(enterprise.code).name
+                   else
+                    checkout_enterprise_names += Enterprise.find_by_code(enterprise.code).name + "|"
+                   end
+                 end
+              %>
+              <td><%= finance.review == 2 ? checkout_enterprise_names : ''  %></td>
               <td><%= finance.is_made ? "已制作" : "未制作" %></td>
               <td><%= review[finance.review] %></td>
               <td><%= finance.is_paid ? "已结算" : "未结算" %></td>

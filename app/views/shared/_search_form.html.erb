@@ -3,7 +3,7 @@
 	<label style="display: inline;" >搜索：</label>
 	<input name="term" class="text-input medium-input" />
 	&nbsp;&nbsp;
-	<input class="button" type="submit" value="搜索<%= model.model_name.human %>" name="commit">	
+	<input class="button" type="submit" value="<%=  model.model_name.human == '付费信息' ? "录入企业付费明细" : '搜索' + model.model_name.human %>" name="commit">
 </p>
 <div class="clear"></div><!-- End .clear -->
 <% end %>

@@ -15,7 +15,7 @@
     <tr>
       <th>编号</th>
       <th>中文名</th>
-      <th>结算单位</th>
+      <th>付费企业名称</th>
       <th>价格</th>
       <th>应收</th>
       <th>应付</th>
@@ -63,7 +63,7 @@
             <% if @finance.review == 1 or   @finance.review == 3  %>
                 <%= link_to "修改", edit_finance_fee_path(finance_fee, :from => @finance.id) %>
                 <%= link_to "删除", finance_fee_path(finance_fee) + "?from=" + @finance.id.to_s, confirm: '确定删除?', method: :delete %>
-                <%= link_to "选择结算单位", edit_finance_fee_path(finance_fee, :from => @finance.id, :is_checkout => true) %>
+                <%= link_to "选择付费企业", edit_finance_fee_path(finance_fee, :from => @finance.id, :is_checkout => true) %>
         <% else %>
                 已审核，不能操作
             <% end %>

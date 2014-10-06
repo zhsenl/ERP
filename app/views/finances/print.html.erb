@@ -126,11 +126,6 @@
             <td style="padding: 0">
               <table rules=rows style=" width: 100%;">
                 <% finance_declaration_array.each do |finance_declaration| %>
-                    <% if false %> <%# comment start 表单客户为 结算单位 %>
-                        <tr>
-                          <td><%= Enterprise.find_by_code(checkout_enterprise.code).name[0..15] rescue '' %></td>
-                        </tr>
-                    <% end %>  <%# comment end %>
                     <tr>
                       <td><%= finance_declaration.enterprise.name[0..-5] rescue '' %></td>
                     </tr>

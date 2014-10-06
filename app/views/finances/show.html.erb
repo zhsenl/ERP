@@ -2,7 +2,7 @@
 $(function(){
     $("#make").click(function(event){
         if($(".no_checkout_enterprise").size() > 0){
-            if(!confirm("有付费信息没分配结算单位，确定生成账单？")){
+            if(!confirm("有付费信息没分配付费企业，确定生成账单？")){
                 event.preventDefault();
             }
         }else{

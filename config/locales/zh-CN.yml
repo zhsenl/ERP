@@ -19,7 +19,7 @@ zh-CN:
       declaration_packing: 装箱明细
       enterprise_fee: 付费信息
       finance_fee: 付费信息
-      checkout_enterprise: 结算单位
+      checkout_enterprise: 付费企业
       check_method: 结算方式
       finance: 账单
       dict/attachment: 随附单证

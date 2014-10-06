@@ -18,7 +18,7 @@
       <b>装卸口岸编码</b>：<%= @enterprise_fee.load_port %>
     </p>
     <p>
-      <b>结算单位</b>：<%= Enterprise.find_by_code(@enterprise_fee.checkout_enterprise_code).name rescue ''%>
+      <b>付费企业</b>：<%= Enterprise.find_by_code(@enterprise_fee.checkout_enterprise_code).name rescue ''%>
     </p>
     <p>
       <b>装卸口岸编码</b>：<%= @enterprise_fee.load_port %>

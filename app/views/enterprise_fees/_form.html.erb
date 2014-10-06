@@ -5,7 +5,7 @@
     <input type='hidden'  name="from" value=<%= params[:from] %>  >
 
    <p>
-     <label>结算单位</label>
+     <label>付费企业</label>
      <input value="<%= @enterprise_fee.checkout_enterprise_code %>" id="enterprise_autocomplete" name="enterprise_fee[checkout_enterprise_code]" class="text-input small-input first-field" type="text" data-url="<%= enterprises_path %>" data-minLength="2" >
      &nbsp;&nbsp;
      <br />

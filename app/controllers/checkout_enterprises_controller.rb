@@ -25,7 +25,8 @@ class CheckoutEnterprisesController < ApplicationController
   # GET /checkout_enterprises/new
   # GET /checkout_enterprises/new.json
   def new
-    @checkout_enterprise = CheckoutEnterprise.new(:finance_id => params[:finance_id])
+
+    @checkout_enterprise = CheckoutEnterprise.new(:finance_id => params[:finance_id], :code => Finance.find(params[:finance_id]).declaration.enterprise.code)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -50,7 +51,7 @@ class CheckoutEnterprisesController < ApplicationController
           if params[:from]
             redirect_to  finance_path(params[:from])
           else
-            redirect_to @checkout_enterprise, notice: '结算单位创建成功.'
+            redirect_to @checkout_enterprise, notice: '付费企业创建成功.'
           end
         }
         format.json { render json: @checkout_enterprise, status: :created, location: @checkout_enterprise }

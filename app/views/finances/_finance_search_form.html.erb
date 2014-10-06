@@ -61,20 +61,11 @@
     <fieldset>
       <legend>搜索框：</legend>
       <div class="field">
-        <label>企业单位</label>
+        <label>进出口收发货单位</label>
         <input id="enterprise_autocomplete" name="enterprise_id" class="text-input small-input first-field" type="text" data-url="<%= enterprises_path %>" data-minLength="2" >
         &nbsp;&nbsp;
         <br />
         <small id="enterprise_autocomplete_label">输入组织机构代码或名字</small>
-        <%# select_tag "enterprise_id", options_from_collection_for_select(current_user.enterprises, "id", "name"), include_blank: true %>
-      </div>
-      <div class="field">
-        <label>报关单号</label>
-        <%= text_field_tag "entry_no",nil, :class => "text-input small-input" %>
-      </div>
-      <div class="field">
-        <label>装卸口岸号</label>
-        <%= text_field_tag "load_port", nil, :class => "text-input small-input"%>
       </div>
       <div class="field">
         <label>开始时间</label>
@@ -84,13 +75,21 @@
         <label>结束时间</label>
         <%= text_field_tag "to",  nil,  :class => "text-input small-input" %>
       </div>
+
+      <div class="field">
+        <label>装卸口岸号</label>
+        <%= text_field_tag "load_port", nil, :class => "text-input small-input"%>
+      </div>
+      <div class="field">
+        <label>报关单号</label>
+        <%= text_field_tag "entry_no",nil, :class => "text-input small-input" %>
+      </div>
       <div class='field' style="width:100px">
         <label>账单状态</label>
         <%= select_tag "is_made", options_for_select([['', ''], ['未制作', 0], ['已制作', 1]]) %>
       </div>
       <div class='field' style="width:120px">
         <label>审核状态</label>
-        <!--[['未审核', 1], ['已审核', 2], ['退审单', 3], ['退审单（留底）', 4]] -->
         <%= select_tag "review", options_for_select([['', ''],['未审核', 1], ['已审核', 2], ['退审单', 3]]) %>
       </div>
       <div class="clear"></div><!-- End .clear -->
