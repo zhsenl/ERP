@@ -36,7 +36,11 @@
               </thead>
               <tbody>
               <% page.each do |finance_declaration_array| %>
-                  <%# finance = finance_declaration_array[0].finances[0] %>
+                  <%
+                    if finance_declaration_array.empty?
+                        next
+                    end
+                  %>
                   <tr>
                     <td><%= no = no + 1 %></td>
                     <td style="font-size: 10px"><%= finance_declaration_array[0].declare_date %></td>
