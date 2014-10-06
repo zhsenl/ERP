@@ -1,18 +1,294 @@
-<h1>Listing users</h1>
+<style type="text/css">
+    @page {
+        size: landscape;
+    }
 
-<table>
-  <tr>
-    <th>Name</th>
-    <th>City</th>
-    <th>Gender</th>
-    <th>Phone</th>
-    <th>Address</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
+    body {
+        font-size: 12px;
+    }
+
+    .frame {
+        position: relative;
+        top: 0px;
+        left: 0px;
+    }
+
+    #theSeals {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+    }
+
+    .outer-center {
+        float: right;
+        right: 50%;
+        position: relative;
+    }
+
+    .inner-center {
+        float: right;
+        right: -50%;
+        position: relative;
+    }
 
 
-</table>
+</style>
+<% finance_fee_codes = []
+   finance_fee_names = []
+   @finance_declarations.each do |finance_declaration|
+     finance_declaration.finances[0].finance_fees.each do |finance_fee|
+       if !finance_fee_codes.include?(finance_fee.code) and !finance_fee.name.blank? and ! Dict::Fee.find_by_code(finance_fee.code).blank?
+         finance_fee_codes.append(finance_fee.code)
+         #finance_fee_names.append(finance_fee.name)
+       end
+     end
+   end
+   finance_fee_codes.sort!
+   finance_fee_codes.each do |code|
+     finance_fee_names.append(Dict::Fee.find_by_code(code).name)
+   end
+   col_total_prices = Array.new(finance_fee_codes.size + 1, 0)
+   no = 0
+%>
 
-<br />
+    <div>
+    <div class="outer-center">
+    <div class="inner-center">
+    <div style="width: 100%; height: 20px;"></div>
+    <div class="frame" style="text-align: center; height: 70px;">
+      <h1><b>结　　算　　单</b></h1></h1>
+      <% if !@download %>
+          <div id="theSeals">
+            <div class='seal-div hideseals' style="display: none" title="拖动图片移动位置">
+              <%= image_tag("seal1.png", :alt => "印章", :class => "seal", :id => 'seal_left', :style => "z-index:100;cursor:move") %>
+              <span class='delete_seals' title='删除图片' style="position: relative; left:-20px; z-index: 100; cursor: pointer;"><%= image_tag("icons/cross.png") %></span>
+            </div>
+          </div>
+      <% end %>
+    </div>
+
+    <table>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td ><b>客户：</b><%= Enterprise.find_by_code(cookies[:checkout_enterprise_code]).name rescue '' %></td>
+        <td><b>时间：</b><%= cookies[:from] + "至" + cookies[:to] rescue '' %></td>
+        <td><b>装卸口岸：</b><%= cookies[:load_port] rescue '' %></td>
+        <td><b>币制：</b><span class="content">人民币</span></td>
+      </tr>
+    </table>
+
+    <table border=1 style="border-collapse:collapse;">
+
+      <thead style="font-weight: bold">
+      <tr>
+        <td>序号</td>
+        <td>报关日期</td>
+        <td></td>
+        <td>客户</td>
+        <td>报关单号</td>
+        <td>商品名称</td>
+        <td>合同协议</td>
+        <td>车牌</td>
+        <% finance_fee_names.each_with_index do |finance_fee_name, i| %>
+            <td><%#  finance_fee_codes[i] %><%= finance_fee_name[0..-2] %></td>
+        <% end %>
+        <td>金额</td>
+      </tr>
+      </thead>
+      <tbody>
+      <%# 每一页  %>
+      <% @pages.each_with_index do |page, page_index| %>
+          <% if page.empty?
+               next
+             end %>
+      <%# 每一页里的所有被合并的报关单 %>
+      <% page.each do |finance_declaration_array| %>
+
+          <tr>
+
+            <%# 序号 %>
+            <td><%= no = no + 1 %></td>
+
+            <%# 日期 %>
+            <td style="font-size: 10px"><% d = finance_declaration_array[0].declare_date.to_s%><%= d[0..3] + d[5..6] + d[8..9]  %></td>
+
+            <%# FOB CIF %>
+            <td style="padding: 0">
+              <table rules=rows style=" width: 100%;">
+                <% finance_declaration_array.each do |finance_declaration| %>
+                    <tr>
+                      <td><%= Dict::DealMode.find_by_code(finance_declaration.deal_mode).name rescue '' %></td>
+                    </tr>
+                <% end %>
+              </table>
+            </td>
+
+            <%# 公司名称 %>
+            <td style="padding: 0">
+              <table rules=rows style=" width: 100%;">
+                <% finance_declaration_array.each do |finance_declaration| %>
+                    <tr>
+                      <td><%= finance_declaration.enterprise.name rescue '' %></td>
+                    </tr>
+                <% end %>
+              </table>
+            </td>
+
+            <%# 报关单号 %>
+            <td style="padding: 0">
+              <table rules=rows style=" width: 100%;">
+                <% finance_declaration_array.each do |finance_declaration| %>
+                    <tr>
+                      <td>&nbsp;<%= finance_declaration.entry_no[-10..-1] %>&nbsp;</td>
+                    </tr>
+                <% end %>
+              </table>
+            </td>
+
+            <%# 商品名称 %>
+            <td style="padding: 0">
+              <table rules=rows style=" width: 100%;">
+                <% finance_declaration_array.each do |finance_declaration| %>
+                    <tr>
+                      <td><%= finance_declaration.declaration_cargos.first.name[0..5] rescue ''%></td>
+                    </tr>
+                <% end %>
+              </table>
+            </td>
+
+            <%# 合同协议 %>
+            <td style="padding: 0">
+              <table rules=rows style=" width: 100%;">
+                <% finance_declaration_array.each do |finance_declaration| %>
+                    <tr>
+                      <td><%= finance_declaration.contract_no %>&nbsp;</td>
+                    </tr>
+                <% end %>
+              </table>
+            </td>
+
+            <%# 车牌 %>
+            <td style="padding: 0">
+              <table rules=rows style=" width: 100%;">
+                <% finance_declaration_array.each do |finance_declaration| %>
+                    <tr>
+                      <td><%= finance_declaration.bill_no %>&nbsp;</td>
+                    </tr>
+                <% end %>
+              </table>
+            </td>
+
+            <% checkout_enterprise_fees_i = Array.new(10, 0) %>
+            <% row_total_price = Array.new(10, 0) %>
+            <% finance_fee_codes.each_with_index do |finance_fee_code, vi| %>  <%# 所有报关单的finance fee code汇总 %>
+                <td style="padding: 0">
+                  <table rules=rows style=" width: 100%;">
+                    <% row_i = 0 %> <%# 每一个row_id表示被合并的报关单里的一个报关单 %>
+                    <% finance_declaration_array.each do |finance_declaration| %>   <%# finance_declaration_array表示一组被合并的报关单 %>
+                        <% finance = finance_declaration.finances.first %>        <%#  finane 表示报关单对应的账单 %>
+                        <% checkout_enterprises = finance.checkout_enterprises.where(code: cookies[:checkout_enterprise_code]) %>   <%# 账单对应的结算单位,改为按结算单位搜索后应该只有一个，即搜索条件里输入的结算单位。而如果不考虑搜索条件的话，账单是可以有多个结算单位的 %>
+                        <% checkout_enterprises.each do |checkout_enterprise| %>
+                            <% if finance.checkout_enterprises.size == 1 %>
+                                <% checkout_enterprise_fees = finance.finance_fees.order("code") %>
+                            <% else %>
+                                <% checkout_enterprise_fees = checkout_enterprise.finance_fees.order("code") %>
+                            <% end %>
+
+                            <% if checkout_enterprise_fees_i[row_i] < checkout_enterprise_fees.size and finance_fee_code == checkout_enterprise_fees[checkout_enterprise_fees_i[row_i]].code %>
+                                <tr>
+                                  <td><%= sprintf "%0.2f", price = finance.finance_fees.find_by_code(finance_fee_code).price %></td>
+                                </tr>
+                                <% col_total_prices[vi] = col_total_prices[vi] + price %>
+                                <% checkout_enterprise_fees_i[row_i] = checkout_enterprise_fees_i[row_i] + 1 %>
+                                <% row_total_price[row_i] = row_total_price[row_i] + price %>
+                            <% else %>
+                                <tr>
+                                  <td>&nbsp;</td>
+                                </tr>
+                            <% end %>
+                            <% row_i = row_i + 1 %>
+                        <% end %>
+                    <% end %>
+                  </table>
+                </td>
+            <% end %>
+            <td style="padding: 0">
+              <table rules=rows style=" width: 100%;">
+                <% row_i = 0 %>
+                <% finance_declaration_array.each do |finance_declaration| %>
+                    <% finance = finance_declaration.finances.first %>
+                    <% checkout_enterprises = finance.checkout_enterprises.where(code: cookies[:checkout_enterprise_code]) %>
+                    <% checkout_enterprises.each do |checkout_enterprise| %>
+                        <tr>
+                          <td><%=sprintf "%0.2f", row_total_price[row_i] %></td>
+                        </tr>
+                        <% row_i = row_i + 1 %>
+                    <% end %>
+                <% end %>
+              </table>
+            </td>
+            <% col_total_prices[col_total_prices.size - 1] = col_total_prices[col_total_prices.size - 1] + row_total_price.inject { |sum, x| sum + x } %>
+          </tr>
+
+      <% end %>
+
+      <% if page_index == @pages_size - 1 %>
+          <tr>
+            <td></td>
+            <td>合计</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <% col_total_prices.each do |col_total_price| %>
+                <td><%= sprintf "%0.2f",col_total_price %></td>
+            <% end %>
+          </tr>
+      <% end %>
+
+      <% end %>
+      </tbody>
+    </table>
+
+
+
+    <div style="height: 17px">
+      &nbsp;
+    </div>
+    <% recipient_enterprise = Enterprise.find_by_code(cookies[:recipient_enterprise_code]) %>
+    <table style="margin: 0.5em 0 0.5em 0;text-align: left">
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><b>收款单位：</b><%= recipient_enterprise.name  rescue ''%></td>
+        <td><b>收款账号：</b><%= recipient_enterprise.bank_account rescue ''%></td>
+        <td><b>开户银行：</b><%= recipient_enterprise.bank rescue '' %></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><b>联系人：</b><%= recipient_enterprise.linkman rescue ''%></td>
+        <td><b>电话：</b><%= recipient_enterprise.telephone rescue ''%></td>
+        <td><b>地址：</b><%= recipient_enterprise.address rescue ''%></td>
+      </tr>
+
+    </table>
+
+    <div style="text-align: right;padding-right: 100px;margin-top: 2em;">
+      <b>制单人：</b><%= current_user.name rescue ''%>
+      <b>复核：</b>
+    </div>
+
+    </div>
+    </div>
+    <div style="width:100%;height:20px;"></div>
+    </div>
+
+
+

@@ -43,12 +43,9 @@ class FinancesController < ApplicationController
   def search3
     time = (params[:from].present? and params[:from].present?) ? (params[:from]..params[:to]) : ''
     declaration_condition = {declare_date: time, load_port: params[:load_port]}.select { |key,value| value.present? }
-    if declaration_condition.nil?
-      return
-    end
     @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2, is_paid: true}).where(declaration_condition).order("declare_date asc")
     @check_methods = CheckMethod.where({from: params[:from], to: params[:to]})
-    if @finance_declarations.size != 0
+    if @finance_declarations.size != 0  and !declaration_condition.empty?
       cookies[:income_declaration_condition] = {value: declaration_condition, expires: 1.day.from_now}
       cookies[:from] = {value: params[:from], expires: 1.day.from_now}
       cookies[:to] = {value: params[:to], expires: 1.day.from_now}
@@ -124,7 +121,7 @@ class FinancesController < ApplicationController
         format.html {render :layout => 'print'}
         format.xls{
           @download = true
-          send_data(render_to_string(:template => "finances/print.html.erb") , :filename =>  Enterprise.find_by_code(cookies[:checkout_enterprise_code]).name + Time.now.strftime('%Y%m%d') + '.xls', :type => 'application/vnd.ms-excel; charset=utf-8; header=present')
+          send_data(render_to_string(:template => "finances/print.xls.erb") , :filename =>  Enterprise.find_by_code(cookies[:checkout_enterprise_code]).name + Time.now.strftime('%Y%m%d') + '.xls', :type => 'application/vnd.ms-excel; charset=utf-8; header=present')
           #send_data(render_to_string , :filename =>  Enterprise.find_by_code(cookies[:checkout_enterprise_code]).name + Time.now.strftime('%Y%m%d') + '.xls', :type => "application/vnd.ms-excel; charset=utf-8; header=present")
         }
       end
