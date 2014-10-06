@@ -43,6 +43,9 @@ class FinancesController < ApplicationController
   def search3
     time = (params[:from].present? and params[:from].present?) ? (params[:from]..params[:to]) : ''
     declaration_condition = {declare_date: time, load_port: params[:load_port]}.select { |key,value| value.present? }
+    if declaration_condition.nil?
+      return
+    end
     @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2, is_paid: true}).where(declaration_condition).order("declare_date asc")
     @check_methods = CheckMethod.where({from: params[:from], to: params[:to]})
     if @finance_declarations.size != 0
