@@ -4,8 +4,7 @@
     <h3>财务统计(只搜索 审核 后的账单)</h3>
 
     <div class="operations">
-      <%= link_to '打印', print_finances_path(format: "html"), :target => "_blank"%>&nbsp;|
-      <%= link_to '导出excel', print_finances_path(format: "xls"), :target => "_blank"%>
+      <%= link_to '打印', print_finances_path(format: "html") + '?can_export=true', :target => "_blank"%>
     </div>
   </div>
   <div class="content-box-content">

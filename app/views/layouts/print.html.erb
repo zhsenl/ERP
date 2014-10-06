@@ -19,7 +19,10 @@
       <button type="button" onclick='javascript:hide_seals();'>隐藏印章</button>
       &nbsp;
       <input type="file" value='上传印章' id="upload_seal" accept="image/*"/>
-		</div>
+      <% if params[:can_export] %>
+          <%= link_to "<button>导出excel</button>".html_safe, print_finances_path(format: "xls") %>
+      <% end %>
+    </div>
 		<div id="top-blank" class="noprint" ></div>
 		<%= yield %>
 		<div id="mytip" style="display: none;">

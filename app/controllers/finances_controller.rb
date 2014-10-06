@@ -121,7 +121,8 @@ class FinancesController < ApplicationController
         format.html {render :layout => 'print'}
         format.xls{
           @download = true
-          send_data(render_to_string(:template => "finances/print.html.erb") , :filename =>  Enterprise.find_by_code(cookies[:checkout_enterprise_code]).name + Time.now.strftime('%Y%m%d') + '.xls', :type => "application/xls")
+          send_data(render_to_string(:template => "finances/print.html.erb") , :filename =>  Enterprise.find_by_code(cookies[:checkout_enterprise_code]).name + Time.now.strftime('%Y%m%d') + '.xls', :type => 'application/vnd.ms-excel; charset=utf-8; header=present')
+          #send_data(render_to_string , :filename =>  Enterprise.find_by_code(cookies[:checkout_enterprise_code]).name + Time.now.strftime('%Y%m%d') + '.xls', :type => "application/vnd.ms-excel; charset=utf-8; header=present")
         }
       end
     end
