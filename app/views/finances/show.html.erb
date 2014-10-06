@@ -21,9 +21,9 @@ $(function(){
       <% end %>
       &nbsp;&nbsp;
       <% if @finance.review == 2 %>
-          <span style="color:red"><%= "已审核 "%></span><%= "(" + User.find(@finance.reviewer).username + ")"  %>
+          <span style="color:red"><%= "已审核 "%></span><%= "(" + User.find(@finance.reviewer).username + ")" rescue '' %>
       <% elsif @finance.review == 3 %>
-          <span style="color:red"><%= "退审单 "%></span><%= "(" + User.find(@finance.reviewer).username + ")"  %>
+          <span style="color:red"><%= "退审单 "%></span><%= "(" + User.find(@finance.reviewer).username + ")" rescue '' %>
       <% end %>
     </h3>
 
