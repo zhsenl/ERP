@@ -24,13 +24,18 @@ function hide_seals(){
     $('.seal').hide();
 }
 
-function hide_column(class_name){
-    $('.' + class_name).hide();
+function show_hide_column(class_name, id_name){
+    var text = $("#" + id_name).text();
+    if(text.substr(0, 2) == "显示"){
+        $('.' + class_name).show();
+        $("#" + id_name).text("隐藏" + text.substr(2, text.length));
+    }
+    else{
+        $('.' + class_name).hide();
+        $("#" + id_name).text("显示" + text.substr(2, text.length));
+    }
 }
 
-function show_column(class_name){
-    $('.' + class_name).show();
-}
 
 //seal-div的hide是删除，要给删除的seal-div加上hideseals的class
 function delete_seal(seal){
