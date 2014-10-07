@@ -4,6 +4,7 @@
       <table>
         <thead>
         <tr>
+          <th>序号</th>
           <th>日期</th>
           <th>报关单号</th>
           <th>进出口收发货单位</th>
@@ -18,6 +19,7 @@
         </tr>
         </tfoot>
         <tbody>
+        <% i = 0 %>
         <% @finance_declarations.each do |finance_declaration| %>
             <% finance_fees = finance_declaration.finances[0].finance_fees %>
             <%# total_fee = 0 %>
@@ -25,6 +27,7 @@
                  total_fee = total_fee + Dict::Fee.find_by_code(finance_fee.code).price
             end%>
             <tr>
+              <td><%= i += 1 %></td>
               <td style="display: none"><%= finance_declaration.id %></td>
               <td><%= finance_declaration.declare_date %></td>
               <td><%= finance_declaration.entry_no %></td>

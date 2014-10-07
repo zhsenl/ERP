@@ -87,12 +87,12 @@
       <tr>
         <td>序号</td>
         <td>报关日期</td>
-        <td></td>
+        <td class='trade_mode'></td>
         <td>客户</td>
         <td>报关单号</td>
-        <td>商品名称</td>
-        <td>合同协议</td>
-        <td>车牌</td>
+        <td class='cargo_name'>商品名称</td>
+        <td class='contract_no'>合同协议</td>
+        <td class='bill_no'>车牌</td>
         <% finance_fee_names.each_with_index do |finance_fee_name, i| %>
             <td><%#  finance_fee_codes[i] %><%= finance_fee_name[0..-2] %></td>
         <% end %>
@@ -112,7 +112,7 @@
             <td style="font-size: 10px"><% d = finance_declaration_array[0].declare_date.to_s%><%= d[0..3] + d[5..6] + d[8..9]  %></td>
 
             <%# FOB CIF %>
-            <td style="padding: 0">
+            <td class='trade_mode' style="padding: 0">
               <table rules=rows style=" width: 100%;">
                 <% finance_declaration_array.each do |finance_declaration| %>
                     <tr>
@@ -145,18 +145,18 @@
             </td>
 
             <%# 商品名称 %>
-            <td style="padding: 0">
+            <td class='cargo_name' style="padding: 0">
               <table rules=rows style=" width: 100%;">
                 <% finance_declaration_array.each do |finance_declaration| %>
                     <tr>
-                      <td><%= finance_declaration.declaration_cargos.first.name[0..5] rescue ''%></td>
+                      <td><%= finance_declaration.declaration_cargos.first.name[0..5] rescue ''%>&nbsp;</td>
                     </tr>
                 <% end %>
               </table>
             </td>
 
             <%# 合同协议 %>
-            <td style="padding: 0">
+            <td class='contract_no' style="padding: 0">
               <table rules=rows style=" width: 100%;">
                 <% finance_declaration_array.each do |finance_declaration| %>
                     <tr>
@@ -167,7 +167,7 @@
             </td>
 
             <%# 车牌 %>
-            <td style="padding: 0">
+            <td class='bill_no' style="padding: 0">
               <table rules=rows style=" width: 100%;">
                 <% finance_declaration_array.each do |finance_declaration| %>
                     <tr>
@@ -235,12 +235,12 @@
           <tr>
             <td></td>
             <td>合计</td>
+            <td class='trade_mode' ></td>
             <td></td>
             <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td class='cargo_name'></td>
+            <td class='contract_no'></td>
+            <td class='bill_no'></td>
             <% col_total_prices.each do |col_total_price| %>
                 <td><%= sprintf "%0.2f",col_total_price %></td>
             <% end %>
@@ -248,10 +248,14 @@
       <% end %>
       </tbody>
     </table>
-
     <% if page_index == @pages_size - 1   %>
-
-        <% (@page_size - page.size).times do %>
+        <%
+           last_page_size = 0
+           page.each do |finance_declaration_array|
+             last_page_size += finance_declaration_array.size
+           end
+        %>
+        <% (@page_size - last_page_size).times do %>
             <div style="height: 17px">
               &nbsp;
             </div>

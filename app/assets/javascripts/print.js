@@ -23,6 +23,15 @@ function show_seals(){
 function hide_seals(){
     $('.seal').hide();
 }
+
+function hide_column(class_name){
+    $('.' + class_name).hide();
+}
+
+function show_column(class_name){
+    $('.' + class_name).show();
+}
+
 //seal-div的hide是删除，要给删除的seal-div加上hideseals的class
 function delete_seal(seal){
     $(seal).parent().hide().addClass("hideseals");

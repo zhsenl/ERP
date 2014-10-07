@@ -9,20 +9,38 @@
 	</head>
 	<body>
 		<div id="toolbar" class="noprint" >
-			<button type="button" onclick="javascript:preview_all();">打印预览</button>
-			<button type="button" onclick="javascript:preview_all();window.print();">打印</button>
-			&nbsp;
-			<button type="button" onclick="javascript:preview_content();">套打预览</button>
-			<button type="button" onclick="javascript:preview_content();window.print();">套打</button>
-      &nbsp;
-      <button type="button" onclick='javascript:show_seals();'>显示印章</button>
-      <button type="button" onclick='javascript:hide_seals();'>隐藏印章</button>
-      &nbsp;
-      <input type="file" value='上传印章' id="upload_seal" accept="image/*"/>
-      <% if params[:can_export] %>
-          <%= link_to "<button>导出excel</button>".html_safe, print_finances_path(format: "xls") , :target => "_blank"%>
-      <% end %>
+			<div>
+        <button type="button" onclick="javascript:preview_all();">打印预览</button>
+        <button type="button" onclick="javascript:preview_all();window.print();">打印</button>
+        &nbsp;
+        <button type="button" onclick="javascript:preview_content();">套打预览</button>
+        <button type="button" onclick="javascript:preview_content();window.print();">套打</button>
+        &nbsp;
+        <button type="button" onclick='javascript:show_seals();'>显示印章</button>
+        <button type="button" onclick='javascript:hide_seals();'>隐藏印章</button>
+        &nbsp;
+        <input type="file" value='上传印章' id="upload_seal" accept="image/*"/>
+        <% if params[:can_export] %>
+            <%= link_to "<button>导出excel</button>".html_safe, print_finances_path(format: "xls") , :target => "_blank"%>
+        <% end %>
+			</div>
+      <div>
+        <% if params[:can_export] %>    <%# 暂时只有 财务统计 那里会传这个 can_port 变量过来，而也只有那里需要隐藏表格的一些栏目，所以就用 can_port来表示要不要隐藏 %>
+            <button type="button" onclick='javascript:show_column("cargo_name");'>显示商品</button>
+            <button type="button" onclick='javascript:hide_column("cargo_name");'>隐藏商品</button>
+
+            <button type="button" onclick='javascript:show_column("trade_mode");'>显示FOB/CIF</button>
+            <button type="button" onclick='javascript:hide_column("trade_mode");'>隐藏FOB/CIF</button>
+
+            <button type="button" onclick='javascript:show_column("bill_no");'>显示车牌</button>
+            <button type="button" onclick='javascript:hide_column("bill_no");'>隐藏车牌</button>
+
+            <button type="button" onclick='javascript:show_column("contract_no");'>显示合同协议号</button>
+            <button type="button" onclick='javascript:hide_column("contract_no");'>隐藏合同协议号</button>
+        <% end %>
+      </div>
     </div>
+
 		<div id="top-blank" class="noprint" ></div>
 		<%= yield %>
 		<div id="mytip" style="display: none;">
