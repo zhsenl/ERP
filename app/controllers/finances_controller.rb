@@ -93,12 +93,12 @@ class FinancesController < ApplicationController
 
   #营业统计
   def income
-    #if cookies[:income_declaration_condition] #and params[:page] #and  cookies[:income_enterprise_condition]
-    #                                          #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(cookies[:income_declaration_condition]).page(params[:page]).order("declare_date, finances.combine_no  asc")
-    #  @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2, is_paid: true}).where(eval(cookies[:income_declaration_condition])).order("declare_date, finances.combine_no  asc")
-    #  @check_methods = CheckMethod.where({from: cookies[:from], to: cookies[:to]})
-    #  statistics(cookies[:income_declaration_condition])
-    #end
+    if cookies[:income_declaration_condition] #and params[:page] #and  cookies[:income_enterprise_condition]
+                                              #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(cookies[:income_declaration_condition]).page(params[:page]).order("declare_date, finances.combine_no  asc")
+      @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2, is_paid: true}).where(eval(cookies[:income_declaration_condition])).order("declare_date, finances.combine_no  asc")
+      @check_methods = CheckMethod.where({from: cookies[:from], to: cookies[:to]})
+      statistics(cookies[:income_declaration_condition])
+    end
   end
   #营业统计的打印
   def print2

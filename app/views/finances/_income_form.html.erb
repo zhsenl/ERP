@@ -65,7 +65,7 @@
             $("#finance_search_status").empty().append("加载成功").css('color','green');
             if( xhr.responseText){
                 $('#income_result_div').empty().append( xhr.responseText)
-                $('tbody tr:even').not(".alt-row").addClass("alt-row"); // Add class "alt-row" to even table rows
+                //$('tbody tr:even').not(".alt-row").addClass("alt-row"); // Add class "alt-row" to even table rows
                 $('.pagination a').each(function(i){
                     $(this).attr("href","income?page=" + (i+2));
                 })
