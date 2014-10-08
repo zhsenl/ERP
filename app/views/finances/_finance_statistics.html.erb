@@ -10,36 +10,38 @@
    end
    col_total_prices = Array.new(finance_fee_codes.size + 1, 0)
    no = 0 %>
-<% @pages.each_with_index do |page, page_index| %>
-    <% if page.empty?
-         next
-       end %>
-    <fieldset>
-      <legend>付费信息：</legend><!--财务统计信息-->
-      <div>
-        <div class="outer-center">
-          <div class="inner-center">
-            <table border=1 style="border-collapse:collapse;">
-              <thead style="font-weight: bold">
-              <tr>
-                <td>序号</td>
-                <td>报关日期</td>
-                <td></td>
-                <td>客户</td>
-                <td>报关单号</td>
-                <% cookies[:finance_fee_names] = {value: finance_fee_names, expires: 1.day.from_now} %>
-                <% finance_fee_names.each do |finance_fee_name| %>
-                    <td><%= finance_fee_name[0..-2] %></td>
-                <% end %>
-                <td>金额</td>
-              </tr>
-              </thead>
+<fieldset>
+  <legend>付费信息：</legend>
+  <!--财务统计信息-->
+  <div>
+    <div class="outer-center">
+      <div class="inner-center">
+        <table border=1 style="border-collapse:collapse;">
+          <thead style="font-weight: bold">
+          <tr>
+            <td>序号</td>
+            <td>报关日期</td>
+            <td></td>
+            <td>付费企业名称</td>
+            <td>报关单号</td>
+            <% cookies[:finance_fee_names] = {value: finance_fee_names, expires: 1.day.from_now} %>
+            <% finance_fee_names.each do |finance_fee_name| %>
+                <td><%= finance_fee_name[0..-2] %></td>
+            <% end %>
+            <td>金额</td>
+          </tr>
+          </thead>
+          <% @pages.each_with_index do |page, page_index| %>
+              <% if page.empty?
+                   next
+                 end %>
+
               <tbody>
               <% page.each do |finance_declaration_array| %>
                   <%
-                    if finance_declaration_array.empty?
-                        next
-                    end
+                     if finance_declaration_array.empty?
+                       next
+                     end
                   %>
                   <tr class='not-alt-row'>
                     <td><%= no = no + 1 %></td>
@@ -50,7 +52,7 @@
                             <% finance = finance_declaration.finances.first %>
                             <% checkout_enterprises = finance.checkout_enterprises %>
                             <% checkout_enterprises.each do |checkout_enterprise| %>
-                                <tr  class='not-alt-row'>
+                                <tr class='not-alt-row'>
                                   <td><%= Dict::DealMode.find_by_code(finance_declaration.deal_mode).name rescue '' %></td>
                                 </tr>
                             <% end %>
@@ -64,7 +66,7 @@
                             <% finance = finance_declaration.finances.first %>
                             <% checkout_enterprises = finance.checkout_enterprises %>
                             <% checkout_enterprises.each do |checkout_enterprise| %>
-                                <tr  class='not-alt-row'>
+                                <tr class='not-alt-row'>
                                   <td><%= Enterprise.find_by_code(checkout_enterprise.code).name[0..-5] rescue '' %></td>
                                 </tr>
                             <% end %>
@@ -78,7 +80,7 @@
                             <% finance = finance_declaration.finances.first %>
                             <% checkout_enterprises = finance.checkout_enterprises %>
                             <% checkout_enterprises.each do |checkout_enterprise| %>
-                                <tr  class='not-alt-row'>
+                                <tr class='not-alt-row'>
                                   <td><%= finance_declaration.entry_no[-10..-1] %></td>
                                 </tr>
                             <% end %>
@@ -102,7 +104,7 @@
                                         <% checkout_enterprise_fees = checkout_enterprise.finance_fees %>
                                     <% end %>
                                     <% if checkout_enterprise_fees_i[row_i] < checkout_enterprise_fees.size and finance_fee_code == checkout_enterprise_fees[checkout_enterprise_fees_i[row_i]].code %>
-                                        <tr  class='not-alt-row'>
+                                        <tr class='not-alt-row'>
                                           <td><%= price = FinanceFee.find_by_code(finance_fee_code).price %></td>
                                         </tr>
                                         <% col_total_prices[vi] = col_total_prices[vi] + price %>
@@ -110,7 +112,7 @@
                                         <% row_total_price[row_i] = row_total_price[row_i] + price %>
                                         <% row_i = row_i + 1 %>
                                     <% else %>
-                                        <tr  class='not-alt-row'>
+                                        <tr class='not-alt-row'>
                                           <td>&nbsp;</td>
                                         </tr>
                                         <% row_i = row_i + 1 %>
@@ -128,7 +130,7 @@
                             <% finance = finance_declaration.finances.first %>
                             <% checkout_enterprises = finance.checkout_enterprises %>
                             <% checkout_enterprises.each do |checkout_enterprise| %>
-                                <tr  class='not-alt-row'>
+                                <tr class='not-alt-row'>
                                   <td><%= row_total_price[row_i] %></td>
                                 </tr>
                                 <% row_i = row_i + 1 %>
@@ -156,9 +158,9 @@
                   </tr>
               <% end %>
               </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-      </fieldset>
-<% end %>
+              </table>
+              </div>
+              </div>
+              </div>
+              </fieldset>
+          <% end %>
