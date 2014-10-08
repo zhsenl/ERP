@@ -84,8 +84,15 @@ class FinancesController < ApplicationController
         format.html {render :layout => 'print'}
         format.xls{
           @download = true
-          send_data(render_to_string(:template => "finances/print.xls.erb") , :filename =>  Enterprise.find_by_code(cookies[:checkout_enterprise_code]).name + Time.now.strftime('%Y%m%d') + '.xls', :type => 'application/ms-excel; charset=utf-8; header=present')
-          #send_data(render_to_string , :filename =>  Enterprise.find_by_code(cookies[:checkout_enterprise_code]).name + Time.now.strftime('%Y%m%d') + '.xls', :type => "application/vnd.ms-excel; charset=utf-8; header=present")
+          #send_data(render_to_string(:template => "finances/print.xls.erb") , :filename =>  Enterprise.find_by_code(cookies[:checkout_enterprise_code]).name + Time.now.strftime('%Y%m%d') + '.xls', :type => 'application/ms-excel; charset=utf-8; header=present')
+          require 'win32ole'
+          File.open('public/excels/test.xls', 'w'){|file| file.write(render_to_string(:template => "finances/print.xls.erb"))}
+          excel = WIN32OLE::new('excel.Application')
+          workbook = excel.Workbooks.Open('E:\work\ruby\ERP\public\excels\test.xls')
+          workbook.SaveAs 'E:\work\ruby\ERP\public\excels\test.xls', 56
+          excel.ActiveWorkbook.Close(0)
+          excel.Quit
+
         }
       end
     end
