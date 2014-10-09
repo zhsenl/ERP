@@ -16,10 +16,10 @@ class FinancesController < ApplicationController
   end
 
   def check
-    #if cookies[:check_declaration_condition] #and params[:page] #and  cookies[:checkout_enterprise_condition]
-    #                                         #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(cookies[:check_declaration_condition]).page(params[:page]).order("declare_date asc")
-    #  @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(eval(cookies[:check_declaration_condition])).order("declare_date asc")
-    #end
+    if cookies[:check_declaration_condition] #and params[:page] #and  cookies[:checkout_enterprise_condition]
+                                             #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(cookies[:check_declaration_condition]).page(params[:page]).order("declare_date asc")
+      @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(eval(cookies[:check_declaration_condition])).order("declare_date asc")
+    end
   end
 
   #财务结算的搜索
@@ -85,15 +85,41 @@ class FinancesController < ApplicationController
         format.xls{
           @download = true
           #send_data(render_to_string(:template => "finances/print.xls.erb") , :filename =>  Enterprise.find_by_code(cookies[:checkout_enterprise_code]).name + Time.now.strftime('%Y%m%d') + '.xls', :type => 'application/ms-excel; charset=utf-8; header=present')
-          file_path = Rails.root.join('public', 'excels', 'test.xls')
-          require 'win32ole'
+          #@excel_book = Spreadsheet::Workbook.new(render_to_string(:template => "finances/print.xls.erb") );
+          #@excel_book.write "E:/work/ruby/ERP/lib/tasks/excel.rb";
+
+          file_path = Rails.root.join('public', 'excels', 'test.xls').to_s
           File.open(file_path, 'w'){|file| file.write(render_to_string(:template => "finances/print.xls.erb"))}
+          #require 'stringio';
+          ## generate_spreadsheet returns Spreadsheet::Workbook
+          #@excel_book = Spreadsheet::Workbook.new(file_path);
+          #data = StringIO.new ;
+          #@excel_book.write data;
+          ## display 'Save As', let user save
+          ## observe: first argument is *data.string*, not data
+          #send_data(data.string, {
+          #    :disposition => 'attachment',
+          #    :encoding => 'utf8',
+          #    :stream => false,
+          #    :type => 'application/excel',
+          #    :filename => 'some_filename.xls'})
+
+
+
+          #system("bundle exec ruby " + "E:/work/ruby/ERP/lib/tasks/excel.rb")
+          require 'win32ole'
           excel = WIN32OLE::new('excel.Application')
           workbook = excel.Workbooks.Open(file_path)
-          workbook.SaveAs file_path, 56
-          excel.ActiveWorkbook.Close(0)
-          excel.Quit
-
+          begin
+            workbook.SaveAs file_path, 56
+          rescue
+          ensure
+            excel.ActiveWorkbook.Close(0);
+            excel.Quit();
+            workbook = nil
+            excel = nil
+            GC.start
+          end
         }
       end
     end
@@ -220,9 +246,9 @@ class FinancesController < ApplicationController
   # GET /finances
   # GET /finances.json
   def index
-    #if  cookies[:declaration_condition] and cookies[:finance_condition]
-    #  @finance_declarations = Declaration.joins(:finances).where(eval(cookies[:declaration_condition])).where( finances:eval(cookies[:finance_condition])).page(params[:page]).order("declare_date asc")
-    #end
+    if  cookies[:declaration_condition] and cookies[:finance_condition]
+      @finance_declarations = Declaration.joins(:finances).where(eval(cookies[:declaration_condition])).where( finances:eval(cookies[:finance_condition])).page(params[:page]).order("declare_date asc")
+    end
   end
 
   # GET /finances/1
