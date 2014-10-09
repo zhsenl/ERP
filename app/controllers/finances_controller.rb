@@ -85,11 +85,13 @@ class FinancesController < ApplicationController
         format.xls{
           @download = true
           #send_data(render_to_string(:template => "finances/print.xls.erb") , :filename =>  Enterprise.find_by_code(cookies[:checkout_enterprise_code]).name + Time.now.strftime('%Y%m%d') + '.xls', :type => 'application/ms-excel; charset=utf-8; header=present')
-          #@excel_book = Spreadsheet::Workbook.new(render_to_string(:template => "finances/print.xls.erb") );
-          #@excel_book.write "E:/work/ruby/ERP/lib/tasks/excel.rb";
-
-          file_path = Rails.root.join('public', 'excels', 'test.xls').to_s
+          filename = "finance#{Time.new.strftime("%Y%m%d%H%M%S")}.xls"
+          file_path = Rails.root.join('public', 'excels', filename).to_s
           File.open(file_path, 'w'){|file| file.write(render_to_string(:template => "finances/print.xls.erb"))}
+          excel_call = `bundle exec ruby #{Rails.root.join('lib', 'tasks', 'excel.rb').to_s} #{file_path}`
+          result = excel_call
+          puts 'test'
+          puts result
           #require 'stringio';
           ## generate_spreadsheet returns Spreadsheet::Workbook
           #@excel_book = Spreadsheet::Workbook.new(file_path);
@@ -104,22 +106,6 @@ class FinancesController < ApplicationController
           #    :type => 'application/excel',
           #    :filename => 'some_filename.xls'})
 
-
-
-          #system("bundle exec ruby " + "E:/work/ruby/ERP/lib/tasks/excel.rb")
-          require 'win32ole'
-          excel = WIN32OLE::new('excel.Application')
-          workbook = excel.Workbooks.Open(file_path)
-          begin
-            workbook.SaveAs file_path, 56
-          rescue
-          ensure
-            excel.ActiveWorkbook.Close(0);
-            excel.Quit();
-            workbook = nil
-            excel = nil
-            GC.start
-          end
         }
       end
     end

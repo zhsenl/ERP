@@ -130,7 +130,7 @@
               <table rules=rows style=" width: 100%;">
                 <% finance_declaration_array.each do |finance_declaration| %>
                     <tr>
-                      <td><%= finance_declaration.enterprise.name rescue '' %></td>
+                      <td><%= finance_declaration.enterprise.name[0..-5] rescue '' %></td>
                     </tr>
                 <% end %>
               </table>
