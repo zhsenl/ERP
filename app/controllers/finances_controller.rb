@@ -115,6 +115,7 @@ class FinancesController < ApplicationController
           if !Enterprise.find_by_code(cookies[:checkout_enterprise_code]).nil?
             download_name = Enterprise.find_by_code(cookies[:checkout_enterprise_code]).name + Time.now.strftime('%Y%m%d') + '.xls'
           end
+          File.delete(file_path)
           send_file('public/excels/' + filename[0..-5] + '_excel.xls', :filename => download_name , :type => "application/xls" , :disposition => "attachment")
         }
       end
