@@ -1,0 +1,40 @@
+<% if !@finance_declarations.blank? %>
+    <div class="tab-content default-tab">
+      <table>
+        <thead>
+        <tr>
+          <th>序号</th>
+          <th>付费企业名称</th>
+        </tr>
+        </thead>
+        <tfoot>
+        <tr>
+          <td colspan="6"> <%# will_paginate @finance_declarations %> </td>
+        </tr>
+        </tfoot>
+        <tbody>
+        <% i = 0 %>
+        <% code = {} %>
+        <% name = '' %>
+        <% @finance_declarations.each do |finance_declaration| %>
+           <% finance_declaration.finances.first.checkout_enterprises.each do |e|     %>
+             <% if e.code.blank? or code[e.code]
+                  next
+                else
+                  code[e.code] = true
+                  name = Enterprise.find_by_code(e.code).name rescue ''
+                  if name.blank?
+                    next
+                  end
+                end
+             %>
+             <tr>
+               <td><%= i += 1  %></td>
+               <td> <%= link_to name,  check_finances_path + "?code=#{e.code}" , :target => "_blank" rescue ''%></td>
+             </tr>
+           <% end %>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+<% end %>

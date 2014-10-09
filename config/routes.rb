@@ -180,6 +180,7 @@ ERP::Application.routes.draw do
     get 'pay', :on => :collection
     get 'search', :on => :collection
     get 'search2', :on => :collection
+    get 'multisearch2', :on => :collection
     get 'search3', :on => :collection
     post 'combine', :on => :collection
     post 'uncombine', :on => :collection

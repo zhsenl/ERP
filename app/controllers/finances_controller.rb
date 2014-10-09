@@ -16,10 +16,15 @@ class FinancesController < ApplicationController
   end
 
   def check
-    if cookies[:check_declaration_condition] or  cookies[:checkout_enterprise_condition]
-      #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(eval(cookies[:check_declaration_condition])).order("declare_date asc")
+    if params[:code]  #这个表示是从“搜索付费企业”的结果列表中点击某个企业跳转过来的
+      checkout_enterprise_condition = {code: params[:code]}.select { |key,value| value.present? }
+      @finance_declarations = Declaration.joins( :checkout_enterprises).joins(:finances).where(finances:{review: 2}).where(eval(cookies[:check_declaration_condition])).where(checkout_enterprises:checkout_enterprise_condition).order("declare_date, finances.combine_no asc")
+      if @finance_declarations.size != 0
+        cookies[:checkout_enterprise_condition] =  {value: checkout_enterprise_condition, expires: 1.day.from_now}
+        cookies[:checkout_enterprise_code] = {value: params[:code], expires: 1.day.from_now}
+      end
+    elsif cookies[:check_declaration_condition] or  cookies[:checkout_enterprise_condition]
       @finance_declarations = Declaration.joins( :checkout_enterprises).joins(:finances).where(finances:{review: 2}).where(eval(cookies[:check_declaration_condition])).where(checkout_enterprises:eval(cookies[:checkout_enterprise_condition])).order("declare_date, finances.combine_no asc")
-
     end
   end
 
@@ -74,6 +79,22 @@ class FinancesController < ApplicationController
       cookies[:check_load_port] =    {value: params[:load_port], expires: 1.day.from_now}
     end
     render :partial =>"check_result"
+  end
+
+  def multisearch2
+    time = (params[:from].present? and params[:from].present?) ? (params[:from]..params[:to]) : ''
+    #checkout_enterprise_condition = {code: params[:checkout_enterprise_code]}.select { |key,value| value.present? }
+    declaration_condition = {declare_date: time, load_port: params[:load_port]}.select { |key,value| value.present? }
+    #@finance_declarations = Declaration.joins( :checkout_enterprises).joins(:finances).where(finances:{review: 2}).where(declaration_condition).where(checkout_enterprises:checkout_enterprise_condition).order("declare_date, finances.combine_no asc")
+    @finance_declarations = Declaration.joins( :checkout_enterprises).joins(:finances).where(finances:{review: 2}).where(declaration_condition).order("declare_date, checkout_enterprises.code asc")
+    if @finance_declarations.size != 0
+      cookies[:check_declaration_condition] = {value: declaration_condition, expires: 1.day.from_now}
+      cookies[:recipient_enterprise_code] = {value: params[:recipient_enterprise_code], expires: 1.day.from_now}
+      cookies[:check_from] = {value: params[:from], expires: 1.day.from_now}
+      cookies[:check_to] = {value: params[:to], expires: 1.day.from_now}
+      cookies[:check_load_port] =    {value: params[:load_port], expires: 1.day.from_now}
+    end
+    render :partial =>"multicheck_result"
   end
 
   def print
