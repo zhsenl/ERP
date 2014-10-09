@@ -76,8 +76,8 @@
         <td></td>
         <td></td>
         <td ><b>客户：</b><%= Enterprise.find_by_code(cookies[:checkout_enterprise_code]).name rescue '' %></td>
-        <td><b>时间：</b><%= cookies[:from] + "至" + cookies[:to] rescue '' %></td>
-        <td><b>装卸口岸：</b><%= cookies[:load_port] rescue '' %></td>
+        <td><b>时间：</b><%= cookies[:check_from] + "至" + cookies[:check_to] rescue '' %></td>
+        <td><b>装卸口岸：</b><%= cookies[:check_load_port] rescue '' %></td>
         <td><b>币制：</b><span class="content">人民币</span></td>
       </tr>
     </table>

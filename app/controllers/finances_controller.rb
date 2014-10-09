@@ -16,9 +16,10 @@ class FinancesController < ApplicationController
   end
 
   def check
-    if cookies[:check_declaration_condition] #and params[:page] #and  cookies[:checkout_enterprise_condition]
-                                             #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(cookies[:check_declaration_condition]).page(params[:page]).order("declare_date asc")
-      @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(eval(cookies[:check_declaration_condition])).order("declare_date asc")
+    if cookies[:check_declaration_condition] or  cookies[:checkout_enterprise_condition]
+      #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(eval(cookies[:check_declaration_condition])).order("declare_date asc")
+      @finance_declarations = Declaration.joins( :checkout_enterprises).joins(:finances).where(finances:{review: 2}).where(eval(cookies[:check_declaration_condition])).where(checkout_enterprises:eval(cookies[:checkout_enterprise_condition])).order("declare_date, finances.combine_no asc")
+
     end
   end
 
@@ -68,9 +69,9 @@ class FinancesController < ApplicationController
       cookies[:check_declaration_condition] = {value: declaration_condition, expires: 1.day.from_now}
       cookies[:checkout_enterprise_code] = {value: params[:checkout_enterprise_code], expires: 1.day.from_now}
       cookies[:recipient_enterprise_code] = {value: params[:recipient_enterprise_code], expires: 1.day.from_now}
-      cookies[:from] = {value: params[:from], expires: 1.day.from_now}
-      cookies[:to] = {value: params[:to], expires: 1.day.from_now}
-      cookies[:load_port] =    {value: params[:load_port], expires: 1.day.from_now}
+      cookies[:check_from] = {value: params[:from], expires: 1.day.from_now}
+      cookies[:check_to] = {value: params[:to], expires: 1.day.from_now}
+      cookies[:check_load_port] =    {value: params[:load_port], expires: 1.day.from_now}
     end
     render :partial =>"check_result"
   end
@@ -101,10 +102,10 @@ class FinancesController < ApplicationController
 
   #营业统计
   def income
-    if cookies[:income_declaration_condition] #and params[:page] #and  cookies[:income_enterprise_condition]
+    if cookies[:income_declaration_condition] or cookies[:income_enterprise_condition]
                                               #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(cookies[:income_declaration_condition]).page(params[:page]).order("declare_date, finances.combine_no  asc")
       @finance_declarations = Declaration.joins(:finances).where(finances:{review: 2, is_paid: true}).where(eval(cookies[:income_declaration_condition])).order("declare_date, finances.combine_no  asc")
-      @check_methods = CheckMethod.where({from: cookies[:from], to: cookies[:to]})
+      @check_methods = CheckMethod.where({from: cookies[:income_from], to: cookies[:income_to]})
       statistics(cookies[:income_declaration_condition])
     end
   end
@@ -112,7 +113,7 @@ class FinancesController < ApplicationController
   def print2
     if cookies[:finance_fee_names] and cookies[:col_total_prices] #and params[:page] #and  cookies[:income_enterprise_condition]
                                                                   #@finance_declarations = Declaration.joins(:finances).where(finances:{review: 2}).where(cookies[:income_declaration_condition]).page(params[:page]).order("declare_date, finances.combine_no  asc")
-      @check_methods = CheckMethod.where({from: cookies[:from], to: cookies[:to]})
+      @check_methods = CheckMethod.where({from: cookies[:income_from], to: cookies[:income_to]})
       render :layout => 'print'
     end
   end
@@ -124,9 +125,9 @@ class FinancesController < ApplicationController
     @check_methods = CheckMethod.where({from: params[:from], to: params[:to]})
     if @finance_declarations.size != 0  and !declaration_condition.empty?
       cookies[:income_declaration_condition] = {value: declaration_condition, expires: 1.day.from_now}
-      cookies[:from] = {value: params[:from], expires: 1.day.from_now}
-      cookies[:to] = {value: params[:to], expires: 1.day.from_now}
-      cookies[:load_port] = {value: params[:load_port], expirres: 1.day.from_now}
+      cookies[:income_from] = {value: params[:from], expires: 1.day.from_now}
+      cookies[:income_to] = {value: params[:to], expires: 1.day.from_now}
+      cookies[:income_load_port] = {value: params[:load_port], expirres: 1.day.from_now}
       statistics(declaration_condition.to_s)
     end
     render :partial =>"income_result"

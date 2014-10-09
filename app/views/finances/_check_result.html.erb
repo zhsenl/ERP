@@ -31,9 +31,9 @@
               <td><%= i += 1 %></td>
               <td><%= finance_declaration.declare_date %></td>
               <td><%= finance_declaration.entry_no %></td>
-              <td><%= finance_declaration.enterprise.name %></td>
+              <td><%= finance_declaration.enterprise.name rescue ''%></td>
               <td><%= finance_declaration.declaration_type == 'export' ? "出口":"进口" %></td>
-              <td><%= Dict::DealMode.find_by_code(finance_declaration.deal_mode).name %></td>
+              <td><%= Dict::DealMode.find_by_code(finance_declaration.deal_mode).name rescue ''%></td>
               <td style="color:green"><input type="checkbox" ><%= "合并号为:" + finance_declaration.finances[0].combine_no.to_s if !finance_declaration.finances[0].combine_no.blank? and !finance_declaration.finances[0].combine_no != 0  %></td>
             </tr>
         <% end %>
