@@ -1,7 +1,7 @@
 
 <div class="content-box">
   <div class="content-box-header">
-    <h3>财务统计(只搜索 审核 后的账单)</h3>
+    <h3>财务统计（<%= params[:code] ? Enterprise.find_by_code(params[:code]).name  : "只搜索 审核 后的账单"  rescue ''%>）</h3>
 
     <div class="operations">
       <%= link_to '打印', print_finances_path(format: "html") + '?can_export=true', :target => "_blank"%>
