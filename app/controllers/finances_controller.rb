@@ -89,23 +89,11 @@ class FinancesController < ApplicationController
           file_path = Rails.root.join('public', 'excels', filename).to_s
           File.open(file_path, 'w'){|file| file.write(render_to_string(:template => "finances/print.xls.erb"))}
           excel_call = `bundle exec ruby #{Rails.root.join('lib', 'tasks', 'excel.rb').to_s} #{file_path}`
-          result = excel_call
-          puts 'test'
-          puts result
-          #require 'stringio';
-          ## generate_spreadsheet returns Spreadsheet::Workbook
-          #@excel_book = Spreadsheet::Workbook.new(file_path);
-          #data = StringIO.new ;
-          #@excel_book.write data;
-          ## display 'Save As', let user save
-          ## observe: first argument is *data.string*, not data
-          #send_data(data.string, {
-          #    :disposition => 'attachment',
-          #    :encoding => 'utf8',
-          #    :stream => false,
-          #    :type => 'application/excel',
-          #    :filename => 'some_filename.xls'})
-
+          download_name = excel_call
+          if !Enterprise.find_by_code(cookies[:checkout_enterprise_code]).nil?
+            download_name = Enterprise.find_by_code(cookies[:checkout_enterprise_code]).name + Time.now.strftime('%Y%m%d') + '.xls'
+          end
+          send_file('public/excels/' + filename[0..-5] + '_excel.xls', :filename => download_name , :type => "application/xls" , :disposition => "attachment")
         }
       end
     end

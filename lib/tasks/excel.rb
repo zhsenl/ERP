@@ -7,11 +7,11 @@ rescue
   excel = WIN32OLE.new("excel.application")
 end
 excel.visible = true
-puts ARGV[0]
 workbook = excel.Workbooks.Open(ARGV[0])
 filename =  ARGV[0][0..-5] + '_excel.xls'
 dos_file = filename.gsub(/\//, "\\\\")
 workbook.SaveAs dos_file, 56
 excel.ActiveWorkbook.Close(0);
+puts filename
 
 
