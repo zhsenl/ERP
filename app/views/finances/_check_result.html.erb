@@ -27,8 +27,8 @@
                  total_fee = total_fee + Dict::Fee.find_by_code(finance_fee.code).price
             end%>
             <tr>
+              <td style="display: none"><%= finance_declaration.id %></td>     <%#这个必须是第一个 %>
               <td><%= i += 1 %></td>
-              <td style="display: none"><%= finance_declaration.id %></td>
               <td><%= finance_declaration.declare_date %></td>
               <td><%= finance_declaration.entry_no %></td>
               <td><%= finance_declaration.enterprise.name %></td>
