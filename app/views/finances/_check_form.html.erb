@@ -93,7 +93,7 @@
 
       <div class="field">
         <label>收费企业名称</label>
-        <input id="recipient_enterprise_autocomplete" name="recipient_enterprise_code" class="text-input small-input first-field" type="text" data-url="<%= enterprises_path %>" data-minLength="2" value=<%= cookies[:recipient_enterprise_code] %> >
+        <input id="recipient_enterprise_autocomplete" name="recipient_enterprise_code" class="text-input small-input first-field" type="text" data-url="<%= enterprises_path %>" data-minLength="2"   >
         &nbsp;&nbsp;
         <br />
         <small id="recipient_enterprise_autocomplete_label">输入组织机构代码或名字</small>
@@ -102,7 +102,7 @@
       <div class="field">
         <!--<label>经营单位</label>  -->
         <label>付费企业名称</label>
-        <input id="checkout_enterprise_autocomplete" name="checkout_enterprise_code" class="text-input small-input first-field" type="text" data-url="<%= enterprises_path %>" data-minLength="2" value=<%= cookies[:checkout_enterprise_code] %> >
+        <input id="checkout_enterprise_autocomplete" name="checkout_enterprise_code" class="text-input small-input first-field" type="text" data-url="<%= enterprises_path %>" data-minLength="2"  >
         &nbsp;&nbsp;
         <br />
         <small id="checkout_enterprise_autocomplete_label">输入组织机构代码或名字</small>
@@ -110,15 +110,15 @@
 
       <div class="field">
         <label>装卸口岸</label>
-        <%= text_field_tag "load_port", cookies[:check_load_port], :class => "text-input small-input"%>
+        <%= text_field_tag "load_port", nil, :class => "text-input small-input"%>
       </div>
       <div class="field">
         <label>开始时间</label>
-        <%= text_field_tag "from", cookies[:check_from],  :class => "text-input small-input"%>
+        <%= text_field_tag "from", nil,  :class => "text-input small-input"%>
       </div>
       <div class="field">
         <label>结束时间</label>
-        <%= text_field_tag "to",  cookies[:check_to],  :class => "text-input small-input" %>
+        <%= text_field_tag "to",  nil,  :class => "text-input small-input" %>
       </div>
       <div class="clear"></div><!-- End .clear -->
 
