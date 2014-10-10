@@ -47,7 +47,7 @@
               <td><%= review[finance.review] %></td>
               <td><%= finance.is_paid ? "已结算" : "未结算" %></td>
               <td>
-                <%= link_to  "查看", finance_path(finance) , :target => "_blank" %>
+                <%= link_to  "查看", finance_path(finance)  %>
               </td>
             </tr>
         <% end %>
