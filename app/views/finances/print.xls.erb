@@ -93,7 +93,7 @@
 
             <%# 公司名称 %>
             <% if finance_declaration_array.size == 1 %>
-                <td><%= finance_declaration_array[0].enterprise.name[0..-5] rescue '' %></td>
+                <td><%= finance_declaration_array[0].enterprise.name rescue '' %></td>
             <% else %>
             <td style="padding: 0">
               <table rules=rows style=" width: 100%;">
