@@ -191,11 +191,7 @@
                         <% end %>
                         <% row_i = row_i + 1 %>
                     <% end %>
-
-
-
                 <% else %>
-
                 <td style="padding: 0">
                   <table rules=rows style=" width: 100%;">
                     <% row_i = 0 %> <%# 每一个row_id表示被合并的报关单里的一个报关单 %>
@@ -228,6 +224,11 @@
                 </td>
                 <% end %>
             <% end %>
+
+
+            <% if finance_declaration_array.size == 1 %>
+                <td><%=sprintf "%0.2f", row_total_price[0] %></td>
+            <% else %>
             <td style="padding: 0">
               <table rules=rows style=" width: 100%;">
                 <% row_i = 0 %>
@@ -245,9 +246,10 @@
             </td>
             <% col_total_prices[col_total_prices.size - 1] = col_total_prices[col_total_prices.size - 1] + row_total_price.inject { |sum, x| sum + x } %>
           </tr>
+           <% end %>
+
 
       <% end %>
-
       <% if page_index == @pages_size - 1 %>
           <tr>
             <td></td>
