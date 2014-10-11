@@ -228,7 +228,8 @@
 
             <% if finance_declaration_array.size == 1 %>
                 <td><%=sprintf "%0.2f", row_total_price[0] %></td>
-            <% else %>
+                <% col_total_prices[col_total_prices.size - 1] = col_total_prices[col_total_prices.size - 1] +  row_total_price[0] %>
+          <% else %>
             <td style="padding: 0">
               <table rules=rows style=" width: 100%;">
                 <% row_i = 0 %>
