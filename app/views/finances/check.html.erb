@@ -4,7 +4,11 @@
     <h3>财务统计（<%= params[:code] ? Enterprise.find_by_code(params[:code]).name  : "只搜索 审核 后的账单"  rescue ''%>）</h3>
 
     <div class="operations">
+      <% if params[:code] %>
+      <%= link_to '打印', print_finances_path(format: "html") + "?can_export=true&code=#{params[:code]}", :target => "_blank"%>
+      <% else %>
       <%= link_to '打印', print_finances_path(format: "html") + '?can_export=true', :target => "_blank"%>
+      <% end %>
     </div>
   </div>
   <div class="content-box-content">

@@ -34,7 +34,7 @@
         <td></td>
         <td></td>
         <td></td>
-        <td><%= Enterprise.find_by_code(cookies[:checkout_enterprise_code]).name rescue '' %>&nbsp;</td>
+        <td><% code = params[:code] or cookies[:checkout_enterprise_code] %><%= Enterprise.find_by_code(code).name rescue '' %>&nbsp;</td>
         <td><%= cookies[:check_to] rescue '' %>&nbsp;</td>
         <td><%= cookies[:check_load_port] rescue '' %>&nbsp;</td>
         <td><span class="content">人民币</span></td>
