@@ -21,7 +21,7 @@
         &nbsp;
         <input type="file" value='上传印章' id="upload_seal" accept="image/*"/>
         <% if params[:can_export] %>
-            <%= link_to "<button>导出excel</button>".html_safe, print_finances_path(format: "xls") , :target => "_blank"%>
+            <%= link_to "<button>导出excel</button>".html_safe, print_finances_path(format: "xls") + "?code=#{params[:code]}"  , :target => "_blank"%>
         <% end %>
 			</div>
       <div>
