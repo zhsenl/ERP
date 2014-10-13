@@ -102,7 +102,7 @@ class FinancesController < ApplicationController
   def print
     if cookies[:check_declaration_condition]  or  cookies[:checkout_enterprise_condition]
       code = params[:code] ? params[:code] : cookies[:checkout_enterprise_code]
-      @finance_declarations = Declaration.joins( :checkout_enterprises).joins(:finances).where(finances:{review: 2}).where(eval(cookies[:check_declaration_condition])).where(checkout_enterprises:{code: code}).order("declare_date, finances.combine_no asc")
+      @finance_declarations = Declaration.joins( :checkout_enterprises).joins(:finances).where(finances:{review: 2}).where(eval(cookies[:check_declaration_condition])).where(checkout_enterprises:{code: code}).order("declare_date, finances.combine_no, deal_mode asc")
       statistics(@finance_declarations)
       @download = false
       respond_to do |format|
@@ -115,7 +115,7 @@ class FinancesController < ApplicationController
           File.open(file_path, 'w'){|file| file.write(render_to_string(:template => "finances/print.xls.erb"))}
           excel_call = `bundle exec ruby #{Rails.root.join('lib', 'tasks', 'excel.rb').to_s} #{file_path}`
           download_name = excel_call
-          if !Enterprise.find_by_code(cookies[:checkout_enterprise_code]).nil?
+          if !Enterprise.find_by_code(code).nil?
             download_name = Enterprise.find_by_code(code).name + Time.now.strftime('%Y%m%d') + '.xls'
           end
           File.delete(file_path)

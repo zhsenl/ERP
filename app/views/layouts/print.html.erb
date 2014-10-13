@@ -20,18 +20,19 @@
         <button type="button" onclick='javascript:hide_seals();'>隐藏印章</button>
         &nbsp;
         <input type="file" value='上传印章' id="upload_seal" accept="image/*"/>
+        <% url = print_finances_path(format: "xls") + "?cargo_name=show&deal_mode=show&bill_no=show&contract_no=show" %>
         <% if params[:can_export] %>
             <% if params[:code] %>
-                <%= link_to "<button>导出excel</button>".html_safe, print_finances_path(format: "xls") + "?code=#{params[:code]}"  , :target => "_blank"%>
+                <%= link_to "<button>导出excel</button>".html_safe, url + "&code=#{params[:code]}" , :id=>'xls_button'  , :target => "_blank"%>
             <% else %>
-                <%= link_to "<button>导出excel</button>".html_safe, print_finances_path(format: "xls") , :target => "_blank"%>
+                <%= link_to "<button>导出excel</button>".html_safe, url ,:id=>'xls_button', :target => "_blank"%>
             <% end %>
         <% end %>
 			</div>
       <div>
         <% if params[:can_export] %>    <%# 暂时只有 财务统计 那里会传这个 can_port 变量过来，而也只有那里需要隐藏表格的一些栏目，所以就用 can_port来表示要不要隐藏 %>
             <button type="button" id="cargo_name_button" onclick='javascript:show_hide_column("cargo_name", "cargo_name_button");'>隐藏商品</button>
-            <button type="button" id="trade_mode_button" onclick='javascript:show_hide_column("trade_mode","trade_mode_button");'>隐藏FOB/CIF</button>
+            <button type="button" id="trade_mode_button" onclick='javascript:show_hide_column("deal_mode","trade_mode_button");'>隐藏FOB/CIF</button>
             <button type="button" id="bill_no_button" onclick='javascript:show_hide_column("bill_no", "bill_no_button");'>隐藏车牌</button>
             <button type="button" id="contract_no_button" onclick='javascript:show_hide_column("contract_no","contract_no_button");'>隐藏合同协议号</button>
             <span style="color:red">如果打印格式有问题，请隐藏掉部分栏目</span>

@@ -29,10 +29,16 @@ function show_hide_column(class_name, id_name){
     if(text.substr(0, 2) == "显示"){
         $('.' + class_name).show();
         $("#" + id_name).text("隐藏" + text.substr(2, text.length));
+        $('#xls_button').attr('href',function(i,href) {
+            return href.replace(class_name+'=hide', class_name+'=show');
+        });
     }
     else{
         $('.' + class_name).hide();
         $("#" + id_name).text("显示" + text.substr(2, text.length));
+        $('#xls_button').attr('href',function(i,href) {
+            return href.replace(class_name+'=show', class_name+'=hide');
+        });
     }
 }
 

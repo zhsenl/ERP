@@ -87,7 +87,7 @@
       <tr>
         <td>序号</td>
         <td>报关日期</td>
-        <td class='trade_mode'></td>
+        <td class='deal_mode'></td>
         <td>客户</td>
         <td>报关单号</td>
         <td class='cargo_name'>商品名称</td>
@@ -112,7 +112,7 @@
             <td style="font-size: 10px"><% d = finance_declaration_array[0].declare_date.to_s%><%= d[0..3] + d[5..6] + d[8..9]  %></td>
 
             <%# FOB CIF %>
-            <td class='trade_mode' style="padding: 0">
+            <td class='deal_mode' style="padding: 0">
               <table rules=rows style=" width: 100%;">
                 <% finance_declaration_array.each do |finance_declaration| %>
                     <tr>
@@ -138,7 +138,7 @@
               <table rules=rows style=" width: 100%;">
                 <% finance_declaration_array.each do |finance_declaration| %>
                     <tr>
-                      <td>&nbsp;<%= finance_declaration.entry_no[-10..-1] %>&nbsp;</td>
+                      <td>&nbsp;<%= finance_declaration.entry_no[-9..-1] %>&nbsp;</td>
                     </tr>
                 <% end %>
               </table>
@@ -288,7 +288,7 @@
 
     <div style="text-align: right;padding-right: 100px;margin-top: 2em;">
       <b>制单人：</b><%= current_user.name rescue ''%>
-      <b>复核：</b>
+      <b>复核：</b> <span class="content"></span>
     </div>
 
     </div>
