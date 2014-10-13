@@ -4,7 +4,7 @@
         <thead>
         <tr>
           <th>序号</th>
-          <th>付费企业名称</th>
+          <th>付费企业名称(点击企业名称可打印)</th>
         </tr>
         </thead>
         <tfoot>
@@ -30,7 +30,7 @@
              %>
              <tr>
                <td><%= i += 1  %></td>
-               <td> <%= link_to name,  check_finances_path + "?code=#{e.code}" , :target => "_blank" rescue ''%></td>
+               <td> <%= link_to name,  print_finances_path + "?can_export=true&code=#{e.code}" , :target => "_blank" rescue ''%></td>
              </tr>
            <% end %>
         <% end %>
