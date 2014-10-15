@@ -14,10 +14,14 @@
    end
    col_total_prices = Array.new(finance_fee_codes.size + 1, 0)
    no = 0
+   recipient_enterprise = Enterprise.find_by_code(cookies[:recipient_enterprise_code])
 %>
 
-<div class="frame" style="text-align: center; height: 70px;">
-  <h1><b>结　　算　　单</b></h1></h1>
+<div class="frame" style="text-align: center; height: 90px;">
+  <h2><b><%= recipient_enterprise.name %></b></h2>
+  <div><%= recipient_enterprise.address  %></div>
+  <div>Tel:<%= recipient_enterprise.telephone  %>&nbsp;&nbsp;&nbsp;&nbsp;Fax:<%= recipient_enterprise.fax%></div>
+  <div style="font-size: 18px"><b>请　　款　　单</b></div>
 </div>
 <table>
   <tr>
@@ -344,9 +348,10 @@
   </tr>
 </table>
 
-<div style="text-align: right;padding-right: 100px;margin-top: 2em;">
-  <b>制单人：</b><%= current_user.name rescue ''%>
-  <b>复核：</b>
+<div style="margin-top: 2em;">
+  <div style="width:45%;text-align: left"><b>复核：</b> <span class="content">&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+  <div style="width:45%;text-align: right"><b>制单人：</b><%= current_user.name rescue ''%></div>
+</div>
 </div>
 
 

@@ -49,6 +49,7 @@
    end
    col_total_prices = Array.new(finance_fee_codes.size + 1, 0)
    no = 0
+   recipient_enterprise = Enterprise.find_by_code(cookies[:recipient_enterprise_code])
 %>
 <%# 每一页  %>
 <% @pages.each_with_index do |page, page_index| %>
@@ -58,9 +59,11 @@
     <div>
     <div class="outer-center">
     <div class="inner-center">
-    <div style="width: 100%; height: 20px;"></div>
-    <div class="frame" style="text-align: center; height: 70px;">
-      <h1><b>结　　算　　单</b></h1></h1>
+    <div class="frame" style="text-align: center; height: 90px;">
+      <h2><b><%= recipient_enterprise.name %></b></h2>
+      <div><%= recipient_enterprise.address  %></div>
+      <div>Tel:<%= recipient_enterprise.telephone  %>&nbsp;&nbsp;&nbsp;&nbsp;Fax:<%= recipient_enterprise.fax%></div>
+      <div style="font-size: 18px"><b>请　　款　　单</b></div>
       <% if !@download %>
           <div id="theSeals">
             <div class='seal-div hideseals' style="display: none" title="拖动图片移动位置">
@@ -75,10 +78,10 @@
         <td></td>
         <td></td>
         <td></td>
-        <td ><b>客户：</b><% code = params[:code] ? params[:code] : cookies[:checkout_enterprise_code] %><%= Enterprise.find_by_code(code).name rescue '' %></td>
-        <td><b>时间：</b><%= cookies[:check_from] + "至" + cookies[:check_to] rescue '' %></td>
-        <td><b>装卸口岸：</b><%= cookies[:check_load_port] rescue '' %></td>
-        <td><b>币制：</b><span class="content">人民币</span></td>
+        <td ><b>客户：</b><% code = params[:code] ? params[:code] : cookies[:checkout_enterprise_code] %><%= Enterprise.find_by_code(code).name rescue '' %>&nbsp;&nbsp;</td>
+        <td><b>时间：</b><%= cookies[:check_from] + "至" + cookies[:check_to] rescue '' %>&nbsp;&nbsp;</td>
+        <td><b>装卸口岸：</b><%= cookies[:check_load_port] rescue '' %>&nbsp;&nbsp;</td>
+        <td><b>币制：</b><span class="content">人民币</span>&nbsp;&nbsp;</td>
       </tr>
     </table>
     <table border=1 style="border-collapse:collapse;">
@@ -265,7 +268,6 @@
     <div style="height: 17px">
       &nbsp;
     </div>
-    <% recipient_enterprise = Enterprise.find_by_code(cookies[:recipient_enterprise_code]) %>
     <table style="margin: 0.5em 0 0.5em 0;text-align: left">
       <tr>
         <td></td>
@@ -283,12 +285,11 @@
         <td><b>电话：</b><%= recipient_enterprise.telephone rescue ''%></td>
         <td><b>地址：</b><%= recipient_enterprise.address rescue ''%></td>
       </tr>
-
     </table>
 
-    <div style="text-align: right;padding-right: 100px;margin-top: 2em;">
-      <b>制单人：</b><%= current_user.name rescue ''%>
-      <b>复核：</b> <span class="content"></span>
+    <div style="margin-top: 2em;">
+      <div style="width:45%;text-align: left"><b>复核：</b> <span class="content">&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+      <div style="width:45%;text-align: right"><b>制单人：</b><%= current_user.name rescue ''%></div>
     </div>
 
     </div>
