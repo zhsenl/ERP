@@ -23,7 +23,7 @@ class FinancesController < ApplicationController
         cookies[:checkout_enterprise_condition] =  {value: checkout_enterprise_condition, expires: 1.day.from_now}
         cookies[:checkout_enterprise_code] = {value: params[:code], expires: 1.day.from_now}
       end
-    elsif cookies[:check_declaration_condition] or  cookies[:checkout_enterprise_condition]
+    elsif cookies[:check_declaration_condition] and  cookies[:checkout_enterprise_condition]
       @finance_declarations = Declaration.joins( :checkout_enterprises).joins(:finances).where(finances:{review: 2}).where(eval(cookies[:check_declaration_condition])).where(checkout_enterprises:eval(cookies[:checkout_enterprise_condition])).order("declare_date, finances.combine_no asc")
     end
   end

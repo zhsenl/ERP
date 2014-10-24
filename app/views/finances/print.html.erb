@@ -60,9 +60,9 @@
     <div class="outer-center">
     <div class="inner-center">
     <div class="frame" style="text-align: center; height: 90px;">
-      <h2><b><%= recipient_enterprise.name %></b></h2>
-      <div><%= recipient_enterprise.address  %></div>
-      <div>Tel:<%= recipient_enterprise.telephone  %>&nbsp;&nbsp;&nbsp;&nbsp;Fax:<%= recipient_enterprise.fax%></div>
+      <h2><b><%= recipient_enterprise.name rescue ''%></b></h2>
+      <div><%= recipient_enterprise.address rescue '' %></div>
+      <div>Tel:<%= recipient_enterprise.telephone rescue '' %>&nbsp;&nbsp;&nbsp;&nbsp;Fax:<%= recipient_enterprise.fax rescue ''%></div>
       <div style="font-size: 18px"><b>请　　款　　单</b></div>
       <% if !@download %>
           <div id="theSeals">
@@ -75,15 +75,14 @@
     </div>
     <table>
       <tr>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td ><b>客户：</b><% code = params[:code] ? params[:code] : cookies[:checkout_enterprise_code] %><%= Enterprise.find_by_code(code).name rescue '' %>&nbsp;&nbsp;</td>
+        <td><b>客户：</b><% code = params[:code] ? params[:code] : cookies[:checkout_enterprise_code] %><%= Enterprise.find_by_code(code).name rescue '' %>&nbsp;&nbsp;</td>
         <td><b>时间：</b><%= cookies[:check_from] + "至" + cookies[:check_to] rescue '' %>&nbsp;&nbsp;</td>
         <td><b>装卸口岸：</b><%= cookies[:check_load_port] rescue '' %>&nbsp;&nbsp;</td>
         <td><b>币制：</b><span class="content">人民币</span>&nbsp;&nbsp;</td>
       </tr>
     </table>
+
+
     <table border=1 style="border-collapse:collapse;">
 
       <thead style="font-weight: bold">
@@ -251,6 +250,12 @@
       <% end %>
       </tbody>
     </table>
+
+    <div style="margin-top: 1em;">
+      <div style="width:45%;text-align: left;display:inline-block"><b>复核：</b> <span class="content">&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+      <div style="width:45%;text-align: right;display:inline-block"><b>制单人：</b><%= current_user.name rescue ''%></div>
+    </div>
+
     <% if page_index == @pages_size - 1   %>
         <%
            last_page_size = 0
@@ -287,10 +292,7 @@
       </tr>
     </table>
 
-    <div style="margin-top: 2em;">
-      <div style="width:45%;text-align: left"><b>复核：</b> <span class="content">&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
-      <div style="width:45%;text-align: right"><b>制单人：</b><%= current_user.name rescue ''%></div>
-    </div>
+
 
     </div>
     </div>

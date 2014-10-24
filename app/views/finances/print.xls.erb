@@ -25,22 +25,10 @@
 </div>
 <table>
   <tr>
-    <td></td>
-    <td></td>
-    <% if params['deal_mode'] == 'show' %><td></td><% end %>
-    <td><b>客户：</b></td>
-    <td><b>时间：</b><%= cookies[:check_from] rescue '' %></td>
-    <td><b>装卸口岸：</b></td>
-    <td><b>币制：</b></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <% if params['deal_mode'] == 'show' %><td></td><% end %>
-    <td><% code = params[:code] ? params[:code] : cookies[:checkout_enterprise_code] %><%= Enterprise.find_by_code(code).name rescue '' %>&nbsp;</td>
-    <td><%=  "至"  +cookies[:check_to] rescue '' %>&nbsp;</td>
-    <td><%= cookies[:check_load_port] rescue '' %>&nbsp;</td>
-    <td><span class="content">人民币</span></td>
+    <td><b>客户：</b><% code = params[:code] ? params[:code] : cookies[:checkout_enterprise_code] %><%= Enterprise.find_by_code(code).name rescue '' %></td>
+    <td><b>时间：</b><%= cookies[:check_from] + "至" +cookies[:check_to] rescue '' %></td>
+    <td><b>装卸口岸：</b><%= cookies[:check_load_port] rescue '' %></td>
+    <td><b>币制：</b><span class="content">人民币</span></td>
   </tr>
 </table>
 
@@ -290,7 +278,10 @@
 </tbody>
 </table>
 
-
+<div style="margin-top: 1em;">
+  <div style="width:45%;text-align: left;display:inline-block"><b>复核：</b> <span class="content">&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
+  <div style="width:45%;text-align: right;display:inline-block"><b>制单人：</b><%= current_user.name rescue ''%></div>
+</div>
 
 <div style="height: 17px">
   &nbsp;
@@ -348,10 +339,7 @@
   </tr>
 </table>
 
-<div style="margin-top: 2em;">
-  <div style="width:45%;text-align: left"><b>复核：</b> <span class="content">&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
-  <div style="width:45%;text-align: right"><b>制单人：</b><%= current_user.name rescue ''%></div>
-</div>
+
 </div>
 
 
