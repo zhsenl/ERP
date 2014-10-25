@@ -25,10 +25,10 @@
 </div>
 <table>
   <tr>
-    <td><b>客户：</b><% code = params[:code] ? params[:code] : cookies[:checkout_enterprise_code] %><%= Enterprise.find_by_code(code).name rescue '' %></td>
-    <td><b>时间：</b><%= cookies[:check_from] + "至" +cookies[:check_to] rescue '' %></td>
-    <td><b>装卸口岸：</b><%= cookies[:check_load_port] rescue '' %></td>
-    <td><b>币制：</b><span class="content">人民币</span></td>
+    <td colspan="4"><b>客户：</b><% code = params[:code] ? params[:code] : cookies[:checkout_enterprise_code] %><%= Enterprise.find_by_code(code).name rescue '' %></td>
+    <td colspan="2"><b>时间：</b><%= cookies[:check_from] + "至" +cookies[:check_to] rescue '' %></td>
+    <td colspan="2"><b>装卸口岸：</b><%= cookies[:check_load_port] rescue '' %></td>
+    <td colspan="2"><b>币制：</b><span class="content">人民币</span></td>
   </tr>
 </table>
 
@@ -278,10 +278,22 @@
 </tbody>
 </table>
 
-<div style="margin-top: 1em;">
-  <div style="width:45%;text-align: left;display:inline-block"><b>复核：</b> <span class="content">&nbsp;&nbsp;&nbsp;&nbsp;</span></div>
-  <div style="width:45%;text-align: right;display:inline-block"><b>制单人：</b><%= current_user.name rescue ''%></div>
-</div>
+<table>
+   <tr>
+     <td><b>复核：</b></td>
+     <td></td>      <%# 报关日期 %>
+     <% if params['deal_mode'] == 'show' %><td></td><% end %>
+     <td></td><%# 客户 %>
+     <td></td><%# 报关单号 %>
+     <% if params['cargo_name'] == 'show' %><td></td><% end %><%# 商品名称 %>
+     <% if params['contract_no'] == 'show' %><td></td><% end %><%# 合同协议 %>
+     <% if params['bill_no'] == 'show' %><td></td><% end %><%# 车牌 %>
+     <% finance_fee_names.each_with_index do |finance_fee_name, i| %>
+         <% if i < finance_fee_names.size - 2 %><td></td><% end %>
+     <% end %>
+    <td><b>制单人：</b><%= current_user.name rescue ''%></td>
+   </tr>
+</table>
 
 <div style="height: 17px">
   &nbsp;
@@ -289,53 +301,16 @@
 <% recipient_enterprise = Enterprise.find_by_code(cookies[:recipient_enterprise_code]) %>
 <table style="margin: 0.5em 0 0.5em 0;text-align: left">
   <tr>
-    <td></td>
-    <td></td>
-    <% if params['deal_mode'] == 'show' %><td></td><% end %>
-    <td><b>收款单位：</b></td>
-    <td><b>收款账号：</b></td>
-    <td><b>开户银行：</b></td>
+    <%if params['deal_mode'] == 'show' and false %><td></td><% end %>
+    <td colspan="4"><b>收款单位：</b><%= recipient_enterprise.name  rescue ''%>&nbsp;</td>
+    <td colspan="2"><b>收款账号：</b><%= recipient_enterprise.bank_account rescue ''%>&nbsp;</td>
+    <td colspan="5"><b>开户银行：</b><%= recipient_enterprise.bank rescue '' %>&nbsp;</td>
   </tr>
   <tr>
-    <td></td>
-    <td></td>
-    <% if params['deal_mode'] == 'show' %><td></td><% end %>
-    <td><%= recipient_enterprise.name  rescue ''%>&nbsp;</td>
-    <td><%= recipient_enterprise.bank_account rescue ''%>&nbsp;</td>
-    <td><%= recipient_enterprise.bank rescue '' %>&nbsp;</td>
-  </tr>
-
-  <tr>
-    <td></td>
-    <td></td>
-    <% if params['deal_mode'] == 'show' %><td></td><% end %>
-    <td><b>联系人：</b></td>
-    <td><b>电话：</b></td>
-    <td><b>地址：</b></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <% if params['deal_mode'] == 'show' %><td></td><% end %>
-    <td><%= recipient_enterprise.linkman rescue ''%>&nbsp;</td>
-    <td><%= recipient_enterprise.telephone rescue ''%>&nbsp;</td>
-    <td><%= recipient_enterprise.address[0..7] rescue ''%>&nbsp;</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <% if params['deal_mode'] == 'show' %><td></td><% end %>
-    <td></td>
-    <td></td>
-    <td><%= recipient_enterprise.address[8..15] rescue ''%>&nbsp;</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <% if params['deal_mode'] == 'show' %><td></td><% end %>
-    <td></td>
-    <td></td>
-    <td><%= recipient_enterprise.address[15..-1] rescue ''%>&nbsp;</td>
+    <% if params['deal_mode'] == 'show'and false %><td></td><% end %>
+    <td colspan="4"><b>联系人：</b><%= recipient_enterprise.linkman rescue ''%>&nbsp;</td>
+    <td colspan="2"><b>电话：</b><%= recipient_enterprise.telephone rescue ''%>&nbsp;</td>
+    <td colspan="5"><b>地址：</b><%= recipient_enterprise.address rescue ''%>&nbsp;</td>
   </tr>
 </table>
 
