@@ -78,7 +78,7 @@
         <td style="min-width: 270px"><b>客户：</b><% code = params[:code] ? params[:code] : cookies[:checkout_enterprise_code] %><%= Enterprise.find_by_code(code).name rescue '' %>&nbsp;&nbsp;</td>
         <td style="min-width: 205px"><b>时间：</b><%= cookies[:check_from] + "至" + cookies[:check_to] rescue '' %>&nbsp;&nbsp;</td>
         <td style="min-width: 110px"><b>装卸口岸：</b><%= cookies[:check_load_port] rescue '' %>&nbsp;&nbsp;</td>
-        <td style="float: right"><b>币制：</b><span class="content">人民币</span>&nbsp;&nbsp;</td>
+        <td><b>币制：</b><span class="content">人民币</span>&nbsp;&nbsp;</td>
       </tr>
     </table>
 
@@ -275,20 +275,20 @@
     </div>
     <table style="margin: 0.5em 0 0.5em 0;text-align: left">
       <tr>
-
-
-        <td ><b>收款账号：</b><%= recipient_enterprise.bank_account rescue ''%></td>
-        <td ><b>开户银行：</b><%= recipient_enterprise.bank rescue '' %></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><b>收款单位：</b><%= recipient_enterprise.name  rescue ''%></td>
+        <td><b>收款账号：</b><%= recipient_enterprise.bank_account rescue ''%></td>
+        <td><b>开户银行：</b><%= recipient_enterprise.bank rescue '' %></td>
       </tr>
-
-      <tr >
-        <td ><b>联系人：</b><%= recipient_enterprise.linkman rescue ''%></td>
-        <td ><b>收款单位：</b><%= recipient_enterprise.name  rescue ''%></td>
-        <% if false %>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td><b>联系人：</b><%= recipient_enterprise.linkman rescue ''%></td>
         <td><b>电话：</b><%= recipient_enterprise.telephone rescue ''%></td>
         <td><b>地址：</b><%= recipient_enterprise.address rescue ''%></td>
-        <% end %>
-
       </tr>
     </table>
 
