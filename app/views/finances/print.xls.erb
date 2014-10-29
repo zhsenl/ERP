@@ -280,8 +280,7 @@
 
 <table>
    <tr>
-     <td><b>复核：</b></td>
-     <td></td>      <%# 报关日期 %>
+     <td  colspan="2"><b>复核：</b></td>
      <% if params['deal_mode'] == 'show' %><td></td><% end %>
      <td></td><%# 客户 %>
      <td></td><%# 报关单号 %>
@@ -291,7 +290,7 @@
      <% finance_fee_names.each_with_index do |finance_fee_name, i| %>
          <% if i < finance_fee_names.size - 2 %><td></td><% end %>
      <% end %>
-    <td><b>制单人：</b><%= current_user.name rescue ''%></td>
+    <td  colspan="3"><b>制单人：</b><%= current_user.name rescue ''%></td>
    </tr>
 </table>
 
@@ -302,16 +301,19 @@
 <table style="margin: 0.5em 0 0.5em 0;text-align: left">
   <tr>
     <%if params['deal_mode'] == 'show' and false %><td></td><% end %>
-    <td colspan="4"><b>收款单位：</b><%= recipient_enterprise.name  rescue ''%>&nbsp;</td>
-    <td colspan="2"><b>收款账号：</b><%= recipient_enterprise.bank_account rescue ''%>&nbsp;</td>
+    <td colspan="3"><b>联系人：</b><%= recipient_enterprise.linkman rescue ''%>&nbsp;</td>
+    <td colspan="2"><b>收款单位：</b><%= recipient_enterprise.name  rescue ''%>&nbsp;</td>
+    <td colspan="3"><b>收款账号：</b><%= recipient_enterprise.bank_account rescue ''%>&nbsp;</td>
     <td colspan="5"><b>开户银行：</b><%= recipient_enterprise.bank rescue '' %>&nbsp;</td>
   </tr>
+  <% if false %>
   <tr>
     <% if params['deal_mode'] == 'show'and false %><td></td><% end %>
     <td colspan="4"><b>联系人：</b><%= recipient_enterprise.linkman rescue ''%>&nbsp;</td>
     <td colspan="2"><b>电话：</b><%= recipient_enterprise.telephone rescue ''%>&nbsp;</td>
     <td colspan="5"><b>地址：</b><%= recipient_enterprise.address rescue ''%>&nbsp;</td>
   </tr>
+  <% end %>
 </table>
 
 

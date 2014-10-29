@@ -102,7 +102,7 @@ class FinancesController < ApplicationController
   def print
     if cookies[:check_declaration_condition]  or  cookies[:checkout_enterprise_condition]
       code = params[:code] ? params[:code] : cookies[:checkout_enterprise_code]
-      @finance_declarations = Declaration.joins( :checkout_enterprises).joins(:finances).where(finances:{review: 2}).where(eval(cookies[:check_declaration_condition])).where(checkout_enterprises:{code: code}).order("declare_date, finances.combine_no, deal_mode asc")
+      @finance_declarations = Declaration.joins( :checkout_enterprises).joins(:finances).where(finances:{review: 2}).where(eval(cookies[:check_declaration_condition])).where(checkout_enterprises:{code: code}).order("declare_date, finances.combine_no asc, deal_mode desc")
       statistics(@finance_declarations)
       @download = false
       respond_to do |format|
