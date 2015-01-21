@@ -168,13 +168,22 @@
     }
 
     $(function() {
-        $(".total_cal").blur(function(){
-            total_cal();
-        });
-        $(".unit_cal").blur(function(){
-            unit_cal();
+//        $(".total_cal").blur(function(){
+//            total_cal();
+//        });
+//        $(".unit_cal").blur(function(){
+//            unit_cal();
+//        })
+        $(".total_cal").bind("keypress", function(event){
+            if(event.which == 13){
+                total_cal();
+            }
         })
-
+        $(".unit_cal").bind("keypress", function(event){
+            if(event.which == 13){
+                unit_cal();
+            }
+        })
     });
 
 </script>
