@@ -1,0 +1,12 @@
+<FPT_DATA xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <FPT_RESULT>
+    <COP_NO>test</COP_NO>
+    <TRADE_CODE>4419940B43</TRADE_CODE>
+    <RET_TYPE>1</RET_TYPE>
+    <SORT_FLAG>0</SORT_FLAG>
+    <RET_NO>0</RET_NO>
+    <CHK_STATUS>5</CHK_STATUS>
+    <NOTICE_DATE>20130829210349</NOTICE_DATE>
+    <NOTE>逻辑检查不通过：IC卡[8910000130904]未备案。</NOTE>
+  </FPT_RESULT>
+</FPT_DATA>

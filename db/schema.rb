@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130818083359) do
+ActiveRecord::Schema.define(:version => 20140729125544) do
 
   create_table "app_bill_dispatch_records", :force => true do |t|
     t.string   "application_id"
@@ -159,6 +159,23 @@ ActiveRecord::Schema.define(:version => 20130818083359) do
     t.datetime "updated_at",    :null => false
   end
 
+  create_table "check_methods", :force => true do |t|
+    t.date     "from"
+    t.date     "to"
+    t.string   "method"
+    t.decimal  "price",      :precision => 10, :scale => 0
+    t.integer  "currency"
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+  end
+
+  create_table "checkout_enterprises", :force => true do |t|
+    t.integer  "finance_id"
+    t.string   "code"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
   create_table "contract_consumptions", :force => true do |t|
     t.integer  "contract_product_id"
     t.integer  "contract_material_id"
@@ -236,6 +253,7 @@ ActiveRecord::Schema.define(:version => 20130818083359) do
     t.string   "unit2"
     t.string   "trade_country"
     t.decimal  "unit_price",     :precision => 15, :scale => 4
+    t.decimal  "total_price",    :precision => 15, :scale => 4
     t.string   "currency"
     t.string   "tax_mode"
     t.string   "goods_version"
@@ -263,10 +281,10 @@ ActiveRecord::Schema.define(:version => 20130818083359) do
     t.integer  "package_amount"
     t.decimal  "quantity",                 :precision => 10, :scale => 0
     t.string   "unit"
-    t.decimal  "gross_weight",             :precision => 10, :scale => 2
-    t.decimal  "net_weight",               :precision => 10, :scale => 2
-    t.decimal  "gross_weight_per_package", :precision => 10, :scale => 2
-    t.decimal  "net_weight_per_package",   :precision => 10, :scale => 2
+    t.decimal  "gross_weight",             :precision => 15, :scale => 4
+    t.decimal  "net_weight",               :precision => 15, :scale => 4
+    t.decimal  "gross_weight_per_package", :precision => 15, :scale => 4
+    t.decimal  "net_weight_per_package",   :precision => 15, :scale => 4
     t.integer  "no"
     t.datetime "created_at",                                              :null => false
     t.datetime "updated_at",                                              :null => false
@@ -433,6 +451,19 @@ ActiveRecord::Schema.define(:version => 20130818083359) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "dict_fees", :force => true do |t|
+    t.string   "code"
+    t.string   "name"
+    t.string   "name_en"
+    t.decimal  "price",         :precision => 15, :scale => 4
+    t.string   "currency_code"
+    t.boolean  "is_income"
+    t.boolean  "is_pay"
+    t.text     "note"
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
+  end
+
   create_table "dict_goods", :force => true do |t|
     t.string   "code"
     t.string   "name"
@@ -592,6 +623,22 @@ ActiveRecord::Schema.define(:version => 20130818083359) do
     t.string   "trade_code"
   end
 
+  create_table "enterprise_fees", :force => true do |t|
+    t.integer  "enterprise_id"
+    t.integer  "code"
+    t.integer  "load_port"
+    t.datetime "created_at",                                              :null => false
+    t.datetime "updated_at",                                              :null => false
+    t.string   "name"
+    t.string   "name_en"
+    t.decimal  "price",                    :precision => 15, :scale => 4
+    t.string   "currency_code"
+    t.boolean  "is_income"
+    t.boolean  "is_pay"
+    t.text     "note"
+    t.string   "checkout_enterprise_code"
+  end
+
   create_table "enterprises", :force => true do |t|
     t.string   "code"
     t.string   "name"
@@ -607,6 +654,34 @@ ActiveRecord::Schema.define(:version => 20130818083359) do
   end
 
   add_index "enterprises", ["code"], :name => "index_enterprises_on_code", :unique => true
+
+  create_table "finance_fees", :force => true do |t|
+    t.integer  "finance_id"
+    t.integer  "code"
+    t.integer  "load_port"
+    t.string   "name"
+    t.string   "name_en"
+    t.decimal  "price",                  :precision => 15, :scale => 4
+    t.string   "currency_code"
+    t.boolean  "is_income"
+    t.boolean  "is_pay"
+    t.text     "note"
+    t.datetime "created_at",                                            :null => false
+    t.datetime "updated_at",                                            :null => false
+    t.integer  "checkout_enterprise_id"
+  end
+
+  create_table "finances", :force => true do |t|
+    t.integer  "declaration_id"
+    t.boolean  "is_made"
+    t.integer  "review"
+    t.integer  "maker"
+    t.integer  "reviewer"
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
+    t.integer  "combine_no"
+    t.boolean  "is_paid",        :default => false
+  end
 
   create_table "foreign_enterprises", :force => true do |t|
     t.string   "code"
@@ -656,24 +731,14 @@ ActiveRecord::Schema.define(:version => 20130818083359) do
   end
 
   create_table "sessions", :force => true do |t|
-    t.string   "session_id", :null => false
+    t.string   "session_id", :default => "", :null => false
     t.text     "data"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
-
-  create_table "sessions_bak", :force => true do |t|
-    t.string   "session_id", :null => false
-    t.text     "data"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "sessions_bak", ["session_id"], :name => "index_sessions_on_session_id"
-  add_index "sessions_bak", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "users", :force => true do |t|
     t.string   "username"

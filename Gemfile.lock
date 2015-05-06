@@ -139,6 +139,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   delayed_job_active_record (= 0.3.2)
   faker (= 1.0.1)
+  i18n
   jquery-rails (= 2.0.2)
   mysql2 (= 0.3.11)
   rails (= 3.2.3)
