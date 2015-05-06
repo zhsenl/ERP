@@ -35,7 +35,10 @@
               <%
                  checkout_enterprise_names = ""
                  finance.checkout_enterprises.each_with_index do |enterprise, index|
-                   if index == finance.checkout_enterprises.size - 1
+                   if Enterprise.find_by_code(enterprise.code).nil?
+				     next
+				   end
+				   if index == finance.checkout_enterprises.size - 1
                      checkout_enterprise_names += Enterprise.find_by_code(enterprise.code).name
                    else
                     checkout_enterprise_names += Enterprise.find_by_code(enterprise.code).name + "|"
